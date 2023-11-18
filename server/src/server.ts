@@ -1,8 +1,9 @@
-import express from 'express';
+import express, { ErrorRequestHandler } from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 
 import connectDatabase from './db';
+import AppError from './app-error';
 
 const PORT = process.env.PORT ?? 3000;
 
@@ -21,6 +22,13 @@ app.use((req, res) => {
 });
 
 // Catch-all error handler
+app.use(((err, req, res) => {
+  const errorCode = err instanceof AppError ? err.errCode : 500;
+  const errorMessage =
+    err instanceof AppError ? err.errMessage : 'Something went wrong.';
+
+  res.status(errorCode).json({ message: errorMessage });
+}) as ErrorRequestHandler);
 
 app.listen(PORT, () => {
   console.log(`App is listening on port ${PORT}.`);

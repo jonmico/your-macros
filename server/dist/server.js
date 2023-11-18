@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 require("dotenv/config");
 const db_1 = __importDefault(require("./db"));
+const app_error_1 = __importDefault(require("./app-error"));
 const PORT = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : 3000;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -20,6 +21,11 @@ app.use((req, res) => {
         .json({ message: "404 Error - We can't find what you are looking for." });
 });
 // Catch-all error handler
+app.use(((err, req, res) => {
+    const errorCode = err instanceof app_error_1.default ? err.errCode : 500;
+    const errorMessage = err instanceof app_error_1.default ? err.errMessage : 'Something went wrong.';
+    res.status(errorCode).json({ message: errorMessage });
+}));
 app.listen(PORT, () => {
     console.log(`App is listening on port ${PORT}.`);
 });
