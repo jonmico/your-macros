@@ -30,8 +30,7 @@ app.use((req, res) => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use(((err, req, res, next) => {
   const errorCode = err instanceof AppError ? err.errCode : 500;
-  const errorMessage =
-    err instanceof AppError ? err.errMessage : 'Something went wrong.';
+  const errorMessage = err.errMessage || 'Something went wrong.';
 
   res.status(errorCode).json({ message: errorMessage });
 }) as ErrorRequestHandler);

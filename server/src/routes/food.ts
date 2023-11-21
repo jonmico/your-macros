@@ -1,21 +1,8 @@
 import { Router } from 'express';
-import AppError from '../app-error';
+import { createFood } from '../controllers/food';
 
 const router = Router();
 
-router.post('/new', (req, res, next) => {
-  try {
-    const { food } = req.body;
-
-    if (!food) {
-      throw new AppError('Invalid input', 403);
-    }
-
-    res.json(food);
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-});
+router.post('/new', createFood);
 
 export default router;
