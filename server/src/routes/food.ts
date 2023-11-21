@@ -1,7 +1,9 @@
 import { Router } from 'express';
-import { createFood } from '../controllers/food';
+import { getFoods, createFood } from '../controllers/food';
 
 const router = Router();
+
+router.get('/', getFoods);
 
 router.post('/new', createFood);
 

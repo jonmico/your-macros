@@ -6,6 +6,20 @@ interface IBody {
   food: IFood;
 }
 
+export async function getFoods(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const foods = await Food.find({});
+
+    res.json(foods);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function createFood(
   req: Request,
   res: Response,
