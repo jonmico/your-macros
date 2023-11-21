@@ -1,9 +1,12 @@
-import express, { ErrorRequestHandler } from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+import express, { ErrorRequestHandler } from 'express';
 
-import connectDatabase from './db';
 import AppError from './app-error';
+import connectDatabase from './db';
+
+// Routers
+import foodRouter from './routes/food';
 
 const PORT = process.env.PORT ?? 3000;
 
@@ -14,6 +17,8 @@ app.use(cors());
 
 connectDatabase();
 
+app.use('/foods', foodRouter);
+
 // 404 error handler
 app.use((req, res) => {
   res
@@ -22,7 +27,8 @@ app.use((req, res) => {
 });
 
 // Catch-all error handler
-app.use(((err, req, res) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use(((err, req, res, next) => {
   const errorCode = err instanceof AppError ? err.errCode : 500;
   const errorMessage =
     err instanceof AppError ? err.errMessage : 'Something went wrong.';
