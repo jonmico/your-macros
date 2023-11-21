@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
-const { Schema } = mongoose;
+import IFood from '../types/food';
 
-const foodSchema = new Schema({
+const foodSchema = new mongoose.Schema<IFood>({
   name: { type: String, required: true },
   servingSize: { type: Number, required: true },
+  calories: { type: Number, required: true },
   macros: {
     carbs: { type: Number, required: true },
     fat: { type: Number, required: true },
@@ -11,6 +12,6 @@ const foodSchema = new Schema({
   },
 });
 
-const Food = mongoose.model('Food', foodSchema);
+const Food = mongoose.model<IFood>('Food', foodSchema);
 
 export default Food;
