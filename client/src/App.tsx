@@ -2,8 +2,8 @@ import './index.css';
 
 function App() {
   return (
-    <div>
-      <h1>Your Macros</h1>
+    <div className={'app'}>
+      <h1>YourMacros</h1>
     </div>
   );
 }

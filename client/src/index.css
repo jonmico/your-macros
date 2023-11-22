@@ -19,3 +19,10 @@ body {
   color: var(--text);
   background-color: var(--background);
 }
+
+.app {
+  width: 70%;
+  max-width: 1250px;
+  min-width: 750px;
+  margin: auto;
+}
