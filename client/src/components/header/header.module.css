@@ -1,0 +1,12 @@
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userIcon {
+  color: var(--primary);
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}

@@ -1,9 +1,10 @@
 import './index.css';
+import Header from './components/header/header';
 
 function App() {
   return (
     <div className={'app'}>
-      <h1>YourMacros</h1>
+      <Header />
     </div>
   );
 }
