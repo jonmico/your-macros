@@ -7,7 +7,7 @@ export default function Header() {
       <div>
         <h1>YourMacros</h1>
       </div>
-      <div>
+      <div onClick={() => console.log('hi')}>
         <FaUserCircle className={styles.userIcon} />
       </div>
     </div>

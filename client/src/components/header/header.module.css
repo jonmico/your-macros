@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0.5rem 0 1rem 0;
 }
 
 .userIcon {
@@ -9,4 +10,9 @@
   width: 28px;
   height: 28px;
   cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.userIcon:hover {
+  color: var(--text);
 }
