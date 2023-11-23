@@ -1,8 +1,6 @@
-.navbar {
-}
-
-.navbarList {
+.navList {
   display: flex;
   flex-direction: column;
   list-style-type: none;
+  gap: 1rem;
 }
