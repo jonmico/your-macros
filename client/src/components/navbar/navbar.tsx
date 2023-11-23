@@ -1,13 +1,22 @@
+import { Link } from 'react-router-dom';
 import styles from './navbar.module.css';
 
 export default function Navbar() {
   return (
-    <nav>
+    <nav className={styles.navbar}>
       <ul className={styles.navList}>
-        <li>Dashboard</li>
-        <li>Add Meal</li>
-        <li>Logs</li>
-        <li>Create Food</li>
+        <li className={styles.navItem}>
+          <Link to={'/dashboard'}>Dashboard</Link>
+        </li>
+        <li className={styles.navItem}>
+          <Link to={'/add-meal'}>Add Meal</Link>
+        </li>
+        <li className={styles.navItem}>
+          <Link to={'/logs'}>Logs</Link>
+        </li>
+        <li className={styles.navItem}>
+          <Link to={'create-food'}>Create Food</Link>
+        </li>
       </ul>
     </nav>
   );

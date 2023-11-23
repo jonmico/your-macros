@@ -1,6 +1,14 @@
+.navbar {
+  flex-basis: 8rem;
+}
 .navList {
   display: flex;
   flex-direction: column;
   list-style-type: none;
   gap: 1rem;
+}
+
+.navItem {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--accent);
 }
