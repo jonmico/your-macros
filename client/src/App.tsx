@@ -13,6 +13,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<AppLayout />}>
+          <Route index element={<Navigate replace to={'/dashboard'} />} />
           <Route path={'/dashboard'} element={<Dashboard />} />
           <Route path={'/add-meal'} element={<AddMeal />} />
           <Route path={'/logs'} element={<Logs />} />
