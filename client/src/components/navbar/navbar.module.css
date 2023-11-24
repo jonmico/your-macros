@@ -1,5 +1,6 @@
 .navbar {
-  flex-basis: 8rem;
+  flex-basis: 10rem;
+  /* padding: 1rem 0; */
 }
 .navList {
   display: flex;
@@ -9,6 +10,17 @@
 }
 
 .navItem {
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--accent);
+  padding: 1rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
