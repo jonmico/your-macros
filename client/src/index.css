@@ -26,3 +26,7 @@ body {
   min-width: 750px;
   margin: auto;
 }
+
+.active {
+  background-color: var(--secondary);
+}
