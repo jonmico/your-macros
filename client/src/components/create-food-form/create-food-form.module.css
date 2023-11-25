@@ -4,3 +4,13 @@
   padding-top: 1rem;
   gap: 1rem;
 }
+
+.formField {
+  display: flex;
+  align-items: center;
+}
+
+.formLabel {
+  width: 20%;
+  min-width: 115px;
+}

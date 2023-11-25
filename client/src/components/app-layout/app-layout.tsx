@@ -10,7 +10,9 @@ export default function AppLayout() {
       <Header />
       <div className={styles.container}>
         <Navbar />
-        <Outlet />
+        <div className={styles.outletContainer}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );
