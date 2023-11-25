@@ -12,5 +12,31 @@
 
 .formLabel {
   width: 20%;
-  min-width: 115px;
+  min-width: 135px;
+  font-size: 1.1rem;
+}
+
+.formInput {
+  height: 2.25rem;
+  width: 15rem;
+  padding: 0.25rem 0.5rem;
+
+  border-radius: 5px;
+  border: 1px solid var(--accent);
+
+  background-color: var(--secondary);
+  color: var(--text);
+
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1rem;
+
+  transition: outline 0.2s ease-in-out, background-color 0.2s ease-in-out,
+    color 0.2s ease-in-out;
+}
+
+.formInput:active,
+:focus {
+  outline: 1px solid var(--primary);
+  background-color: var(--accent);
+  color: var(--secondary);
 }

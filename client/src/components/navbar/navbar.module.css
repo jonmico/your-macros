@@ -1,5 +1,5 @@
 .navbar {
-  width: 11rem;
+  width: 12rem;
   flex-shrink: 0;
 }
 .navList {
@@ -19,6 +19,10 @@
   text-decoration: none;
   color: var(--accent);
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.navItem:active {
+  outline: none;
 }
 
 .navItem:hover {

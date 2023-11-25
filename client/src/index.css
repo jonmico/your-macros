@@ -29,4 +29,11 @@ body {
 
 .active {
   background-color: var(--secondary);
+  outline: none;
+}
+
+.active:focus {
+  background-color: var(--secondary);
+  outline: none;
+  color: var(--primary);
 }
