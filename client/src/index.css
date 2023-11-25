@@ -35,5 +35,5 @@ body {
 .active:focus {
   background-color: var(--secondary);
   outline: none;
-  color: var(--primary);
+  color: var(--accent);
 }
