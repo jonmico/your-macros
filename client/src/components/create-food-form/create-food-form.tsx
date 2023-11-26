@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Button } from '../button/button.styled';
+import { PrimaryButton, SecondaryButton } from '../button/button.styled';
 import styles from './create-food-form.module.css';
+import { ButtonContainer, StyledForm } from './create-food-form.styled';
 
 export default function CreateFoodForm() {
   const [name, setName] = useState('');
@@ -15,7 +16,7 @@ export default function CreateFoodForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <StyledForm onSubmit={handleSubmit}>
       <div className={styles.formField}>
         <label className={styles.formLabel} htmlFor='brand'>
           Brand
@@ -52,9 +53,10 @@ export default function CreateFoodForm() {
         </label>
         <input className={styles.formInput} id={'protein'} type='number' />
       </div>
-      <div>
-        <Button>Submit</Button>
-      </div>
-    </form>
+      <ButtonContainer>
+        <PrimaryButton>Submit</PrimaryButton>
+        <SecondaryButton>Clear</SecondaryButton>
+      </ButtonContainer>
+    </StyledForm>
   );
 }
