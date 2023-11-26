@@ -1,4 +1,7 @@
-:root {
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyles = createGlobalStyle`
+  :root {
   --text: #f3f8ec;
   --background: #000000;
   --primary: #81d180;
@@ -19,21 +22,6 @@ body {
   color: var(--text);
   background-color: var(--background);
 }
+`;
 
-.app {
-  width: 70%;
-  max-width: 1250px;
-  min-width: 750px;
-  margin: auto;
-}
-
-/* .active {
-  background-color: var(--secondary);
-  outline: none;
-}
-
-.active:focus {
-  background-color: var(--secondary);
-  outline: none;
-  color: var(--accent);
-} */
+export default GlobalStyles;
