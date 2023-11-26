@@ -27,7 +27,7 @@ body {
   margin: auto;
 }
 
-.active {
+/* .active {
   background-color: var(--secondary);
   outline: none;
 }
@@ -36,4 +36,4 @@ body {
   background-color: var(--secondary);
   outline: none;
   color: var(--accent);
-}
+} */

@@ -1,8 +1,8 @@
-import { NavLink } from 'react-router-dom';
 import { FaHouseChimney } from 'react-icons/fa6';
 import { FaUtensils } from 'react-icons/fa6';
 import { FaBook } from 'react-icons/fa6';
 import { FaPencil } from 'react-icons/fa6';
+import { StyledNavLink } from './navbar.styled';
 import styles from './navbar.module.css';
 
 export default function Navbar() {
@@ -10,28 +10,28 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <ul className={styles.navList}>
         <li>
-          <NavLink to={'/dashboard'} className={styles.navItem}>
+          <StyledNavLink to={'/dashboard'} className={styles.navItem}>
             <FaHouseChimney className={styles.icon} />
             <span>Dashboard</span>
-          </NavLink>
+          </StyledNavLink>
         </li>
         <li>
-          <NavLink to={'/add-meal'} className={styles.navItem}>
+          <StyledNavLink to={'/add-meal'} className={styles.navItem}>
             <FaUtensils className={styles.icon} />
             <span>Add Meal</span>
-          </NavLink>
+          </StyledNavLink>
         </li>
         <li>
-          <NavLink to={'/logs'} className={styles.navItem}>
+          <StyledNavLink to={'/logs'} className={styles.navItem}>
             <FaBook className={styles.icon} />
             <span>Logs</span>
-          </NavLink>
+          </StyledNavLink>
         </li>
         <li>
-          <NavLink to={'create-food'} className={styles.navItem}>
+          <StyledNavLink to={'create-food'} className={styles.navItem}>
             <FaPencil className={styles.icon} />
             <span>Create Food</span>
-          </NavLink>
+          </StyledNavLink>
         </li>
       </ul>
     </nav>
