@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { FaHouseChimney } from 'react-icons/fa6';
 
 export const StyledNavLink = styled(NavLink)`
   padding: 1rem 0.75rem;
@@ -37,4 +38,14 @@ export const StyledList = styled.ul`
 export const StyledNav = styled.nav`
   width: 12rem;
   flex-shrink: 0;
+
+  & svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+`;
+
+export const StyledFaHouseChimney = styled(FaHouseChimney)`
+  width: 1.5rem;
+  height: 1.5rem;
 `;

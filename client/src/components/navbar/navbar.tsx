@@ -1,35 +1,31 @@
-import { FaHouseChimney } from 'react-icons/fa6';
-import { FaUtensils } from 'react-icons/fa6';
-import { FaBook } from 'react-icons/fa6';
-import { FaPencil } from 'react-icons/fa6';
-import { StyledNavLink, StyledList, StyledNav } from './navbar.styled';
-import styles from './navbar.module.css';
+import { FaBook, FaHouseChimney, FaPencil, FaUtensils } from 'react-icons/fa6';
+import { StyledList, StyledNav, StyledNavLink } from './navbar.styled';
 
 export default function Navbar() {
   return (
     <StyledNav>
       <StyledList>
         <li>
-          <StyledNavLink to={'/dashboard'} className={styles.navItem}>
-            <FaHouseChimney className={styles.icon} />
+          <StyledNavLink to={'/dashboard'}>
+            <FaHouseChimney />
             <span>Dashboard</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={'/add-meal'} className={styles.navItem}>
-            <FaUtensils className={styles.icon} />
+          <StyledNavLink to={'/add-meal'}>
+            <FaUtensils />
             <span>Add Meal</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={'/logs'} className={styles.navItem}>
-            <FaBook className={styles.icon} />
+          <StyledNavLink to={'/logs'}>
+            <FaBook />
             <span>Logs</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={'create-food'} className={styles.navItem}>
-            <FaPencil className={styles.icon} />
+          <StyledNavLink to={'create-food'}>
+            <FaPencil />
             <span>Create Food</span>
           </StyledNavLink>
         </li>
