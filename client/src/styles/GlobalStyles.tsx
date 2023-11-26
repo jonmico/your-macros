@@ -22,6 +22,10 @@ body {
   color: var(--text);
   background-color: var(--background);
 }
+
+button {
+  font-family: 'Ubuntu', sans-serif;
+}
 `;
 
 export default GlobalStyles;

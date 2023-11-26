@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button } from '../button/button.styled';
 import styles from './create-food-form.module.css';
 
 export default function CreateFoodForm() {
@@ -52,7 +53,7 @@ export default function CreateFoodForm() {
         <input className={styles.formInput} id={'protein'} type='number' />
       </div>
       <div>
-        <button>Submit</button>
+        <Button>Submit</Button>
       </div>
     </form>
   );
