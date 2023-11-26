@@ -26,3 +26,15 @@ export const StyledNavLink = styled(NavLink)`
     outline: none;
   }
 `;
+
+export const StyledList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  gap: 1rem;
+`;
+
+export const StyledNav = styled.nav`
+  width: 12rem;
+  flex-shrink: 0;
+`;

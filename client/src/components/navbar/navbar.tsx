@@ -2,13 +2,13 @@ import { FaHouseChimney } from 'react-icons/fa6';
 import { FaUtensils } from 'react-icons/fa6';
 import { FaBook } from 'react-icons/fa6';
 import { FaPencil } from 'react-icons/fa6';
-import { StyledNavLink } from './navbar.styled';
+import { StyledNavLink, StyledList, StyledNav } from './navbar.styled';
 import styles from './navbar.module.css';
 
 export default function Navbar() {
   return (
-    <nav className={styles.navbar}>
-      <ul className={styles.navList}>
+    <StyledNav>
+      <StyledList>
         <li>
           <StyledNavLink to={'/dashboard'} className={styles.navItem}>
             <FaHouseChimney className={styles.icon} />
@@ -33,7 +33,7 @@ export default function Navbar() {
             <span>Create Food</span>
           </StyledNavLink>
         </li>
-      </ul>
-    </nav>
+      </StyledList>
+    </StyledNav>
   );
 }
