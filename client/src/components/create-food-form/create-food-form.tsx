@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { PrimaryButton, SecondaryButton } from '../button/button.styled';
-import styles from './create-food-form.module.css';
-import { ButtonContainer, StyledForm } from './create-food-form.styled';
+import {
+  ButtonContainer,
+  FormRow,
+  FormInput,
+  FormLabel,
+  StyledForm,
+  FormError,
+} from './create-food-form.styled';
 
 export default function CreateFoodForm() {
   const [name, setName] = useState('');
@@ -17,42 +23,31 @@ export default function CreateFoodForm() {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <div className={styles.formField}>
-        <label className={styles.formLabel} htmlFor='brand'>
-          Brand
-        </label>
-        <input className={styles.formInput} id={'brand'} type='text' />
-      </div>
-      <div className={styles.formField}>
-        <label className={styles.formLabel} htmlFor='name'>
-          Name
-        </label>
-        <input className={styles.formInput} id={'name'} type='text' />
-      </div>
-      <div className={styles.formField}>
-        <label className={styles.formLabel} htmlFor='servingSize'>
-          Serving Size
-        </label>
-        <input className={styles.formInput} id={'servingSize'} type='number' />
-      </div>
-      <div className={styles.formField}>
-        <label className={styles.formLabel} htmlFor='carbs'>
-          Carbs
-        </label>
-        <input className={styles.formInput} id={'carbs'} type='number' />
-      </div>
-      <div className={styles.formField}>
-        <label className={styles.formLabel} htmlFor='fats'>
-          Fats
-        </label>
-        <input className={styles.formInput} id={'fats'} type='number' />
-      </div>
-      <div className={styles.formField}>
-        <label className={styles.formLabel} htmlFor='protein'>
-          Protein
-        </label>
-        <input className={styles.formInput} id={'protein'} type='number' />
-      </div>
+      <FormRow>
+        <FormLabel htmlFor='brand'>Brand</FormLabel>
+        <FormInput id={'brand'} type='text' />
+        <FormError>Error!</FormError>
+      </FormRow>
+      <FormRow>
+        <FormLabel htmlFor='name'>Name</FormLabel>
+        <FormInput id={'name'} type='text' />
+      </FormRow>
+      <FormRow>
+        <FormLabel htmlFor='servingSize'>Serving Size</FormLabel>
+        <FormInput id={'servingSize'} type='number' />
+      </FormRow>
+      <FormRow>
+        <FormLabel htmlFor='carbs'>Carbs</FormLabel>
+        <FormInput id={'carbs'} type='number' />
+      </FormRow>
+      <FormRow>
+        <FormLabel htmlFor='fats'>Fats</FormLabel>
+        <FormInput id={'fats'} type='number' />
+      </FormRow>
+      <FormRow>
+        <FormLabel htmlFor='protein'>Protein</FormLabel>
+        <FormInput id={'protein'} type='number' />
+      </FormRow>
       <ButtonContainer>
         <PrimaryButton>Submit</PrimaryButton>
         <SecondaryButton>Clear</SecondaryButton>
