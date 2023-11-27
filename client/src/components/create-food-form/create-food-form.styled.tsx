@@ -10,7 +10,7 @@ export const StyledForm = styled.form`
 export const FormRow = styled.div`
   display: grid;
   grid-template-columns: 0.5fr 1fr 1.5fr;
-  gap: 1rem;
+  gap: 1.5rem;
   align-items: center;
 `;
 
