@@ -8,6 +8,7 @@ import {
   StyledForm,
   FormError,
 } from './create-food-form.styled';
+import { IFood } from '../../types/food';
 
 export default function CreateFoodForm() {
   const [brand, setBrand] = useState('');
@@ -30,7 +31,16 @@ export default function CreateFoodForm() {
 
   function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
-    const newFood = { brand, name, servingSize, carbs, fat, protein };
+    const newFood: IFood = {
+      brand,
+      name,
+      servingSize: Number(servingSize),
+      macros: {
+        carbs: Number(carbs),
+        fat: Number(fat),
+        protein: Number(protein),
+      },
+    };
     console.log({ newFood });
   }
 
