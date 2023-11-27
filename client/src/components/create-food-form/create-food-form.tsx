@@ -9,6 +9,7 @@ import {
   FormError,
 } from './create-food-form.styled';
 import { IFood } from '../../types/food';
+import { createFood } from '../../services/food-api';
 
 export default function CreateFoodForm() {
   const [brand, setBrand] = useState('');
@@ -29,19 +30,23 @@ export default function CreateFoodForm() {
   const [protein, setProtein] = useState('');
   const [proteinError, setProteinError] = useState('');
 
-  function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     const newFood: IFood = {
       brand,
       name,
       servingSize: Number(servingSize),
+      calories: Number(carbs) * 4 + Number(protein) * 4 + Number(fat) * 9,
       macros: {
         carbs: Number(carbs),
         fat: Number(fat),
         protein: Number(protein),
       },
     };
-    console.log({ newFood });
+
+    const data = await createFood(newFood);
+
+    console.log(data);
   }
 
   function handleReset() {

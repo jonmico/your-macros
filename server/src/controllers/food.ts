@@ -33,7 +33,7 @@ export async function createFood(
       name: food.name.toLowerCase(),
     });
 
-    res.status(201).json(newFood);
+    res.status(201).json({ newFood });
   } catch (err) {
     console.log(err);
     next(err);

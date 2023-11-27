@@ -17,7 +17,7 @@ app.use(cors());
 
 connectDatabase();
 
-app.use('/foods', foodRouter);
+app.use('/api/foods', foodRouter);
 
 // 404 error handler
 app.use((req, res) => {
