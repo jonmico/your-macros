@@ -31,7 +31,6 @@ export const FormInput = styled.input`
   background-color: var(--secondary);
   color: var(--text);
 
-  font-family: 'Ubuntu', sans-serif;
   font-size: 1rem;
 
   transition: outline 0.25s ease-in-out, background-color 0.25s ease-in-out,

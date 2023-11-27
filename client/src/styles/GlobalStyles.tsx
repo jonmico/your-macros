@@ -23,9 +23,11 @@ body {
   background-color: var(--background);
 }
 
-button {
+button, input {
   font-family: 'Ubuntu', sans-serif;
 }
+
+
 `;
 
 export default GlobalStyles;
