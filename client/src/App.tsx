@@ -5,7 +5,7 @@ import Dashboard from './pages/dashboard/dashboard';
 import AddMeal from './pages/add-meal/add-meal';
 import Logs from './pages/logs-page/logs';
 import CreateFood from './pages/create-food/create-food';
-import GlobalStyles from './styles/GlobalStyles';
+import GlobalStyles from './styles/global-styles';
 
 function App() {
   return (
