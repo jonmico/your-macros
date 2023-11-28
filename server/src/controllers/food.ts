@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import Food from '../models/food';
 import IFood from '../types/food';
+import AppError from '../app-error';
 
 interface IBody {
   food: IFood;
@@ -14,7 +15,26 @@ export async function getFoods(
   try {
     const foods = await Food.find({});
 
-    res.json(foods);
+    res.json({ foods });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getFoodById(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
+    const food = await Food.findById(id);
+
+    if (!food) {
+      throw new AppError('Food not found.', 404);
+    }
+
+    res.json({ food });
   } catch (err) {
     next(err);
   }
@@ -33,7 +53,7 @@ export async function createFood(
       name: food.name.toLowerCase(),
     });
 
-    res.status(201).json({ newFood });
+    res.status(201).json({ createdFood: newFood });
   } catch (err) {
     console.log(err);
     next(err);

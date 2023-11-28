@@ -7,7 +7,11 @@ interface IBody {
   meal: IMeal;
 }
 
-export async function getMeal(req: Request, res: Response, next: NextFunction) {
+export async function getMealById(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { id } = req.params;
 
@@ -36,7 +40,7 @@ export async function createMeal(
       name: meal.name.toLowerCase(),
     });
 
-    res.status(201).json(newMeal);
+    res.status(201).json({ createdMeal: newMeal });
   } catch (err) {
     next(err);
   }
