@@ -40,6 +40,24 @@ export async function getFoodById(
   }
 }
 
+export async function getFoodByText(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { name } = req.query;
+
+    if (!name) {
+      throw new AppError('No search text provided.', 400);
+    }
+
+    res.json({ query: name });
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function createFood(
   req: Request,
   res: Response,
