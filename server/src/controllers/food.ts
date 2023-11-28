@@ -52,7 +52,17 @@ export async function getFoodByText(
       throw new AppError('No search text provided.', 400);
     }
 
-    res.json({ query: name });
+    if (typeof name !== 'string') {
+      throw new AppError('Search is not a string', 403);
+    }
+
+    const foodsFromText = await Food.find({ $text: { $search: name } }).exec();
+
+    if (!foodsFromText.length) {
+      throw new AppError('No foods found.', 404);
+    }
+
+    res.json({ foods: foodsFromText });
   } catch (err) {
     next(err);
   }

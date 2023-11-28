@@ -13,6 +13,8 @@ const foodSchema = new mongoose.Schema<IFood>({
   },
 });
 
+foodSchema.index({ name: 'text', brand: 'text' });
+
 const Food = mongoose.model<IFood>('Food', foodSchema);
 
 export default Food;
