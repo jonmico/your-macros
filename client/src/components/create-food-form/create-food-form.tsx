@@ -12,6 +12,8 @@ import { IFood } from '../../types/food';
 import { createFood } from '../../services/food-api';
 
 export default function CreateFoodForm() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [brand, setBrand] = useState('');
   const [brandError, setBrandError] = useState('');
 
@@ -32,6 +34,8 @@ export default function CreateFoodForm() {
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
+    let isError = false;
+
     const newFood: IFood = {
       brand,
       name,
@@ -44,47 +48,82 @@ export default function CreateFoodForm() {
       },
     };
 
-    if (!brand) setBrandError('Required field.');
-    if (!name) setNameError('Required field.');
+    if (!brand) {
+      isError = true;
+      setBrandError('Required field.');
+    }
+    if (!name) {
+      isError = true;
+      setNameError('Required field.');
+    }
 
-    if (servingSize === '') setServingSizeError('Required field.');
-    if (Number(servingSize) < 0)
+    if (servingSize === '') {
+      isError = true;
+      setServingSizeError('Required field.');
+    }
+    if (Number(servingSize) < 0) {
+      isError = true;
       setServingSizeError('Value must be 0 or greater.');
+    }
 
-    if (carbs === '') setCarbsError('Required field.');
-    if (Number(carbs) < 0) setCarbsError('Value must be 0 or greater.');
+    if (carbs === '') {
+      isError = true;
+      setCarbsError('Required field.');
+    }
+    if (Number(carbs) < 0) {
+      isError = true;
+      setCarbsError('Value must be 0 or greater.');
+    }
 
-    if (fat === '') setFatError('Required field.');
-    if (Number(fat) < 0) setFatError('Value must be 0 or greater.');
+    if (fat === '') {
+      isError = true;
+      setFatError('Required field.');
+    }
+    if (Number(fat) < 0) {
+      isError = true;
+      setFatError('Value must be 0 or greater.');
+    }
 
-    if (protein === '') setProteinError('Required field.');
-    if (Number(protein) < 0) setProteinError('Value must be 0 or greater.');
+    if (protein === '') {
+      isError = true;
+      setProteinError('Required field.');
+    }
+    if (Number(protein) < 0) {
+      isError = true;
+      setProteinError('Value must be 0 or greater.');
+    }
 
-    console.log(servingSize);
+    if (!isError) {
+      setIsLoading(true);
+      const data = await createFood(newFood);
+      setIsLoading(false);
 
-    const data = await createFood(newFood);
-
-    resetForm();
-
-    console.log(data);
+      resetForm();
+      clearErrors();
+      console.log(data);
+    }
   }
 
   function handleReset() {
     resetForm();
+    clearErrors();
   }
 
   function resetForm() {
     setBrand('');
-    setBrandError('');
     setName('');
-    setNameError('');
     setServingSize('');
-    setServingSizeError('');
     setCarbs('');
-    setCarbsError('');
     setFat('');
-    setFatError('');
     setProtein('');
+  }
+
+  function clearErrors() {
+    setBrandError('');
+    setNameError('');
+    setServingSizeError('');
+    setCarbsError('');
+    setFatError('');
     setProteinError('');
   }
 
@@ -169,8 +208,14 @@ export default function CreateFoodForm() {
         {proteinError && <FormError>{proteinError}</FormError>}
       </FormRow>
       <ButtonContainer>
-        <PrimaryButton type={'submit'}>Submit</PrimaryButton>
-        <SecondaryButton type={'reset'} onClick={handleReset}>
+        <PrimaryButton disabled={isLoading} type={'submit'}>
+          Submit
+        </PrimaryButton>
+        <SecondaryButton
+          disabled={isLoading}
+          type={'reset'}
+          onClick={handleReset}
+        >
           Reset
         </SecondaryButton>
       </ButtonContainer>

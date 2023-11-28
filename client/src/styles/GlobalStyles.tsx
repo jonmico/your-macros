@@ -27,7 +27,9 @@ button, input {
   font-family: 'Ubuntu', sans-serif;
 }
 
-
+*:disabled {
+  cursor: not-allowed
+}
 `;
 
 export default GlobalStyles;
