@@ -2,13 +2,17 @@ import { NextFunction, Request, Response } from 'express';
 import IMeal from '../types/meal';
 import Meal from '../models/meal';
 
+interface IBody {
+  meal: IMeal;
+}
+
 export async function createMeal(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    const { meal } = req.body;
+    const { meal }: IBody = req.body;
 
     const newMeal = await Meal.create({
       ...meal,
