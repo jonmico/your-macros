@@ -44,18 +44,48 @@ export default function CreateFoodForm() {
       },
     };
 
+    if (!brand) setBrandError('Required field.');
+    if (!name) setNameError('Required field.');
+
+    if (servingSize === '') setServingSizeError('Required field.');
+    if (Number(servingSize) < 0)
+      setServingSizeError('Value must be 0 or greater.');
+
+    if (carbs === '') setCarbsError('Required field.');
+    if (Number(carbs) < 0) setCarbsError('Value must be 0 or greater.');
+
+    if (fat === '') setFatError('Required field.');
+    if (Number(fat) < 0) setFatError('Value must be 0 or greater.');
+
+    if (protein === '') setProteinError('Required field.');
+    if (Number(protein) < 0) setProteinError('Value must be 0 or greater.');
+
+    console.log(servingSize);
+
     const data = await createFood(newFood);
+
+    resetForm();
 
     console.log(data);
   }
 
   function handleReset() {
+    resetForm();
+  }
+
+  function resetForm() {
     setBrand('');
+    setBrandError('');
     setName('');
+    setNameError('');
     setServingSize('');
+    setServingSizeError('');
     setCarbs('');
+    setCarbsError('');
     setFat('');
+    setFatError('');
     setProtein('');
+    setProteinError('');
   }
 
   return (
@@ -66,9 +96,12 @@ export default function CreateFoodForm() {
           id={'brand'}
           type='text'
           value={brand}
-          onChange={(evt) => setBrand(evt.target.value)}
+          onChange={(evt) => {
+            setBrandError('');
+            setBrand(evt.target.value);
+          }}
         />
-        {brandError && <FormError>Required.</FormError>}
+        {brandError && <FormError>{brandError}</FormError>}
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='name'>Name</FormLabel>
@@ -76,9 +109,12 @@ export default function CreateFoodForm() {
           id={'name'}
           type='text'
           value={name}
-          onChange={(evt) => setName(evt.target.value)}
+          onChange={(evt) => {
+            setNameError('');
+            setName(evt.target.value);
+          }}
         />
-        {nameError && <FormError>Required.</FormError>}
+        {nameError && <FormError>{nameError}</FormError>}
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='servingSize'>Serving Size</FormLabel>
@@ -86,9 +122,12 @@ export default function CreateFoodForm() {
           id={'servingSize'}
           type='number'
           value={servingSize}
-          onChange={(evt) => setServingSize(evt.target.value)}
+          onChange={(evt) => {
+            setServingSizeError('');
+            setServingSize(evt.target.value);
+          }}
         />
-        {servingSizeError && <FormError>Required.</FormError>}
+        {servingSizeError && <FormError>{servingSizeError}</FormError>}
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='carbs'>Carbs</FormLabel>
@@ -96,9 +135,12 @@ export default function CreateFoodForm() {
           id={'carbs'}
           type='number'
           value={carbs}
-          onChange={(evt) => setCarbs(evt.target.value)}
+          onChange={(evt) => {
+            setCarbsError('');
+            setCarbs(evt.target.value);
+          }}
         />
-        {carbsError && <FormError>Required.</FormError>}
+        {carbsError && <FormError>{carbsError}</FormError>}
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='fat'>Fat</FormLabel>
@@ -106,9 +148,12 @@ export default function CreateFoodForm() {
           id={'fat'}
           type='number'
           value={fat}
-          onChange={(evt) => setFat(evt.target.value)}
+          onChange={(evt) => {
+            setFatError('');
+            setFat(evt.target.value);
+          }}
         />
-        {fatError && <FormError>Required.</FormError>}
+        {fatError && <FormError>{fatError}</FormError>}
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='protein'>Protein</FormLabel>
@@ -116,9 +161,12 @@ export default function CreateFoodForm() {
           id={'protein'}
           type='number'
           value={protein}
-          onChange={(evt) => setProtein(evt.target.value)}
+          onChange={(evt) => {
+            setProteinError('');
+            setProtein(evt.target.value);
+          }}
         />
-        {proteinError && <FormError>Required.</FormError>}
+        {proteinError && <FormError>{proteinError}</FormError>}
       </FormRow>
       <ButtonContainer>
         <PrimaryButton type={'submit'}>Submit</PrimaryButton>
