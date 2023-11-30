@@ -6,7 +6,7 @@
 }
 
 .userIcon {
-  color: var(--primary);
+  color: var(--color-blue-400);
   width: 28px;
   height: 28px;
   cursor: pointer;
@@ -14,5 +14,5 @@
 }
 
 .userIcon:hover {
-  color: var(--text);
+  color: var(--color-blue-500);
 }

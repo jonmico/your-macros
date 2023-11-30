@@ -119,7 +119,7 @@ const GlobalStyles = createGlobalStyle`
 
 body {
   font-family: 'Ubuntu', sans-serif;
-  color: var(--color-slate-100);
+  color: var(--color-slate-300);
   background-color: var(--color-zinc-900);
 }
 

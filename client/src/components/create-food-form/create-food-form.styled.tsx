@@ -4,6 +4,7 @@ export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 35rem;
   gap: 1.25rem;
   padding-top: 1rem;
 `;
@@ -15,9 +16,8 @@ export const FormRow = styled.div`
 `;
 
 export const FormLabel = styled.label`
-  min-width: 135px;
+  min-width: 8rem;
   font-size: 1.1rem;
-  color: var(--text);
 `;
 
 export const InputErrorContainer = styled.div`
@@ -32,21 +32,18 @@ export const FormInput = styled.input`
   padding: 0.25rem 0.5rem;
 
   border-radius: 5px;
-  border: 1px solid var(--accent);
-
-  background-color: var(--secondary);
-  color: var(--text);
+  border: 1px solid var(--color-gray-700);
+  background-color: var(--color-zinc-900);
+  color: var(--color-slate-300);
 
   font-size: 1rem;
 
-  transition: outline 0.25s ease-in-out, background-color 0.25s ease-in-out,
-    color 0.25s ease-in-out;
+  transition: background-color 0.25s ease-in-out;
 
   &:active,
   &:focus {
-    outline: 1px solid var(--primary);
-    background-color: var(--accent);
-    color: var(--secondary);
+    outline: 1px solid var(--color-blue-500);
+    background-color: var(--color-zinc-800);
   }
 `;
 

@@ -7,20 +7,20 @@ export const StyledNavLink = styled(NavLink)`
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  border: 2px solid var(--secondary);
+  border: 1px solid var(--color-gray-700);
   border-radius: 10px;
   text-decoration: none;
-  color: var(--accent);
+  color: var(--color-slate-300);
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 
   &.active {
-    background-color: var(--secondary);
+    background-color: var(--color-blue-500);
+    color: var(--color-zinc-900);
     outline: none;
   }
 
   &:hover {
-    background-color: var(--accent);
-    color: var(--background);
+    background-color: var(--color-blue-600);
   }
 
   &:active {
