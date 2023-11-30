@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PrimaryButton, SecondaryButton } from '../button/button.styled';
+import { PrimaryButton, ResetButton } from '../button/button.styled';
 import {
   ButtonContainer,
   FormRow,
@@ -227,13 +227,9 @@ export default function CreateFoodForm() {
         <PrimaryButton disabled={isLoading} type={'submit'}>
           Submit
         </PrimaryButton>
-        <SecondaryButton
-          disabled={isLoading}
-          type={'reset'}
-          onClick={handleReset}
-        >
+        <ResetButton disabled={isLoading} type={'reset'} onClick={handleReset}>
           Reset
-        </SecondaryButton>
+        </ResetButton>
       </ButtonContainer>
     </StyledForm>
   );

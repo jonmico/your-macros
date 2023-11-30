@@ -31,6 +31,17 @@ const GlobalStyles = createGlobalStyle`
   --color-gray-800: #1f2937;
   --color-gray-900: #111827;
 
+  // Zinc
+  --color-zinc-100: #f4f4f5;
+  --color-zinc-200: #e4e4e7;
+  --color-zinc-300: #d4d4d8;
+  --color-zinc-400: #a1a1aa;
+  --color-zinc-500: #71717a;
+  --color-zinc-600: #52525b;
+  --color-zinc-700: #3f3f46;
+  --color-zinc-800: #27272a;
+  --color-zinc-900: #18181b;
+
   // Red
   --color-red-100: #fee2e2;
   --color-red-200: #fecaca;
@@ -108,8 +119,8 @@ const GlobalStyles = createGlobalStyle`
 
 body {
   font-family: 'Ubuntu', sans-serif;
-  color: var(--text);
-  background-color: var(--background);
+  color: var(--color-slate-100);
+  background-color: var(--color-zinc-900);
 }
 
 button, input {
@@ -117,7 +128,7 @@ button, input {
 }
 
 *:disabled {
-  cursor: not-allowed
+  cursor: not-allowed;
 }
 `;
 

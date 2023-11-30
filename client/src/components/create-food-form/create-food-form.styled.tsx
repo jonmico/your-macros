@@ -3,14 +3,14 @@ import styled from 'styled-components';
 export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  width: 100%;
+  gap: 1.25rem;
   padding-top: 1rem;
 `;
 
 export const FormRow = styled.div`
   display: flex;
-  /* grid-template-columns: 0.5fr 1fr 1.5fr; */
-  gap: 1.5rem;
+  gap: 1.25rem;
   align-items: center;
 `;
 
@@ -22,13 +22,13 @@ export const FormLabel = styled.label`
 
 export const InputErrorContainer = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   gap: 0.25rem;
 `;
 
 export const FormInput = styled.input`
   height: 2.25rem;
-  min-width: 13rem;
   padding: 0.25rem 0.5rem;
 
   border-radius: 5px;
@@ -57,6 +57,7 @@ export const FormError = styled.p`
 
 export const ButtonContainer = styled.div`
   display: flex;
+  justify-content: center;
   padding-top: 0.5rem;
   gap: 2rem;
 `;
