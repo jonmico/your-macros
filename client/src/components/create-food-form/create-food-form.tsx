@@ -12,6 +12,7 @@ import { IFood } from '../../types/food';
 import { createFood } from '../../services/food-api';
 
 export default function CreateFoodForm() {
+  console.log('this is a test to see if i can commit');
   const [isLoading, setIsLoading] = useState(false);
 
   const [brand, setBrand] = useState('');
