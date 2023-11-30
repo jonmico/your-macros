@@ -8,8 +8,8 @@ export const StyledForm = styled.form`
 `;
 
 export const FormRow = styled.div`
-  display: grid;
-  grid-template-columns: 0.5fr 1fr 1.5fr;
+  display: flex;
+  /* grid-template-columns: 0.5fr 1fr 1.5fr; */
   gap: 1.5rem;
   align-items: center;
 `;
@@ -18,6 +18,12 @@ export const FormLabel = styled.label`
   min-width: 135px;
   font-size: 1.1rem;
   color: var(--text);
+`;
+
+export const InputErrorContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 `;
 
 export const FormInput = styled.input`
@@ -45,7 +51,8 @@ export const FormInput = styled.input`
 `;
 
 export const FormError = styled.p`
-  color: red;
+  color: var(--color-red-400);
+  font-size: 0.85rem;
 `;
 
 export const ButtonContainer = styled.div`

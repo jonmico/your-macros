@@ -7,6 +7,7 @@ import {
   FormLabel,
   StyledForm,
   FormError,
+  InputErrorContainer,
 } from './create-food-form.styled';
 import { IFood } from '../../types/food';
 import { createFood } from '../../services/food-api';
@@ -133,81 +134,94 @@ export default function CreateFoodForm() {
     <StyledForm onSubmit={handleSubmit}>
       <FormRow>
         <FormLabel htmlFor='brand'>Brand</FormLabel>
-        <FormInput
-          id={'brand'}
-          type='text'
-          value={brand}
-          onChange={(evt) => {
-            setBrandError('');
-            setBrand(evt.target.value);
-          }}
-        />
-        {brandError && <FormError>{brandError}</FormError>}
+        <InputErrorContainer>
+          <FormInput
+            id={'brand'}
+            type='text'
+            value={brand}
+            onChange={(evt) => {
+              setBrandError('');
+              setBrand(evt.target.value);
+            }}
+          />
+          {brandError && <FormError>{brandError}</FormError>}
+        </InputErrorContainer>
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='name'>Name</FormLabel>
-        <FormInput
-          id={'name'}
-          type='text'
-          value={name}
-          onChange={(evt) => {
-            setNameError('');
-            setName(evt.target.value);
-          }}
-        />
-        {nameError && <FormError>{nameError}</FormError>}
+        <InputErrorContainer>
+          <FormInput
+            id={'name'}
+            type='text'
+            value={name}
+            onChange={(evt) => {
+              setNameError('');
+              setName(evt.target.value);
+            }}
+          />
+          {nameError && <FormError>{nameError}</FormError>}
+        </InputErrorContainer>
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='servingSize'>Serving Size</FormLabel>
-        <FormInput
-          id={'servingSize'}
-          type='number'
-          value={servingSize}
-          onChange={(evt) => {
-            setServingSizeError('');
-            setServingSize(evt.target.value);
-          }}
-        />
-        {servingSizeError && <FormError>{servingSizeError}</FormError>}
+        <InputErrorContainer>
+          <FormInput
+            id={'servingSize'}
+            type='number'
+            value={servingSize}
+            onChange={(evt) => {
+              setServingSizeError('');
+              setServingSize(evt.target.value);
+            }}
+          />
+          {servingSizeError && <FormError>{servingSizeError}</FormError>}
+        </InputErrorContainer>
       </FormRow>
+
       <FormRow>
         <FormLabel htmlFor='carbs'>Carbs</FormLabel>
-        <FormInput
-          id={'carbs'}
-          type='number'
-          value={carbs}
-          onChange={(evt) => {
-            setCarbsError('');
-            setCarbs(evt.target.value);
-          }}
-        />
-        {carbsError && <FormError>{carbsError}</FormError>}
+        <InputErrorContainer>
+          <FormInput
+            id={'carbs'}
+            type='number'
+            value={carbs}
+            onChange={(evt) => {
+              setCarbsError('');
+              setCarbs(evt.target.value);
+            }}
+          />
+          {carbsError && <FormError>{carbsError}</FormError>}
+        </InputErrorContainer>
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='fat'>Fat</FormLabel>
-        <FormInput
-          id={'fat'}
-          type='number'
-          value={fat}
-          onChange={(evt) => {
-            setFatError('');
-            setFat(evt.target.value);
-          }}
-        />
-        {fatError && <FormError>{fatError}</FormError>}
+        <InputErrorContainer>
+          <FormInput
+            id={'fat'}
+            type='number'
+            value={fat}
+            onChange={(evt) => {
+              setFatError('');
+              setFat(evt.target.value);
+            }}
+          />
+          {fatError && <FormError>{fatError}</FormError>}
+        </InputErrorContainer>
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='protein'>Protein</FormLabel>
-        <FormInput
-          id={'protein'}
-          type='number'
-          value={protein}
-          onChange={(evt) => {
-            setProteinError('');
-            setProtein(evt.target.value);
-          }}
-        />
-        {proteinError && <FormError>{proteinError}</FormError>}
+        <InputErrorContainer>
+          <FormInput
+            id={'protein'}
+            type='number'
+            value={protein}
+            onChange={(evt) => {
+              setProteinError('');
+              setProtein(evt.target.value);
+            }}
+          />
+          {proteinError && <FormError>{proteinError}</FormError>}
+        </InputErrorContainer>
       </FormRow>
       <ButtonContainer>
         <PrimaryButton disabled={isLoading} type={'submit'}>
