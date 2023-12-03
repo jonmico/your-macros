@@ -1,7 +1,9 @@
+import { StyledH2BottomBorder } from '../../components/styled-header/styled-header.styled';
+
 export default function AddMeal() {
   return (
     <div>
-      <h1>ADD MEAL</h1>
+      <StyledH2BottomBorder>Add Meal</StyledH2BottomBorder>
     </div>
   );
 }
