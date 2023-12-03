@@ -56,6 +56,9 @@ export async function getFoodByText(
       throw new AppError('Search is not a string', 403);
     }
 
+    // FIXME: This only searches by names. Might be because the search is named "name"?
+    // Not sure.
+
     // MongoDB search by phrase requires the \" to search by phrase.
     const foodsFromText = await Food.find({
       // eslint-disable-next-line no-useless-escape
