@@ -19,3 +19,10 @@ export async function getFoods() {
 
   return data;
 }
+
+export async function getFoodByText(text: string) {
+  const res = await fetch(`/api/foods/search?=${text}`);
+  const data = await res.json();
+
+  return data;
+}
