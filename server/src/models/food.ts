@@ -13,7 +13,8 @@ const foodSchema = new mongoose.Schema<IFood>({
   },
 });
 
-foodSchema.index({ name: 'text', brand: 'text' });
+// foodSchema.index({ name: 'text', brand: 'text' });
+foodSchema.index({ name: 'text' });
 
 const Food = mongoose.model<IFood>('Food', foodSchema);
 
