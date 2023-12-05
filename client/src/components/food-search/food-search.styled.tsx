@@ -8,6 +8,7 @@ export const StyledFoodSearch = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 20rem;
 `;
 
 export const Form = styled.form`
