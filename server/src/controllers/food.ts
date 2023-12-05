@@ -56,10 +56,30 @@ export async function getFoodByText(
       throw new AppError('Search is not a string', 403);
     }
 
+    let parsedName = name;
+
+    if (name.includes('+')) {
+      parsedName = name.split('+').join('');
+    }
+
+    if (parsedName.includes(' ')) {
+      // MongoDB search by phrase requires the \" to search by phrase.
+      const foodsFromText = await Food.find({
+        // eslint-disable-next-line no-useless-escape
+        $text: { $search: `\"${parsedName}\"` },
+      }).exec();
+
+      if (!foodsFromText.length) {
+        throw new AppError('No foods found.', 404);
+      }
+
+      res.json({ foods: foodsFromText });
+    }
+
     // MongoDB search by phrase requires the \" to search by phrase.
     const foodsFromText = await Food.find({
       // eslint-disable-next-line no-useless-escape
-      $text: { $search: `\"${name}\"` },
+      $text: { $search: `${parsedName}` },
     }).exec();
 
     if (!foodsFromText.length) {

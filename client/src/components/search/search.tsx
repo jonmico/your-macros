@@ -10,7 +10,15 @@ export default function Search() {
     evt.preventDefault();
     console.log(searchInput);
 
-    const data = await getFoodByText(searchInput);
+    let formattedSearchInput = searchInput;
+
+    if (searchInput.includes(' ')) {
+      formattedSearchInput = searchInput.split(' ').join('+');
+    }
+
+    console.log(formattedSearchInput);
+
+    const data = await getFoodByText(formattedSearchInput);
     console.log(data);
   }
 
