@@ -12,7 +12,8 @@ import { IFood } from '../../types/food';
 import FoodSearchList from '../food-search-list/food-search-list';
 
 interface IData {
-  foods: IFood[];
+  foods?: IFood[];
+  message?: string;
 }
 
 export default function FoodSearch() {
@@ -21,9 +22,17 @@ export default function FoodSearch() {
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
+
+    if (!searchInput) return;
+
     const data: IData = await getFoodByText(searchInput);
-    console.log(data.foods);
-    setSearchedFoods(data.foods);
+
+    if (data.foods) {
+      setSearchedFoods(data.foods);
+      console.log(data.foods);
+    } else {
+      console.log(data.message);
+    }
   }
 
   return (
@@ -38,11 +47,15 @@ export default function FoodSearch() {
           />
         </SearchContainer>
       </Form>
-      <FoodSearchList>
-        {searchedFoods?.map((food) => (
-          <li key={food._id}>{food.name}</li>
-        ))}
-      </FoodSearchList>
+      {searchedFoods?.length ? (
+        <FoodSearchList>
+          {searchedFoods?.map((food) => (
+            <li key={food._id}>{food.name}</li>
+          ))}
+        </FoodSearchList>
+      ) : (
+        <p>Search for foods.</p>
+      )}
     </StyledFoodSearch>
   );
 }

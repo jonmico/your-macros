@@ -8,11 +8,12 @@ export const StyledFoodSearch = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1.5rem;
   min-height: 20rem;
 `;
 
 export const Form = styled.form`
-  width: 80%;
+  width: 100%;
 `;
 
 export const SearchContainer = styled.div`

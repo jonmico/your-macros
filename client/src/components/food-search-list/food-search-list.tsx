@@ -1,7 +1,9 @@
+import { StyledFoodSearchList } from './food-search-list.styled';
+
 interface FoodSearchListProps {
   children: React.ReactNode;
 }
 
 export default function FoodSearchList(props: FoodSearchListProps) {
-  return <ul>{props.children}</ul>;
+  return <StyledFoodSearchList>{props.children}</StyledFoodSearchList>;
 }
