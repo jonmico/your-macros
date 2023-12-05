@@ -23,7 +23,10 @@ export default function FoodSearch() {
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
-    if (!searchInput) return;
+    if (!searchInput) {
+      if (searchedFoods.length) setSearchedFoods([]);
+      return;
+    }
 
     const data: IData = await getFoodByText(searchInput);
 
