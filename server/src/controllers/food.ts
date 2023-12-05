@@ -86,6 +86,7 @@ export async function createFood(
     const newFood = await Food.create({
       ...food,
       name: food.name.toLowerCase(),
+      brand: food.name.toLowerCase(),
     });
 
     res.status(201).json({ createdFood: newFood });

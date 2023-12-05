@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
 
 import { getFoodByText } from '../../services/food-api';
 
