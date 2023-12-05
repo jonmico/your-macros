@@ -9,7 +9,7 @@ import {
 const router = Router();
 
 router.get('/', getFoods);
-router.get('/search', getFoodByText);
+router.get('/search/:name', getFoodByText);
 router.get('/:id', getFoodById);
 router.post('/new', createFood);
 

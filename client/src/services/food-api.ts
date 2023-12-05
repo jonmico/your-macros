@@ -21,7 +21,7 @@ export async function getFoods() {
 }
 
 export async function getFoodByText(text: string) {
-  const res = await fetch(`/api/foods/search?name=${text}`);
+  const res = await fetch(`/api/foods/search/${text}`);
   const data = await res.json();
 
   return data;

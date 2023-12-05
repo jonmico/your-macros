@@ -10,15 +10,15 @@ export default function Search() {
     evt.preventDefault();
     console.log(searchInput);
 
-    let formattedSearchInput = searchInput;
+    // let formattedSearchInput = searchInput;
 
-    if (searchInput.includes(' ')) {
-      formattedSearchInput = searchInput.split(' ').join('+');
-    }
+    // if (searchInput.includes(' ')) {
+    //   formattedSearchInput = searchInput.split(' ').join('+');
+    // }
 
-    console.log(formattedSearchInput);
+    // console.log(formattedSearchInput);
 
-    const data = await getFoodByText(formattedSearchInput);
+    const data = await getFoodByText(searchInput);
     console.log(data);
   }
 
