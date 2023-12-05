@@ -9,6 +9,7 @@ import {
 } from './food-search.styled';
 import { getFoodByText } from '../../services/food-api';
 import { IFood } from '../../types/food';
+import FoodSearchList from '../food-search-list/food-search-list';
 
 interface IData {
   foods: IFood[];
@@ -37,6 +38,11 @@ export default function FoodSearch() {
           />
         </SearchContainer>
       </Form>
+      <FoodSearchList>
+        {searchedFoods?.map((food) => (
+          <li key={food._id}>{food.name}</li>
+        ))}
+      </FoodSearchList>
     </StyledFoodSearch>
   );
 }
