@@ -10,6 +10,7 @@ import {
 import { getFoodByText } from '../../services/food-api';
 import { IFood } from '../../types/food';
 import FoodSearchList from '../food-search-list/food-search-list';
+import FoodSearchListItem from '../food-search-list-item/food-search-list-item';
 
 interface IData {
   foods?: IFood[];
@@ -53,7 +54,7 @@ export default function FoodSearch() {
       {searchedFoods?.length ? (
         <FoodSearchList>
           {searchedFoods?.map((food) => (
-            <li key={food._id}>{food.name}</li>
+            <FoodSearchListItem key={food._id} food={food} />
           ))}
         </FoodSearchList>
       ) : (
