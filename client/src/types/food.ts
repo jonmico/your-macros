@@ -1,5 +1,5 @@
 export interface IFood {
-  _id: string;
+  _id?: string;
   brand: string;
   name: string;
   servingSize: number;
