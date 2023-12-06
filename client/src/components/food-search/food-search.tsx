@@ -20,6 +20,7 @@ interface IData {
 export default function FoodSearch() {
   const [searchInput, setSearchInput] = useState('');
   const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
+  const [searchFoodsError, setSearchedFoodsError] = useState('');
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -34,8 +35,10 @@ export default function FoodSearch() {
     if (data.foods) {
       setSearchedFoods(data.foods);
       console.log(data.foods);
-    } else {
+    } else if (data.message) {
       console.log(data.message);
+      setSearchedFoods([]);
+      setSearchedFoodsError(data.message);
     }
   }
 
@@ -47,7 +50,10 @@ export default function FoodSearch() {
           <SearchInput
             type='text'
             value={searchInput}
-            onChange={(evt) => setSearchInput(evt.target.value)}
+            onChange={(evt) => {
+              setSearchInput(evt.target.value);
+              setSearchedFoodsError('');
+            }}
           />
         </SearchContainer>
       </Form>
@@ -57,6 +63,8 @@ export default function FoodSearch() {
             <FoodSearchListItem key={food._id} food={food} />
           ))}
         </FoodSearchList>
+      ) : searchFoodsError ? (
+        <p>{searchFoodsError}</p>
       ) : (
         <p>Search for foods.</p>
       )}
