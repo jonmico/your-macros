@@ -5,4 +5,7 @@ export const StyledFoodInfo = styled.div`
   padding: 1rem;
   border-radius: 10px;
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
