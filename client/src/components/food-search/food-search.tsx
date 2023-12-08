@@ -20,18 +20,13 @@ interface IData {
 interface FoodSearchProps {
   setSearchedFoods: React.Dispatch<React.SetStateAction<IFood[]>>;
   searchedFoods: IFood[];
-  searchedFoodsError: string;
-  setSearchedFoodsError: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function FoodSearch(props: FoodSearchProps) {
-  const {
-    searchedFoods,
-    setSearchedFoods,
-    searchedFoodsError,
-    setSearchedFoodsError,
-  } = props;
+  const { searchedFoods, setSearchedFoods } = props;
+
   const [searchInput, setSearchInput] = useState('');
+  const [searchedFoodsError, setSearchedFoodsError] = useState('');
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();

@@ -7,7 +7,6 @@ import { IFood } from '../../types/food';
 
 export default function AddMeal() {
   const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
-  const [searchedFoodsError, setSearchedFoodsError] = useState('');
 
   return (
     <div>
@@ -16,8 +15,6 @@ export default function AddMeal() {
         <FoodSearch
           searchedFoods={searchedFoods}
           setSearchedFoods={setSearchedFoods}
-          searchedFoodsError={searchedFoodsError}
-          setSearchedFoodsError={setSearchedFoodsError}
         />
         <FoodInfo />
       </AddMealUI>
