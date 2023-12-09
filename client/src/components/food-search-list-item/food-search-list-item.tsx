@@ -9,7 +9,6 @@ interface FoodSearchListItemProps {
 }
 export default function FoodSearchListItem(props: FoodSearchListItemProps) {
   const { brand, name, servingSize, calories } = props.food;
-  // const { handleSelectFood } = useFoods();
   const { handleSelectFood } = useContext(FoodContext) as IFoodContext;
 
   console.log(FoodContext);

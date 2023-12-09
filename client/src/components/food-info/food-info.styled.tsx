@@ -5,6 +5,18 @@ export const StyledFoodInfo = styled.div`
   padding: 1rem;
   border-radius: 10px;
   flex: 1;
+`;
+
+export const FoodInfoContainer = styled.div``;
+
+export const CalorieAndServingSize = styled.div`
+  display: flex;
+  gap: 3rem;
+`;
+
+export const NoSelectedFoodContainer = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
