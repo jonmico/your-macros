@@ -9,6 +9,17 @@ export const StyledFoodInfo = styled.div`
 
 export const FoodInfoContainer = styled.div``;
 
+export const BrandAndName = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+`;
+
+export const Brand = styled.span`
+  color: var(--color-slate-400);
+  font-weight: 700;
+`;
+
 export const CalorieAndServingSize = styled.div`
   display: flex;
   gap: 3rem;

@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { FoodContext, IFoodContext } from '../../contexts/food-context';
 import {
+  Brand,
+  BrandAndName,
   CalorieAndServingSize,
   FoodInfoContainer,
   NoSelectedFoodContainer,
@@ -15,9 +17,10 @@ export default function FoodInfo() {
     <StyledFoodInfo>
       {selectedFood ? (
         <FoodInfoContainer>
-          <div>
+          <BrandAndName>
             <StyledH3FoodInfo>{selectedFood?.name}</StyledH3FoodInfo>
-          </div>
+            <Brand>{selectedFood?.brand}</Brand>
+          </BrandAndName>
           <CalorieAndServingSize>
             <p>{selectedFood?.calories}cals</p>
             <p>{selectedFood?.servingSize}g</p>
