@@ -7,6 +7,11 @@ import { IFood } from '../../types/food';
 
 export default function AddMeal() {
   const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
+  const [selectedFood, setSelectedFood] = useState<IFood | null>(null);
+
+  function handleClick(food: IFood) {
+    setSelectedFood(food);
+  }
 
   return (
     <div>
@@ -15,6 +20,7 @@ export default function AddMeal() {
         <FoodSearch
           searchedFoods={searchedFoods}
           setSearchedFoods={setSearchedFoods}
+          handleClick={handleClick}
         />
         <FoodInfo />
       </AddMealUI>

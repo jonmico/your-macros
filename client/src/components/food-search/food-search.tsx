@@ -20,6 +20,7 @@ interface IData {
 interface FoodSearchProps {
   setSearchedFoods: React.Dispatch<React.SetStateAction<IFood[]>>;
   searchedFoods: IFood[];
+  handleClick: (food: IFood) => void;
 }
 
 export default function FoodSearch(props: FoodSearchProps) {

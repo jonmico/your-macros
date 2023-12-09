@@ -8,6 +8,7 @@ export const ListItem = styled.li`
   align-items: center;
   gap: 1rem;
   transition: background-color 0.2s ease-in-out;
+  flex-wrap: wrap;
 
   & svg {
     height: 1.5rem;

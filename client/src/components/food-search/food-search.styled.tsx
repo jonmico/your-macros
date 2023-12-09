@@ -10,6 +10,7 @@ export const StyledFoodSearch = styled.div`
   align-items: center;
   gap: 1.5rem;
   min-height: 20rem;
+  flex: 1.25;
 `;
 
 export const Form = styled.form`

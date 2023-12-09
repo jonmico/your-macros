@@ -9,11 +9,9 @@ export default function FoodSearchListItem(props: FoodSearchListItemProps) {
   return (
     <ListItem>
       <FaCirclePlus />
-
       <div>
         {brand} {name}
       </div>
-
       <div>{servingSize}g</div>
       <div>{calories}cals</div>
     </ListItem>
