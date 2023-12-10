@@ -1,17 +1,14 @@
 import { FaCirclePlus } from 'react-icons/fa6';
+import { useFoods } from '../../hooks/useFoods';
 import { IFood } from '../../types/food';
 import { ListItem } from './food-search-list-item.styled';
-import { FoodContext } from '../../contexts/food-context';
-import { useContext } from 'react';
 
 interface FoodSearchListItemProps {
   food: IFood;
 }
 export default function FoodSearchListItem(props: FoodSearchListItemProps) {
   const { brand, name, servingSize, calories } = props.food;
-  const { handleSelectFood } = useContext(FoodContext);
-
-  console.log(FoodContext);
+  const { handleSelectFood } = useFoods();
 
   function handleClick() {
     handleSelectFood(props.food);
