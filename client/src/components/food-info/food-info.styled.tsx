@@ -7,11 +7,16 @@ export const StyledFoodInfo = styled.div`
   flex: 1;
 `;
 
-export const FoodInfoContainer = styled.div``;
+export const FoodInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
 
 export const BrandAndName = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.25rem;
 `;
 
 export const Brand = styled.span`
@@ -19,9 +24,10 @@ export const Brand = styled.span`
   font-weight: 500;
 `;
 
-export const CalorieAndServingSize = styled.div`
+export const FoodInfoRow = styled.div`
   display: flex;
-  gap: 3rem;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const NoSelectedFoodContainer = styled.div`
