@@ -6,7 +6,10 @@ export interface IFoodContext {
   handleSelectFood: (food: IFood) => void;
 }
 
-export const FoodContext = createContext<IFoodContext | null>(null);
+export const FoodContext = createContext<IFoodContext>({
+  selectedFood: null,
+  handleSelectFood: () => {},
+});
 
 interface FoodProviderProps {
   children: React.ReactNode;

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { FoodContext, IFoodContext } from '../../contexts/food-context';
+import { FoodContext } from '../../contexts/food-context';
 import {
   Brand,
   BrandAndName,
@@ -11,7 +11,7 @@ import {
 import { StyledH3FoodInfo } from '../styled-header/styled-header.styled';
 
 export default function FoodInfo() {
-  const { selectedFood } = useContext(FoodContext) as IFoodContext;
+  const { selectedFood } = useContext(FoodContext);
 
   return (
     <StyledFoodInfo>
