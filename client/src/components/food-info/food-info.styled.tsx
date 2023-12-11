@@ -8,7 +8,7 @@ export const StyledFoodInfo = styled.div`
   max-height: 20rem;
 `;
 
-export const FoodInfoContainer = styled.div`
+export const FoodInfoForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

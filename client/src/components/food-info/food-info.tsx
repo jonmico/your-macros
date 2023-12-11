@@ -2,6 +2,7 @@ import {
   Brand,
   BrandAndName,
   FoodInfoContainer,
+  FoodInfoForm,
   FoodInfoRow,
   MacroContainer,
   MacroFoodInfoRow,
@@ -12,15 +13,28 @@ import { StyledH3FoodInfo } from '../styled-header/styled-header.styled';
 import { useFoods } from '../../hooks/useFoods';
 import { useState } from 'react';
 import { PrimaryButton } from '../button/button.styled';
+import { IFood } from '../../types/food';
 
-export default function FoodInfo() {
+interface FoodInfoProps {
+  addToMeal: (food: IFood) => void;
+}
+
+export default function FoodInfo(props: FoodInfoProps) {
   const { selectedFood } = useFoods();
   const [servings, setServings] = useState('1');
+
+  function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+    console.log('did i stop it?');
+    if (selectedFood) {
+      props.addToMeal(selectedFood);
+    }
+  }
 
   return (
     <StyledFoodInfo>
       {selectedFood ? (
-        <FoodInfoContainer>
+        <FoodInfoForm onSubmit={handleSubmit}>
           <BrandAndName>
             <StyledH3FoodInfo>{selectedFood.name}</StyledH3FoodInfo>
             <Brand>{selectedFood.brand}</Brand>
@@ -30,14 +44,12 @@ export default function FoodInfo() {
             <div>{selectedFood.servingSize}g</div>
           </FoodInfoRow>
           <FoodInfoRow>
-            <div>Servings</div>
-            <div>
-              <input
-                value={servings}
-                onChange={(evt) => setServings(evt.target.value)}
-                type='number'
-              />
-            </div>
+            <label>Servings</label>
+            <input
+              value={servings}
+              onChange={(evt) => setServings(evt.target.value)}
+              type='number'
+            />
           </FoodInfoRow>
           <MacroFoodInfoRow>
             <MacroContainer>
@@ -58,7 +70,7 @@ export default function FoodInfo() {
             </MacroContainer>
           </MacroFoodInfoRow>
           <PrimaryButton>Add to Meal</PrimaryButton>
-        </FoodInfoContainer>
+        </FoodInfoForm>
       ) : (
         <NoSelectedFoodContainer>
           <h3>Click a food to load its data.</h3>
