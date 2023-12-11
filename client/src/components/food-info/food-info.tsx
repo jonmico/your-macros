@@ -3,12 +3,15 @@ import {
   BrandAndName,
   FoodInfoContainer,
   FoodInfoRow,
+  MacroContainer,
+  MacroFoodInfoRow,
   NoSelectedFoodContainer,
   StyledFoodInfo,
 } from './food-info.styled';
 import { StyledH3FoodInfo } from '../styled-header/styled-header.styled';
 import { useFoods } from '../../hooks/useFoods';
 import { useState } from 'react';
+import { PrimaryButton } from '../button/button.styled';
 
 export default function FoodInfo() {
   const { selectedFood } = useFoods();
@@ -36,12 +39,25 @@ export default function FoodInfo() {
               />
             </div>
           </FoodInfoRow>
-          <FoodInfoRow>
-            <div>{selectedFood.calories}</div>
-            <div>{selectedFood.macros.fat}</div>
-            <div>{selectedFood.macros.carbs}</div>
-            <div>{selectedFood.macros.protein}</div>
-          </FoodInfoRow>
+          <MacroFoodInfoRow>
+            <MacroContainer>
+              <div>{selectedFood.calories}</div>
+              <div>cals</div>
+            </MacroContainer>
+            <MacroContainer>
+              <div>{selectedFood.macros.fat}g</div>
+              <div>fat</div>
+            </MacroContainer>
+            <MacroContainer>
+              <div>{selectedFood.macros.carbs}g</div>
+              <div>carbs</div>
+            </MacroContainer>
+            <MacroContainer>
+              <div>{selectedFood.macros.protein}g</div>
+              <div>protein</div>
+            </MacroContainer>
+          </MacroFoodInfoRow>
+          <PrimaryButton>Add to Meal</PrimaryButton>
         </FoodInfoContainer>
       ) : (
         <NoSelectedFoodContainer>

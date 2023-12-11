@@ -5,12 +5,15 @@ export const StyledFoodInfo = styled.div`
   padding: 1rem;
   border-radius: 10px;
   flex: 1;
+  max-height: 20rem;
 `;
 
 export const FoodInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  justify-content: space-between;
+  height: 100%;
+  /* gap: 1.5rem; */
 `;
 
 export const BrandAndName = styled.div`
@@ -28,6 +31,16 @@ export const FoodInfoRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const MacroFoodInfoRow = styled(FoodInfoRow)`
+  padding: 0 1rem;
+`;
+
+export const MacroContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const NoSelectedFoodContainer = styled.div`
