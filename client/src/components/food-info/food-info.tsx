@@ -24,7 +24,6 @@ export default function FoodInfo(props: FoodInfoProps) {
 
   function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
-    console.log('did i stop it?');
     if (selectedFood) {
       props.addToMeal(selectedFood);
     }
