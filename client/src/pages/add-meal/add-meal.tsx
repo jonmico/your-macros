@@ -8,12 +8,16 @@ import {
   SearchInfoRow,
   MealNameInput,
   MealData,
-  MealMacro,
+  Calories,
+  Fat,
+  Carbs,
+  Protein,
 } from './add-meal.styled';
 import { IFood } from '../../types/food';
 import { FoodProvider } from '../../contexts/food-context';
 import MealList from '../../components/meal-list/meal-list';
 
+// TODO: Stop duplicate foods from being added. Key prop is very upset about this.
 export default function AddMeal() {
   const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
   const [meal, setMeal] = useState<IFood[]>([]);
@@ -26,8 +30,6 @@ export default function AddMeal() {
     (prev, curr) => prev + curr.macros.protein,
     0
   );
-
-  console.log(mealCalories);
 
   function addToMeal(food: IFood) {
     setMeal((prevState) => [...prevState, food]);
@@ -45,22 +47,22 @@ export default function AddMeal() {
             onChange={(evt) => setMealName(evt.target.value)}
           />
           <MealData>
-            <MealMacro>
+            <Calories>
               <p>{mealCalories}</p>
               <p>cals</p>
-            </MealMacro>
-            <MealMacro>
+            </Calories>
+            <Fat>
               <p>{mealFat}g</p>
               <p>fat</p>
-            </MealMacro>
-            <MealMacro>
+            </Fat>
+            <Carbs>
               <p>{mealCarbs}g</p>
               <p>carbs</p>
-            </MealMacro>
-            <MealMacro>
+            </Carbs>
+            <Protein>
               <p>{mealProtein}g</p>
               <p>protein</p>
-            </MealMacro>
+            </Protein>
           </MealData>
           <MealList>
             {meal.map((food) => (

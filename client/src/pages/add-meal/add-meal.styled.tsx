@@ -45,13 +45,28 @@ export const MealData = styled.div`
   align-items: center;
   width: 50%;
   justify-content: space-between;
-  /* gap: 4rem; */
 `;
 
 export const MealMacro = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const Calories = styled(MealMacro)`
+  color: var(--color-red-300);
+`;
+
+export const Fat = styled(MealMacro)`
+  color: var(--color-yellow-400);
+`;
+
+export const Carbs = styled(MealMacro)`
+  color: var(--color-green-400);
+`;
+
+export const Protein = styled(MealMacro)`
+  color: var(--color-blue-400);
 `;
 
 export const SearchInfoRow = styled.div`
