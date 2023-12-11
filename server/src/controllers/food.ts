@@ -52,8 +52,6 @@ export async function getFoodByText(
       throw new AppError('No search text provided.', 400);
     }
 
-<<<<<<< HEAD
-=======
     if (typeof name !== 'string') {
       throw new AppError('Search is not a string', 403);
     }
@@ -67,7 +65,6 @@ export async function getFoodByText(
     // So multiple inputs where you can search by name or brand.
 
     // MongoDB search by phrase requires the \" to search by phrase.
->>>>>>> 3f37ec4 (Large TODO.)
     const foodsFromText = await Food.find({
       // eslint-disable-next-line no-useless-escape
       $text: { $search: name.includes(' ') ? `\"${name}\"` : name },
