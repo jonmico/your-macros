@@ -1,7 +1,6 @@
 import {
   Brand,
   BrandAndName,
-  FoodInfoContainer,
   FoodInfoForm,
   FoodInfoRow,
   MacroContainer,
