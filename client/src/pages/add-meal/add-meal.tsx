@@ -23,6 +23,7 @@ export default function AddMeal() {
       <StyledH2BottomBorder>Add Meal</StyledH2BottomBorder>
       <AddMealUI>
         <MealBuilder mealComponents={mealComponents} />
+
         <FoodProvider>
           <SearchInfoRow>
             <FoodSearch

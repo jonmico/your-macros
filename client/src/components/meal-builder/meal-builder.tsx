@@ -41,39 +41,45 @@ export default function MealBuilder(props: MealBuilderProps) {
 
   return (
     <StyledMealBuilder>
-      <MealNameInput
-        placeholder={'Meal Name'}
-        type='text'
-        value={mealName}
-        onChange={(evt) => setMealName(evt.target.value)}
-      />
-      <MealData>
-        <Calories>
-          <MealDataNumber>{mealCalories}</MealDataNumber>
-          <p>cals</p>
-        </Calories>
-        <Fat>
-          <MealDataNumber>{mealFat}g</MealDataNumber>
-          <p>fat</p>
-        </Fat>
-        <Carbs>
-          <MealDataNumber>{mealCarbs}g</MealDataNumber>
-          <p>carbs</p>
-        </Carbs>
-        <Protein>
-          <MealDataNumber>{mealProtein}g</MealDataNumber>
-          <p>protein</p>
-        </Protein>
-      </MealData>
-      <MealList>
-        <MealListHeader />
-        {mealComponents.map((mealComponent) => (
-          <MealItem
-            key={mealComponent.food._id}
-            mealComponent={mealComponent}
+      {!mealComponents.length ? (
+        <p>Start building your meal below!</p>
+      ) : (
+        <>
+          <MealNameInput
+            placeholder={'Meal Name'}
+            type='text'
+            value={mealName}
+            onChange={(evt) => setMealName(evt.target.value)}
           />
-        ))}
-      </MealList>
+          <MealData>
+            <Calories>
+              <MealDataNumber>{mealCalories}</MealDataNumber>
+              <p>cals</p>
+            </Calories>
+            <Fat>
+              <MealDataNumber>{mealFat}g</MealDataNumber>
+              <p>fat</p>
+            </Fat>
+            <Carbs>
+              <MealDataNumber>{mealCarbs}g</MealDataNumber>
+              <p>carbs</p>
+            </Carbs>
+            <Protein>
+              <MealDataNumber>{mealProtein}g</MealDataNumber>
+              <p>protein</p>
+            </Protein>
+          </MealData>
+          <MealList>
+            <MealListHeader />
+            {mealComponents.map((mealComponent) => (
+              <MealItem
+                key={mealComponent.food._id}
+                mealComponent={mealComponent}
+              />
+            ))}
+          </MealList>
+        </>
+      )}
     </StyledMealBuilder>
   );
 }
