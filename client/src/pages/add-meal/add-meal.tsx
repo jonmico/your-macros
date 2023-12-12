@@ -14,6 +14,7 @@ import {
   Protein,
   MealDataNumber,
 } from './add-meal.styled';
+import MealItem from '../../components/meal-item/meal-item';
 import { IFood } from '../../types/food';
 import { FoodProvider } from '../../contexts/food-context';
 import MealList from '../../components/meal-list/meal-list';
@@ -69,7 +70,7 @@ export default function AddMeal() {
           <MealList>
             <MealListHeader />
             {meal.map((food) => (
-              <li key={food._id}>{food.name}</li>
+              <MealItem food={food} />
             ))}
           </MealList>
         </MealContainer>

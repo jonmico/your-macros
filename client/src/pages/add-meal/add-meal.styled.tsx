@@ -75,11 +75,6 @@ export const MealDataNumber = styled.p`
   font-size: 1.5rem;
 `;
 
-export const MealListRow = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-`;
-
 export const SearchInfoRow = styled.div`
   display: flex;
   gap: 1rem;
