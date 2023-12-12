@@ -1,34 +1,44 @@
-import { IFood } from '../../types/food';
+import { useState } from 'react';
+import { IMealComponent } from '../../types/meal-component';
 import MealItem from '../meal-item/meal-item';
 import MealListHeader from '../meal-list-header/meal-list-header';
 import MealList from '../meal-list/meal-list';
 import {
-  StyledMealBuilder,
-  MealNameInput,
-  MealData,
   Calories,
-  MealDataNumber,
-  Fat,
   Carbs,
+  Fat,
+  MealData,
+  MealDataNumber,
+  MealNameInput,
   Protein,
+  StyledMealBuilder,
 } from './meal-builder.styled';
 
 interface MealBuilderProps {
-  meal: IFood[];
-  mealName: string;
-  setMealName: React.Dispatch<React.SetStateAction<string>>;
+  mealComponents: IMealComponent[];
 }
 
 export default function MealBuilder(props: MealBuilderProps) {
-  const { meal, mealName, setMealName } = props;
+  const [mealName, setMealName] = useState('');
+  const { mealComponents } = props;
 
-  const mealCalories = meal.reduce((prev, curr) => prev + curr.calories, 0);
-  const mealFat = meal.reduce((prev, curr) => prev + curr.macros.fat, 0);
-  const mealCarbs = meal.reduce((prev, curr) => prev + curr.macros.carbs, 0);
-  const mealProtein = meal.reduce(
-    (prev, curr) => prev + curr.macros.protein,
+  const mealCalories = mealComponents.reduce(
+    (prev, curr) => prev + curr.food.calories,
     0
   );
+  const mealFat = mealComponents.reduce(
+    (prev, curr) => prev + curr.food.macros.fat,
+    0
+  );
+  const mealCarbs = mealComponents.reduce(
+    (prev, curr) => prev + curr.food.macros.carbs,
+    0
+  );
+  const mealProtein = mealComponents.reduce(
+    (prev, curr) => prev + curr.food.macros.protein,
+    0
+  );
+
   return (
     <StyledMealBuilder>
       <MealNameInput
@@ -57,8 +67,11 @@ export default function MealBuilder(props: MealBuilderProps) {
       </MealData>
       <MealList>
         <MealListHeader />
-        {meal.map((food) => (
-          <MealItem food={food} />
+        {mealComponents.map((mealComponent) => (
+          <MealItem
+            key={mealComponent.food._id}
+            mealComponent={mealComponent}
+          />
         ))}
       </MealList>
     </StyledMealBuilder>

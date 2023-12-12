@@ -1,3 +1,8 @@
+import { useState } from 'react';
+import { useFoods } from '../../hooks/useFoods';
+import { IMealComponent } from '../../types/meal-component';
+import { PrimaryButton } from '../button/button.styled';
+import { StyledH3FoodInfo } from '../styled-header/styled-header.styled';
 import {
   Brand,
   BrandAndName,
@@ -8,14 +13,9 @@ import {
   NoSelectedFoodContainer,
   StyledFoodInfo,
 } from './food-info.styled';
-import { StyledH3FoodInfo } from '../styled-header/styled-header.styled';
-import { useFoods } from '../../hooks/useFoods';
-import { useState } from 'react';
-import { PrimaryButton } from '../button/button.styled';
-import { IFood } from '../../types/food';
 
 interface FoodInfoProps {
-  addToMeal: (food: IFood) => void;
+  addToMeal: (mealComponent: IMealComponent) => void;
 }
 
 export default function FoodInfo(props: FoodInfoProps) {
@@ -25,7 +25,8 @@ export default function FoodInfo(props: FoodInfoProps) {
   function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     if (selectedFood) {
-      props.addToMeal(selectedFood);
+      const mealComponent = { food: selectedFood, servings: Number(servings) };
+      props.addToMeal(mealComponent);
     }
   }
 

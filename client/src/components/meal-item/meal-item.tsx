@@ -1,5 +1,5 @@
 import { FaCircleXmark } from 'react-icons/fa6';
-import { IFood } from '../../types/food';
+import { IMealComponent } from '../../types/meal-component';
 import {
   Calories,
   CaloriesAndMacrosContainer,
@@ -12,17 +12,18 @@ import {
 } from './meal-item.styled';
 
 interface MealItemProps {
-  food: IFood;
+  mealComponent: IMealComponent;
 }
 
 export default function MealItem(props: MealItemProps) {
-  const { name, brand, servingSize, calories, macros } = props.food;
+  const { name, brand, servingSize, calories, macros } =
+    props.mealComponent.food;
   return (
     <StyledMealItem>
       <p>
         {brand} {name}
       </p>
-      <p>1</p>
+      <p>{props.mealComponent.servings}</p>
       <p>{servingSize}g</p>
       <CaloriesAndMacrosContainer>
         <Calories>{calories}cals</Calories>
