@@ -12,10 +12,12 @@ import {
   Fat,
   Carbs,
   Protein,
+  MealDataNumber,
 } from './add-meal.styled';
 import { IFood } from '../../types/food';
 import { FoodProvider } from '../../contexts/food-context';
 import MealList from '../../components/meal-list/meal-list';
+import MealListHeader from '../../components/meal-list-header/meal-list-header';
 
 // TODO: Stop duplicate foods from being added. Key prop is very upset about this.
 export default function AddMeal() {
@@ -48,23 +50,24 @@ export default function AddMeal() {
           />
           <MealData>
             <Calories>
-              <p>{mealCalories}</p>
+              <MealDataNumber>{mealCalories}</MealDataNumber>
               <p>cals</p>
             </Calories>
             <Fat>
-              <p>{mealFat}g</p>
+              <MealDataNumber>{mealFat}g</MealDataNumber>
               <p>fat</p>
             </Fat>
             <Carbs>
-              <p>{mealCarbs}g</p>
+              <MealDataNumber>{mealCarbs}g</MealDataNumber>
               <p>carbs</p>
             </Carbs>
             <Protein>
-              <p>{mealProtein}g</p>
+              <MealDataNumber>{mealProtein}g</MealDataNumber>
               <p>protein</p>
             </Protein>
           </MealData>
           <MealList>
+            <MealListHeader />
             {meal.map((food) => (
               <li key={food._id}>{food.name}</li>
             ))}

@@ -51,10 +51,11 @@ export const MealMacro = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 export const Calories = styled(MealMacro)`
-  color: var(--color-red-300);
+  color: var(--color-red-400);
 `;
 
 export const Fat = styled(MealMacro)`
@@ -67,6 +68,16 @@ export const Carbs = styled(MealMacro)`
 
 export const Protein = styled(MealMacro)`
   color: var(--color-blue-400);
+`;
+
+export const MealDataNumber = styled.p`
+  font-weight: 500;
+  font-size: 1.5rem;
+`;
+
+export const MealListRow = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 `;
 
 export const SearchInfoRow = styled.div`
