@@ -7,9 +7,7 @@ export default function MealListHeader() {
         <p>Food</p>
         <p>Servings</p>
         <p>Amount</p>
-        <p>Calories</p>
-        <p>Macros</p>
-        <p>Delete</p>
+        <p>Calories and Macros</p>
       </Row>
     </StyledMealListHeader>
   );

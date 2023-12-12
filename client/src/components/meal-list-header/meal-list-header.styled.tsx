@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledMealListHeader = styled.div`
-  background-color: var(--color-blue-800);
+  background-color: var(--color-slate-800);
   border-bottom: 1px solid var(--color-slate-700);
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -9,7 +9,7 @@ export const StyledMealListHeader = styled.div`
 
 export const Row = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 2fr 0.5fr;
   text-align: center;
   padding: 0.5rem 0.5rem 0.25rem 0.5rem;
 `;
