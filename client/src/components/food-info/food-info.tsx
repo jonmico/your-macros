@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useFoods } from '../../hooks/useFoods';
 import { IMealComponent } from '../../types/meal-component';
-import { AddToMealButton, PrimaryButton } from '../button/button.styled';
+import { AddToMealButton} from '../button/button.styled';
 import { StyledH3FoodInfo } from '../styled-header/styled-header.styled';
 import {
   Brand,
@@ -86,7 +86,6 @@ export default function FoodInfo(props: FoodInfoProps) {
           >
             {isInMealComponents ? 'Already in meal' : 'Add to Meal'}
           </AddToMealButton>
-          {/* <PrimaryButton disabled={isInMealComponents}>what</PrimaryButton> */}
         </FoodInfoForm>
       ) : (
         <NoSelectedFoodContainer>
