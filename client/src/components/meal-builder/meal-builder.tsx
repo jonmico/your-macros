@@ -4,15 +4,17 @@ import MealItem from '../meal-item/meal-item';
 import MealListHeader from '../meal-list-header/meal-list-header';
 import MealList from '../meal-list/meal-list';
 import {
-  Calories,
-  Carbs,
-  Fat,
   MealData,
   MealDataNumber,
   MealNameInput,
-  Protein,
   StyledMealBuilder,
 } from './meal-builder.styled';
+import {
+  CalorieContainer,
+  ProteinContainer,
+  FatContainer,
+  CarbsContainer,
+} from '../macro-container/macro-container.styled';
 
 interface MealBuilderProps {
   mealComponents: IMealComponent[];
@@ -52,22 +54,22 @@ export default function MealBuilder(props: MealBuilderProps) {
             onChange={(evt) => setMealName(evt.target.value)}
           />
           <MealData>
-            <Calories>
+            <CalorieContainer>
               <MealDataNumber>{mealCalories}</MealDataNumber>
               <p>cals</p>
-            </Calories>
-            <Fat>
+            </CalorieContainer>
+            <FatContainer>
               <MealDataNumber>{mealFat}g</MealDataNumber>
               <p>fat</p>
-            </Fat>
-            <Carbs>
+            </FatContainer>
+            <CarbsContainer>
               <MealDataNumber>{mealCarbs}g</MealDataNumber>
               <p>carbs</p>
-            </Carbs>
-            <Protein>
+            </CarbsContainer>
+            <ProteinContainer>
               <MealDataNumber>{mealProtein}g</MealDataNumber>
               <p>protein</p>
-            </Protein>
+            </ProteinContainer>
           </MealData>
           <MealList>
             <MealListHeader />

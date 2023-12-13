@@ -8,11 +8,16 @@ import {
   BrandAndName,
   FoodInfoForm,
   FoodInfoRow,
-  MacroContainer,
   MacroFoodInfoRow,
   NoSelectedFoodContainer,
   StyledFoodInfo,
 } from './food-info.styled';
+import {
+  CalorieContainer,
+  CarbsContainer,
+  FatContainer,
+  ProteinContainer,
+} from '../macro-container/macro-container.styled';
 
 interface FoodInfoProps {
   addToMeal: (mealComponent: IMealComponent) => void;
@@ -51,22 +56,22 @@ export default function FoodInfo(props: FoodInfoProps) {
             />
           </FoodInfoRow>
           <MacroFoodInfoRow>
-            <MacroContainer>
+            <CalorieContainer>
               <div>{selectedFood.calories}</div>
               <div>cals</div>
-            </MacroContainer>
-            <MacroContainer>
+            </CalorieContainer>
+            <FatContainer>
               <div>{selectedFood.macros.fat}g</div>
               <div>fat</div>
-            </MacroContainer>
-            <MacroContainer>
+            </FatContainer>
+            <CarbsContainer>
               <div>{selectedFood.macros.carbs}g</div>
               <div>carbs</div>
-            </MacroContainer>
-            <MacroContainer>
+            </CarbsContainer>
+            <ProteinContainer>
               <div>{selectedFood.macros.protein}g</div>
               <div>protein</div>
-            </MacroContainer>
+            </ProteinContainer>
           </MacroFoodInfoRow>
           <PrimaryButton>Add to Meal</PrimaryButton>
         </FoodInfoForm>

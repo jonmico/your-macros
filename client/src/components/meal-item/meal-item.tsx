@@ -1,15 +1,12 @@
 import { FaCircleXmark } from 'react-icons/fa6';
 import { IMealComponent } from '../../types/meal-component';
 import {
-  Calories,
   CaloriesAndMacrosContainer,
-  Carbs,
-  Fat,
   MacrosContainer,
-  Protein,
   StyledMealItem,
   SvgContainer,
 } from './meal-item.styled';
+import { Calories, Fat, Carbs, Protein } from '../macros/macros.styled';
 
 interface MealItemProps {
   mealComponent: IMealComponent;

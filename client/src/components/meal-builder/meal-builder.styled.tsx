@@ -40,29 +40,6 @@ export const MealData = styled.div`
   justify-content: space-between;
 `;
 
-export const MealMacro = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const Calories = styled(MealMacro)`
-  color: var(--color-red-400);
-`;
-
-export const Fat = styled(MealMacro)`
-  color: var(--color-yellow-400);
-`;
-
-export const Carbs = styled(MealMacro)`
-  color: var(--color-green-400);
-`;
-
-export const Protein = styled(MealMacro)`
-  color: var(--color-blue-400);
-`;
-
 export const MealDataNumber = styled.p`
   font-weight: 500;
   font-size: 1.5rem;
