@@ -22,12 +22,17 @@ import {
 
 interface FoodInfoProps {
   addToMeal: (mealComponent: IMealComponent) => void;
+  mealComponents: IMealComponent[];
 }
 
 export default function FoodInfo(props: FoodInfoProps) {
   const { selectedFood } = useFoods();
   const [servings, setServings] = useState('1');
   const servingsNum = Number(servings);
+
+  const isInMealComponents = props.mealComponents
+    .map(({ food }) => food._id)
+    .includes(selectedFood?._id);
 
   function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -75,7 +80,9 @@ export default function FoodInfo(props: FoodInfoProps) {
               <div>protein</div>
             </ProteinContainer>
           </MacroFoodInfoRow>
-          <PrimaryButton>Add to Meal</PrimaryButton>
+          <PrimaryButton disabled={isInMealComponents}>
+            {isInMealComponents ? 'Already in meal' : 'Add to Meal'}
+          </PrimaryButton>
         </FoodInfoForm>
       ) : (
         <NoSelectedFoodContainer>

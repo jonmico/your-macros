@@ -29,7 +29,7 @@ export default function AddMeal() {
               searchedFoods={searchedFoods}
               setSearchedFoods={setSearchedFoods}
             />
-            <FoodInfo addToMeal={addToMeal} />
+            <FoodInfo mealComponents={mealComponents} addToMeal={addToMeal} />
           </SearchInfoRow>
         </FoodProvider>
       </AddMealUI>
