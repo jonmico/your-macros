@@ -8,6 +8,7 @@ import {
   BrandAndName,
   FoodInfoForm,
   FoodInfoRow,
+  Input,
   MacroFoodInfoRow,
   NoSelectedFoodContainer,
   StyledFoodInfo,
@@ -49,7 +50,7 @@ export default function FoodInfo(props: FoodInfoProps) {
           </FoodInfoRow>
           <FoodInfoRow>
             <label>Servings</label>
-            <input
+            <Input
               value={servings}
               onChange={(evt) => setServings(evt.target.value)}
               type='number'
