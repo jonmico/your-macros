@@ -22,6 +22,10 @@ export const PrimaryButton = styled.button`
   &:focus {
     outline: none;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const ResetButton = styled(PrimaryButton)`
@@ -43,14 +47,10 @@ interface AddToMealButtonProps {
 
 export const AddToMealButton = styled(PrimaryButton)<AddToMealButtonProps>`
   background-color: ${(props) =>
-    props.$isInMealComponents
-      ? css`var(--color-slate-500)`
-      : css`var(--color-blue-500)`};
+    props.$isInMealComponents && css`var(--color-slate-500)`};
 
   &:hover {
     background-color: ${(props) =>
-      props.$isInMealComponents
-        ? css`var(--color-slate-600)`
-        : css`var(--color-blue-600)`};
+      props.$isInMealComponents && css`var(--color-slate-600)`};
   }
 `;
