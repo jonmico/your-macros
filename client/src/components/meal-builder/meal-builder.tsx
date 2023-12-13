@@ -25,19 +25,19 @@ export default function MealBuilder(props: MealBuilderProps) {
   const { mealComponents } = props;
 
   const mealCalories = mealComponents.reduce(
-    (prev, curr) => prev + curr.food.calories,
+    (prev, curr) => prev + curr.food.calories * curr.servings,
     0
   );
   const mealFat = mealComponents.reduce(
-    (prev, curr) => prev + curr.food.macros.fat,
+    (prev, curr) => prev + curr.food.macros.fat * curr.servings,
     0
   );
   const mealCarbs = mealComponents.reduce(
-    (prev, curr) => prev + curr.food.macros.carbs,
+    (prev, curr) => prev + curr.food.macros.carbs * curr.servings,
     0
   );
   const mealProtein = mealComponents.reduce(
-    (prev, curr) => prev + curr.food.macros.protein,
+    (prev, curr) => prev + curr.food.macros.protein * curr.servings,
     0
   );
 

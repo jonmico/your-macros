@@ -23,11 +23,11 @@ export default function MealItem(props: MealItemProps) {
       <p>{props.mealComponent.servings}</p>
       <p>{servingSize}g</p>
       <CaloriesAndMacrosContainer>
-        <Calories>{calories}cals</Calories>
+        <Calories>{calories * props.mealComponent.servings}cals</Calories>
         <MacrosContainer>
-          <Fat>{macros.fat}f</Fat>
-          <Carbs>{macros.carbs}c</Carbs>
-          <Protein>{macros.protein}p</Protein>
+          <Fat>{macros.fat * props.mealComponent.servings}f</Fat>
+          <Carbs>{macros.carbs * props.mealComponent.servings}c</Carbs>
+          <Protein>{macros.protein * props.mealComponent.servings}p</Protein>
         </MacrosContainer>
       </CaloriesAndMacrosContainer>
       <SvgContainer>

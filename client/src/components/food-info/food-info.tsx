@@ -27,11 +27,12 @@ interface FoodInfoProps {
 export default function FoodInfo(props: FoodInfoProps) {
   const { selectedFood } = useFoods();
   const [servings, setServings] = useState('1');
+  const servingsNum = Number(servings);
 
   function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
-    if (selectedFood) {
-      const mealComponent = { food: selectedFood, servings: Number(servings) };
+    if (selectedFood && servingsNum > 0) {
+      const mealComponent = { food: selectedFood, servings: servingsNum };
       props.addToMeal(mealComponent);
     }
   }
@@ -58,19 +59,19 @@ export default function FoodInfo(props: FoodInfoProps) {
           </FoodInfoRow>
           <MacroFoodInfoRow>
             <CalorieContainer>
-              <div>{selectedFood.calories}</div>
+              <div>{servingsNum * selectedFood.calories}</div>
               <div>cals</div>
             </CalorieContainer>
             <FatContainer>
-              <div>{selectedFood.macros.fat}g</div>
+              <div>{servingsNum * selectedFood.macros.fat}g</div>
               <div>fat</div>
             </FatContainer>
             <CarbsContainer>
-              <div>{selectedFood.macros.carbs}g</div>
+              <div>{servingsNum * selectedFood.macros.carbs}g</div>
               <div>carbs</div>
             </CarbsContainer>
             <ProteinContainer>
-              <div>{selectedFood.macros.protein}g</div>
+              <div>{servingsNum * selectedFood.macros.protein}g</div>
               <div>protein</div>
             </ProteinContainer>
           </MacroFoodInfoRow>
