@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const PrimaryButton = styled.button`
   border: none;
@@ -34,5 +34,23 @@ export const ResetButton = styled(PrimaryButton)`
 
   &:active {
     background-color: var(--color-red-300);
+  }
+`;
+
+interface AddToMealButtonProps {
+  $isInMealComponents: boolean;
+}
+
+export const AddToMealButton = styled(PrimaryButton)<AddToMealButtonProps>`
+  background-color: ${(props) =>
+    props.$isInMealComponents
+      ? css`var(--color-slate-500)`
+      : css`var(--color-blue-500)`};
+
+  &:hover {
+    background-color: ${(props) =>
+      props.$isInMealComponents
+        ? css`var(--color-slate-600)`
+        : css`var(--color-blue-600)`};
   }
 `;

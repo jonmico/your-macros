@@ -7,8 +7,17 @@ export const StyledMealItem = styled.div`
   padding: 1rem 0.5rem;
 
   & svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.35rem;
+    height: 1.35rem;
+
+    &:hover {
+      color: var(--color-red-400);
+      cursor: pointer;
+    }
+
+    &:active {
+      color: var(--color-red-500);
+    }
   }
 `;
 
