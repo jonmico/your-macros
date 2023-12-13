@@ -8,7 +8,6 @@ import { IFood } from '../../types/food';
 import { IMealComponent } from '../../types/meal-component';
 import { AddMealUI, SearchInfoRow } from './add-meal.styled';
 
-// TODO: Stop duplicate foods from being added. Key prop is very upset about this.
 export default function AddMeal() {
   const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
 
