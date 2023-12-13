@@ -18,11 +18,20 @@ export default function AddMeal() {
     setMealComponents((prevState) => [...prevState, mealComponent]);
   }
 
+  function removeFromMeal(id: string) {
+    setMealComponents((prevState) =>
+      prevState.filter(({ food }) => id !== food._id)
+    );
+  }
+
   return (
     <div>
       <StyledH2BottomBorder>Add Meal</StyledH2BottomBorder>
       <AddMealUI>
-        <MealBuilder mealComponents={mealComponents} />
+        <MealBuilder
+          removeFromMeal={removeFromMeal}
+          mealComponents={mealComponents}
+        />
         <FoodProvider>
           <SearchInfoRow>
             <FoodSearch

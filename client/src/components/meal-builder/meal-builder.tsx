@@ -18,6 +18,7 @@ import {
 
 interface MealBuilderProps {
   mealComponents: IMealComponent[];
+  removeFromMeal: (id: string) => void;
 }
 
 export default function MealBuilder(props: MealBuilderProps) {
@@ -75,6 +76,7 @@ export default function MealBuilder(props: MealBuilderProps) {
             <MealListHeader />
             {mealComponents.map((mealComponent) => (
               <MealItem
+                removeFromMeal={props.removeFromMeal}
                 key={mealComponent.food._id}
                 mealComponent={mealComponent}
               />

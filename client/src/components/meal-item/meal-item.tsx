@@ -10,11 +10,19 @@ import { Calories, Fat, Carbs, Protein } from '../macros/macros.styled';
 
 interface MealItemProps {
   mealComponent: IMealComponent;
+  removeFromMeal: (id: string) => void;
 }
 
 export default function MealItem(props: MealItemProps) {
-  const { name, brand, servingSize, calories, macros } =
+  const { _id, name, brand, servingSize, calories, macros } =
     props.mealComponent.food;
+
+  function handleClick() {
+    if (_id) {
+      props.removeFromMeal(_id);
+    }
+  }
+
   return (
     <StyledMealItem>
       <p>
@@ -31,7 +39,7 @@ export default function MealItem(props: MealItemProps) {
         </MacrosContainer>
       </CaloriesAndMacrosContainer>
       <SvgContainer>
-        <FaCircleXmark />
+        <FaCircleXmark onClick={handleClick} />
       </SvgContainer>
     </StyledMealItem>
   );
