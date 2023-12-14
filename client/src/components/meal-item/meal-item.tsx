@@ -17,13 +17,19 @@ interface MealItemProps {
 export default function MealItem(props: MealItemProps) {
   const { _id, name, brand, servingSize, calories, macros } =
     props.mealComponent.food;
-  const { removeFromMeal } = useMeals();
-  const [servings, setServings] = useState(props.mealComponent.servings);
+  const { removeFromMeal, editServings } = useMeals();
+  const [servings, setServings] = useState(
+    String(props.mealComponent.servings)
+  );
 
-  function handleClick() {
+  function handleRemoveFromMeal() {
     if (_id) {
       removeFromMeal(_id);
     }
+  }
+
+  function handleEditServings() {
+    editServings(props.mealComponent, Number(servings));
   }
 
   return (
@@ -32,23 +38,25 @@ export default function MealItem(props: MealItemProps) {
         {brand} {name}
       </p>
       {/* <p>{props.mealComponent.servings}</p> */}
-      <input
-        type='number'
-        // defaultValue={props.mealComponent.servings}
-        value={servings}
-        onChange={(evt) => setServings(Number(evt.target.value))}
-      />
+      <div>
+        <input
+          type='number'
+          value={servings}
+          onChange={(evt) => setServings(evt.target.value)}
+        />
+        <button onClick={handleEditServings}>Edit</button>
+      </div>
       <p>{servingSize}g</p>
       <CaloriesAndMacrosContainer>
-        <Calories>{calories * props.mealComponent.servings}cals</Calories>
+        <Calories>{calories * Number(servings)}cals</Calories>
         <MacrosContainer>
-          <Fat>{macros.fat * props.mealComponent.servings}f</Fat>
-          <Carbs>{macros.carbs * props.mealComponent.servings}c</Carbs>
-          <Protein>{macros.protein * props.mealComponent.servings}p</Protein>
+          <Fat>{macros.fat * Number(servings)}f</Fat>
+          <Carbs>{macros.carbs * Number(servings)}c</Carbs>
+          <Protein>{macros.protein * Number(servings)}p</Protein>
         </MacrosContainer>
       </CaloriesAndMacrosContainer>
       <SvgContainer>
-        <FaCircleXmark onClick={handleClick} />
+        <FaCircleXmark onClick={handleRemoveFromMeal} />
       </SvgContainer>
     </StyledMealItem>
   );
