@@ -4,13 +4,10 @@ import FoodSearch from '../../components/food-search/food-search';
 import MealBuilder from '../../components/meal-builder/meal-builder';
 import { StyledH2BottomBorder } from '../../components/styled-header/styled-header.styled';
 import { FoodProvider } from '../../contexts/food-context';
-import { IFood } from '../../types/food';
 import { IMealComponent } from '../../types/meal-component';
 import { AddMealUI, SearchInfoRow } from './add-meal.styled';
 
 export default function AddMeal() {
-  const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
-
   const [mealComponents, setMealComponents] = useState<IMealComponent[]>([]);
 
   function addToMeal(mealComponent: IMealComponent) {
@@ -33,10 +30,7 @@ export default function AddMeal() {
         />
         <FoodProvider>
           <SearchInfoRow>
-            <FoodSearch
-              searchedFoods={searchedFoods}
-              setSearchedFoods={setSearchedFoods}
-            />
+            <FoodSearch />
             <FoodInfo mealComponents={mealComponents} addToMeal={addToMeal} />
           </SearchInfoRow>
         </FoodProvider>

@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { FaXmark } from 'react-icons/fa6';
 import { useFoods } from '../../hooks/useFoods';
 import { IMealComponent } from '../../types/meal-component';
-import { AddToMealButton} from '../button/button.styled';
+import { AddToMealButton } from '../button/button.styled';
 import { StyledH3FoodInfo } from '../styled-header/styled-header.styled';
 import {
   Brand,
@@ -12,6 +13,7 @@ import {
   MacroFoodInfoRow,
   NoSelectedFoodContainer,
   StyledFoodInfo,
+  FoodInfoHeader,
 } from './food-info.styled';
 import {
   CalorieContainer,
@@ -26,7 +28,7 @@ interface FoodInfoProps {
 }
 
 export default function FoodInfo(props: FoodInfoProps) {
-  const { selectedFood } = useFoods();
+  const { selectedFood, clearSelectedFood } = useFoods();
   const [servings, setServings] = useState('1');
   const servingsNum = Number(servings);
 
@@ -46,10 +48,13 @@ export default function FoodInfo(props: FoodInfoProps) {
     <StyledFoodInfo>
       {selectedFood ? (
         <FoodInfoForm onSubmit={handleSubmit}>
-          <BrandAndName>
-            <StyledH3FoodInfo>{selectedFood.name}</StyledH3FoodInfo>
-            <Brand>{selectedFood.brand}</Brand>
-          </BrandAndName>
+          <FoodInfoHeader>
+            <BrandAndName>
+              <StyledH3FoodInfo>{selectedFood.name}</StyledH3FoodInfo>
+              <Brand>{selectedFood.brand}</Brand>
+            </BrandAndName>
+            <FaXmark onClick={clearSelectedFood} />
+          </FoodInfoHeader>
           <FoodInfoRow>
             <div>Serving Size</div>
             <div>{selectedFood.servingSize}g</div>

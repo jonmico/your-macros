@@ -4,11 +4,13 @@ import { IFood } from '../types/food';
 export interface IFoodContext {
   selectedFood: IFood | null;
   handleSelectFood: (food: IFood) => void;
+  clearSelectedFood: () => void;
 }
 
 export const FoodContext = createContext<IFoodContext>({
   selectedFood: null,
   handleSelectFood: () => {},
+  clearSelectedFood: () => {},
 });
 
 interface FoodProviderProps {
@@ -22,7 +24,11 @@ export function FoodProvider(props: FoodProviderProps) {
     setSelectedFood(food);
   }
 
-  const value = { selectedFood, handleSelectFood };
+  function clearSelectedFood() {
+    setSelectedFood(null);
+  }
+
+  const value = { selectedFood, handleSelectFood, clearSelectedFood };
 
   return (
     <FoodContext.Provider value={value}>{props.children}</FoodContext.Provider>

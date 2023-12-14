@@ -17,14 +17,8 @@ interface IData {
   message?: string;
 }
 
-interface FoodSearchProps {
-  setSearchedFoods: React.Dispatch<React.SetStateAction<IFood[]>>;
-  searchedFoods: IFood[];
-}
-
-export default function FoodSearch(props: FoodSearchProps) {
-  const { searchedFoods, setSearchedFoods } = props;
-
+export default function FoodSearch() {
+  const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
   const [searchInput, setSearchInput] = useState('');
   const [searchedFoodsError, setSearchedFoodsError] = useState('');
 

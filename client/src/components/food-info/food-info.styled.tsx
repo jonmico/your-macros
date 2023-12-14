@@ -70,3 +70,18 @@ export const Input = styled.input`
     outline: var(--color-slate-800);
   }
 `;
+
+export const FoodInfoHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  & svg {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: var(--color-red-400);
+    }
+  }
+`;
