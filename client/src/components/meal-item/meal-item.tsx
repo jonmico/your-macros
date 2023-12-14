@@ -7,19 +7,22 @@ import {
   SvgContainer,
 } from './meal-item.styled';
 import { Calories, Fat, Carbs, Protein } from '../macros/macros.styled';
+import { useState } from 'react';
+import { useMeals } from '../../hooks/useMeals';
 
 interface MealItemProps {
   mealComponent: IMealComponent;
-  removeFromMeal: (id: string) => void;
 }
 
 export default function MealItem(props: MealItemProps) {
   const { _id, name, brand, servingSize, calories, macros } =
     props.mealComponent.food;
+  const { removeFromMeal } = useMeals();
+  const [servings, setServings] = useState(props.mealComponent.servings);
 
   function handleClick() {
     if (_id) {
-      props.removeFromMeal(_id);
+      removeFromMeal(_id);
     }
   }
 
@@ -28,7 +31,13 @@ export default function MealItem(props: MealItemProps) {
       <p>
         {brand} {name}
       </p>
-      <p>{props.mealComponent.servings}</p>
+      {/* <p>{props.mealComponent.servings}</p> */}
+      <input
+        type='number'
+        // defaultValue={props.mealComponent.servings}
+        value={servings}
+        onChange={(evt) => setServings(Number(evt.target.value))}
+      />
       <p>{servingSize}g</p>
       <CaloriesAndMacrosContainer>
         <Calories>{calories * props.mealComponent.servings}cals</Calories>

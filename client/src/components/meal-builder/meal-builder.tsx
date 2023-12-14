@@ -1,19 +1,14 @@
 import { useState } from 'react';
-import { IMealComponent } from '../../types/meal-component';
 import MealItem from '../meal-item/meal-item';
 import MealListHeader from '../meal-list-header/meal-list-header';
 import MealList from '../meal-list/meal-list';
 import { MealNameInput, StyledMealBuilder } from './meal-builder.styled';
 import MealData from '../meal-data/meal-data';
+import { useMeals } from '../../hooks/useMeals';
 
-interface MealBuilderProps {
-  mealComponents: IMealComponent[];
-  removeFromMeal: (id: string) => void;
-}
-
-export default function MealBuilder(props: MealBuilderProps) {
+export default function MealBuilder() {
   const [mealName, setMealName] = useState('');
-  const { mealComponents } = props;
+  const { mealComponents } = useMeals();
 
   const mealCalories = mealComponents.reduce(
     (prev, curr) => prev + curr.food.calories * curr.servings,
@@ -56,7 +51,6 @@ export default function MealBuilder(props: MealBuilderProps) {
             <MealListHeader />
             {mealComponents.map((mealComponent) => (
               <MealItem
-                removeFromMeal={props.removeFromMeal}
                 key={mealComponent.food._id}
                 mealComponent={mealComponent}
               />

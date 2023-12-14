@@ -1,38 +1,34 @@
 import { useState } from 'react';
 import { FaXmark } from 'react-icons/fa6';
 import { useFoods } from '../../hooks/useFoods';
-import { IMealComponent } from '../../types/meal-component';
+import { useMeals } from '../../hooks/useMeals';
 import { AddToMealButton } from '../button/button.styled';
-import { StyledH3FoodInfo } from '../styled-header/styled-header.styled';
-import {
-  Brand,
-  BrandAndName,
-  FoodInfoForm,
-  FoodInfoRow,
-  Input,
-  MacroFoodInfoRow,
-  NoSelectedFoodContainer,
-  StyledFoodInfo,
-  FoodInfoHeader,
-} from './food-info.styled';
 import {
   CalorieContainer,
   CarbsContainer,
   FatContainer,
   ProteinContainer,
 } from '../macro-container/macro-container.styled';
+import { StyledH3FoodInfo } from '../styled-header/styled-header.styled';
+import {
+  Brand,
+  BrandAndName,
+  FoodInfoForm,
+  FoodInfoHeader,
+  FoodInfoRow,
+  Input,
+  MacroFoodInfoRow,
+  NoSelectedFoodContainer,
+  StyledFoodInfo,
+} from './food-info.styled';
 
-interface FoodInfoProps {
-  addToMeal: (mealComponent: IMealComponent) => void;
-  mealComponents: IMealComponent[];
-}
-
-export default function FoodInfo(props: FoodInfoProps) {
+export default function FoodInfo() {
+  const { addToMeal, mealComponents } = useMeals();
   const { selectedFood, clearSelectedFood } = useFoods();
   const [servings, setServings] = useState('1');
   const servingsNum = Number(servings);
 
-  const isInMealComponents = props.mealComponents
+  const isInMealComponents = mealComponents
     .map(({ food }) => food._id)
     .includes(selectedFood?._id);
 
@@ -40,7 +36,7 @@ export default function FoodInfo(props: FoodInfoProps) {
     evt.preventDefault();
     if (selectedFood && servingsNum > 0) {
       const mealComponent = { food: selectedFood, servings: servingsNum };
-      props.addToMeal(mealComponent);
+      addToMeal(mealComponent);
     }
   }
 
