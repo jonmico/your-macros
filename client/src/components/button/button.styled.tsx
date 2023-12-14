@@ -54,3 +54,19 @@ export const AddToMealButton = styled(PrimaryButton)<AddToMealButtonProps>`
       props.$isInMealComponents && css`var(--color-slate-600)`};
   }
 `;
+
+export const EditButton = styled(PrimaryButton)`
+  font-size: 0.9rem;
+  background-color: var(--color-zinc-900);
+  border: 1px solid var(--color-blue-500);
+  color: var(--color-blue-500);
+  padding: 0.4rem 0.7rem;
+
+  &:hover {
+    background-color: var(--color-gray-800);
+  }
+
+  &:active {
+    background-color: var(--color-gray-900);
+  }
+`;

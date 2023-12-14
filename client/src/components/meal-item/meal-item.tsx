@@ -5,10 +5,13 @@ import {
   MacrosContainer,
   StyledMealItem,
   SvgContainer,
+  EditServingsForm,
 } from './meal-item.styled';
 import { Calories, Fat, Carbs, Protein } from '../macros/macros.styled';
 import { useState } from 'react';
 import { useMeals } from '../../hooks/useMeals';
+import { EditInput } from '../input/input.styled';
+import { EditButton } from '../button/button.styled';
 
 interface MealItemProps {
   mealComponent: IMealComponent;
@@ -28,7 +31,8 @@ export default function MealItem(props: MealItemProps) {
     }
   }
 
-  function handleEditServings() {
+  function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
     editServings(props.mealComponent, Number(servings));
   }
 
@@ -37,15 +41,14 @@ export default function MealItem(props: MealItemProps) {
       <p>
         {brand} {name}
       </p>
-      {/* <p>{props.mealComponent.servings}</p> */}
-      <div>
-        <input
+      <EditServingsForm onSubmit={handleSubmit}>
+        <EditInput
           type='number'
           value={servings}
           onChange={(evt) => setServings(evt.target.value)}
         />
-        <button onClick={handleEditServings}>Edit</button>
-      </div>
+        <EditButton>Edit</EditButton>
+      </EditServingsForm>
       <p>{servingSize}g</p>
       <CaloriesAndMacrosContainer>
         <Calories>{calories * Number(servings)}cals</Calories>

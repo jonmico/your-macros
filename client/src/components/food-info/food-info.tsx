@@ -16,11 +16,11 @@ import {
   FoodInfoForm,
   FoodInfoHeader,
   FoodInfoRow,
-  Input,
   MacroFoodInfoRow,
   NoSelectedFoodContainer,
   StyledFoodInfo,
 } from './food-info.styled';
+import { Input } from '../input/input.styled';
 
 export default function FoodInfo() {
   const { addToMeal, mealComponents } = useMeals();
