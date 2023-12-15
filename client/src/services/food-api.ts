@@ -1,6 +1,6 @@
 import { IFood } from '../types/food';
 
-const API_URL = import.meta.env.API_URL ?? '';
+const API_URL = import.meta.env.API_URL || '';
 
 export async function createFood(food: IFood) {
   const res = await fetch(`${API_URL}/api/foods/new`, {
