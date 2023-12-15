@@ -9,6 +9,12 @@ export const StyledMealBuilder = styled.div`
   gap: 1rem;
 `;
 
+export const StartText = styled.p`
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.25rem;
+`;
+
 export const MealNameInput = styled.input`
   background-color: var(--color-zinc-900);
   border: 1px solid transparent;

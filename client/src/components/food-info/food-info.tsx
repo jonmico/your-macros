@@ -13,6 +13,7 @@ import { StyledH3FoodInfo } from '../styled-header/styled-header.styled';
 import {
   Brand,
   BrandAndName,
+  ClickText,
   FoodInfoForm,
   FoodInfoHeader,
   FoodInfoRow,
@@ -97,7 +98,7 @@ export default function FoodInfo() {
         </FoodInfoForm>
       ) : (
         <NoSelectedFoodContainer>
-          <h3>Click a food to load its data.</h3>
+          <ClickText>Click a food to load its data.</ClickText>
         </NoSelectedFoodContainer>
       )}
     </StyledFoodInfo>

@@ -1,7 +1,11 @@
 import MealItem from '../meal-item/meal-item';
 import MealListHeader from '../meal-list-header/meal-list-header';
 import MealList from '../meal-list/meal-list';
-import { MealNameInput, StyledMealBuilder } from './meal-builder.styled';
+import {
+  MealNameInput,
+  StartText,
+  StyledMealBuilder,
+} from './meal-builder.styled';
 import MealData from '../meal-data/meal-data';
 import { useMeals } from '../../hooks/useMeals';
 
@@ -35,7 +39,7 @@ export default function MealBuilder() {
   return (
     <StyledMealBuilder>
       {!mealComponents.length ? (
-        <p>Start building your meal below!</p>
+        <StartText>Start building your meal below!</StartText>
       ) : (
         <>
           <MealNameInput
