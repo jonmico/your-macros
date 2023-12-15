@@ -37,7 +37,13 @@ export default function FoodInfo() {
     if (selectedFood && servingsNum > 0) {
       const mealComponent = { food: selectedFood, servings: servingsNum };
       addToMeal(mealComponent);
+      setServings('1');
     }
+  }
+
+  function handleClearSelectedFood() {
+    clearSelectedFood();
+    setServings('1');
   }
 
   return (
@@ -49,7 +55,7 @@ export default function FoodInfo() {
               <StyledH3FoodInfo>{selectedFood.name}</StyledH3FoodInfo>
               <Brand>{selectedFood.brand}</Brand>
             </BrandAndName>
-            <FaXmark onClick={clearSelectedFood} />
+            <FaXmark onClick={handleClearSelectedFood} />
           </FoodInfoHeader>
           <FoodInfoRow>
             <div>Serving Size</div>

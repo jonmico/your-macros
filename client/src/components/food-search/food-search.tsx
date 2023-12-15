@@ -11,6 +11,7 @@ import { getFoodByText } from '../../services/food-api';
 import { IFood } from '../../types/food';
 import FoodSearchList from '../food-search-list/food-search-list';
 import FoodSearchListItem from '../food-search-list-item/food-search-list-item';
+import { useFoods } from '../../hooks/useFoods';
 
 interface IData {
   foods?: IFood[];
@@ -21,6 +22,7 @@ export default function FoodSearch() {
   const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
   const [searchInput, setSearchInput] = useState('');
   const [searchedFoodsError, setSearchedFoodsError] = useState('');
+  const { clearSelectedFood } = useFoods();
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -31,6 +33,7 @@ export default function FoodSearch() {
     }
 
     const data: IData = await getFoodByText(searchInput);
+    clearSelectedFood();
 
     if (data.foods) {
       setSearchedFoods(data.foods);
