@@ -3,9 +3,12 @@ import { IMealComponent } from '../types/meal-component';
 
 export interface IMealContext {
   mealComponents: IMealComponent[];
+  mealName: string;
   addToMeal: (meal: IMealComponent) => void;
   removeFromMeal: (id: string) => void;
   editServings: (mealComponent: IMealComponent, newServings: number) => void;
+  clearMeal: () => void;
+  setMealName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const MealContext = createContext<IMealContext>({
@@ -13,6 +16,9 @@ export const MealContext = createContext<IMealContext>({
   addToMeal: () => {},
   removeFromMeal: () => {},
   editServings: () => {},
+  clearMeal: () => {},
+  mealName: '',
+  setMealName: () => {},
 });
 
 interface MealProviderProps {
@@ -21,15 +27,20 @@ interface MealProviderProps {
 
 export function MealProvider(props: MealProviderProps) {
   const [mealComponents, setMealComponents] = useState<IMealComponent[]>([]);
+  const [mealName, setMealName] = useState('');
 
   function addToMeal(mealComponent: IMealComponent) {
     setMealComponents((prevState) => [...prevState, mealComponent]);
   }
 
   function removeFromMeal(id: string) {
-    setMealComponents((prevState) =>
-      prevState.filter(({ food }) => id !== food._id)
-    );
+    setMealComponents((prevState) => {
+      const filteredPrevState = prevState.filter(({ food }) => id !== food._id);
+      if (!filteredPrevState.length) {
+        setMealName('');
+      }
+      return filteredPrevState;
+    });
   }
 
   function editServings(mealComponent: IMealComponent, newServings: number) {
@@ -53,7 +64,21 @@ export function MealProvider(props: MealProviderProps) {
     setMealComponents(mealComponentsCopy);
   }
 
-  const value = { mealComponents, addToMeal, removeFromMeal, editServings };
+  function clearMeal() {
+    setMealComponents([]);
+    setMealName('');
+  }
+
+  const value = {
+    mealComponents,
+    addToMeal,
+    removeFromMeal,
+    editServings,
+    clearMeal,
+    mealName,
+    setMealName,
+  };
+
   return (
     <MealContext.Provider value={value}>{props.children}</MealContext.Provider>
   );

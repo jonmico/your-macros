@@ -71,6 +71,19 @@ export const EditButton = styled(PrimaryButton)`
   }
 `;
 
+export const ClearButton = styled(EditButton)`
+  text-transform: uppercase;
+  padding: 0.15rem 0;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out,
+    border 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--color-red-400);
+    color: var(--color-zinc-900);
+    border: 1px solid var(--color-zinc-900);
+  }
+`;
+
 export const AddMealToLogButton = styled(EditButton)`
   font-size: 1.25rem;
   padding: 1rem 1.5rem;

@@ -11,5 +11,6 @@ export const Row = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 2fr 0.5fr;
   text-align: center;
-  padding: 0.5rem 0.5rem 0.25rem 0.5rem;
+  align-items: center;
+  padding: 0.5rem;
 `;

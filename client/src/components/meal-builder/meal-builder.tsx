@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import MealItem from '../meal-item/meal-item';
 import MealListHeader from '../meal-list-header/meal-list-header';
 import MealList from '../meal-list/meal-list';
@@ -7,8 +6,7 @@ import MealData from '../meal-data/meal-data';
 import { useMeals } from '../../hooks/useMeals';
 
 export default function MealBuilder() {
-  const [mealName, setMealName] = useState('');
-  const { mealComponents } = useMeals();
+  const { mealComponents, mealName, setMealName } = useMeals();
 
   const mealCalories = mealComponents.reduce(
     (prev, curr) => prev + curr.food.calories * curr.servings,
