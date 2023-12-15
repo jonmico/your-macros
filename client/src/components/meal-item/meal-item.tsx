@@ -43,6 +43,7 @@ export default function MealItem(props: MealItemProps) {
       </p>
       <EditServingsForm onSubmit={handleSubmit}>
         <EditInput
+          step={0.01}
           type='number'
           value={servings}
           onChange={(evt) => setServings(evt.target.value)}

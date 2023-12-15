@@ -58,6 +58,7 @@ export default function FoodInfo() {
           <FoodInfoRow>
             <label>Servings</label>
             <Input
+              step={0.01}
               value={servings}
               onChange={(evt) => setServings(evt.target.value)}
               type='number'
