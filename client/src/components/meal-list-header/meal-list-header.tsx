@@ -4,10 +4,10 @@ export default function MealListHeader() {
   return (
     <StyledMealListHeader>
       <Row>
-        <p>Food</p>
-        <p>Servings</p>
-        <p>Amount</p>
-        <p>Calories and Macros</p>
+        <h4>Food</h4>
+        <h4>Servings</h4>
+        <h4>Amount</h4>
+        <h4>Calories and Macros</h4>
       </Row>
     </StyledMealListHeader>
   );

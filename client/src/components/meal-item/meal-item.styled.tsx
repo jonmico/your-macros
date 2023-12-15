@@ -7,9 +7,19 @@ export const StyledMealItem = styled.li`
   align-items: center;
   padding: 1rem 0.5rem;
 
+  &:nth-of-type(even) {
+    background-color: var(--color-slate-800);
+  }
+
+  &:last-of-type {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
   & svg {
     width: 1.35rem;
     height: 1.35rem;
+    transition: color 0.2s ease-in-out;
 
     &:hover {
       color: var(--color-red-400);

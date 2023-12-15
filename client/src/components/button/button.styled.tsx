@@ -70,3 +70,8 @@ export const EditButton = styled(PrimaryButton)`
     background-color: var(--color-gray-900);
   }
 `;
+
+export const AddMealToLogButton = styled(EditButton)`
+  font-size: 1.25rem;
+  padding: 1rem 1.5rem;
+`;
