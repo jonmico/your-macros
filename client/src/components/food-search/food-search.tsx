@@ -22,13 +22,14 @@ export default function FoodSearch() {
   const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
   const [searchInput, setSearchInput] = useState('');
   const [searchedFoodsError, setSearchedFoodsError] = useState('');
-  const { clearSelectedFood } = useFoods();
+  const { clearSelectedFood, selectedFood } = useFoods();
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
     if (!searchInput) {
       if (searchedFoods.length) setSearchedFoods([]);
+      if (selectedFood) clearSelectedFood();
       return;
     }
 
@@ -51,6 +52,7 @@ export default function FoodSearch() {
         <SearchContainer>
           <FaSearch />
           <SearchInput
+            placeholder={'Search for foods'}
             type='text'
             value={searchInput}
             onChange={(evt) => {
@@ -60,17 +62,14 @@ export default function FoodSearch() {
           />
         </SearchContainer>
       </Form>
-      {searchedFoods?.length ? (
+      {searchedFoods?.length > 0 && (
         <FoodSearchList>
           {searchedFoods?.map((food) => (
             <FoodSearchListItem key={food._id} food={food} />
           ))}
         </FoodSearchList>
-      ) : searchedFoodsError ? (
-        <p>{searchedFoodsError}</p>
-      ) : (
-        <p>Search for foods.</p>
       )}
+      {searchedFoodsError && <p>{searchedFoodsError}</p>}
     </StyledFoodSearch>
   );
 }
