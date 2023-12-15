@@ -4,7 +4,7 @@ import { IFood } from '../../types/food';
 import { ListItem } from './food-search-list-item.styled';
 import { useMeals } from '../../hooks/useMeals';
 import { IMealComponent } from '../../types/meal-component';
-import { IconType } from 'react-icons';
+import { PlusButton } from '../button/button.styled';
 
 interface FoodSearchListItemProps {
   food: IFood;
@@ -12,14 +12,18 @@ interface FoodSearchListItemProps {
 export default function FoodSearchListItem(props: FoodSearchListItemProps) {
   const { brand, name, servingSize, calories } = props.food;
   const { handleSelectFood } = useFoods();
-  const { addToMeal } = useMeals();
+  const { addToMeal, mealComponents } = useMeals();
+
+  const isInMealComponents = mealComponents
+    .map(({ food }) => food)
+    .includes(props.food);
 
   function handleSelectClick() {
     handleSelectFood(props.food);
     console.log(props.food);
   }
 
-  function handleAddToMeal(evt: React.MouseEvent<IconType>) {
+  function handleAddToMeal(evt: React.MouseEvent<HTMLButtonElement>) {
     evt.stopPropagation();
     const mealComponent: IMealComponent = {
       food: props.food,
@@ -30,7 +34,13 @@ export default function FoodSearchListItem(props: FoodSearchListItemProps) {
 
   return (
     <ListItem onClick={handleSelectClick}>
-      <FaCirclePlus onClick={handleAddToMeal} />
+      <PlusButton
+        $isInMealComponents={isInMealComponents}
+        disabled={isInMealComponents}
+        onClick={handleAddToMeal}
+      >
+        <FaCirclePlus />
+      </PlusButton>
       <div>
         {brand} {name}
       </div>

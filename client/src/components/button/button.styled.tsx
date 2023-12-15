@@ -75,3 +75,46 @@ export const AddMealToLogButton = styled(EditButton)`
   font-size: 1.25rem;
   padding: 1rem 1.5rem;
 `;
+
+interface PlusButtonProps {
+  $isInMealComponents: boolean;
+}
+
+export const PlusButton = styled.button<PlusButtonProps>`
+  color: ${(props) =>
+    props.$isInMealComponents
+      ? css`var(--color-slate-500)`
+      : css`var(--color-slate-300)`};
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  background-color: inherit;
+  height: 1.5rem;
+  width: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+
+  & svg {
+    height: 100%;
+    width: 100%;
+  }
+
+  &:hover {
+    color: ${(props) =>
+      props.$isInMealComponents
+        ? css`var(--color-slate-500)`
+        : css`var(--color-blue-400)`};
+  }
+
+  &:active {
+    transition: none;
+    color: ${(props) =>
+      props.$isInMealComponents
+        ? css`var(--color-slate-500)`
+        : css`var(--color-blue-500)`};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+`;
