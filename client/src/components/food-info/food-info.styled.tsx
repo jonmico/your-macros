@@ -5,7 +5,9 @@ export const StyledFoodInfo = styled.div`
   padding: 1rem;
   border-radius: 10px;
   flex: 1;
-  max-height: 20rem;
+  height: 20rem;
+  /* max-height: 20rem;
+  min-height: 20rem; */
 `;
 
 export const FoodInfoForm = styled.form`
