@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledMealItem = styled.div`
+export const StyledMealItem = styled.li`
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 2fr 0.5fr;
   text-align: center;
