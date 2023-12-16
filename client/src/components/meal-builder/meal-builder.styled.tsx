@@ -38,3 +38,9 @@ export const MealNameInput = styled.input`
     padding: 0.25rem 0.5rem;
   }
 `;
+
+export const DataButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;

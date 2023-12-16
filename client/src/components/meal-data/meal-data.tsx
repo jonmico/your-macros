@@ -1,16 +1,10 @@
 import {
-  StyledMealData,
-  MealDataNumber,
-  Macros,
-  TotalsText,
-} from './meal-data.styled';
-import {
   CalorieContainer,
-  ProteinContainer,
-  FatContainer,
   CarbsContainer,
+  FatContainer,
+  ProteinContainer,
 } from '../macro-container/macro-container.styled';
-import { AddMealToLogButton } from '../button/button.styled';
+import { MealDataNumber, StyledMealData, TotalsText } from './meal-data.styled';
 
 interface MealDataProps {
   mealData: {
@@ -25,28 +19,23 @@ export default function MealData(props: MealDataProps) {
   const { mealData } = props;
   return (
     <StyledMealData>
-      <Macros>
-        <TotalsText>Meal Totals:</TotalsText>
-        <CalorieContainer>
-          <MealDataNumber>{mealData.calories}</MealDataNumber>
-          <p>cals</p>
-        </CalorieContainer>
-        <FatContainer>
-          <MealDataNumber>{mealData.fat}g</MealDataNumber>
-          <p>fat</p>
-        </FatContainer>
-        <CarbsContainer>
-          <MealDataNumber>{mealData.carbs}g</MealDataNumber>
-          <p>carbs</p>
-        </CarbsContainer>
-        <ProteinContainer>
-          <MealDataNumber>{mealData.protein}g</MealDataNumber>
-          <p>protein</p>
-        </ProteinContainer>
-      </Macros>
-      <div>
-        <AddMealToLogButton>Add Meal to Log</AddMealToLogButton>
-      </div>
+      <TotalsText>Meal Totals:</TotalsText>
+      <CalorieContainer>
+        <MealDataNumber>{mealData.calories}</MealDataNumber>
+        <p>cals</p>
+      </CalorieContainer>
+      <FatContainer>
+        <MealDataNumber>{mealData.fat}g</MealDataNumber>
+        <p>fat</p>
+      </FatContainer>
+      <CarbsContainer>
+        <MealDataNumber>{mealData.carbs}g</MealDataNumber>
+        <p>carbs</p>
+      </CarbsContainer>
+      <ProteinContainer>
+        <MealDataNumber>{mealData.protein}g</MealDataNumber>
+        <p>protein</p>
+      </ProteinContainer>
     </StyledMealData>
   );
 }

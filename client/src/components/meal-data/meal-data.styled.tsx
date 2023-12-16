@@ -2,12 +2,6 @@ import styled from 'styled-components';
 
 export const StyledMealData = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const Macros = styled.div`
-  display: flex;
   align-items: center;
   width: 50%;
   justify-content: space-between;

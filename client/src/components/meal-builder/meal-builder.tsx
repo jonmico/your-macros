@@ -2,12 +2,14 @@ import MealItem from '../meal-item/meal-item';
 import MealListHeader from '../meal-list-header/meal-list-header';
 import MealList from '../meal-list/meal-list';
 import {
+  DataButtonContainer,
   MealNameInput,
   StartText,
   StyledMealBuilder,
 } from './meal-builder.styled';
 import MealData from '../meal-data/meal-data';
 import { useMeals } from '../../hooks/useMeals';
+import { AddMealToLogButton } from '../button/button.styled';
 
 export default function MealBuilder() {
   const { mealComponents, mealName, setMealName } = useMeals();
@@ -48,7 +50,11 @@ export default function MealBuilder() {
             value={mealName}
             onChange={(evt) => setMealName(evt.target.value)}
           />
-          <MealData mealData={mealData} />
+          <DataButtonContainer>
+            <MealData mealData={mealData} />
+
+            <AddMealToLogButton>Add Meal to Log</AddMealToLogButton>
+          </DataButtonContainer>
           <MealList>
             <MealListHeader />
             {mealComponents.map((mealComponent) => (
