@@ -1,6 +1,8 @@
 import { IFood } from '../types/food';
 
-const API_URL = import.meta.env.PROD ? import.meta.env.VITE_API_URL : '';
+const API_URL = import.meta.env.PROD
+  ? 'https://your-macros-backend.onrender.com'
+  : '';
 
 export async function createFood(food: IFood) {
   const res = await fetch(`${API_URL}/api/foods/new`, {
