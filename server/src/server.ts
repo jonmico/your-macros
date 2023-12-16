@@ -12,9 +12,12 @@ import mealRouter from './routes/meal';
 const PORT = process.env.PORT ?? 3000;
 
 const app = express();
-
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+};
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 connectDatabase();
 
