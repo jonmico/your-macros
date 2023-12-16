@@ -5,6 +5,7 @@ import {
   Form,
   SearchContainer,
   SearchInput,
+  SpinnerContainer,
   StyledFoodSearch,
 } from './food-search.styled';
 import { getFoodByText } from '../../services/food-api';
@@ -12,6 +13,7 @@ import { IFood } from '../../types/food';
 import FoodSearchList from '../food-search-list/food-search-list';
 import FoodSearchListItem from '../food-search-list-item/food-search-list-item';
 import { useFoods } from '../../hooks/useFoods';
+import Spinner from '../spinner/spinner';
 
 interface IData {
   foods?: IFood[];
@@ -22,6 +24,7 @@ export default function FoodSearch() {
   const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
   const [searchInput, setSearchInput] = useState('');
   const [searchedFoodsError, setSearchedFoodsError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { clearSelectedFood, selectedFood } = useFoods();
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
@@ -33,8 +36,10 @@ export default function FoodSearch() {
       return;
     }
 
+    setIsLoading(true);
     const data: IData = await getFoodByText(searchInput);
     clearSelectedFood();
+    setIsLoading(false);
 
     if (data.foods) {
       setSearchedFoods(data.foods);
@@ -62,6 +67,12 @@ export default function FoodSearch() {
           />
         </SearchContainer>
       </Form>
+      {isLoading && (
+        <SpinnerContainer>
+          <Spinner />
+        </SpinnerContainer>
+      )}
+
       {searchedFoods?.length > 0 && (
         <FoodSearchList>
           {searchedFoods?.map((food) => (

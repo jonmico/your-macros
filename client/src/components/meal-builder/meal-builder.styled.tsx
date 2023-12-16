@@ -44,3 +44,14 @@ export const DataButtonContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+
+export const MealNameError = styled.p`
+  color: var(--color-red-400);
+  font-size: 1rem;
+`;
+
+export const MealNameContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;

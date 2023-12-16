@@ -9,7 +9,6 @@ export const StyledFoodSearch = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-
   flex: 1.25;
 `;
 
@@ -48,4 +47,11 @@ export const SearchInput = styled.input`
     outline: 1px solid var(--color-blue-500);
     background-color: var(--color-zinc-800);
   }
+`;
+
+export const SpinnerContainer = styled.div`
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 `;

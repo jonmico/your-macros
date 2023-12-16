@@ -1,18 +1,23 @@
+import { useState } from 'react';
+import { useMeals } from '../../hooks/useMeals';
+import IMeal from '../../types/meal';
+import { AddMealToLogButton } from '../button/button.styled';
+import MealData from '../meal-data/meal-data';
 import MealItem from '../meal-item/meal-item';
 import MealListHeader from '../meal-list-header/meal-list-header';
 import MealList from '../meal-list/meal-list';
 import {
   DataButtonContainer,
+  MealNameContainer,
+  MealNameError,
   MealNameInput,
   StartText,
   StyledMealBuilder,
 } from './meal-builder.styled';
-import MealData from '../meal-data/meal-data';
-import { useMeals } from '../../hooks/useMeals';
-import { AddMealToLogButton } from '../button/button.styled';
 
 export default function MealBuilder() {
   const { mealComponents, mealName, setMealName } = useMeals();
+  const [mealNameError, setMealNameError] = useState('');
 
   const mealCalories = mealComponents.reduce(
     (prev, curr) => prev + curr.food.calories * curr.servings,
@@ -38,22 +43,49 @@ export default function MealBuilder() {
     protein: mealProtein,
   };
 
+  function handleAddToMealClick() {
+    if (!mealName) {
+      setMealNameError('Please name the meal');
+      return;
+    }
+
+    const meal: IMeal = {
+      name: mealName,
+      mealComponents,
+      calories: mealCalories,
+      macros: {
+        fat: mealFat,
+        carbs: mealCarbs,
+        protein: mealProtein,
+      },
+    };
+
+    console.log(meal);
+  }
+
   return (
     <StyledMealBuilder>
       {!mealComponents.length ? (
         <StartText>Start building your meal below!</StartText>
       ) : (
         <>
-          <MealNameInput
-            placeholder={'Meal Name'}
-            type='text'
-            value={mealName}
-            onChange={(evt) => setMealName(evt.target.value)}
-          />
+          <MealNameContainer>
+            <MealNameInput
+              placeholder={'Meal Name'}
+              type='text'
+              value={mealName}
+              onChange={(evt) => {
+                setMealNameError('');
+                setMealName(evt.target.value);
+              }}
+            />
+            {mealNameError && <MealNameError>{mealNameError}</MealNameError>}
+          </MealNameContainer>
           <DataButtonContainer>
             <MealData mealData={mealData} />
-
-            <AddMealToLogButton>Add Meal to Log</AddMealToLogButton>
+            <AddMealToLogButton onClick={handleAddToMealClick}>
+              Add Meal to Log
+            </AddMealToLogButton>
           </DataButtonContainer>
           <MealList>
             <MealListHeader />
