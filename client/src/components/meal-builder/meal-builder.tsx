@@ -14,6 +14,7 @@ import {
   StartText,
   StyledMealBuilder,
 } from './meal-builder.styled';
+import { createMeal } from '../../services/meal-api';
 
 export default function MealBuilder() {
   const { mealComponents, mealName, setMealName } = useMeals();
@@ -43,15 +44,19 @@ export default function MealBuilder() {
     protein: mealProtein,
   };
 
-  function handleAddToMealClick() {
+  async function handleAddToMealClick() {
     if (!mealName) {
       setMealNameError('Please name the meal');
       return;
     }
 
+    const backendMealComponents = mealComponents.map((food) => {
+      return { food: food.food._id, servings: food.servings };
+    });
+
     const meal: IMeal = {
       name: mealName,
-      mealComponents,
+      mealComponents: backendMealComponents,
       calories: mealCalories,
       macros: {
         fat: mealFat,
@@ -60,7 +65,8 @@ export default function MealBuilder() {
       },
     };
 
-    console.log(meal);
+    const data = await createMeal(meal);
+    console.log(data);
   }
 
   return (
