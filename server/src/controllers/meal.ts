@@ -35,10 +35,18 @@ export async function createMeal(
   try {
     const { meal }: IBody = req.body;
 
+    if (!meal) {
+      throw new AppError('No meal provided.', 400);
+    }
+
     const newMeal = await Meal.create({
       ...meal,
       name: meal.name.toLowerCase(),
     });
+
+    if (!newMeal) {
+      throw new AppError('Something went wrong with meal creation.', 400);
+    }
 
     res.status(201).json({ createdMeal: newMeal });
   } catch (err) {
