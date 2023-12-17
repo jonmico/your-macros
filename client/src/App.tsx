@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppLayout from './components/app-layout/app-layout';
 
 import Dashboard from './pages/dashboard/dashboard';
@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>
-            <Route path={'/'} element={<Home />} />
+            <Route index path={'/'} element={<Home />} />
             <Route path={'/dashboard'} element={<Dashboard />} />
             <Route path={'/add-meal'} element={<AddMeal />} />
             <Route path={'/logs'} element={<Logs />} />
