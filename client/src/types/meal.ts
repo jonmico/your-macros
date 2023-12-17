@@ -1,12 +1,7 @@
-// import { IMealComponent } from './meal-component';
-
-interface BackendMealComponent {
-  food: string;
-  servings: number;
-}
+import { IMealComponent } from './meal-component';
 
 export default interface IMeal {
-  mealComponents: BackendMealComponent[];
+  mealComponents: IMealComponent[];
   name: string;
   calories: number;
   macros: {

@@ -50,13 +50,9 @@ export default function MealBuilder() {
       return;
     }
 
-    const backendMealComponents = mealComponents.map((food) => {
-      return { food: food.food._id, servings: food.servings };
-    });
-
     const meal: IMeal = {
       name: mealName,
-      mealComponents: backendMealComponents,
+      mealComponents,
       calories: mealCalories,
       macros: {
         fat: mealFat,
