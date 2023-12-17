@@ -1,5 +1,6 @@
 import cors from 'cors';
 import 'dotenv/config';
+import path from 'path';
 import express, { ErrorRequestHandler } from 'express';
 
 import AppError from './app-error';
@@ -20,6 +21,12 @@ connectDatabase();
 
 app.use('/api/foods', foodRouter);
 app.use('/api/meals', mealRouter);
+
+app.use(express.static('build'));
+
+app.get('*', function (req, res) {
+  res.sendFile(path.resolve(__dirname, './build/index.html'));
+});
 
 // 404 error handler
 app.use((req, res) => {
