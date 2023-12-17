@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 import IMeal from '../types/meal';
+import { foodSchema } from './food';
 
 const mealSchema = new mongoose.Schema<IMeal>(
   {
     mealComponents: [
       {
         food: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Food',
+          type: foodSchema,
           required: true,
         },
         servings: { type: Number, default: 1 },

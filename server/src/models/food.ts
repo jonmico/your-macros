@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import IFood from '../types/food';
 
-const foodSchema = new mongoose.Schema<IFood>({
+export const foodSchema = new mongoose.Schema<IFood>({
   name: { type: String, required: true },
   brand: { type: String, required: true },
   servingSize: { type: Number, required: true },
