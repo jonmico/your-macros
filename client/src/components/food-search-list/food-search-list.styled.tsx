@@ -6,7 +6,6 @@ export const StyledFoodSearchList = styled.ul`
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-
   list-style: none;
-  overflow: scroll;
+  overflow: auto;
 `;
