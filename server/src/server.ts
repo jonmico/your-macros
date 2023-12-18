@@ -22,12 +22,6 @@ connectDatabase();
 app.use('/api/foods', foodRouter);
 app.use('/api/meals', mealRouter);
 
-app.use(express.static('build'));
-
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, './build/index.html'));
-});
-
 // 404 error handler
 app.use((req, res) => {
   res
