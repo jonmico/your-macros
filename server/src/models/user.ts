@@ -14,7 +14,7 @@ const logSchema = new Schema<ILog>({
 });
 
 export const userSchema = new Schema<IUser>({
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   logs: [logSchema],
 });
 

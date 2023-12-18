@@ -21,7 +21,7 @@ export async function createUser(
 
     const newUser = await User.create(user);
 
-    res.json({ newUser });
+    res.status(201).json({ newUser });
   } catch (err) {
     next(err);
   }
