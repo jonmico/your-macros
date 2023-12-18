@@ -1,20 +1,17 @@
 import { Outlet } from 'react-router-dom';
 
-import Header from '../header/header';
-import styles from './app-layout.module.css';
 import Navbar from '../navbar/navbar';
-import { StyledAppLayout } from './app-layout.styled';
+import styles from './app-layout.module.css';
 
 export default function AppLayout() {
   return (
-    <StyledAppLayout>
-      <Header />
+    <div>
       <div className={styles.container}>
         <Navbar />
         <div className={styles.outletContainer}>
           <Outlet />
         </div>
       </div>
-    </StyledAppLayout>
+    </div>
   );
 }

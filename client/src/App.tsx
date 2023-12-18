@@ -7,21 +7,26 @@ import Logs from './pages/logs-page/logs';
 import CreateFood from './pages/create-food/create-food';
 import GlobalStyles from './styles/global-styles';
 import Home from './pages/home/home';
+import styles from './App.module.css';
+import Header from './components/header/header';
 
 function App() {
   return (
     <>
       <GlobalStyles />
       <BrowserRouter>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route index element={<Home />} />
-            <Route path={'/dashboard'} element={<Dashboard />} />
-            <Route path={'/add-meal'} element={<AddMeal />} />
-            <Route path={'/logs'} element={<Logs />} />
-            <Route path={'/create-food'} element={<CreateFood />} />
-          </Route>
-        </Routes>
+        <div className={styles.appContainer}>
+          <Header />
+          <Routes>
+            <Route path={'/'} index element={<Home />} />
+            <Route element={<AppLayout />}>
+              <Route path={'/dashboard'} element={<Dashboard />} />
+              <Route path={'/add-meal'} element={<AddMeal />} />
+              <Route path={'/logs'} element={<Logs />} />
+              <Route path={'/create-food'} element={<CreateFood />} />
+            </Route>
+          </Routes>
+        </div>
       </BrowserRouter>
     </>
   );

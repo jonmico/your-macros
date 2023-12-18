@@ -16,3 +16,8 @@
 .userIcon:hover {
   color: var(--color-blue-500);
 }
+
+.link {
+  text-decoration: none;
+  color: var(--color-slate-300);
+}
