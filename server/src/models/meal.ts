@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import IMeal from '../types/meal';
 import { foodSchema } from './food';
 
-const mealSchema = new mongoose.Schema<IMeal>(
+export const mealSchema = new mongoose.Schema<IMeal>(
   {
     mealComponents: [
       {
