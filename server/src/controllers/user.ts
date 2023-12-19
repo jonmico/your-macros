@@ -8,7 +8,7 @@ interface IBody {
   user: IUser;
 }
 
-// TODO: Trying to submit duplicate email crashes node. Probably want to fix this.
+// TODO: Fix crashing. Temporary solution.
 export async function register(
   req: Request,
   res: Response,
@@ -19,6 +19,11 @@ export async function register(
 
     if (!user) {
       throw new AppError('No user provided.', 400);
+    }
+
+    const existingUser = await User.findOne({ email: user.email });
+    if (existingUser) {
+      throw new AppError('User with email already exists.', 400);
     }
 
     bcrypt.hash(user.password, 12, async (err, hash) => {
