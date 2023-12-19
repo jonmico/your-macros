@@ -73,7 +73,7 @@ export default function FoodSearch() {
         </SpinnerContainer>
       )}
 
-      {searchedFoods?.length > 0 && (
+      {searchedFoods?.length > 0 && !isLoading && (
         <FoodSearchList>
           {searchedFoods?.map((food) => (
             <FoodSearchListItem key={food._id} food={food} />
