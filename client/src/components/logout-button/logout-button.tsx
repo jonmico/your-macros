@@ -6,7 +6,13 @@ const LogoutButton = () => {
   return (
     <button
       onClick={() =>
-        logout({ logoutParams: { returnTo: window.location.origin } })
+        logout({
+          logoutParams: {
+            returnTo: import.meta.env.PROD
+              ? 'https://your-macros.onrender.com/dashboard'
+              : 'http://localhost:5173/dashboard',
+          },
+        })
       }
     >
       Log Out
