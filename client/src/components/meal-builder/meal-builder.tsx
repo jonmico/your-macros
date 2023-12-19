@@ -82,7 +82,10 @@ export default function MealBuilder() {
       </MealNameContainer>
       <DataButtonContainer>
         <MealData mealData={mealData} />
-        <AddMealToLogButton onClick={handleAddToMealClick}>
+        <AddMealToLogButton
+          disabled={!mealComponents.length}
+          onClick={handleAddToMealClick}
+        >
           Add Meal to Log
         </AddMealToLogButton>
       </DataButtonContainer>

@@ -87,6 +87,11 @@ export const ClearButton = styled(EditButton)`
 export const AddMealToLogButton = styled(EditButton)`
   font-size: 1.25rem;
   padding: 1rem 1.5rem;
+
+  &:disabled {
+    border: 1px solid var(--color-slate-700);
+    color: var(--color-slate-700);
+  }
 `;
 
 interface PlusButtonProps {
