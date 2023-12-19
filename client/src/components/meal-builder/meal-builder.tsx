@@ -8,6 +8,7 @@ import MealListHeader from '../meal-list-header/meal-list-header';
 import MealList from '../meal-list/meal-list';
 import {
   DataButtonContainer,
+  MealListContainer,
   MealNameContainer,
   MealNameError,
   MealNameInput,
@@ -67,39 +68,41 @@ export default function MealBuilder() {
 
   return (
     <StyledMealBuilder>
-      {!mealComponents.length ? (
-        <StartText>Start building your meal below!</StartText>
-      ) : (
-        <>
-          <MealNameContainer>
-            <MealNameInput
-              placeholder={'Meal Name'}
-              type='text'
-              value={mealName}
-              onChange={(evt) => {
-                setMealNameError('');
-                setMealName(evt.target.value);
-              }}
-            />
-            {mealNameError && <MealNameError>{mealNameError}</MealNameError>}
-          </MealNameContainer>
-          <DataButtonContainer>
-            <MealData mealData={mealData} />
-            <AddMealToLogButton onClick={handleAddToMealClick}>
-              Add Meal to Log
-            </AddMealToLogButton>
-          </DataButtonContainer>
-          <MealList>
-            <MealListHeader />
-            {mealComponents.map((mealComponent) => (
-              <MealItem
-                key={mealComponent.food._id}
-                mealComponent={mealComponent}
-              />
-            ))}
-          </MealList>
-        </>
-      )}
+      <MealNameContainer>
+        <MealNameInput
+          placeholder={'Meal Name'}
+          type='text'
+          value={mealName}
+          onChange={(evt) => {
+            setMealNameError('');
+            setMealName(evt.target.value);
+          }}
+        />
+        {mealNameError && <MealNameError>{mealNameError}</MealNameError>}
+      </MealNameContainer>
+      <DataButtonContainer>
+        <MealData mealData={mealData} />
+        <AddMealToLogButton onClick={handleAddToMealClick}>
+          Add Meal to Log
+        </AddMealToLogButton>
+      </DataButtonContainer>
+      <MealListContainer>
+        <MealListHeader />
+        {!mealComponents.length ? (
+          <StartText>Items you add to your meal will show here.</StartText>
+        ) : (
+          <>
+            <MealList>
+              {mealComponents.map((mealComponent) => (
+                <MealItem
+                  key={mealComponent.food._id}
+                  mealComponent={mealComponent}
+                />
+              ))}
+            </MealList>
+          </>
+        )}
+      </MealListContainer>
     </StyledMealBuilder>
   );
 }

@@ -13,6 +13,7 @@ export const StartText = styled.p`
   text-align: center;
   font-weight: 500;
   font-size: 1.25rem;
+  padding: 1rem;
 `;
 
 export const MealNameInput = styled.input`
@@ -54,4 +55,9 @@ export const MealNameContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+`;
+
+export const MealListContainer = styled.div`
+  border: 1px solid var(--color-slate-700);
+  border-radius: 10px;
 `;
