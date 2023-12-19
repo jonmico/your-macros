@@ -9,8 +9,8 @@ const LogoutButton = () => {
         logout({
           logoutParams: {
             returnTo: import.meta.env.PROD
-              ? 'https://your-macros.onrender.com/dashboard'
-              : 'http://localhost:5173/dashboard',
+              ? 'https://your-macros.onrender.com/'
+              : 'http://localhost:5173/',
           },
         })
       }
