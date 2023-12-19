@@ -8,6 +8,7 @@ interface IBody {
   user: IUser;
 }
 
+// TODO: Trying to submit duplicate email crashes node. Probably want to fix this.
 export async function register(
   req: Request,
   res: Response,
