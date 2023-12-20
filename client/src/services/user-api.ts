@@ -3,7 +3,7 @@ const API_URL = import.meta.env.PROD
   : '';
 
 export async function login(username: string, password: string) {
-  const res = await fetch(`${API_URL}/api/user`, {
+  const res = await fetch(`${API_URL}/api/user/login`, {
     method: 'post',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ username, password }),
