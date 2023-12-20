@@ -3,6 +3,7 @@ import IUser from '../types/user';
 import AppError from '../app-error';
 import User from '../models/user';
 import bcrypt from 'bcrypt';
+import mongoose from 'mongoose';
 
 interface IBody {
   user: IUser;
@@ -38,15 +39,36 @@ export async function register(
   }
 }
 
+declare module 'express-session' {
+  interface SessionData {
+    userId: mongoose.Types.ObjectId;
+  }
+}
+
+interface LoginBody {
+  username: string;
+  password: string;
+}
+
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    if (req.session.number) {
-      req.session.number += 1;
-    } else {
-      req.session.number = 1;
+    const { username, password }: LoginBody = req.body;
+
+    const user = await User.findOne({ email: username });
+
+    if (!user) {
+      throw new AppError('User not found.', 400);
     }
-    console.log(req.session.number);
-    res.json(req.session.number);
+
+    const isValid = await bcrypt.compare(password, user.password);
+
+    if (!isValid) {
+      throw new AppError('Username or password is incorrect.', 400);
+    }
+
+    req.session.userId = user._id;
+
+    res.json({ userId: req.session.userId, isValid, user, username, password });
   } catch (err) {
     next(err);
   }
