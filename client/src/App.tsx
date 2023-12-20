@@ -10,6 +10,7 @@ import Home from './pages/home/home';
 import styles from './App.module.css';
 import Header from './components/header/header';
 import Login from './pages/login/login';
+import Register from './pages/register/register';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path={'/'} index element={<Home />} />
             <Route path={'/login'} element={<Login />} />
+            <Route path={'/register'} element={<Register />} />
             <Route element={<AppLayout />}>
               <Route path={'/dashboard'} element={<Dashboard />} />
               <Route path={'/add-meal'} element={<AddMeal />} />

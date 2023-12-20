@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './header.module.css';
-import { FaUserCircle } from 'react-icons/fa';
 
 export default function Header() {
   return (
@@ -10,9 +9,10 @@ export default function Header() {
           <h1>YourMacros</h1>
         </Link>
       </div>
-      <div onClick={() => console.log('hi')}>
-        <FaUserCircle className={styles.userIcon} />
-      </div>
+      <nav className={styles.headerNav}>
+        <NavLink to={'/login'}>Login</NavLink>
+        <NavLink to={'/register'}>Sign Up</NavLink>
+      </nav>
     </div>
   );
 }

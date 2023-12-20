@@ -5,19 +5,25 @@
   padding: 0.5rem 0 1rem 0;
 }
 
-.userIcon {
-  color: var(--color-blue-400);
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
-  transition: color 0.2s ease-in-out;
-}
-
-.userIcon:hover {
-  color: var(--color-blue-500);
-}
-
 .link {
   text-decoration: none;
+  color: var(--color-slate-300);
+}
+
+.headerNav {
+  display: flex;
+  gap: 2rem;
+}
+
+.headerNav a {
+  text-decoration: none;
+  color: var(--color-slate-500);
+}
+
+.headerNav a:hover {
+  color: var(--color-slate-400);
+}
+
+.headerNav a:global(.active) {
   color: var(--color-slate-300);
 }
