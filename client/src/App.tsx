@@ -9,6 +9,7 @@ import GlobalStyles from './styles/global-styles';
 import Home from './pages/home/home';
 import styles from './App.module.css';
 import Header from './components/header/header';
+import Login from './pages/login/login';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Header />
           <Routes>
             <Route path={'/'} index element={<Home />} />
+            <Route path={'/login'} element={<Login />} />
             <Route element={<AppLayout />}>
               <Route path={'/dashboard'} element={<Dashboard />} />
               <Route path={'/add-meal'} element={<AddMeal />} />
