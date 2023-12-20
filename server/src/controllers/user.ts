@@ -41,7 +41,7 @@ export async function register(
 
 declare module 'express-session' {
   interface SessionData {
-    userId: mongoose.Types.ObjectId;
+    userId: mongoose.Types.ObjectId | null;
   }
 }
 
@@ -69,6 +69,16 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     req.session.userId = user._id;
 
     res.json({ userId: req.session.userId, isValid, user, username, password });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function logout(req: Request, res: Response, next: NextFunction) {
+  try {
+    req.session.userId = null;
+
+    res.json({ message: 'Logged out.' });
   } catch (err) {
     next(err);
   }
