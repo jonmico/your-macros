@@ -20,10 +20,10 @@
   color: var(--color-slate-500);
 }
 
-.headerNav a:hover {
-  color: var(--color-slate-400);
-}
-
 .headerNav a:global(.active) {
   color: var(--color-slate-300);
+}
+
+.headerNav a:hover {
+  color: var(--color-slate-400);
 }
