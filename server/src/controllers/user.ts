@@ -37,3 +37,17 @@ export async function register(
     next(err);
   }
 }
+
+export async function login(req: Request, res: Response, next: NextFunction) {
+  try {
+    if (req.session.number) {
+      req.session.number += 1;
+    } else {
+      req.session.number = 1;
+    }
+    console.log(req.session.number);
+    res.json(req.session.number);
+  } catch (err) {
+    next(err);
+  }
+}

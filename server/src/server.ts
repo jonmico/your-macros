@@ -1,6 +1,7 @@
 import cors from 'cors';
 import 'dotenv/config';
 import express, { ErrorRequestHandler } from 'express';
+import session from 'express-session';
 
 import AppError from './app-error';
 import connectDatabase from './db';
@@ -11,9 +12,11 @@ import mealRouter from './routes/meal';
 import userRouter from './routes/user';
 
 const PORT = process.env.PORT ?? 3000;
+const SECRET = process.env.SECRET as string;
 
 const app = express();
 
+app.use(session({ secret: SECRET, resave: false, saveUninitialized: false }));
 app.use(express.json());
 app.use(cors());
 
