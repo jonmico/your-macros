@@ -19,6 +19,7 @@ app.set('trust proxy', 1);
 app.use(
   session({
     name: 'YourMacrosSession',
+    proxy: true,
     secret: SECRET,
     resave: false,
     saveUninitialized: false,
