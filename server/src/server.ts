@@ -21,7 +21,11 @@ app.use(
     secret: SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { httpOnly: false, maxAge: 1000 * 60 * 60 * 24 * 7 },
+    cookie: {
+      httpOnly: false,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      sameSite: 'none',
+    },
   })
 );
 app.use(express.json());
