@@ -18,7 +18,7 @@ const SECRET = process.env.SECRET as string;
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.set('trust proxy', 1);
+app.set('trust proxy', true);
 app.use(
   session({
     name: 'YourMacrosSession',
