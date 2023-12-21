@@ -25,7 +25,7 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.MONGO_CONNECTION_STRING }),
     secret: SECRET,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     proxy: true,
     cookie: {
       httpOnly: true,
