@@ -18,6 +18,7 @@ const SECRET = process.env.SECRET as string;
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.set('trust proxy', 1);
 app.use(
   session({
     name: 'YourMacrosSession',
@@ -25,11 +26,12 @@ app.use(
     secret: SECRET,
     resave: false,
     saveUninitialized: false,
+    proxy: true,
     cookie: {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      // sameSite: 'none',
-      // secure: true,
+      maxAge: 1000 * 60 * 60 * 48,
+      sameSite: 'none',
+      secure: true,
       // domain: 'your-macros.onrender.com/',
     },
   })
