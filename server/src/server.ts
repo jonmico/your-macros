@@ -16,7 +16,14 @@ const SECRET = process.env.SECRET as string;
 
 const app = express();
 
-app.use(session({ secret: SECRET, resave: false, saveUninitialized: false }));
+app.use(
+  session({
+    secret: SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { httpOnly: false, maxAge: 1000 * 60 * 60 * 24 * 7 },
+  })
+);
 app.use(express.json());
 app.use(cors());
 
