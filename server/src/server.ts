@@ -25,7 +25,11 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: ['https://your-macros.onrender.com/', 'http://localhost:5173/'],
+  })
+);
 
 connectDatabase();
 
