@@ -15,9 +15,10 @@ const PORT = process.env.PORT ?? 3000;
 const SECRET = process.env.SECRET as string;
 
 const app = express();
-
+app.set('trust proxy', 1);
 app.use(
   session({
+    name: 'YourMacrosSession',
     secret: SECRET,
     resave: false,
     saveUninitialized: false,
