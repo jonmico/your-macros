@@ -32,7 +32,7 @@ app.use(
       maxAge: 1000 * 60 * 60 * 48,
       sameSite: 'none',
       secure: true,
-      // domain: 'your-macros.onrender.com/',
+      domain: '.onrender.com',
     },
   })
 );
