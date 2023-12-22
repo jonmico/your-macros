@@ -1,7 +1,9 @@
 import { Link, NavLink } from 'react-router-dom';
 import styles from './header.module.css';
+import useUser from '../../hooks/useUser';
 
 export default function Header() {
+  const { user } = useUser();
   return (
     <div className={styles.headerContainer}>
       <div>
@@ -10,8 +12,14 @@ export default function Header() {
         </Link>
       </div>
       <nav className={styles.headerNav}>
-        <NavLink to={'/login'}>Login</NavLink>
-        <NavLink to={'/register'}>Sign Up</NavLink>
+        {!user ? (
+          <>
+            <NavLink to={'/login'}>Login</NavLink>
+            <NavLink to={'/register'}>Sign Up</NavLink>
+          </>
+        ) : (
+          <button>logout</button>
+        )}
       </nav>
     </div>
   );
