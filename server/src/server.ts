@@ -2,6 +2,7 @@ import cors from 'cors';
 import 'dotenv/config';
 import express, { ErrorRequestHandler } from 'express';
 import session from 'express-session';
+import MongoStore from 'connect-mongo';
 
 import AppError from './app-error';
 import connectDatabase from './db';
@@ -20,7 +21,7 @@ app.use(cors());
 app.use(
   session({
     name: 'YourMacrosSession',
-    // store: MongoStore.create({ mongoUrl: process.env.MONGO_CONNECTION_STRING }),
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_CONNECTION_STRING }),
     secret: SECRET,
     resave: false,
     saveUninitialized: false,
