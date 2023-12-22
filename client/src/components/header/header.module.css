@@ -29,3 +29,24 @@
 .headerNav a:hover {
   color: var(--color-slate-400);
 }
+
+.logoutButton {
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  background-color: inherit;
+  color: var(--color-slate-500);
+  font-size: 1.15rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: color 0.1s ease-in-out;
+}
+
+.logoutButton:hover {
+  color: var(--color-slate-400);
+}
+
+.logoutButton:active {
+  color: var(--color-slate-300);
+}
