@@ -8,13 +8,14 @@ interface IDataLogout {
 }
 
 export default function Header() {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
   const navigate = useNavigate();
 
   async function handleLogout() {
     const data: IDataLogout = await logout();
 
     if (data.successfulLogout) {
+      setUser(null);
       navigate('/');
     }
   }
