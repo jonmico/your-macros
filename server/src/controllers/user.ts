@@ -1,12 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
-import IUser from '../types/user';
 import AppError from '../app-error';
 import User from '../models/user';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
-interface IBody {
-  user: IUser;
+interface IRegisterBody {
+  user: {
+    email: string;
+    password: string;
+  };
 }
 
 // TODO: Fix crashing. Temporary solution.
@@ -16,7 +18,7 @@ export async function register(
   next: NextFunction
 ) {
   try {
-    const { user }: IBody = req.body;
+    const { user }: IRegisterBody = req.body;
 
     if (!user) {
       throw new AppError('No user provided.', 400);
@@ -32,7 +34,13 @@ export async function register(
         next(err);
       }
       const newUser = await User.create({ ...user, password: hash });
-      res.status(201).json({ newUser });
+      req.session.userId = newUser._id;
+
+      res.status(201).json({
+        successfulRegister: true,
+        isAuthenticated: true,
+        user: { _id: newUser._id, email: newUser.email, logs: newUser.logs },
+      });
     });
   } catch (err) {
     next(err);
