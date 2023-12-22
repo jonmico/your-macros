@@ -1,9 +1,23 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import styles from './header.module.css';
 import useUser from '../../hooks/useUser';
+import { logout } from '../../services/user-api';
+
+interface IDataLogout {
+  successfulLogout: boolean;
+}
 
 export default function Header() {
   const { user } = useUser();
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    const data: IDataLogout = await logout();
+
+    if (data.successfulLogout) {
+      navigate('/');
+    }
+  }
   return (
     <div className={styles.headerContainer}>
       <div>
@@ -18,7 +32,9 @@ export default function Header() {
             <NavLink to={'/register'}>Sign Up</NavLink>
           </>
         ) : (
-          <button className={styles.logoutButton}>Logout</button>
+          <button className={styles.logoutButton} onClick={handleLogout}>
+            Logout
+          </button>
         )}
       </nav>
     </div>

@@ -17,3 +17,12 @@ export async function fetchActiveSession() {
 
   return await res.json();
 }
+
+export async function logout() {
+  const res = await fetch(`${API_URL}/api/user/logout`, {
+    method: 'post',
+    headers: { 'content-type': 'application/json' },
+  });
+
+  return await res.json();
+}

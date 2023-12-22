@@ -79,9 +79,13 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
 export async function logout(req: Request, res: Response, next: NextFunction) {
   try {
+    if (!req.session.userId) {
+      throw new AppError('No user currently logged in.', 400);
+    }
+
     req.session.userId = null;
 
-    res.json({ message: 'Logged out.' });
+    res.json({ successfulLogout: true });
   } catch (err) {
     next(err);
   }
