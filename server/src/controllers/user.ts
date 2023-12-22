@@ -68,7 +68,10 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     req.session.userId = user._id;
 
-    res.json({ userId: req.session.userId, isValid, user, username, password });
+    res.json({
+      isAuthenticated: true,
+      user: { _id: user._id, email: user.email, logs: user.logs },
+    });
   } catch (err) {
     next(err);
   }

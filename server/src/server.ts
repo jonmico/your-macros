@@ -25,6 +25,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
+      sameSite: 'none', // needs secure added to it to get rid of warning
       httpOnly: false,
       maxAge: 1000 * 60 * 60 * 48,
     },

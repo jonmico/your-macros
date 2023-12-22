@@ -4,6 +4,15 @@ import styles from './login.module.css';
 import { login } from '../../services/user-api';
 import { useNavigate } from 'react-router-dom';
 
+interface ILoginData {
+  isAuthenticated: boolean;
+  user: {
+    id: string;
+    email: string;
+    logs: [];
+  };
+}
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,11 +21,12 @@ export default function Login() {
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
-    const data = await login(email, password);
-
-    // TODO: Probably not the best way to reroute.
-    if (data.isValid) {
+    const data: ILoginData = await login(email, password);
+    console.log(data);
+    if (data.isAuthenticated) {
       navigate('/dashboard');
+    } else {
+      return;
     }
   }
   return (

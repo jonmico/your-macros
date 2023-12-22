@@ -11,6 +11,7 @@ import styles from './App.module.css';
 import Header from './components/header/header';
 import Login from './pages/login/login';
 import Register from './pages/register/register';
+import ProtectedRoute from './components/protected-route/protected-route';
 
 function App() {
   return (
@@ -23,7 +24,13 @@ function App() {
             <Route path={'/'} index element={<Home />} />
             <Route path={'/login'} element={<Login />} />
             <Route path={'/register'} element={<Register />} />
-            <Route element={<AppLayout />}>
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route path={'/dashboard'} element={<Dashboard />} />
               <Route path={'/add-meal'} element={<AddMeal />} />
               <Route path={'/logs'} element={<Logs />} />
