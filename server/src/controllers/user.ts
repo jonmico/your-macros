@@ -86,3 +86,28 @@ export async function logout(req: Request, res: Response, next: NextFunction) {
     next(err);
   }
 }
+
+export async function getSession(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    if (req.session.userId) {
+      const user = await User.findById(req.session.userId);
+
+      if (!user) {
+        throw new AppError('User not found', 400);
+      }
+
+      res.json({
+        isAuthenticated: true,
+        user: { _id: user._id, email: user.email, logs: user.logs },
+      });
+    } else {
+      res.json({ activeSession: false, user: {} });
+    }
+  } catch (err) {
+    next(err);
+  }
+}
