@@ -2,7 +2,6 @@ import cors from 'cors';
 import 'dotenv/config';
 import express, { ErrorRequestHandler } from 'express';
 import session from 'express-session';
-import MongoStore from 'connect-mongo';
 
 import AppError from './app-error';
 import connectDatabase from './db';
