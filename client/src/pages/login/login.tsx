@@ -32,6 +32,8 @@ export default function Login() {
       return;
     }
   }
+
+  // TODO: Add in error handling/form feedback.
   return (
     <form onSubmit={handleSubmit} className={styles.loginForm}>
       <h2 className={styles.loginHeader}>Login</h2>
