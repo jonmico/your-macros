@@ -16,7 +16,7 @@ const SECRET = process.env.SECRET as string;
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: 'https://your-macros.onrender.com/login' }));
 app.use(
   session({
     name: 'YourMacrosSession',
@@ -26,6 +26,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       sameSite: 'none', // needs secure added to it to get rid of warning
+      secure: true,
       httpOnly: false,
       maxAge: 1000 * 60 * 60 * 48,
     },
