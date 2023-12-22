@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react';
 import { IMealComponent } from '../types/meal-component';
 
-export interface IMealContext {
+interface IMealContext {
   mealComponents: IMealComponent[];
   mealName: string;
   addToMeal: (meal: IMealComponent) => void;
