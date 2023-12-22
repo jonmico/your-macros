@@ -2,7 +2,6 @@ import cors from 'cors';
 import 'dotenv/config';
 import express, { ErrorRequestHandler } from 'express';
 import session from 'express-session';
-import MongoStore from 'connect-mongo';
 
 import AppError from './app-error';
 import connectDatabase from './db';
@@ -18,21 +17,16 @@ const SECRET = process.env.SECRET as string;
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.set('trust proxy', true);
 app.use(
   session({
     name: 'YourMacrosSession',
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_CONNECTION_STRING }),
+    // store: MongoStore.create({ mongoUrl: process.env.MONGO_CONNECTION_STRING }),
     secret: SECRET,
     resave: false,
-    saveUninitialized: true,
-    proxy: true,
+    saveUninitialized: false,
     cookie: {
-      httpOnly: true,
+      httpOnly: false,
       maxAge: 1000 * 60 * 60 * 48,
-      sameSite: 'none',
-      secure: true,
-      domain: '.onrender.com',
     },
   })
 );
