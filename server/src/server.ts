@@ -16,7 +16,9 @@ const SECRET = process.env.SECRET as string;
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: 'https://your-macros.onrender.com/login' }));
+app.use(
+  cors({ origin: 'https://your-macros.onrender.com/login', credentials: true })
+);
 app.use(
   session({
     name: 'YourMacrosSession',
