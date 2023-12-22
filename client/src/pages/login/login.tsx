@@ -1,24 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PrimaryButton } from '../../components/button/button.styled';
 import styles from './login.module.css';
 import { login } from '../../services/user-api';
 import { useNavigate } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
-
-interface ILoginData {
-  isAuthenticated: boolean;
-  user: {
-    id: string;
-    email: string;
-    logs: [];
-  };
-}
+import { ILoginData } from '../../types/login-data';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setUser } = useUser();
   const navigate = useNavigate();
+  const { user } = useUser();
+
+  // Might not need this if we remove login and signup while a user is logged in.
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();

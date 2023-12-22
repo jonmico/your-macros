@@ -1,22 +1,41 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppLayout from './components/app-layout/app-layout';
 
-import Dashboard from './pages/dashboard/dashboard';
-import AddMeal from './pages/add-meal/add-meal';
-import Logs from './pages/logs-page/logs';
-import CreateFood from './pages/create-food/create-food';
-import GlobalStyles from './styles/global-styles';
-import Home from './pages/home/home';
+import { useEffect, useState } from 'react';
 import styles from './App.module.css';
 import Header from './components/header/header';
-import Login from './pages/login/login';
-import Register from './pages/register/register';
 import ProtectedRoute from './components/protected-route/protected-route';
-import UserProvider from './contexts/user-context';
+import useUser from './hooks/useUser';
+import AddMeal from './pages/add-meal/add-meal';
+import CreateFood from './pages/create-food/create-food';
+import Dashboard from './pages/dashboard/dashboard';
+import Home from './pages/home/home';
+import Login from './pages/login/login';
+import Logs from './pages/logs-page/logs';
+import Register from './pages/register/register';
+import { fetchActiveSession } from './services/user-api';
+import GlobalStyles from './styles/global-styles';
+import { ILoginData } from './types/login-data';
 
 function App() {
+  const { setUser } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchSession() {
+      setIsLoading(true);
+      const data: ILoginData = await fetchActiveSession();
+      setIsLoading(false);
+
+      if (data.isAuthenticated) {
+        setUser(data.user);
+      }
+    }
+    fetchSession();
+  }, [setUser]);
+
   return (
-    <UserProvider>
+    <>
       <GlobalStyles />
       <BrowserRouter>
         <div className={styles.appContainer}>
@@ -27,7 +46,7 @@ function App() {
             <Route path={'/register'} element={<Register />} />
             <Route
               element={
-                <ProtectedRoute>
+                <ProtectedRoute isLoading={isLoading}>
                   <AppLayout />
                 </ProtectedRoute>
               }
@@ -40,7 +59,7 @@ function App() {
           </Routes>
         </div>
       </BrowserRouter>
-    </UserProvider>
+    </>
   );
 }
 

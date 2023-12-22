@@ -11,3 +11,9 @@ export async function login(username: string, password: string) {
 
   return await res.json();
 }
+
+export async function fetchActiveSession() {
+  const res = await fetch(`${API_URL}/api/user`);
+
+  return await res.json();
+}
