@@ -14,6 +14,7 @@ export default function ProtectedRoute({
   const { user } = useUser();
   const navigate = useNavigate();
 
+  // TODO: Login screen is flashing. Strictmode issue? When cookies work on deployment, revisit this.
   useEffect(() => {
     if (isLoading) return;
 
