@@ -3,6 +3,7 @@ import { PrimaryButton } from '../../components/button/button.styled';
 import styles from './login.module.css';
 import { login } from '../../services/user-api';
 import { useNavigate } from 'react-router-dom';
+import useUser from '../../hooks/useUser';
 
 interface ILoginData {
   isAuthenticated: boolean;
@@ -16,6 +17,7 @@ interface ILoginData {
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setUser } = useUser();
   const navigate = useNavigate();
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
@@ -24,6 +26,7 @@ export default function Login() {
     const data: ILoginData = await login(email, password);
     console.log(data);
     if (data.isAuthenticated) {
+      setUser(data.user);
       navigate('/dashboard');
     } else {
       return;

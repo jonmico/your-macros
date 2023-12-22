@@ -12,10 +12,11 @@ import Header from './components/header/header';
 import Login from './pages/login/login';
 import Register from './pages/register/register';
 import ProtectedRoute from './components/protected-route/protected-route';
+import UserProvider from './contexts/user-context';
 
 function App() {
   return (
-    <>
+    <UserProvider>
       <GlobalStyles />
       <BrowserRouter>
         <div className={styles.appContainer}>
@@ -39,7 +40,7 @@ function App() {
           </Routes>
         </div>
       </BrowserRouter>
-    </>
+    </UserProvider>
   );
 }
 
