@@ -21,7 +21,7 @@ app.use(cors());
 app.use(
   session({
     name: 'YourMacrosSession',
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_CONNECTION_STRING }),
+    // store: MongoStore.create({ mongoUrl: process.env.MONGO_CONNECTION_STRING }),
     secret: SECRET,
     resave: false,
     saveUninitialized: false,
