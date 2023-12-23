@@ -1,17 +1,50 @@
 import mongoose, { Schema } from 'mongoose';
 import IUser from '../types/user';
 import ILog from '../types/log';
-import { mealSchema } from './meal';
+import { foodSchema } from './food';
+import IMeal from '../types/meal';
 
-const logSchema = new Schema<ILog>({
-  meals: [mealSchema],
-  name: { type: String, required: true },
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
+export const mealSchema = new mongoose.Schema<IMeal>(
+  {
+    mealComponents: [
+      {
+        food: {
+          type: foodSchema,
+          required: true,
+        },
+        servings: { type: Number, default: 1 },
+      },
+    ],
+    name: { type: String, required: true },
+    calories: { type: Number, required: true },
+    macros: {
+      carbs: { type: Number, required: true },
+      fat: { type: Number, required: true },
+      protein: { type: Number, required: true },
+    },
   },
-});
+  { timestamps: true }
+);
+
+const logSchema = new Schema<ILog>(
+  {
+    meals: [mealSchema],
+    name: { type: String, required: true },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    macros: {
+      carbs: { type: Number, required: true },
+      fat: { type: Number, required: true },
+      protein: { type: Number, required: true },
+    },
+    calories: { type: Number, required: true },
+    currentLog: { type: Boolean, required: true },
+  },
+  { timestamps: true }
+);
 
 export const userSchema = new Schema<IUser>({
   email: { type: String, required: true },
