@@ -1,7 +1,9 @@
+import PageHeader from '../../components/page-header/page-header';
+
 export default function Logs() {
   return (
     <div>
-      <h1>LOGS</h1>
+      <PageHeader>Logs</PageHeader>
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import CreateFoodForm from '../../components/create-food-form/create-food-form';
-import { StyledH2BottomBorder } from '../../components/styled-header/styled-header.styled';
+import PageHeader from '../../components/page-header/page-header';
 
 export default function CreateFood() {
   return (
     <div>
-      <StyledH2BottomBorder>Create Food</StyledH2BottomBorder>
+      <PageHeader>Create Food</PageHeader>
       <CreateFoodForm />
     </div>
   );

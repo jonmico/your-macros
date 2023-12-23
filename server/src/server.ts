@@ -8,7 +8,6 @@ import connectDatabase from './db';
 
 // Routers
 import foodRouter from './routes/food';
-import mealRouter from './routes/meal';
 import userRouter from './routes/user';
 
 const PORT = process.env.PORT ?? 3000;
@@ -36,7 +35,6 @@ app.use(
 connectDatabase();
 
 app.use('/api/foods', foodRouter);
-app.use('/api/meals', mealRouter);
 app.use('/api/user', userRouter);
 
 // 404 error handler
