@@ -28,7 +28,7 @@ function App() {
       setIsLoading(false);
 
       if (data.isAuthenticated) {
-        setUser(data.user);
+        setUser({ ...data.user, id: data.user._id, currentLog: null });
       }
     }
     fetchSession();

@@ -1,15 +1,14 @@
 import IMeal from './meal';
-import { IUser } from './user';
 
 export default interface ILog {
-  meals: IMeal[];
-  author: IUser;
+  meals?: IMeal[];
+  author: string;
   name: string;
-  macros: {
+  macros?: {
     carbs: number;
     fat: number;
     protein: number;
   };
-  calories: number;
+  calories?: number;
   currentLog: boolean;
 }

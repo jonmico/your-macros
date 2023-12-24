@@ -1,10 +1,13 @@
 import styles from './create-log-form.module.css';
 import { PrimaryButton } from '../button/button.styled';
 import { useState } from 'react';
+import ILog from '../../types/log';
+import useUser from '../../hooks/useUser';
 
 export default function CreateLogForm() {
+  const { user } = useUser();
   const [logName, setLogName] = useState('');
-  const [logNameError, setLogNameError] = useState('fdfd');
+  const [logNameError, setLogNameError] = useState('');
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -12,6 +15,16 @@ export default function CreateLogForm() {
     if (!logName) {
       setLogNameError('Please provide a name for the log.');
       return;
+    }
+
+    if (user) {
+      const log: ILog = {
+        name: logName,
+        currentLog: true,
+        author: user.id,
+      };
+
+      console.log(log);
     }
   }
 
