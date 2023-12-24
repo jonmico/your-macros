@@ -50,6 +50,7 @@ export const userSchema = new Schema<IUser>({
   email: { type: String, required: true },
   password: { type: String, required: true },
   logs: [logSchema],
+  currentLog: logSchema,
 });
 
 const User = mongoose.model('User', userSchema);

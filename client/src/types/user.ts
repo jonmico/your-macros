@@ -4,4 +4,5 @@ export interface IUser {
   id: string;
   email: string;
   logs: ILog[];
+  currentLog: ILog;
 }

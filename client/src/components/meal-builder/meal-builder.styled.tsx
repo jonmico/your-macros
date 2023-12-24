@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledMealBuilder = styled.div`
-  border: 1px solid var(--color-slate-700);
+  border: 1px solid var(--color-gray-700);
   border-radius: 10px;
   padding: 1rem;
   display: flex;
@@ -19,7 +19,7 @@ export const StartText = styled.p`
 export const MealNameInput = styled.input`
   background-color: var(--color-zinc-900);
   border: 1px solid transparent;
-  border-bottom: 1px solid var(--color-slate-700);
+  border-bottom: 1px solid var(--color-gray-700);
   color: var(--color-slate-500);
   font-size: 1.25rem;
   font-weight: 700;
@@ -58,6 +58,6 @@ export const MealNameContainer = styled.div`
 `;
 
 export const MealListContainer = styled.div`
-  border: 1px solid var(--color-slate-700);
+  border: 1px solid var(--color-gray-700);
   border-radius: 10px;
 `;
