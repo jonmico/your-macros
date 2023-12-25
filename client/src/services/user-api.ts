@@ -1,3 +1,5 @@
+import ILog from '../types/log';
+
 const API_URL = import.meta.env.PROD
   ? 'https://your-macros-backend.onrender.com'
   : '';
@@ -35,6 +37,16 @@ export async function logout() {
 
 export async function fetchActiveSession() {
   const res = await fetch(`${API_URL}/api/user`);
+
+  return await res.json();
+}
+
+export async function createLog(log: ILog) {
+  const res = await fetch(`${API_URL}/api/user/log/new`, {
+    method: 'post',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ log }),
+  });
 
   return await res.json();
 }

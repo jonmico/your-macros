@@ -3,6 +3,7 @@ import { PrimaryButton } from '../button/button.styled';
 import { useState } from 'react';
 import ILog from '../../types/log';
 import useUser from '../../hooks/useUser';
+import { createLog } from '../../services/user-api';
 
 export default function CreateLogForm() {
   const { user } = useUser();
@@ -21,10 +22,11 @@ export default function CreateLogForm() {
       const log: ILog = {
         name: logName,
         currentLog: true,
-        author: user.id,
+        author: user._id,
       };
 
-      console.log(log);
+      const data = await createLog(log);
+      console.log(data);
     }
   }
 
