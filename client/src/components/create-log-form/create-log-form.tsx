@@ -5,8 +5,12 @@ import ILog from '../../types/log';
 import useUser from '../../hooks/useUser';
 import { createLog } from '../../services/user-api';
 
+interface ICreateLogData {
+  logs: ILog[];
+}
+
 export default function CreateLogForm() {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
   const [logName, setLogName] = useState('');
   const [logNameError, setLogNameError] = useState('');
 
@@ -25,7 +29,9 @@ export default function CreateLogForm() {
         author: user._id,
       };
 
-      const data = await createLog(log);
+      // TODO: Error handling?
+      const data: ICreateLogData = await createLog(log);
+      setUser({ ...user, logs: data.logs });
       console.log(data);
     }
   }

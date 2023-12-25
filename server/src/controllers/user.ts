@@ -137,15 +137,19 @@ export async function createLog(
   try {
     const { log }: ILogBody = req.body;
 
-    const user = await User.findByIdAndUpdate(log.author, {
-      $push: { logs: log },
-    });
+    const user = await User.findByIdAndUpdate(
+      log.author,
+      {
+        $push: { logs: log },
+      },
+      { new: true }
+    );
 
     if (!user) {
       throw new AppError('User not found.', 404);
     }
 
-    res.json(user?.logs[user.logs.length - 1]);
+    res.json({ logs: user?.logs });
   } catch (err) {
     next(err);
   }
