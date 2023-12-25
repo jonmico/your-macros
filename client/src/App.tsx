@@ -1,11 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppLayout from './components/app-layout/app-layout';
 
-import { useEffect, useState } from 'react';
 import styles from './App.module.css';
 import Header from './components/header/header';
 import ProtectedRoute from './components/protected-route/protected-route';
-import useUser from './hooks/useUser';
 import AddMeal from './pages/add-meal/add-meal';
 import CreateFood from './pages/create-food/create-food';
 import Dashboard from './pages/dashboard/dashboard';
@@ -13,30 +11,9 @@ import Home from './pages/home/home';
 import Login from './pages/login/login';
 import Logs from './pages/logs-page/logs';
 import Register from './pages/register/register';
-import { fetchActiveSession } from './services/user-api';
 import GlobalStyles from './styles/global-styles';
-import { ILoginData } from './types/login-data';
 
-// TODO: Refresh always sends back to dashboard when logged in.
-// Find a way to remember which link we are on and return user
-// to that page.
 function App() {
-  const { setUser } = useUser();
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    async function fetchSession() {
-      setIsLoading(true);
-      const data: ILoginData = await fetchActiveSession();
-      setIsLoading(false);
-
-      if (data.isAuthenticated) {
-        setUser({ ...data.user, id: data.user.id, currentLog: null });
-      }
-    }
-    fetchSession();
-  }, [setUser]);
-
   return (
     <>
       <GlobalStyles />
@@ -49,7 +26,7 @@ function App() {
             <Route path={'/register'} element={<Register />} />
             <Route
               element={
-                <ProtectedRoute isLoading={isLoading}>
+                <ProtectedRoute>
                   <AppLayout />
                 </ProtectedRoute>
               }

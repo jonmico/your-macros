@@ -1,25 +1,30 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
+import { fetchActiveSession } from '../../services/user-api';
+import { ILoginData } from '../../types/login-data';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  isLoading: boolean;
 }
 
-export default function ProtectedRoute({
-  children,
-  isLoading,
-}: ProtectedRouteProps) {
-  const { user } = useUser();
-  const navigate = useNavigate();
+export default function ProtectedRoute({ children }: ProtectedRouteProps) {
+  const { setUser } = useUser();
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
-  // TODO: Login screen is flashing. Strictmode issue? When cookies work on deployment, revisit this.
   useEffect(() => {
-    if (isLoading) return;
+    async function fetchSession() {
+      const data: ILoginData = await fetchActiveSession();
 
-    if (!user) navigate('/login');
-  }, [isLoading, user, navigate]);
+      if (data.isAuthenticated) {
+        setUser({ ...data.user, id: data.user.id, currentLog: null });
+      } else {
+        setIsAuthenticated(false);
+      }
+    }
 
-  return children;
+    fetchSession();
+  }, [setUser]);
+
+  return isAuthenticated ? children : <Navigate to={'/login'} replace />;
 }
