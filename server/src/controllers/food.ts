@@ -13,7 +13,7 @@ export async function getFoods(
   next: NextFunction
 ) {
   try {
-    const foods = await Food.find({});
+    const foods = await Food.find({}).exec();
 
     res.json({ foods });
   } catch (err) {
@@ -28,7 +28,7 @@ export async function getFoodById(
 ) {
   try {
     const { id } = req.params;
-    const food = await Food.findById(id);
+    const food = await Food.findById(id).exec();
 
     if (!food) {
       throw new AppError('Food not found.', 404);

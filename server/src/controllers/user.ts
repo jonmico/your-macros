@@ -3,6 +3,7 @@ import AppError from '../app-error';
 import User from '../models/user';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
+import ILog from '../types/log';
 
 interface IRegisterBody {
   user: {
@@ -62,7 +63,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
   try {
     const { username, password }: LoginBody = req.body;
 
-    const user = await User.findOne({ email: username });
+    const user = await User.findOne({ email: username }).exec();
 
     if (!user) {
       throw new AppError('User not found.', 400);
@@ -106,7 +107,7 @@ export async function getSession(
 ) {
   try {
     if (req.session.userId) {
-      const user = await User.findById(req.session.userId);
+      const user = await User.findById(req.session.userId).exec();
 
       if (!user) {
         throw new AppError('User not found', 400);
@@ -119,6 +120,32 @@ export async function getSession(
     } else {
       res.json({ activeSession: false, user: {} });
     }
+  } catch (err) {
+    next(err);
+  }
+}
+
+interface ILogBody {
+  log: ILog;
+}
+
+export async function createLog(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { log }: ILogBody = req.body;
+
+    const user = await User.findByIdAndUpdate(log.author, {
+      $push: { logs: log },
+    });
+
+    if (!user) {
+      throw new AppError('User not found.', 404);
+    }
+
+    res.json(user?.logs[user.logs.length - 1]);
   } catch (err) {
     next(err);
   }
