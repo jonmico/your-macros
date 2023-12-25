@@ -25,7 +25,6 @@ export default function CreateLogForm() {
     if (user) {
       const log: ILog = {
         name: logName,
-        currentLog: true,
         author: user._id,
       };
 

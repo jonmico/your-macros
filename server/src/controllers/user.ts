@@ -141,6 +141,7 @@ export async function createLog(
       log.author,
       {
         $push: { logs: log },
+        $set: { currentLog: log },
       },
       { new: true }
     );

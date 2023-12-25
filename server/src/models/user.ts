@@ -41,7 +41,6 @@ const logSchema = new Schema<ILog>(
       protein: { type: Number },
     },
     calories: { type: Number },
-    currentLog: { type: Boolean, required: true },
   },
   { timestamps: true }
 );

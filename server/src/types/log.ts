@@ -11,5 +11,4 @@ export default interface ILog {
     protein: number;
   };
   calories?: number;
-  currentLog: boolean;
 }
