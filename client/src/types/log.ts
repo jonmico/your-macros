@@ -1,6 +1,7 @@
 import IMeal from './meal';
 
 export default interface ILog {
+  _id?: string;
   meals?: IMeal[];
   author: string;
   name: string;

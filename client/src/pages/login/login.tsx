@@ -9,9 +9,8 @@ import { ILoginData } from '../../types/login-data';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
   const navigate = useNavigate();
-  const { user } = useUser();
 
   // Might not need this if we remove login and signup while a user is logged in.
   useEffect(() => {
