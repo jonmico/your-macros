@@ -9,8 +9,7 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { setUser } = useUser();
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const { setUser, isAuthenticated, setIsAuthenticated } = useUser();
 
   useEffect(() => {
     async function fetchSession() {
@@ -24,7 +23,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
     }
 
     fetchSession();
-  }, [setUser]);
+  }, [setUser, isAuthenticated, setIsAuthenticated]);
 
   return isAuthenticated ? children : <Navigate to={'/login'} replace />;
 }
