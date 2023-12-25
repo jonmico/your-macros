@@ -17,6 +17,9 @@ import { fetchActiveSession } from './services/user-api';
 import GlobalStyles from './styles/global-styles';
 import { ILoginData } from './types/login-data';
 
+// TODO: Refresh always sends back to dashboard when logged in.
+// Find a way to remember which link we are on and return user
+// to that page.
 function App() {
   const { setUser } = useUser();
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +31,7 @@ function App() {
       setIsLoading(false);
 
       if (data.isAuthenticated) {
-        setUser({ ...data.user, id: data.user._id, currentLog: null });
+        setUser({ ...data.user, id: data.user.id, currentLog: null });
       }
     }
     fetchSession();
