@@ -16,7 +16,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
       const data: ILoginData = await fetchActiveSession();
 
       if (data.isAuthenticated) {
-        setUser({ ...data.user, currentLog: data.user.currentLog });
+        setUser({ ...data.user });
       } else {
         setIsAuthenticated(false);
       }

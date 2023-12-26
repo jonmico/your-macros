@@ -19,7 +19,7 @@ import {
 import useUser from '../../hooks/useUser';
 
 export default function MealBuilder() {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
   const { mealComponents, mealName, setMealName } = useMeals();
   const [mealNameError, setMealNameError] = useState('');
 
@@ -70,6 +70,7 @@ export default function MealBuilder() {
 
     const data = await addMealToLog(meal, user.logs[0]._id, user._id);
     console.log(data);
+    setUser({ ...user, logs: data.logs });
   }
 
   return (

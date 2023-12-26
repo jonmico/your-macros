@@ -167,7 +167,7 @@ export async function addMealToLog(
     user.logs[logIndex].calories = result.calories;
     await user.save();
 
-    res.json({ logId, userId, logIndex });
+    res.json({ logs: user.logs });
   } catch (err) {
     next(err);
   }
