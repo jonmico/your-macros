@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import ILog from '../types/log';
 import IMeal from '../types/meal';
+import calcLogCalsMacros from '../utils/calcLogCalsMacros';
 
 interface IRegisterBody {
   user: {
@@ -156,6 +157,14 @@ export async function addMealToLog(
 
     const logIndex = user.logs.findIndex((log) => log._id.toString() === logId);
     user.logs[logIndex].meals?.push(meal);
+    const result = calcLogCalsMacros(user.logs[logIndex]);
+
+    if (result.message) {
+      throw new AppError(result.message, 400);
+    }
+
+    user.logs[logIndex].macros = result.macros;
+    user.logs[logIndex].calories = result.calories;
     await user.save();
 
     res.json({ logId, userId, logIndex });
