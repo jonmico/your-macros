@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMeals } from '../../hooks/useMeals';
+import { addMealToLog } from '../../services/user-api';
 import IMeal from '../../types/meal';
 import { AddMealToLogButton } from '../button/button.styled';
 import MealData from '../meal-data/meal-data';
@@ -15,9 +16,10 @@ import {
   StartText,
   StyledMealBuilder,
 } from './meal-builder.styled';
-import { createMeal } from '../../services/meal-api';
+import useUser from '../../hooks/useUser';
 
 export default function MealBuilder() {
+  const { user } = useUser();
   const { mealComponents, mealName, setMealName } = useMeals();
   const [mealNameError, setMealNameError] = useState('');
 
@@ -62,7 +64,11 @@ export default function MealBuilder() {
       },
     };
 
-    const data = await createMeal(meal);
+    const data = await addMealToLog(
+      meal,
+      user?.logs[0]._id as string,
+      user?._id
+    );
     console.log(data);
   }
 

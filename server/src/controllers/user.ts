@@ -4,6 +4,7 @@ import User from '../models/user';
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import ILog from '../types/log';
+import IMeal from '../types/meal';
 
 interface IRegisterBody {
   user: {
@@ -115,7 +116,12 @@ export async function getSession(
 
       res.json({
         isAuthenticated: true,
-        user: { _id: user._id, email: user.email, logs: user.logs },
+        user: {
+          _id: user._id,
+          email: user.email,
+          logs: user.logs,
+          currentLog: user.currentLog,
+        },
       });
     } else {
       res.json({ activeSession: false, user: {} });
@@ -129,6 +135,39 @@ interface ILogBody {
   log: ILog;
 }
 
+interface IAddMealToLogBody {
+  meal: IMeal;
+  userId: mongoose.Types.ObjectId;
+  logId: string;
+}
+
+export async function addMealToLog(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    // const { logId } = req.params;
+    const { meal, userId, logId }: IAddMealToLogBody = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new AppError('User not found.', 404);
+    }
+
+    const logIndex = user.logs.findIndex((log) => log._id.toString() === logId);
+
+    user.logs[logIndex].meals?.push(meal);
+
+    await user.save();
+
+    res.json({ logId, userId, logIndex });
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function createLog(
   req: Request,
   res: Response,
@@ -137,20 +176,25 @@ export async function createLog(
   try {
     const { log }: ILogBody = req.body;
 
-    const user = await User.findByIdAndUpdate(
-      log.author,
-      {
-        $push: { logs: log },
-        $set: { currentLog: log },
-      },
-      { new: true }
-    );
+    // const user = await User.findByIdAndUpdate(
+    //   log.author,
+    //   {
+    //     $push: { logs: log },
+    //   },
+    //   { new: true }
+    // ).exec();
+
+    const user = await User.findById(log.author);
 
     if (!user) {
       throw new AppError('User not found.', 404);
     }
 
-    res.json({ logs: user?.logs });
+    user.logs.push(log);
+
+    await user.save();
+
+    res.json({ logs: user?.logs, currentLog: user.currentLog });
   } catch (err) {
     next(err);
   }

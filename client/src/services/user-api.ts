@@ -1,4 +1,5 @@
 import ILog from '../types/log';
+import IMeal from '../types/meal';
 
 const API_URL = import.meta.env.PROD
   ? 'https://your-macros-backend.onrender.com'
@@ -46,6 +47,16 @@ export async function createLog(log: ILog) {
     method: 'post',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ log }),
+  });
+
+  return await res.json();
+}
+
+export async function addMealToLog(meal: IMeal, logId: string, userId: string) {
+  const res = await fetch(`${API_URL}/api/user/log/${logId}/add-meal`, {
+    method: 'post',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ meal, userId, logId }),
   });
 
   return await res.json();

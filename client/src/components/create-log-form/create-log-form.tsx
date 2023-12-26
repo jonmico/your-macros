@@ -7,6 +7,7 @@ import { createLog } from '../../services/user-api';
 
 interface ICreateLogData {
   logs: ILog[];
+  currentLog: ILog;
 }
 
 export default function CreateLogForm() {
@@ -30,7 +31,7 @@ export default function CreateLogForm() {
 
       // TODO: Error handling?
       const data: ICreateLogData = await createLog(log);
-      setUser({ ...user, logs: data.logs });
+      setUser({ ...user, logs: data.logs, currentLog: data.currentLog });
       console.log(data);
     }
   }
