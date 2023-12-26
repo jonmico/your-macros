@@ -8,5 +8,20 @@ interface LogHistoryTableListItemProps {
 export default function LogHistoryTableListItem({
   log,
 }: LogHistoryTableListItemProps) {
-  return <li className={styles.logHistoryTableListItem}>{log.name}</li>;
+  return (
+    <li className={styles.logHistoryTableListItem}>
+      <div>{log.name}</div>
+      <div>{log.meals.length}</div>
+      <div>
+        {log.macros ? (
+          <>
+            {log.macros.carbs} {log.macros.fat} {log.macros.protein}
+          </>
+        ) : (
+          0
+        )}
+      </div>
+      <div>{log.calories ? log.calories : 0}</div>
+    </li>
+  );
 }
