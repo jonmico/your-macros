@@ -1,4 +1,4 @@
-import ILog from './log';
+import { ILog } from './log';
 
 export interface IUser {
   _id: string;

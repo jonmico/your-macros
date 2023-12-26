@@ -1,5 +1,5 @@
-import ILog from '../types/log';
-import IMeal from '../types/meal';
+import { IMeal } from '../types/meal';
+import { IPreIDLog } from '../types/pre-id-log';
 
 const API_URL = import.meta.env.PROD
   ? 'https://your-macros-backend.onrender.com'
@@ -42,7 +42,7 @@ export async function fetchActiveSession() {
   return await res.json();
 }
 
-export async function createLog(log: ILog) {
+export async function createLog(log: IPreIDLog) {
   const res = await fetch(`${API_URL}/api/user/log/new`, {
     method: 'post',
     headers: { 'content-type': 'application/json' },
@@ -56,7 +56,7 @@ export async function addMealToLog(meal: IMeal, logId: string, userId: string) {
   const res = await fetch(`${API_URL}/api/user/log/${logId}/add-meal`, {
     method: 'post',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ meal, userId, logId }),
+    body: JSON.stringify({ meal, userId }),
   });
 
   return await res.json();

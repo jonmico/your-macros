@@ -27,6 +27,7 @@ export async function register(
     }
 
     const existingUser = await User.findOne({ email: user.email });
+
     if (existingUser) {
       throw new AppError('User with email already exists.', 400);
     }
@@ -63,7 +64,6 @@ interface LoginBody {
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
     const { username, password }: LoginBody = req.body;
-
     const user = await User.findOne({ email: username }).exec();
 
     if (!user) {
@@ -147,9 +147,8 @@ export async function addMealToLog(
   next: NextFunction
 ) {
   try {
-    // const { logId } = req.params;
-    const { meal, userId, logId }: IAddMealToLogBody = req.body;
-
+    const { logId } = req.params;
+    const { meal, userId }: IAddMealToLogBody = req.body;
     const user = await User.findById(userId);
 
     if (!user) {
@@ -157,9 +156,7 @@ export async function addMealToLog(
     }
 
     const logIndex = user.logs.findIndex((log) => log._id.toString() === logId);
-
     user.logs[logIndex].meals?.push(meal);
-
     await user.save();
 
     res.json({ logId, userId, logIndex });
@@ -175,15 +172,6 @@ export async function createLog(
 ) {
   try {
     const { log }: ILogBody = req.body;
-
-    // const user = await User.findByIdAndUpdate(
-    //   log.author,
-    //   {
-    //     $push: { logs: log },
-    //   },
-    //   { new: true }
-    // ).exec();
-
     const user = await User.findById(log.author);
 
     if (!user) {
@@ -191,7 +179,6 @@ export async function createLog(
     }
 
     user.logs.push(log);
-
     await user.save();
 
     res.json({ logs: user?.logs, currentLog: user.currentLog });

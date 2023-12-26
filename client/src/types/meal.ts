@@ -1,6 +1,6 @@
 import { IMealComponent } from './meal-component';
 
-export default interface IMeal {
+export interface IMeal {
   mealComponents: IMealComponent[];
   name: string;
   calories: number;

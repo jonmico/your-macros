@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMeals } from '../../hooks/useMeals';
 import { addMealToLog } from '../../services/user-api';
-import IMeal from '../../types/meal';
+import { IMeal } from '../../types/meal';
 import { AddMealToLogButton } from '../button/button.styled';
 import MealData from '../meal-data/meal-data';
 import MealItem from '../meal-item/meal-item';
@@ -64,11 +64,11 @@ export default function MealBuilder() {
       },
     };
 
-    const data = await addMealToLog(
-      meal,
-      user?.logs[0]._id as string,
-      user?._id
-    );
+    if (!user) {
+      return;
+    }
+
+    const data = await addMealToLog(meal, user.logs[0]._id, user._id);
     console.log(data);
   }
 
