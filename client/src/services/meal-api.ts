@@ -1,4 +1,4 @@
-import IMeal from '../types/meal';
+import { IMeal } from '../types/meal';
 
 const API_URL = import.meta.env.PROD
   ? 'https://your-macros-backend.onrender.com'

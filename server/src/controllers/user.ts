@@ -120,7 +120,6 @@ export async function getSession(
           _id: user._id,
           email: user.email,
           logs: user.logs,
-          currentLog: user.currentLog,
         },
       });
     } else {
@@ -181,7 +180,7 @@ export async function createLog(
     user.logs.push(log);
     await user.save();
 
-    res.json({ logs: user?.logs, currentLog: user.currentLog });
+    res.json({ logs: user?.logs });
   } catch (err) {
     next(err);
   }

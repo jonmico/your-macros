@@ -1,4 +1,4 @@
-import ILog from '../../types/log';
+import { ILog } from '../../types/log';
 import styles from './log-history-table-list-item.module.css';
 
 interface LogHistoryTableListItemProps {
