@@ -9,7 +9,21 @@
   background-color: var(--color-slate-800);
 }
 
+.listItem:last-of-type {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
 .listItem:hover {
   cursor: pointer;
   background-color: var(--color-gray-600);
+}
+
+li.listItem.selected {
+  background-color: var(--color-blue-800);
+}
+
+li.listItem.selected:first-of-type {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
 }

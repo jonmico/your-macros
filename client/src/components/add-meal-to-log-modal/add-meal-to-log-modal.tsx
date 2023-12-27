@@ -6,16 +6,37 @@ import { useState } from 'react';
 import AddMealToLogModalList from '../add-meal-to-log-modal-list/add-meal-to-log-modal-list';
 import AddMealToLogModalListItem from '../add-meal-to-log-modal-list-item/add-meal-to-log-modal-list-item';
 import { PrimaryButton } from '../button/button.styled';
+import { IMeal } from '../../types/meal';
+import { addMealToLog } from '../../services/user-api';
 
 interface SetShowModalProps {
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  meal: IMeal;
 }
 
-export default function AddMealToLogModal({ setShowModal }: SetShowModalProps) {
-  const { user } = useUser();
+export default function AddMealToLogModal({
+  setShowModal,
+  meal,
+}: SetShowModalProps) {
+  const { user, setUser } = useUser();
   const [selectedLog, setIsSelectedLog] = useState('');
 
+  // TODO: How do we tell TS that user is defined if we are here?
+  if (!user) {
+    return;
+  }
+
   const mostRecentLog = user.logs[user.logs.length - 1];
+
+  async function handleAddToMealClick() {
+    if (!user) {
+      return;
+    }
+
+    const data = await addMealToLog(meal, selectedLog, user._id);
+    console.log(data);
+    setUser({ ...user, logs: data.logs });
+  }
 
   return createPortal(
     <div className={styles.modalContainer}>
@@ -41,7 +62,7 @@ export default function AddMealToLogModal({ setShowModal }: SetShowModalProps) {
               >
                 <div>{mostRecentLog?.name}</div>
                 <div>
-                  {new Date(mostRecentLog?.createdAt).toLocaleDateString(
+                  {new Date(mostRecentLog.createdAt).toLocaleDateString(
                     'en-US',
                     {
                       month: 'numeric',
@@ -56,12 +77,19 @@ export default function AddMealToLogModal({ setShowModal }: SetShowModalProps) {
               <h4>Select from a list of recent logs:</h4>
               <AddMealToLogModalList>
                 {user.logs.map((log) => (
-                  <AddMealToLogModalListItem log={log} />
+                  <AddMealToLogModalListItem
+                    key={log._id}
+                    log={log}
+                    selectedLog={selectedLog}
+                    setIsSelectedLog={setIsSelectedLog}
+                  />
                 ))}
               </AddMealToLogModalList>
             </div>
           </div>
-          <PrimaryButton>Add to Log</PrimaryButton>
+          <PrimaryButton onClick={handleAddToMealClick}>
+            Add to Log
+          </PrimaryButton>
         </div>
       </div>
     </div>,

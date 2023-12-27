@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useMeals } from '../../hooks/useMeals';
-import { addMealToLog } from '../../services/user-api';
 import { IMeal } from '../../types/meal';
 import { AddMealToLogButton } from '../button/button.styled';
 import MealData from '../meal-data/meal-data';
@@ -16,11 +15,9 @@ import {
   StartText,
   StyledMealBuilder,
 } from './meal-builder.styled';
-import useUser from '../../hooks/useUser';
 import AddMealToLogModal from '../add-meal-to-log-modal/add-meal-to-log-modal';
 
 export default function MealBuilder() {
-  const { user, setUser } = useUser();
   const { mealComponents, mealName, setMealName } = useMeals();
   const [mealNameError, setMealNameError] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -49,35 +46,31 @@ export default function MealBuilder() {
     protein: mealProtein,
   };
 
-  async function handleAddToMealClick() {
+  function handleShowModal() {
     if (!mealName) {
       setMealNameError('Please name the meal');
       return;
     }
 
-    const meal: IMeal = {
-      name: mealName,
-      mealComponents,
-      calories: mealCalories,
-      macros: {
-        fat: mealFat,
-        carbs: mealCarbs,
-        protein: mealProtein,
-      },
-    };
-
-    if (!user) {
-      return;
-    }
-
-    const data = await addMealToLog(meal, user.logs[0]._id, user._id);
-    console.log(data);
-    setUser({ ...user, logs: data.logs });
+    setShowModal(true);
   }
+
+  const meal: IMeal = {
+    name: mealName,
+    mealComponents,
+    calories: mealCalories,
+    macros: {
+      fat: mealFat,
+      carbs: mealCarbs,
+      protein: mealProtein,
+    },
+  };
 
   return (
     <StyledMealBuilder>
-      {showModal && <AddMealToLogModal setShowModal={setShowModal} />}
+      {showModal && (
+        <AddMealToLogModal meal={meal} setShowModal={setShowModal} />
+      )}
       <MealNameContainer>
         <MealNameInput
           placeholder={'Meal Name'}
@@ -94,8 +87,7 @@ export default function MealBuilder() {
         <MealData mealData={mealData} />
         <AddMealToLogButton
           disabled={!mealComponents.length}
-          // onClick={handleAddToMealClick}
-          onClick={() => setShowModal(true)}
+          onClick={handleShowModal}
         >
           Add Meal to Log
         </AddMealToLogButton>
