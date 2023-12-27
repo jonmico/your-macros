@@ -41,56 +41,51 @@ export default function AddMealToLogModal({
   return createPortal(
     <div className={styles.modalContainer}>
       <div className={styles.modal}>
-        <div className={styles.idk}>
-          <div className={styles.modalHeader}>
-            <h3>Select the log:</h3>
-            <button
-              className={styles.closeButton}
-              onClick={() => setShowModal(false)}
+        {/* <div className={styles.idk}> */}
+        <div className={styles.modalHeader}>
+          <h3>Select the log:</h3>
+          <button
+            className={styles.closeButton}
+            onClick={() => setShowModal(false)}
+          >
+            <FaXmark />
+          </button>
+        </div>
+        <div className={styles.optionsContainer}>
+          <div className={styles.optionContainer}>
+            <h4>Most recent log:</h4>
+            <div
+              onClick={() => setIsSelectedLog(mostRecentLog._id)}
+              className={`${styles.option} ${
+                selectedLog === mostRecentLog._id ? styles.selected : ''
+              }`}
             >
-              <FaXmark />
-            </button>
-          </div>
-          <div className={styles.optionsContainer}>
-            <div className={styles.optionContainer}>
-              <h4>Most recent log:</h4>
-              <div
-                onClick={() => setIsSelectedLog(mostRecentLog._id)}
-                className={`${styles.option} ${
-                  selectedLog === mostRecentLog._id ? styles.selected : ''
-                }`}
-              >
-                <div>{mostRecentLog?.name}</div>
-                <div>
-                  {new Date(mostRecentLog.createdAt).toLocaleDateString(
-                    'en-US',
-                    {
-                      month: 'numeric',
-                      day: 'numeric',
-                      year: 'numeric',
-                    }
-                  )}
-                </div>
+              <div>{mostRecentLog?.name}</div>
+              <div>
+                {new Date(mostRecentLog.createdAt).toLocaleDateString('en-US', {
+                  month: 'numeric',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}
               </div>
             </div>
-            <div className={styles.optionContainer}>
-              <h4>Select from a list of recent logs:</h4>
-              <AddMealToLogModalList>
-                {user.logs.map((log) => (
-                  <AddMealToLogModalListItem
-                    key={log._id}
-                    log={log}
-                    selectedLog={selectedLog}
-                    setIsSelectedLog={setIsSelectedLog}
-                  />
-                ))}
-              </AddMealToLogModalList>
-            </div>
           </div>
-          <PrimaryButton onClick={handleAddToMealClick}>
-            Add to Log
-          </PrimaryButton>
+          <div className={styles.optionContainer}>
+            <h4>Select from a list of recent logs:</h4>
+            <AddMealToLogModalList>
+              {user.logs.map((log) => (
+                <AddMealToLogModalListItem
+                  key={log._id}
+                  log={log}
+                  selectedLog={selectedLog}
+                  setIsSelectedLog={setIsSelectedLog}
+                />
+              ))}
+            </AddMealToLogModalList>
+          </div>
         </div>
+        <PrimaryButton onClick={handleAddToMealClick}>Add to Log</PrimaryButton>
+        {/* </div> */}
       </div>
     </div>,
     document.body

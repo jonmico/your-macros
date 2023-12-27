@@ -2,4 +2,6 @@
   list-style: none;
   border: 1px solid var(--color-gray-700);
   border-radius: 8px;
+  max-height: 16rem;
+  overflow: auto;
 }
