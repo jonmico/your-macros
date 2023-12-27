@@ -11,10 +11,41 @@
 }
 
 .modal {
-  background-color: purple;
+  background-color: var(--color-zinc-900);
   width: 30rem;
   height: 20rem;
   position: fixed;
   top: 15%;
   border-radius: 10px;
+  border: 1px solid var(--color-gray-700);
+  padding: 2rem 1.5rem;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.closeButton {
+  font-size: 1.75rem;
+  border: none;
+  height: 2rem;
+  width: 2rem;
+
+  background-color: var(--color-zinc-900);
+  color: var(--color-slate-300);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.closeButton:hover {
+  color: var(--color-red-400);
+}
+
+.closeButton:active {
+  color: var(--color-red-500);
 }
