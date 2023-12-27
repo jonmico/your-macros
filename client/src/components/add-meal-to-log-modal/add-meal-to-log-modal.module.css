@@ -1,0 +1,20 @@
+.modalContainer {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  background-color: purple;
+  width: 30rem;
+  height: 20rem;
+  position: fixed;
+  top: 15%;
+  border-radius: 10px;
+}

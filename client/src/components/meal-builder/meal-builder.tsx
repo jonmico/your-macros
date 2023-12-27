@@ -17,11 +17,13 @@ import {
   StyledMealBuilder,
 } from './meal-builder.styled';
 import useUser from '../../hooks/useUser';
+import AddMealToLogModal from '../add-meal-to-log-modal/add-meal-to-log-modal';
 
 export default function MealBuilder() {
   const { user, setUser } = useUser();
   const { mealComponents, mealName, setMealName } = useMeals();
   const [mealNameError, setMealNameError] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   const mealCalories = mealComponents.reduce(
     (prev, curr) => prev + curr.food.calories * curr.servings,
@@ -75,6 +77,7 @@ export default function MealBuilder() {
 
   return (
     <StyledMealBuilder>
+      {showModal && <AddMealToLogModal setShowModal={setShowModal} />}
       <MealNameContainer>
         <MealNameInput
           placeholder={'Meal Name'}
@@ -91,7 +94,8 @@ export default function MealBuilder() {
         <MealData mealData={mealData} />
         <AddMealToLogButton
           disabled={!mealComponents.length}
-          onClick={handleAddToMealClick}
+          // onClick={handleAddToMealClick}
+          onClick={() => setShowModal(true)}
         >
           Add Meal to Log
         </AddMealToLogButton>
