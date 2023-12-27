@@ -11,4 +11,5 @@ export interface ILog {
     protein: number;
   };
   calories?: number;
+  createdAt: Date;
 }
