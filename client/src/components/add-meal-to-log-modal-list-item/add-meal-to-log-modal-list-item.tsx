@@ -4,7 +4,7 @@ import styles from './add-meal-to-log-modal-list-item.module.css';
 interface AddMealToLogModalListItemProps {
   log: ILog;
   setIsSelectedLog: React.Dispatch<React.SetStateAction<string>>;
-  selectedLog: string;
+  selectedLog: ILog;
 }
 
 export default function AddMealToLogModalListItem({
@@ -15,9 +15,9 @@ export default function AddMealToLogModalListItem({
   return (
     <li
       className={`${styles.listItem} ${
-        selectedLog === log._id ? styles.selected : ''
+        selectedLog._id === log._id ? styles.selected : ''
       }`}
-      onClick={() => setIsSelectedLog(log._id)}
+      onClick={() => setIsSelectedLog(log)}
     >
       <div>{log.name}</div>
       <div>

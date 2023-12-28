@@ -8,6 +8,7 @@ import AddMealToLogModalListItem from '../add-meal-to-log-modal-list-item/add-me
 import { PrimaryButton } from '../button/button.styled';
 import { IMeal } from '../../types/meal';
 import { addMealToLog } from '../../services/user-api';
+import CreateLogForm from '../create-log-form/create-log-form';
 
 interface SetShowModalProps {
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,21 +20,26 @@ export default function AddMealToLogModal({
   meal,
 }: SetShowModalProps) {
   const { user, setUser } = useUser();
-  const [selectedLog, setIsSelectedLog] = useState('');
+
+  const [selectedLog, setIsSelectedLog] = useState(
+    user?.logs[user.logs.length - 1]
+  );
 
   // TODO: How do we tell TS that user is defined if we are here?
   if (!user) {
     return;
   }
 
-  const mostRecentLog = user.logs[user.logs.length - 1];
-
   async function handleAddToMealClick() {
     if (!user) {
       return;
     }
 
-    const data = await addMealToLog(meal, selectedLog, user._id);
+    if (!selectedLog) {
+      return;
+    }
+
+    const data = await addMealToLog(meal, selectedLog._id, user._id);
     console.log(data);
     setUser({ ...user, logs: data.logs });
   }
@@ -41,9 +47,8 @@ export default function AddMealToLogModal({
   return createPortal(
     <div className={styles.modalContainer}>
       <div className={styles.modal}>
-        {/* <div className={styles.idk}> */}
         <div className={styles.modalHeader}>
-          <h3>Select the log:</h3>
+          <h3>Select the log</h3>
           <button
             className={styles.closeButton}
             onClick={() => setShowModal(false)}
@@ -51,26 +56,39 @@ export default function AddMealToLogModal({
             <FaXmark />
           </button>
         </div>
-        <div className={styles.optionsContainer}>
-          <div className={styles.optionContainer}>
-            <h4>Most recent log:</h4>
-            <div
-              onClick={() => setIsSelectedLog(mostRecentLog._id)}
-              className={`${styles.option} ${
-                selectedLog === mostRecentLog._id ? styles.selected : ''
-              }`}
-            >
-              <div>{mostRecentLog?.name}</div>
-              <div>
-                {new Date(mostRecentLog.createdAt).toLocaleDateString('en-US', {
-                  month: 'numeric',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
+        <div className={styles.modalBody}>
+          <div className={styles.modalSection}>
+            <h4>Currently selected log:</h4>
+            <div className={styles.selectedLog}>
+              <div className={styles.selectedLogRow}>
+                <div>
+                  <div className={styles.selectedLogHeader}>Name</div>
+                  <div>{selectedLog?.name}</div>
+                </div>
+                <div>
+                  <div className={styles.selectedLogHeader}>Created Date</div>
+                  <div>
+                    {new Date(selectedLog.createdAt).toLocaleDateString(
+                      'en-US',
+                      {
+                        month: 'numeric',
+                        day: 'numeric',
+                        year: 'numeric',
+                      }
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className={styles.selectedLogRow}>
+                <div></div>
+                <div>
+                  <div className={styles.selectedLogHeader}>Meals</div>
+                  <div>{selectedLog?.meals.length}</div>
+                </div>
               </div>
             </div>
           </div>
-          <div className={styles.optionContainer}>
+          <div className={styles.modalSection}>
             <h4>Select from a list of recent logs:</h4>
             <AddMealToLogModalList>
               {user.logs.map((log) => (
@@ -85,7 +103,6 @@ export default function AddMealToLogModal({
           </div>
         </div>
         <PrimaryButton onClick={handleAddToMealClick}>Add to Log</PrimaryButton>
-        {/* </div> */}
       </div>
     </div>,
     document.body
