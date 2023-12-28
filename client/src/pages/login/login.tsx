@@ -9,7 +9,7 @@ import { ILoginData } from '../../types/login-data';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { user, setUser } = useUser();
+  const { user, setUser, setIsAuthenticated } = useUser();
   const navigate = useNavigate();
 
   // Might not need this if we remove login and signup while a user is logged in.
@@ -26,6 +26,7 @@ export default function Login() {
     console.log(data);
     if (data.isAuthenticated) {
       setUser(data.user);
+      setIsAuthenticated(true);
       navigate('/dashboard');
     } else {
       return;

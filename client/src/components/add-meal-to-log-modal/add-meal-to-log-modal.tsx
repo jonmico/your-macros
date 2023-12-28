@@ -8,24 +8,29 @@ import AddMealToLogModalListItem from '../add-meal-to-log-modal-list-item/add-me
 import { PrimaryButton } from '../button/button.styled';
 import { IMeal } from '../../types/meal';
 import { addMealToLog } from '../../services/user-api';
-import CreateLogForm from '../create-log-form/create-log-form';
+import { ILog } from '../../types/log';
 
 interface SetShowModalProps {
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   meal: IMeal;
 }
 
+interface IData {
+  logs: ILog[];
+}
+
+// FIXME: All of these early returns are bad.
 export default function AddMealToLogModal({
   setShowModal,
   meal,
 }: SetShowModalProps) {
   const { user, setUser } = useUser();
 
-  const [selectedLog, setIsSelectedLog] = useState(
+  const [selectedLog, setSelectedLog] = useState(
     user?.logs[user.logs.length - 1]
   );
 
-  // TODO: How do we tell TS that user is defined if we are here?
+  // TODO: How do we tell TS that user is already defined if we are here?
   if (!user) {
     return;
   }
@@ -39,9 +44,16 @@ export default function AddMealToLogModal({
       return;
     }
 
-    const data = await addMealToLog(meal, selectedLog._id, user._id);
+    const data: IData = await addMealToLog(meal, selectedLog._id, user._id);
     console.log(data);
     setUser({ ...user, logs: data.logs });
+    setSelectedLog((prevLog) =>
+      data.logs.find((log) => log._id === prevLog?._id)
+    );
+  }
+
+  if (!selectedLog) {
+    return;
   }
 
   return createPortal(
@@ -96,7 +108,7 @@ export default function AddMealToLogModal({
                   key={log._id}
                   log={log}
                   selectedLog={selectedLog}
-                  setIsSelectedLog={setIsSelectedLog}
+                  setSelectedLog={setSelectedLog}
                 />
               ))}
             </AddMealToLogModalList>

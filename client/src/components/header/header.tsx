@@ -8,7 +8,7 @@ interface IDataLogout {
 }
 
 export default function Header() {
-  const { user, setUser } = useUser();
+  const { user, setUser, setIsAuthenticated } = useUser();
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -16,6 +16,7 @@ export default function Header() {
 
     if (data.successfulLogout) {
       setUser(null);
+      setIsAuthenticated(false);
       navigate('/');
     }
   }

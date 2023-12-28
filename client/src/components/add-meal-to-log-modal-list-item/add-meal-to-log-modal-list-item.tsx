@@ -3,13 +3,13 @@ import styles from './add-meal-to-log-modal-list-item.module.css';
 
 interface AddMealToLogModalListItemProps {
   log: ILog;
-  setIsSelectedLog: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedLog: React.Dispatch<React.SetStateAction<ILog | undefined>>;
   selectedLog: ILog;
 }
 
 export default function AddMealToLogModalListItem({
   log,
-  setIsSelectedLog,
+  setSelectedLog,
   selectedLog,
 }: AddMealToLogModalListItemProps) {
   return (
@@ -17,7 +17,7 @@ export default function AddMealToLogModalListItem({
       className={`${styles.listItem} ${
         selectedLog._id === log._id ? styles.selected : ''
       }`}
-      onClick={() => setIsSelectedLog(log)}
+      onClick={() => setSelectedLog(log)}
     >
       <div>{log.name}</div>
       <div>
