@@ -76,14 +76,15 @@
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
-  border: 1px solid var(--color-gray-700);
+  background-color: var(--color-slate-800);
+  border: 1px solid var(--color-slate-800);
   border-radius: 8px;
 }
 
 .selectedLogHeader {
   font-weight: 600;
   font-size: 1rem;
-  color: var(--color-gray-500);
+  color: var(--color-blue-400);
 }
 
 .selectedLogRow {
@@ -91,13 +92,5 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.option:hover {
-  cursor: pointer;
-  background-color: var(--color-gray-600);
-}
-
-.selected {
-  background-color: var(--color-blue-800);
+  color: var(--color-slate-300);
 }

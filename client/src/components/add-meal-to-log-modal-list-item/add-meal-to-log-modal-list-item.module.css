@@ -16,11 +16,12 @@
 
 .listItem:hover {
   cursor: pointer;
-  background-color: var(--color-gray-600);
+  background-color: var(--color-gray-700);
 }
 
 li.listItem.selected {
-  background-color: var(--color-blue-800);
+  background-color: var(--color-blue-500);
+  color: var(--color-slate-900);
 }
 
 li.listItem.selected:first-of-type {
