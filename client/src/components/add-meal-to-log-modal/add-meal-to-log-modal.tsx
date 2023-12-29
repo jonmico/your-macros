@@ -8,6 +8,7 @@ import AddMealToLogModalListItem from '../add-meal-to-log-modal-list-item/add-me
 import { IMeal } from '../../types/meal';
 import { addMealToLog } from '../../services/user-api';
 import { ILog } from '../../types/log';
+import { useNavigate } from 'react-router-dom';
 
 interface SetShowModalProps {
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,7 +25,7 @@ export default function AddMealToLogModal({
   meal,
 }: SetShowModalProps) {
   const { user, setUser } = useUser();
-
+  const navigate = useNavigate();
   const [selectedLog, setSelectedLog] = useState(
     user?.logs[user.logs.length - 1]
   );
@@ -49,6 +50,8 @@ export default function AddMealToLogModal({
     setSelectedLog((prevLog) =>
       data.logs.find((log) => log._id === prevLog?._id)
     );
+    // setShowModal(false);
+    navigate(`/logs/${selectedLog._id}`);
   }
 
   if (!selectedLog) {

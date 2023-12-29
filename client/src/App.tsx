@@ -12,6 +12,7 @@ import Login from './pages/login/login';
 import Logs from './pages/logs-page/logs';
 import Register from './pages/register/register';
 import GlobalStyles from './styles/global-styles';
+import SingleLog from './pages/single-log/single-log';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               <Route path={'/dashboard'} element={<Dashboard />} />
               <Route path={'/add-meal'} element={<AddMeal />} />
               <Route path={'/logs'} element={<Logs />} />
+              <Route path={'/logs/:logId'} element={<SingleLog />} />
               <Route path={'/create-food'} element={<CreateFood />} />
             </Route>
           </Routes>
