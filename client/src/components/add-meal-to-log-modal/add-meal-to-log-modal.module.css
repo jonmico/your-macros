@@ -130,9 +130,15 @@
   border: 1px solid var(--color-blue-500);
   outline: none;
   border-radius: 8px;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .button:hover {
   cursor: pointer;
   background-color: var(--color-slate-800);
+}
+
+.noMealsText {
+  width: 100%;
+  text-align: center;
 }

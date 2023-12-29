@@ -91,26 +91,35 @@ export default function AddMealToLogModal({
                 </div>
               </div>
               <div className={styles.selectedLogRow}>
-                <div>
-                  <div className={styles.selectedLogHeader}>Cals/Macros</div>
-                  <div className={styles.calsMacrosContainer}>
-                    <div className={styles.cals}>
-                      {selectedLog.calories}cals
+                {!selectedLog.meals.length ? (
+                  <div className={styles.noMealsText}>Nothing added yet.</div>
+                ) : (
+                  <>
+                    <div>
+                      <div className={styles.selectedLogHeader}>
+                        Cals/Macros
+                      </div>
+                      <div className={styles.calsMacrosContainer}>
+                        <div className={styles.cals}>
+                          {selectedLog.calories}cals
+                        </div>
+                        <div className={styles.fat}>
+                          {selectedLog.macros?.fat}f
+                        </div>
+                        <div className={styles.carbs}>
+                          {selectedLog.macros?.carbs}c
+                        </div>
+                        <div className={styles.protein}>
+                          {selectedLog.macros?.protein}p
+                        </div>
+                      </div>
                     </div>
-                    <div className={styles.fat}>{selectedLog.macros?.fat}f</div>
-                    <div className={styles.carbs}>
-                      {selectedLog.macros?.carbs}c
+                    <div>
+                      <div className={styles.selectedLogHeader}>Meals</div>
+                      <div>{selectedLog?.meals.length}</div>
                     </div>
-                    <div className={styles.protein}>
-                      {selectedLog.macros?.protein}p
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className={styles.selectedLogHeader}>Meals</div>
-                  <div>{selectedLog?.meals.length}</div>
-                </div>
-                <div></div>
+                  </>
+                )}
               </div>
             </div>
           </div>
