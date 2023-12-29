@@ -3,11 +3,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+  border-bottom: 1px solid var(--color-blue-500);
 }
 
-.listItem:nth-child(even) {
+/* .listItem:nth-child(even) {
   background-color: var(--color-slate-800);
-}
+} */
 
 .listItem:last-of-type {
   border-bottom-left-radius: 8px;
@@ -20,8 +21,9 @@
 }
 
 li.listItem.selected {
-  background-color: var(--color-blue-500);
-  color: var(--color-slate-900);
+  background-color: var(--color-slate-800);
+  /* background-color: var(--color-blue-500); */
+  /* color: var(--color-slate-900); */
 }
 
 li.listItem.selected:first-of-type {

@@ -5,7 +5,6 @@ import useUser from '../../hooks/useUser';
 import { useState } from 'react';
 import AddMealToLogModalList from '../add-meal-to-log-modal-list/add-meal-to-log-modal-list';
 import AddMealToLogModalListItem from '../add-meal-to-log-modal-list-item/add-meal-to-log-modal-list-item';
-import { PrimaryButton } from '../button/button.styled';
 import { IMeal } from '../../types/meal';
 import { addMealToLog } from '../../services/user-api';
 import { ILog } from '../../types/log';
@@ -72,7 +71,7 @@ export default function AddMealToLogModal({
           <div className={styles.modalSection}>
             <h4>Currently selected log:</h4>
             <div className={styles.selectedLog}>
-              <div className={styles.selectedLogRow}>
+              <div className={styles.nameDateContainer}>
                 <div>
                   <div className={styles.selectedLogHeader}>Name</div>
                   <div>{selectedLog?.name}</div>
@@ -92,11 +91,26 @@ export default function AddMealToLogModal({
                 </div>
               </div>
               <div className={styles.selectedLogRow}>
-                <div></div>
+                <div>
+                  <div className={styles.selectedLogHeader}>Cals/Macros</div>
+                  <div className={styles.calsMacrosContainer}>
+                    <div className={styles.cals}>
+                      {selectedLog.calories}cals
+                    </div>
+                    <div className={styles.fat}>{selectedLog.macros?.fat}f</div>
+                    <div className={styles.carbs}>
+                      {selectedLog.macros?.carbs}c
+                    </div>
+                    <div className={styles.protein}>
+                      {selectedLog.macros?.protein}p
+                    </div>
+                  </div>
+                </div>
                 <div>
                   <div className={styles.selectedLogHeader}>Meals</div>
                   <div>{selectedLog?.meals.length}</div>
                 </div>
+                <div></div>
               </div>
             </div>
           </div>
@@ -114,7 +128,10 @@ export default function AddMealToLogModal({
             </AddMealToLogModalList>
           </div>
         </div>
-        <PrimaryButton onClick={handleAddToMealClick}>Add to Log</PrimaryButton>
+        {/* <PrimaryButton onClick={handleAddToMealClick}>Add to Log</PrimaryButton> */}
+        <button className={styles.button} onClick={handleAddToMealClick}>
+          Add to Log
+        </button>
       </div>
     </div>,
     document.body
