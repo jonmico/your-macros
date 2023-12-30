@@ -156,16 +156,18 @@ export async function addMealToLog(
     }
 
     const logIndex = user.logs.findIndex((log) => log._id.toString() === logId);
-    user.logs[logIndex].meals?.push(meal);
+    user.logs[logIndex].meals.push(meal);
     const result = calcLogCalsMacros(user.logs[logIndex]);
 
     if (result.message) {
       throw new AppError(result.message, 400);
     }
 
-    user.logs[logIndex].macros = result.macros;
-    user.logs[logIndex].calories = result.calories;
-    await user.save();
+    if (result.macros && result.calories) {
+      user.logs[logIndex].macros = result.macros;
+      user.logs[logIndex].calories = result.calories;
+      await user.save();
+    }
 
     res.json({ logs: user.logs });
   } catch (err) {

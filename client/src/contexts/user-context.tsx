@@ -2,14 +2,14 @@ import { createContext, useState } from 'react';
 import { IUser } from '../types/user';
 
 interface IUserContext {
-  user: IUser | null;
-  setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+  user: IUser;
+  setUser: React.Dispatch<React.SetStateAction<IUser>>;
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const UserContext = createContext<IUserContext>({
-  user: null,
+  user: {} as IUser,
   setUser: () => {},
   isAuthenticated: true,
   setIsAuthenticated: () => {},
@@ -20,7 +20,7 @@ interface UserProviderProps {
 }
 
 export default function UserProvider(props: UserProviderProps) {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<IUser>({} as IUser);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   const value = { user, setUser, isAuthenticated, setIsAuthenticated };

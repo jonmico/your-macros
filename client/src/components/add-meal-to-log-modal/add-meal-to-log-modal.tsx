@@ -27,35 +27,20 @@ export default function AddMealToLogModal({
   const { user, setUser } = useUser();
   const navigate = useNavigate();
   const [selectedLog, setSelectedLog] = useState(
-    user?.logs[user.logs.length - 1]
+    user.logs[user.logs.length - 1]
   );
 
-  // TODO: How do we tell TS that user is already defined if we are here?
-  if (!user) {
-    return;
-  }
-
   async function handleAddToMealClick() {
-    if (!user) {
-      return;
-    }
-
-    if (!selectedLog) {
-      return;
-    }
-
     const data: IData = await addMealToLog(meal, selectedLog._id, user._id);
     console.log(data);
     setUser({ ...user, logs: data.logs });
-    setSelectedLog((prevLog) =>
-      data.logs.find((log) => log._id === prevLog?._id)
-    );
-    // setShowModal(false);
-    navigate(`/logs/${selectedLog._id}`);
-  }
+    const updatedLog = data.logs.find((log) => log._id === selectedLog._id);
 
-  if (!selectedLog) {
-    return;
+    if (updatedLog) {
+      setSelectedLog(updatedLog);
+    }
+
+    navigate(`/logs/${selectedLog._id}`);
   }
 
   return createPortal(
@@ -129,7 +114,7 @@ export default function AddMealToLogModal({
           <div className={styles.modalSection}>
             <h4>Select from a list of recent logs:</h4>
             <AddMealToLogModalList>
-              {user.logs.map((log) => (
+              {user?.logs.map((log) => (
                 <AddMealToLogModalListItem
                   key={log._id}
                   log={log}

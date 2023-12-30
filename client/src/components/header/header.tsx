@@ -8,7 +8,7 @@ interface IDataLogout {
 }
 
 export default function Header() {
-  const { user, setUser, setIsAuthenticated } = useUser();
+  const { isAuthenticated, setUser, setIsAuthenticated } = useUser();
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -28,7 +28,7 @@ export default function Header() {
         </Link>
       </div>
       <nav className={styles.headerNav}>
-        {!user ? (
+        {!isAuthenticated ? (
           <>
             <NavLink to={'/login'}>Login</NavLink>
             <NavLink to={'/register'}>Sign Up</NavLink>

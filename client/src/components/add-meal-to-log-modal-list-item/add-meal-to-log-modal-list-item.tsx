@@ -3,7 +3,7 @@ import styles from './add-meal-to-log-modal-list-item.module.css';
 
 interface AddMealToLogModalListItemProps {
   log: ILog;
-  setSelectedLog: React.Dispatch<React.SetStateAction<ILog | undefined>>;
+  setSelectedLog: React.Dispatch<React.SetStateAction<ILog>>;
   selectedLog: ILog;
 }
 

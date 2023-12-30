@@ -13,7 +13,7 @@ export default function LogHistory() {
       <LogHistoryTable>
         <LogHistoryTableHeader />
         <LogHistoryTableList>
-          {user?.logs.map((log) => (
+          {user.logs?.map((log) => (
             <LogHistoryTableListItem log={log} key={log._id} />
           ))}
         </LogHistoryTableList>

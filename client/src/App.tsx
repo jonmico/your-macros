@@ -13,8 +13,27 @@ import Logs from './pages/logs-page/logs';
 import Register from './pages/register/register';
 import GlobalStyles from './styles/global-styles';
 import SingleLog from './pages/single-log/single-log';
+import { useEffect } from 'react';
+import { ILoginData } from './types/login-data';
+import useUser from './hooks/useUser';
+import { fetchActiveSession } from './services/user-api';
 
 function App() {
+  const { setUser, isAuthenticated, setIsAuthenticated } = useUser();
+
+  useEffect(() => {
+    async function fetchSession() {
+      const data: ILoginData = await fetchActiveSession();
+
+      if (data.isAuthenticated) {
+        setUser({ ...data.user });
+      } else {
+        setIsAuthenticated(false);
+      }
+    }
+
+    fetchSession();
+  }, [setUser, isAuthenticated, setIsAuthenticated]);
   return (
     <>
       <GlobalStyles />

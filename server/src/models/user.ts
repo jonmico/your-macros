@@ -36,11 +36,11 @@ const logSchema = new Schema<ILog>(
       required: true,
     },
     macros: {
-      carbs: { type: Number },
-      fat: { type: Number },
-      protein: { type: Number },
+      carbs: { type: Number, default: 0 },
+      fat: { type: Number, default: 0 },
+      protein: { type: Number, default: 0 },
     },
-    calories: { type: Number },
+    calories: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
