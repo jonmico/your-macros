@@ -1,5 +1,6 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
+import styles from './single-log.module.css';
 
 export default function SingleLog() {
   const { user } = useUser();
@@ -15,7 +16,11 @@ export default function SingleLog() {
 
   return (
     <div>
-      <h3>Hello, this is the single log page!~~~~</h3>
+      <div className={styles.header}>
+        <Link className={styles.link} to={'/logs'}>
+          Back to Logs
+        </Link>
+      </div>
       <ul>
         {log?.meals.map((meal) => (
           <li>{meal.name}</li>

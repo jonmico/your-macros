@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ILog } from '../../types/log';
 import styles from './log-history-table-list-item.module.css';
 
@@ -22,6 +23,11 @@ export default function LogHistoryTableListItem({
         )}
       </div>
       <div>{log.calories ? log.calories : 0}</div>
+      <div>
+        <Link className={styles.link} to={`/logs/${log._id}`}>
+          VIEW
+        </Link>
+      </div>
     </li>
   );
 }
