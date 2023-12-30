@@ -9,15 +9,15 @@ import { ILoginData } from '../../types/login-data';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { user, setUser, setIsAuthenticated } = useUser();
+  const { setUser, setIsAuthenticated, isAuthenticated } = useUser();
   const navigate = useNavigate();
 
   // Might not need this if we remove login and signup while a user is logged in.
   useEffect(() => {
-    if (user) {
+    if (isAuthenticated) {
       navigate('/dashboard');
     }
-  }, [user, navigate]);
+  }, [isAuthenticated, navigate]);
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();

@@ -19,7 +19,6 @@ interface IData {
   logs: ILog[];
 }
 
-// FIXME: All of these early returns are bad.
 export default function AddMealToLogModal({
   setShowModal,
   meal,
