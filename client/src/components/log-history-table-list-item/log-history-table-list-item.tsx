@@ -14,15 +14,9 @@ export default function LogHistoryTableListItem({
       <div>{log.name}</div>
       <div>{log.meals.length}</div>
       <div>
-        {log.macros ? (
-          <>
-            {log.macros.carbs} {log.macros.fat} {log.macros.protein}
-          </>
-        ) : (
-          0
-        )}
+        {log.macros.carbs} {log.macros.fat} {log.macros.protein}
       </div>
-      <div>{log.calories ? log.calories : 0}</div>
+      <div>{log.calories}</div>
       <div>
         <Link className={styles.link} to={`/logs/${log._id}`}>
           VIEW
