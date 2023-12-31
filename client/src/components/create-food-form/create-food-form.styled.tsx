@@ -7,6 +7,7 @@ export const StyledForm = styled.form`
   max-width: 35rem;
   gap: 1.25rem;
   padding-top: 1rem;
+  position: relative;
 `;
 
 export const FormRow = styled.div`
@@ -37,7 +38,6 @@ export const FormInput = styled.input`
   color: var(--color-slate-300);
 
   font-size: 1rem;
-
   transition: background-color 0.25s ease-in-out;
 
   &:active,

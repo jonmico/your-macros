@@ -11,6 +11,8 @@ import {
 } from './create-food-form.styled';
 import { IFood } from '../../types/food';
 import { createFood } from '../../services/food-api';
+import styles from './create-food-form.module.css';
+import Spinner from '../spinner/spinner';
 
 export default function CreateFoodForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -132,6 +134,14 @@ export default function CreateFoodForm() {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
+      {isLoading && (
+        <div className={styles.formCover}>
+          <div className={styles.spinnerContainer}>
+            <Spinner />
+          </div>
+        </div>
+      )}
+
       <FormRow>
         <FormLabel htmlFor='brand'>Brand</FormLabel>
         <InputErrorContainer>
