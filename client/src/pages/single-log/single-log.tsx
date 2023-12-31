@@ -46,26 +46,6 @@ export default function SingleLog() {
             />
           ))}
         </LogMealList>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-          magnam quibusdam deserunt, similique non impedit, facere pariatur
-          consequatur incidunt provident recusandae iusto ipsum ipsam voluptatem
-          hic molestiae soluta, quasi vel. Magnam quidem quaerat aspernatur
-          soluta harum qui minus voluptas molestias cumque similique eligendi,
-          dolore nam suscipit in et nisi sunt. Rerum quisquam aperiam suscipit
-          consequatur necessitatibus voluptate fugiat? Delectus, culpa!
-          Quibusdam blanditiis laborum accusantium magnam dolor dolorum facere
-          consequatur harum ducimus quia unde, corporis esse aspernatur officia
-          quam laboriosam tempora eius iusto necessitatibus repellat doloremque
-          accusamus! Dolorem, eos? Nisi, error. Voluptatibus rerum blanditiis
-          iusto nulla, pariatur a suscipit eligendi fugiat alias officia,
-          delectus quaerat error veritatis! Tenetur qui, perferendis sit quidem
-          consequuntur, autem nemo error doloremque quam explicabo, earum
-          veniam. Impedit ut cumque consectetur sint minus perferendis quaerat
-          quam qui quia iste? Natus, commodi? Molestiae iste molestias laborum?
-          Vero quod accusamus veniam nobis nam quia, praesentium dolorum illum?
-          Eius, numquam.
-        </p>
       </div>
     </div>
   );

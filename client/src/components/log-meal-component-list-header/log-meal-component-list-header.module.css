@@ -1,8 +1,10 @@
 .header {
   display: grid;
   grid-template-columns: 1fr 0.5fr 1fr;
+  align-items: center;
   padding-bottom: 0.25rem;
   text-align: center;
   border-bottom: 1px solid var(--color-gray-700);
-  font-weight: 500;
+  font-weight: 700;
+  font-size: 0.95rem;
 }
