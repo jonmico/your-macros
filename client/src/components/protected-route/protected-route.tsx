@@ -1,4 +1,5 @@
-import { Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
 
 interface ProtectedRouteProps {
@@ -6,7 +7,20 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { isAuthenticated } = useUser();
+  const { isAuthenticated, isLoading: isFetching } = useUser();
+  const navigate = useNavigate();
 
-  return isAuthenticated ? children : <Navigate to={'/login'} replace />;
+  useEffect(() => {
+    if (!isAuthenticated && !isFetching) {
+      navigate('/login');
+    }
+  }, [isAuthenticated, isFetching, navigate]);
+
+  if (isFetching) {
+    return <p>WE ARE LOADING</p>;
+  }
+
+  return children;
+
+  // return isAuthenticated ? children : <Navigate to={'/login'} replace />;
 }

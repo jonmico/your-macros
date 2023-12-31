@@ -19,21 +19,30 @@ import useUser from './hooks/useUser';
 import { fetchActiveSession } from './services/user-api';
 
 function App() {
-  const { setUser, isAuthenticated, setIsAuthenticated } = useUser();
+  const {
+    setUser,
+    isAuthenticated,
+    setIsAuthenticated,
+
+    setIsLoading: setIsFetching,
+  } = useUser();
 
   useEffect(() => {
     async function fetchSession() {
+      setIsFetching(true);
       const data: ILoginData = await fetchActiveSession();
+      setIsFetching(false);
 
       if (data.isAuthenticated) {
         setUser({ ...data.user });
+        setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
       }
     }
 
     fetchSession();
-  }, [setUser, isAuthenticated, setIsAuthenticated]);
+  }, [setUser, isAuthenticated, setIsAuthenticated, setIsFetching]);
   return (
     <>
       <GlobalStyles />
