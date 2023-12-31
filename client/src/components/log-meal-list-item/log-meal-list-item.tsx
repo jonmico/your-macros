@@ -1,4 +1,5 @@
 import { IMeal } from '../../types/meal';
+import LogMealComponentListHeader from '../log-meal-component-list-header/log-meal-component-list-header';
 import LogMealComponentListItem from '../log-meal-component-list-item/log-meal-component-list-item';
 import LogMealComponentList from '../log-meal-component-list/log-meal-component-list';
 import styles from './log-meal-list-item.module.css';
@@ -44,11 +45,14 @@ export default function LogMealListItem({
             </div>
           </div>
         </div>
-        <LogMealComponentList>
-          {meal.mealComponents.map((mealComponent) => (
-            <LogMealComponentListItem mealComponent={mealComponent} />
-          ))}
-        </LogMealComponentList>
+        <div className={styles.mealComponentListContainer}>
+          <LogMealComponentListHeader />
+          <LogMealComponentList>
+            {meal.mealComponents.map((mealComponent) => (
+              <LogMealComponentListItem mealComponent={mealComponent} />
+            ))}
+          </LogMealComponentList>
+        </div>
       </div>
     </li>
   );

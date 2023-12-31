@@ -11,10 +11,11 @@ export default function LogMealComponentListItem({
 }: LogMealComponentListItemProps) {
   return (
     <li className={styles.listItem}>
-      <div>
+      <div className={styles.foodNameBrand}>
         <div>{mealComponent.food.name}</div>
         <div className={styles.brand}>{mealComponent.food.brand}</div>
       </div>
+      <div>{mealComponent.servings}</div>
       <MacroDisplay
         calories={mealComponent.food.calories}
         macros={mealComponent.food.macros}

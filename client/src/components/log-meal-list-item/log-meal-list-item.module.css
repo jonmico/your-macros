@@ -73,3 +73,11 @@
   display: flex;
   gap: 2rem;
 }
+
+.mealComponentListContainer {
+  background-color: var(--color-slate-900);
+  width: 100%;
+  border-radius: 8px;
+  padding: 1rem;
+  height: min-content;
+}
