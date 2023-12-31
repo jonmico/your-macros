@@ -26,20 +26,22 @@ export default function AddMealToLogModal({
   const { user, setUser } = useUser();
   const navigate = useNavigate();
   const [selectedLog, setSelectedLog] = useState(
-    user.logs[user.logs.length - 1]
+    user?.logs[user.logs.length - 1]
   );
 
   async function handleAddToMealClick() {
-    const data: IData = await addMealToLog(meal, selectedLog._id, user._id);
-    console.log(data);
-    setUser({ ...user, logs: data.logs });
-    const updatedLog = data.logs.find((log) => log._id === selectedLog._id);
+    if (selectedLog && user) {
+      const data: IData = await addMealToLog(meal, selectedLog._id, user._id);
+      console.log(data);
+      setUser({ ...user, logs: data.logs });
+      const updatedLog = data.logs.find((log) => log._id === selectedLog._id);
 
-    if (updatedLog) {
-      setSelectedLog(updatedLog);
+      if (updatedLog) {
+        setSelectedLog(updatedLog);
+      }
+
+      navigate(`/logs/${selectedLog._id}`);
     }
-
-    navigate(`/logs/${selectedLog._id}`);
   }
 
   return createPortal(
@@ -66,19 +68,20 @@ export default function AddMealToLogModal({
                 <div>
                   <div className={styles.selectedLogHeader}>Created Date</div>
                   <div>
-                    {new Date(selectedLog.createdAt).toLocaleDateString(
-                      'en-US',
-                      {
-                        month: 'numeric',
-                        day: 'numeric',
-                        year: 'numeric',
-                      }
-                    )}
+                    {selectedLog &&
+                      new Date(selectedLog.createdAt).toLocaleDateString(
+                        'en-US',
+                        {
+                          month: 'numeric',
+                          day: 'numeric',
+                          year: 'numeric',
+                        }
+                      )}
                   </div>
                 </div>
               </div>
               <div className={styles.selectedLogRow}>
-                {!selectedLog.meals.length ? (
+                {!selectedLog?.meals.length ? (
                   <div className={styles.noMealsText}>Nothing added yet.</div>
                 ) : (
                   <>
@@ -124,7 +127,6 @@ export default function AddMealToLogModal({
             </AddMealToLogModalList>
           </div>
         </div>
-        {/* <PrimaryButton onClick={handleAddToMealClick}>Add to Log</PrimaryButton> */}
         <button className={styles.button} onClick={handleAddToMealClick}>
           Add to Log
         </button>

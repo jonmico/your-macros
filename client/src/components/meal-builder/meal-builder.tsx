@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useMeals } from '../../hooks/useMeals';
 import { IMeal } from '../../types/meal';
+import AddMealToLogModal from '../add-meal-to-log-modal/add-meal-to-log-modal';
 import { AddMealToLogButton } from '../button/button.styled';
 import MealData from '../meal-data/meal-data';
 import MealItem from '../meal-item/meal-item';
@@ -15,7 +16,6 @@ import {
   StartText,
   StyledMealBuilder,
 } from './meal-builder.styled';
-import AddMealToLogModal from '../add-meal-to-log-modal/add-meal-to-log-modal';
 
 export default function MealBuilder() {
   const { mealComponents, mealName, setMealName } = useMeals();
