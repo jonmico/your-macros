@@ -37,8 +37,13 @@ export default function SingleLog() {
           <div className={styles.protein}>{log.macros.protein}p</div>
         </div>
         <LogMealList>
-          {log.meals.map((meal) => (
-            <LogMealListItem key={meal._id} meal={meal} />
+          {log.meals.map((meal, index) => (
+            <LogMealListItem
+              key={meal._id}
+              meal={meal}
+              index={index}
+              mealLength={log.meals.length}
+            />
           ))}
         </LogMealList>
         <p>

@@ -1,14 +1,49 @@
-.nameAndCalories {
+.listItem {
+  border: 1px solid var(--color-gray-700);
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--color-slate-800);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mealHeader {
+  display: flex;
+  align-items: flex-start;
   justify-content: space-between;
+}
+
+.mealName {
+  font-size: 1.25rem;
+  background-color: var(--color-gray-700);
+  color: var(--color-slate-300);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+}
+
+.mealNumber {
+  font-weight: 600;
+  color: var(--color-slate-500);
+}
+
+.macrosContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  background-color: var(--color-slate-900);
+  width: fit-content;
+  border-radius: 8px;
+  height: min-content;
 }
 
 .macros {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .macros div {
@@ -32,4 +67,9 @@
 
 .protein {
   color: var(--color-blue-400);
+}
+
+.mealContent {
+  display: flex;
+  gap: 2rem;
 }
