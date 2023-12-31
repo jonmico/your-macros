@@ -52,6 +52,6 @@ export const SearchInput = styled.input`
 export const SpinnerContainer = styled.div`
   display: flex;
   height: 100%;
-  align-items: center;
+  padding-top: 3rem;
   justify-content: center;
 `;

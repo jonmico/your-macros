@@ -7,6 +7,7 @@ import styles from './log-history.module.css';
 
 export default function LogHistory() {
   const { user } = useUser();
+
   return (
     <div className={styles.logHistoryContainer}>
       <h3>History</h3>

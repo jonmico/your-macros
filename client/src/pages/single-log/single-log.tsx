@@ -2,12 +2,14 @@ import { FaArrowLeft } from 'react-icons/fa6';
 import { Link, useParams } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
 import styles from './single-log.module.css';
+import LogMealList from '../../components/log-meal-list/log-meal-list';
+import LogMealListItem from '../../components/log-meal-list-item/log-meal-list-item';
 
 export default function SingleLog() {
   const { user } = useUser();
   const { logId } = useParams();
 
-  const log = user.logs?.find((log) => log._id === logId);
+  const log = user?.logs?.find((log) => log._id === logId);
 
   if (!log) {
     return <div>Hmm. Looks like we can't find that log!</div>;
@@ -34,6 +36,11 @@ export default function SingleLog() {
           <div className={styles.carbs}>{log.macros.carbs}c</div>
           <div className={styles.protein}>{log.macros.protein}p</div>
         </div>
+        <LogMealList>
+          {log.meals.map((meal) => (
+            <LogMealListItem key={meal._id} meal={meal} />
+          ))}
+        </LogMealList>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
           magnam quibusdam deserunt, similique non impedit, facere pariatur
