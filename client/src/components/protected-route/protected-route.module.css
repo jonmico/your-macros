@@ -1,0 +1,9 @@
+.fullPage {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.spinnerContainer {
+  margin-top: 10rem;
+}

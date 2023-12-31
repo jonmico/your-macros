@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
+import Spinner from '../spinner/spinner';
+import styles from './protected-route.module.css';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { isAuthenticated, isLoading: isFetching } = useUser();
+  const { isAuthenticated, isLoading: isFetching, user } = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,10 +19,16 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   }, [isAuthenticated, isFetching, navigate]);
 
   if (isFetching) {
-    return <p>WE ARE LOADING</p>;
+    return (
+      <div className={styles.fullPage}>
+        <div className={styles.spinnerContainer}>
+          <Spinner />
+        </div>
+      </div>
+    );
   }
 
-  return children;
-
-  // return isAuthenticated ? children : <Navigate to={'/login'} replace />;
+  if (user) {
+    return children;
+  }
 }
