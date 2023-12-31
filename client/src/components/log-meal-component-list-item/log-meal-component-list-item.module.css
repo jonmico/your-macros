@@ -1,0 +1,9 @@
+.listItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.brand {
+  font-weight: 500;
+  color: var(--color-slate-500);
+}
