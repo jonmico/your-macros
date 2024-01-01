@@ -173,7 +173,7 @@ export default function CreateFoodForm() {
         </InputErrorContainer>
       </FormRow>
       <FormRow>
-        <FormLabel htmlFor='servingSize'>Serving Size</FormLabel>
+        <FormLabel htmlFor='servingSize'>Serving Size (g)</FormLabel>
         <InputErrorContainer>
           <FormInput
             id={'servingSize'}
@@ -189,7 +189,7 @@ export default function CreateFoodForm() {
       </FormRow>
 
       <FormRow>
-        <FormLabel htmlFor='carbs'>Carbs</FormLabel>
+        <FormLabel htmlFor='carbs'>Carbs (g)</FormLabel>
         <InputErrorContainer>
           <FormInput
             id={'carbs'}
@@ -204,7 +204,7 @@ export default function CreateFoodForm() {
         </InputErrorContainer>
       </FormRow>
       <FormRow>
-        <FormLabel htmlFor='fat'>Fat</FormLabel>
+        <FormLabel htmlFor='fat'>Fat (g)</FormLabel>
         <InputErrorContainer>
           <FormInput
             id={'fat'}
@@ -219,7 +219,7 @@ export default function CreateFoodForm() {
         </InputErrorContainer>
       </FormRow>
       <FormRow>
-        <FormLabel htmlFor='protein'>Protein</FormLabel>
+        <FormLabel htmlFor='protein'>Protein (g)</FormLabel>
         <InputErrorContainer>
           <FormInput
             id={'protein'}

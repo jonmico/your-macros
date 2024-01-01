@@ -5,10 +5,12 @@ import { login } from '../../services/user-api';
 import { useNavigate } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
 import { ILoginData } from '../../types/login-data';
+import Spinner from '../../components/spinner/spinner';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { setUser, setIsAuthenticated, isAuthenticated } = useUser();
   const navigate = useNavigate();
 
@@ -22,7 +24,10 @@ export default function Login() {
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
+    setIsLoading(true);
     const data: ILoginData = await login(email, password);
+    setIsLoading(false);
+
     console.log(data);
     if (data.isAuthenticated) {
       setUser(data.user);
@@ -36,6 +41,11 @@ export default function Login() {
   // TODO: Add in error handling/form feedback.
   return (
     <form onSubmit={handleSubmit} className={styles.loginForm}>
+      {isLoading && (
+        <div className={styles.loginFormCover}>
+          <Spinner />
+        </div>
+      )}
       <h2 className={styles.loginHeader}>Login</h2>
       <div className={styles.loginFormFieldContainer}>
         <div className={styles.loginFormField}>
