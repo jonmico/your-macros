@@ -54,57 +54,112 @@ export default function Register() {
     <form onSubmit={handleSubmit} className={styles.registerForm}>
       <h2 className={styles.registerHeader}>Sign Up</h2>
       <div className={styles.registerFormFieldContainer}>
-        <div className={styles.registerFormField}>
-          <label htmlFor='email'>Email</label>
-          <input
-            type='text'
-            name='email'
-            id='email'
-            value={email}
-            onChange={(evt) => {
-              setEmailError('');
-              setEmail(evt.target.value);
-            }}
-          />
-          {emailError && <div className={styles.error}>{emailError}</div>}
-        </div>
-        <div className={styles.registerFormField}>
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            name='password'
-            id='password'
-            value={password}
-            onChange={(evt) => {
-              setPasswordError('');
-              setPassword(evt.target.value);
-            }}
-          />
-          {passwordError && <div className={styles.error}>{passwordError}</div>}
-        </div>
-        <div className={styles.registerFormField}>
-          <label htmlFor='password2'>Re-enter Password</label>
-          <input
-            type='password'
-            name='password2'
-            id='password2'
-            value={password2}
-            onChange={(evt) => {
-              setPassword2Error('');
-              setPassword2(evt.target.value);
-            }}
-          />
-          {password2Error && (
-            <div className={styles.error}>{password2Error}</div>
-          )}
-        </div>
-        {passwordMatchError && (
-          <div className={`${styles.error} ${styles.matchError}`}>
-            {passwordMatchError}
-          </div>
-        )}
+        <EmailPasswordFormPage
+          email={email}
+          emailError={emailError}
+          password={password}
+          passwordError={passwordError}
+          password2={password2}
+          password2Error={password2Error}
+          passwordMatchError={passwordMatchError}
+          setEmail={setEmail}
+          setEmailError={setEmailError}
+          setPassword={setPassword}
+          setPasswordError={setPasswordError}
+          setPassword2={setPassword2}
+          setPassword2Error={setPassword2Error}
+        />
         <PrimaryButton>Sign up</PrimaryButton>
       </div>
     </form>
   );
+}
+
+interface EmailPasswordFormPageProps {
+  email: string;
+  emailError: string;
+  password: string;
+  passwordError: string;
+  password2: string;
+  password2Error: string;
+  passwordMatchError: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  setEmailError: React.Dispatch<React.SetStateAction<string>>;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
+  setPasswordError: React.Dispatch<React.SetStateAction<string>>;
+  setPassword2: React.Dispatch<React.SetStateAction<string>>;
+  setPassword2Error: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function EmailPasswordFormPage(props: EmailPasswordFormPageProps) {
+  const {
+    email,
+    emailError,
+    password,
+    passwordError,
+    password2,
+    password2Error,
+    passwordMatchError,
+    setEmail,
+    setEmailError,
+    setPassword,
+    setPasswordError,
+    setPassword2,
+    setPassword2Error,
+  } = props;
+  return (
+    <>
+      <div className={styles.registerFormField}>
+        <label htmlFor='email'>Email</label>
+        <input
+          type='text'
+          name='email'
+          id='email'
+          value={email}
+          onChange={(evt) => {
+            setEmailError('');
+            setEmail(evt.target.value);
+          }}
+        />
+        {emailError && <div className={styles.error}>{emailError}</div>}
+      </div>
+      <div className={styles.registerFormField}>
+        <label htmlFor='password'>Password</label>
+        <input
+          type='password'
+          name='password'
+          id='password'
+          value={password}
+          onChange={(evt) => {
+            setPasswordError('');
+            setPassword(evt.target.value);
+          }}
+        />
+        {passwordError && <div className={styles.error}>{passwordError}</div>}
+      </div>
+      <div className={styles.registerFormField}>
+        <label htmlFor='password2'>Re-enter Password</label>
+        <input
+          type='password'
+          name='password2'
+          id='password2'
+          value={password2}
+          onChange={(evt) => {
+            setPassword2Error('');
+            setPassword2(evt.target.value);
+          }}
+        />
+        {password2Error && <div className={styles.error}>{password2Error}</div>}
+      </div>
+      {passwordMatchError && (
+        <div className={`${styles.error} ${styles.matchError}`}>
+          {passwordMatchError}
+        </div>
+      )}
+    </>
+  );
+}
+
+function UserMacroConfigFormPage() {
+  return <div></div>;
 }
