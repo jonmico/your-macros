@@ -13,7 +13,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [loginError, setLoginError] = useState('aw shucks');
+  const [loginError, setLoginError] = useState('');
   const { setUser, setIsAuthenticated, isAuthenticated } = useUser();
   const navigate = useNavigate();
 

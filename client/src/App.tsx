@@ -18,6 +18,8 @@ import { ILoginData } from './types/login-data';
 import useUser from './hooks/useUser';
 import { fetchActiveSession } from './services/user-api';
 
+// TODO: Add YourFoods (custom foods that are comprised of foods in the database).
+// TODO: Let users browse the database without logging in or signing up.
 function App() {
   const {
     setUser,
