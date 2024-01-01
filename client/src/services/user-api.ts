@@ -5,8 +5,13 @@ const API_URL = import.meta.env.PROD
   ? 'https://your-macros-backend.onrender.com'
   : '';
 
-export async function register(email: string, password: string) {
-  const user = { email, password };
+export async function register(
+  email: string,
+  password: string,
+  macros: { fat: number; carbs: number; protein: number },
+  calories: number
+) {
+  const user = { email, password, macros, calories };
 
   const res = await fetch(`${API_URL}/api/user/register`, {
     method: 'post',

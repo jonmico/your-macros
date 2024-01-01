@@ -53,3 +53,24 @@
 .matchError {
   text-align: center;
 }
+
+.formStageDisplay {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.blue {
+  height: 5px;
+  width: 30px;
+  background-color: var(--color-blue-500);
+  border-radius: 10px;
+}
+
+.gray {
+  height: 5px;
+  width: 30px;
+  background-color: var(--color-gray-700);
+  border-radius: 10px;
+}

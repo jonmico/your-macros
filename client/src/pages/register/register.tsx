@@ -12,8 +12,11 @@ interface IRegisterData {
   user: IUser;
 }
 
-// TODO: Add in multi page signup. Page 1 is email/password, page 2 would be macro config for user profile.
 export default function Register() {
+  const [isMacroConfigOpen, setIsMacroConfigOpen] = useState(false);
+  const navigate = useNavigate();
+
+  // State for email/password page
   const { setUser, setIsAuthenticated } = useUser();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -22,9 +25,18 @@ export default function Register() {
   const [password2, setPassword2] = useState('');
   const [password2Error, setPassword2Error] = useState('');
   const [passwordMatchError, setPasswordMatchError] = useState('');
-  const navigate = useNavigate();
 
-  async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
+  // State for macro config page
+  const [fat, setFat] = useState('');
+  const [fatError, setFatError] = useState('');
+  const [carbs, setCarbs] = useState('');
+  const [carbsError, setCarbsError] = useState('');
+  const [protein, setProtein] = useState('');
+  const [proteinError, setProteinError] = useState('');
+
+  const calories = Number(fat) * 9 + Number(carbs) * 4 + Number(protein) * 4;
+
+  function handleNextClick(evt: React.FormEvent<HTMLButtonElement>) {
     evt.preventDefault();
     setPasswordMatchError('');
 
@@ -39,7 +51,30 @@ export default function Register() {
       return;
     }
 
-    const data: IRegisterData = await register(email, password);
+    setIsMacroConfigOpen(true);
+  }
+
+  async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+
+    if (!fat) setFatError('Required field');
+    if (!carbs) setCarbsError('Required field');
+    if (!protein) setProteinError('Required field');
+
+    if (!fat || !carbs || !protein) return;
+
+    const macros = {
+      fat: Number(fat),
+      carbs: Number(carbs),
+      protein: Number(protein),
+    };
+
+    const data: IRegisterData = await register(
+      email,
+      password,
+      macros,
+      calories
+    );
 
     console.log(data);
 
@@ -54,22 +89,42 @@ export default function Register() {
     <form onSubmit={handleSubmit} className={styles.registerForm}>
       <h2 className={styles.registerHeader}>Sign Up</h2>
       <div className={styles.registerFormFieldContainer}>
-        <EmailPasswordFormPage
-          email={email}
-          emailError={emailError}
-          password={password}
-          passwordError={passwordError}
-          password2={password2}
-          password2Error={password2Error}
-          passwordMatchError={passwordMatchError}
-          setEmail={setEmail}
-          setEmailError={setEmailError}
-          setPassword={setPassword}
-          setPasswordError={setPasswordError}
-          setPassword2={setPassword2}
-          setPassword2Error={setPassword2Error}
-        />
-        <PrimaryButton>Sign up</PrimaryButton>
+        {!isMacroConfigOpen ? (
+          <EmailPasswordFormPage
+            email={email}
+            emailError={emailError}
+            password={password}
+            passwordError={passwordError}
+            password2={password2}
+            password2Error={password2Error}
+            passwordMatchError={passwordMatchError}
+            setEmail={setEmail}
+            setEmailError={setEmailError}
+            setPassword={setPassword}
+            setPasswordError={setPasswordError}
+            setPassword2={setPassword2}
+            setPassword2Error={setPassword2Error}
+            handleNextClick={handleNextClick}
+          />
+        ) : (
+          <>
+            <UserMacroConfigFormPage
+              fat={fat}
+              fatError={fatError}
+              carbs={carbs}
+              carbsError={carbsError}
+              protein={protein}
+              proteinError={proteinError}
+              setFat={setFat}
+              setFatError={setFatError}
+              setCarbs={setCarbs}
+              setCarbsError={setCarbsError}
+              setProtein={setProtein}
+              setProteinError={setProteinError}
+              calories={calories}
+            />
+          </>
+        )}
       </div>
     </form>
   );
@@ -89,6 +144,7 @@ interface EmailPasswordFormPageProps {
   setPasswordError: React.Dispatch<React.SetStateAction<string>>;
   setPassword2: React.Dispatch<React.SetStateAction<string>>;
   setPassword2Error: React.Dispatch<React.SetStateAction<string>>;
+  handleNextClick: (evt: React.FormEvent<HTMLButtonElement>) => void;
 }
 
 function EmailPasswordFormPage(props: EmailPasswordFormPageProps) {
@@ -106,6 +162,7 @@ function EmailPasswordFormPage(props: EmailPasswordFormPageProps) {
     setPasswordError,
     setPassword2,
     setPassword2Error,
+    handleNextClick,
   } = props;
   return (
     <>
@@ -156,10 +213,90 @@ function EmailPasswordFormPage(props: EmailPasswordFormPageProps) {
           {passwordMatchError}
         </div>
       )}
+      <div className={styles.formStageDisplay}>
+        <div className={styles.blue}></div>
+        <div className={styles.gray}></div>
+      </div>
+      <PrimaryButton onClick={(evt) => handleNextClick(evt)}>
+        Next
+      </PrimaryButton>
     </>
   );
 }
 
-function UserMacroConfigFormPage() {
-  return <div></div>;
+interface UserMacroConfigFormPageProps {
+  fat: string;
+  fatError: string;
+  carbs: string;
+  carbsError: string;
+  protein: string;
+  proteinError: string;
+
+  calories: number;
+  setFat: React.Dispatch<React.SetStateAction<string>>;
+  setFatError: React.Dispatch<React.SetStateAction<string>>;
+  setCarbs: React.Dispatch<React.SetStateAction<string>>;
+  setCarbsError: React.Dispatch<React.SetStateAction<string>>;
+  setProtein: React.Dispatch<React.SetStateAction<string>>;
+  setProteinError: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function UserMacroConfigFormPage(props: UserMacroConfigFormPageProps) {
+  return (
+    <>
+      <h3>Let's set up your account</h3>
+      <div className={styles.registerFormField}>
+        <label htmlFor='fat'>Fat</label>
+        <input
+          type='number'
+          name={'fat'}
+          id={'fat'}
+          value={props.fat}
+          onChange={(evt) => {
+            props.setFatError('');
+            props.setFat(evt.target.value);
+          }}
+        />
+        {props.fatError && <div className={styles.error}>{props.fatError}</div>}
+      </div>
+      <div className={styles.registerFormField}>
+        <label htmlFor='Carbs'>Carbs</label>
+        <input
+          type='number'
+          name={'carbs'}
+          id={'carbs'}
+          value={props.carbs}
+          onChange={(evt) => {
+            props.setCarbsError('');
+            props.setCarbs(evt.target.value);
+          }}
+        />
+        {props.carbsError && (
+          <div className={styles.error}>{props.carbsError}</div>
+        )}
+      </div>
+      <div className={styles.registerFormField}>
+        <label htmlFor='protein'>Protein</label>
+        <input
+          type='number'
+          name={'protein'}
+          id={'protein'}
+          value={props.protein}
+          onChange={(evt) => {
+            props.setProteinError('');
+            props.setProtein(evt.target.value);
+          }}
+        />
+        {props.proteinError && (
+          <div className={styles.error}>{props.proteinError}</div>
+        )}
+      </div>
+      <div>Calories: {props.calories}</div>
+      <div className={styles.formStageDisplay}>
+        <div className={styles.gray}></div>
+        <div className={styles.blue}></div>
+      </div>
+      <PrimaryButton>Sign up</PrimaryButton>
+    </>
+  );
 }
