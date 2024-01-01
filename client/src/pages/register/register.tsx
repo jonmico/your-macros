@@ -15,20 +15,38 @@ interface IRegisterData {
 // TODO: Add password 1 and password 2 compare.
 // TODO: Add in multi page signup. Page 1 is email/password, page 2 would be macro config for user profile.
 export default function Register() {
-  const { setUser } = useUser();
+  const { setUser, setIsAuthenticated } = useUser();
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [password2, setPassword2] = useState('');
+  const [password2Error, setPassword2Error] = useState('');
+  const [passwordMatchError, setPasswordMatchError] = useState('');
   const navigate = useNavigate();
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
+    setPasswordMatchError('');
+
+    if (!email) setEmailError('Required field');
+    if (!password) setPasswordError('Required field');
+    if (!password2) setPassword2Error('Required field');
+
+    if (!email || !password || !password2) return;
+
+    if (password !== password2) {
+      setPasswordMatchError('Passwords do not match.');
+      return;
+    }
+
     const data: IRegisterData = await register(email, password);
 
     console.log(data);
 
     if (data.successfulRegister) {
       setUser(data.user);
+      setIsAuthenticated(data.isAuthenticated);
       navigate('/dashboard');
     }
   }
@@ -44,8 +62,12 @@ export default function Register() {
             name='email'
             id='email'
             value={email}
-            onChange={(evt) => setEmail(evt.target.value)}
+            onChange={(evt) => {
+              setEmailError('');
+              setEmail(evt.target.value);
+            }}
           />
+          {emailError && <div className={styles.error}>{emailError}</div>}
         </div>
         <div className={styles.registerFormField}>
           <label htmlFor='password'>Password</label>
@@ -54,8 +76,12 @@ export default function Register() {
             name='password'
             id='password'
             value={password}
-            onChange={(evt) => setPassword(evt.target.value)}
+            onChange={(evt) => {
+              setPasswordError('');
+              setPassword(evt.target.value);
+            }}
           />
+          {passwordError && <div className={styles.error}>{passwordError}</div>}
         </div>
         <div className={styles.registerFormField}>
           <label htmlFor='password2'>Re-enter Password</label>
@@ -64,9 +90,20 @@ export default function Register() {
             name='password2'
             id='password2'
             value={password2}
-            onChange={(evt) => setPassword2(evt.target.value)}
+            onChange={(evt) => {
+              setPassword2Error('');
+              setPassword2(evt.target.value);
+            }}
           />
+          {password2Error && (
+            <div className={styles.error}>{password2Error}</div>
+          )}
         </div>
+        {passwordMatchError && (
+          <div className={`${styles.error} ${styles.matchError}`}>
+            {passwordMatchError}
+          </div>
+        )}
         <PrimaryButton>Sign up</PrimaryButton>
       </div>
     </form>
