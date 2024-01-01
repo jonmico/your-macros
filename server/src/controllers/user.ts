@@ -11,6 +11,12 @@ interface IRegisterBody {
   user: {
     email: string;
     password: string;
+    calories: number;
+    macros: {
+      fat: number;
+      carbs: number;
+      protein: number;
+    };
   };
 }
 
@@ -43,7 +49,13 @@ export async function register(
       res.status(201).json({
         successfulRegister: true,
         isAuthenticated: true,
-        user: { _id: newUser._id, email: newUser.email, logs: newUser.logs },
+        user: {
+          _id: newUser._id,
+          email: newUser.email,
+          logs: newUser.logs,
+          calories: newUser.calories,
+          macros: newUser.macros,
+        },
       });
     });
   } catch (err) {

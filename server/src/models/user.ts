@@ -49,6 +49,12 @@ export const userSchema = new Schema<IUser>({
   email: { type: String, required: true },
   password: { type: String, required: true },
   logs: [logSchema],
+  calories: { type: Number, required: true },
+  macros: {
+    fat: { type: Number, required: true },
+    carbs: { type: Number, required: true },
+    protein: { type: Number, required: true },
+  },
 });
 
 const User = mongoose.model('User', userSchema);

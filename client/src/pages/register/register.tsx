@@ -11,8 +11,7 @@ interface IRegisterData {
   successfulRegister: boolean;
   user: IUser;
 }
-// TODO: Add in error handling/form feedback.
-// TODO: Add password 1 and password 2 compare.
+
 // TODO: Add in multi page signup. Page 1 is email/password, page 2 would be macro config for user profile.
 export default function Register() {
   const { setUser, setIsAuthenticated } = useUser();
