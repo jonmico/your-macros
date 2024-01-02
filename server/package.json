@@ -6,8 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/server.js",
-    "predev": "npm run build",
-    "dev": "concurrently \"npx tsc -w\" \"nodemon dist/server.js\""
+    "dev": "ts-node src/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +31,7 @@
     "dotenv": "^16.3.1",
     "eslint": "^8.53.0",
     "nodemon": "^3.0.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
   }
 }
