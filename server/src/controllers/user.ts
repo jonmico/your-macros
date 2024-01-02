@@ -93,7 +93,13 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     res.json({
       isAuthenticated: true,
-      user: { _id: user._id, email: user.email, logs: user.logs },
+      user: {
+        _id: user._id,
+        email: user.email,
+        logs: user.logs,
+        calories: user.calories,
+        macros: user.macros,
+      },
     });
   } catch (err) {
     next(err);
@@ -133,6 +139,8 @@ export async function getSession(
           _id: user._id,
           email: user.email,
           logs: user.logs,
+          calories: user.calories,
+          macros: user.macros,
         },
       });
     } else {
