@@ -142,3 +142,11 @@
   width: 100%;
   text-align: center;
 }
+
+.addMealToLogModalList {
+  list-style: none;
+  border: 1px solid var(--color-blue-500);
+  border-radius: 8px;
+  max-height: 16rem;
+  overflow: auto;
+}

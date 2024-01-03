@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 import { FaXmark } from 'react-icons/fa6';
 import useUser from '../../hooks/useUser';
 import { useState } from 'react';
-import AddMealToLogModalList from '../add-meal-to-log-modal-list/add-meal-to-log-modal-list';
 import AddMealToLogModalListItem from '../add-meal-to-log-modal-list-item/add-meal-to-log-modal-list-item';
 import { IMeal } from '../../types/meal';
 import { addMealToLog } from '../../services/user-api';
@@ -134,4 +133,8 @@ export default function AddMealToLogModal({
     </div>,
     document.body
   );
+}
+
+function AddMealToLogModalList(props: { children: React.ReactNode }) {
+  return <ul className={styles.addMealToLogModalList}>{props.children}</ul>;
 }

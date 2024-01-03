@@ -17,7 +17,7 @@ interface MealItemProps {
   mealComponent: IMealComponent;
 }
 
-export default function MealItem(props: MealItemProps) {
+export default function MealListItem(props: MealItemProps) {
   const { _id, name, brand, servingSize, calories, macros } =
     props.mealComponent.food;
   const { removeFromMeal, editServings } = useMeals();

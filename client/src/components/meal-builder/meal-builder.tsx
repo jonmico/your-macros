@@ -4,7 +4,7 @@ import { IMeal } from '../../types/meal';
 import AddMealToLogModal from '../add-meal-to-log-modal/add-meal-to-log-modal';
 import { AddMealToLogButton, ClearButton } from '../button/button.styled';
 import MealData from '../meal-data/meal-data';
-import MealItem from '../meal-list-item/meal-list-item';
+import MealListItem from '../meal-list-item/meal-list-item';
 import {
   DataButtonContainer,
   MealListContainer,
@@ -100,7 +100,7 @@ export default function MealBuilder() {
           <>
             <MealList>
               {mealComponents.map((mealComponent) => (
-                <MealItem
+                <MealListItem
                   key={mealComponent.food._id}
                   mealComponent={mealComponent}
                 />
