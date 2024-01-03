@@ -17,14 +17,13 @@ export default function Dashboard() {
 }
 
 function DashboardContent() {
-  const { user } = useUser();
+  const { user, logs } = useUser();
 
-  if (!user || user.logs.length === 0) return null;
+  if (!user || logs.length === 0) return null;
 
   return (
     <>
       <PageContentContainer>
-        {/* <h3>Howdy!</h3> */}
         <DashboardTable user={user} />
       </PageContentContainer>
     </>
@@ -55,7 +54,6 @@ function DashboardTable(props: { user: IUser }) {
         </h4>
         <DropDownMenu
           selectedLog={selectedLog}
-          logs={props.user.logs}
           handleSelectLog={handleSelectLog}
         />
       </div>
@@ -90,28 +88,48 @@ function DashboardTable(props: { user: IUser }) {
 
 function DropDownMenu(props: {
   selectedLog: ILog;
-  logs: ILog[];
   handleSelectLog: (log: ILog) => void;
 }) {
   const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState(false);
 
   return (
-    <div className={styles.dropDownMenu}>
-      <button
-        onClick={() => setIsDropDownMenuOpen((prevState) => !prevState)}
-        className={styles.dropDownButton}
-      >
-        <div className={styles.dropDownMenuSelectedLog}>
-          {props.selectedLog.name}
-        </div>
-        <div className={styles.dropDownIconContainer}>
-          <FaAngleLeft
-            className={`${
-              isDropDownMenuOpen ? styles.animateDropDownButton : ''
-            }`}
-          />
-        </div>
-      </button>
-    </div>
+    <>
+      <div className={styles.dropDownMenu}>
+        <button
+          onClick={() => setIsDropDownMenuOpen((prevState) => !prevState)}
+          className={styles.dropDownButton}
+        >
+          <div className={styles.dropDownMenuSelectedLog}>
+            {props.selectedLog.name}
+          </div>
+          <div className={styles.dropDownIconContainer}>
+            <FaAngleLeft
+              className={`${
+                isDropDownMenuOpen ? styles.animateDropDownButton : ''
+              }`}
+            />
+          </div>
+        </button>
+        <DropDownMenuList isDropDownMenuOpen={isDropDownMenuOpen} />
+      </div>
+    </>
+  );
+}
+
+function DropDownMenuList(props: { isDropDownMenuOpen: boolean }) {
+  const { logs } = useUser();
+
+  if (!props.isDropDownMenuOpen) return null;
+
+  return (
+    <ul
+      className={`${styles.dropDownMenuList} ${
+        props.isDropDownMenuOpen ? styles.animateMenuDropDown : ''
+      }`}
+    >
+      {logs.map((log) => (
+        <li key={log._id}>{log.name}</li>
+      ))}
+    </ul>
   );
 }
