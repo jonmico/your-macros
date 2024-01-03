@@ -45,7 +45,62 @@
 }
 
 .initialCals {
+  color: var(--color-red-300);
+  text-align: center;
+}
+
+.consumedCals {
   color: var(--color-red-400);
+  text-align: center;
+}
+
+.remainingCals {
+  color: var(--color-red-500);
+  text-align: center;
+}
+
+.initialFat {
+  color: var(--color-yellow-300);
+  text-align: center;
+}
+
+.consumedFat {
+  color: var(--color-yellow-400);
+  text-align: center;
+}
+
+.remainingFat {
+  color: var(--color-yellow-500);
+  text-align: center;
+}
+
+.initialCarbs {
+  color: var(--color-green-300);
+  text-align: center;
+}
+
+.consumedCarbs {
+  color: var(--color-green-400);
+  text-align: center;
+}
+
+.remainingCarbs {
+  color: var(--color-green-500);
+  text-align: center;
+}
+
+.initialProtein {
+  color: var(--color-blue-300);
+  text-align: center;
+}
+
+.consumedProtein {
+  color: var(--color-blue-400);
+  text-align: center;
+}
+
+.remainingProtein {
+  color: var(--color-blue-500);
   text-align: center;
 }
 

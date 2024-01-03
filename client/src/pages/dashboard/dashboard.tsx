@@ -62,23 +62,33 @@ function DashboardTable(props: { user: IUser }) {
           <div className={styles.dashboardTableRow}>
             <div>Initial:</div>
             <div className={styles.initialCals}>{props.user.calories}cals</div>
-            <div className={styles.number}>{props.user.macros.fat}f</div>
-            <div className={styles.number}>{props.user.macros.carbs}c</div>
-            <div className={styles.number}>{props.user.macros.protein}p</div>
+            <div className={styles.initialFat}>{props.user.macros.fat}f</div>
+            <div className={styles.initialCarbs}>
+              {props.user.macros.carbs}c
+            </div>
+            <div className={styles.initialProtein}>
+              {props.user.macros.protein}p
+            </div>
           </div>
           <div className={styles.dashboardTableRow}>
             <div>Consumed:</div>
-            <div className={styles.number}>{selectedLog.calories}cals</div>
-            <div className={styles.number}>{selectedLog.macros.fat}f</div>
-            <div className={styles.number}>{selectedLog.macros.carbs}c</div>
-            <div className={styles.number}>{selectedLog.macros.protein}p</div>
+            <div className={styles.consumedCals}>
+              {selectedLog.calories}cals
+            </div>
+            <div className={styles.consumedFat}>{selectedLog.macros.fat}f</div>
+            <div className={styles.consumedCarbs}>
+              {selectedLog.macros.carbs}c
+            </div>
+            <div className={styles.consumedProtein}>
+              {selectedLog.macros.protein}p
+            </div>
           </div>
           <div className={styles.dashboardTableRow}>
             <div>Remaining:</div>
-            <div className={styles.number}>{remainingCalories}cals</div>
-            <div className={styles.number}>{remainingFat}f</div>
-            <div className={styles.number}>{remainingCarbs}c</div>
-            <div className={styles.number}>{remainingProtein}p</div>
+            <div className={styles.remainingCals}>{remainingCalories}cals</div>
+            <div className={styles.remainingFat}>{remainingFat}f</div>
+            <div className={styles.remainingCarbs}>{remainingCarbs}c</div>
+            <div className={styles.remainingProtein}>{remainingProtein}p</div>
           </div>
         </div>
       </div>
