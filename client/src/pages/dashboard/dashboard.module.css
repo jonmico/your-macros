@@ -115,7 +115,7 @@
 
 @keyframes menuDropDown {
   0% {
-    transform: translateY(2.5rem) scale(0);
+    transform: translateY(-60px) scale(0);
   }
   100% {
     transform: translateY(0rem) scale(100%);
