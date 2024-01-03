@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 
 import {
@@ -10,10 +10,11 @@ import {
 } from './food-search.styled';
 import { getFoodByText } from '../../services/food-api';
 import { IFood } from '../../types/food';
-import FoodSearchList from '../food-search-list/food-search-list';
 import FoodSearchListItem from '../food-search-list-item/food-search-list-item';
 import { useFoods } from '../../hooks/useFoods';
 import Spinner from '../spinner/spinner';
+
+import styles from './food-search.module.css';
 
 interface IData {
   foods?: IFood[];
@@ -83,4 +84,8 @@ export default function FoodSearch() {
       {searchedFoodsError && <p>{searchedFoodsError}</p>}
     </StyledFoodSearch>
   );
+}
+
+function FoodSearchList(props: { children: React.ReactNode }) {
+  return <ul className={styles.foodSearchList}>{props.children}</ul>;
 }
