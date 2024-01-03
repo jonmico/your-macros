@@ -6,7 +6,7 @@ import {
   StyledMealItem,
   SvgContainer,
   EditServingsForm,
-} from './meal-item.styled';
+} from './meal-list-item.styled';
 import { Calories, Fat, Carbs, Protein } from '../macros/macros.styled';
 import { useState } from 'react';
 import { useMeals } from '../../hooks/useMeals';
