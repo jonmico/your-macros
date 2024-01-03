@@ -168,15 +168,15 @@
 }
 
 .animateMenuDropDown {
-  animation: 0.2s ease-in-out forwards menuDropDown;
+  animation: 0.4s ease-in-out forwards menuDropDown;
 }
 
 @keyframes menuDropDown {
   0% {
-    transform: translateY(-60px) scale(0);
+    transform: translateY(-120px) translateX(125px) scale(0);
   }
   100% {
-    transform: translateY(0rem) scale(100%);
+    transform: translateY(0px) translateX(0px) scale(100%);
   }
 }
 
