@@ -75,17 +75,13 @@ export default function FoodSearch() {
       )}
 
       {searchedFoods?.length > 0 && !isLoading && (
-        <FoodSearchList>
+        <ul className={styles.foodSearchList}>
           {searchedFoods?.map((food) => (
             <FoodSearchListItem key={food._id} food={food} />
           ))}
-        </FoodSearchList>
+        </ul>
       )}
       {searchedFoodsError && <p>{searchedFoodsError}</p>}
     </StyledFoodSearch>
   );
-}
-
-function FoodSearchList(props: { children: React.ReactNode }) {
-  return <ul className={styles.foodSearchList}>{props.children}</ul>;
 }

@@ -114,7 +114,7 @@ export default function AddMealToLogModal({
           </div>
           <div className={styles.modalSection}>
             <h4>Select from a list of recent logs:</h4>
-            <AddMealToLogModalList>
+            <ul className={styles.addMealToLogModalList}>
               {user?.logs.map((log) => (
                 <AddMealToLogModalListItem
                   key={log._id}
@@ -123,7 +123,7 @@ export default function AddMealToLogModal({
                   setSelectedLog={setSelectedLog}
                 />
               ))}
-            </AddMealToLogModalList>
+            </ul>
           </div>
         </div>
         <button className={styles.button} onClick={handleAddToMealClick}>
@@ -133,8 +133,4 @@ export default function AddMealToLogModal({
     </div>,
     document.body
   );
-}
-
-function AddMealToLogModalList(props: { children: React.ReactNode }) {
-  return <ul className={styles.addMealToLogModalList}>{props.children}</ul>;
 }
