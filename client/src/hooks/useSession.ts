@@ -6,6 +6,7 @@ import { fetchActiveSession } from '../services/user-api';
 export function useSession() {
   const {
     setUser,
+    setLogs,
     isAuthenticated,
     setIsAuthenticated,
     setIsLoading: setIsFetching,
@@ -19,6 +20,7 @@ export function useSession() {
 
       if (data.isAuthenticated) {
         setUser({ ...data.user });
+        setLogs(data.user.logs);
         setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
@@ -26,5 +28,5 @@ export function useSession() {
     }
 
     fetchSession();
-  }, [setUser, isAuthenticated, setIsAuthenticated, setIsFetching]);
+  }, [setUser, setLogs, isAuthenticated, setIsAuthenticated, setIsFetching]);
 }
