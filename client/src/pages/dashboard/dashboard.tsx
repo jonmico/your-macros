@@ -91,14 +91,24 @@ function DropDownMenu(props: {
   handleSelectLog: (log: ILog) => void;
 }) {
   const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState(false);
+  const { logs } = useUser();
+
+  function handleSelectLogClick(
+    evt: React.MouseEvent<HTMLLIElement, MouseEvent>,
+    log: ILog
+  ) {
+    evt.stopPropagation();
+    props.handleSelectLog(log);
+    setIsDropDownMenuOpen(false);
+  }
 
   return (
     <>
-      <div className={styles.dropDownMenu}>
-        <button
-          onClick={() => setIsDropDownMenuOpen((prevState) => !prevState)}
-          className={styles.dropDownButton}
-        >
+      <div
+        className={styles.dropDownMenu}
+        onClick={() => setIsDropDownMenuOpen((prevState) => !prevState)}
+      >
+        <button className={styles.dropDownButton}>
           <div className={styles.dropDownMenuSelectedLog}>
             {props.selectedLog.name}
           </div>
@@ -110,26 +120,46 @@ function DropDownMenu(props: {
             />
           </div>
         </button>
-        <DropDownMenuList isDropDownMenuOpen={isDropDownMenuOpen} />
+        {isDropDownMenuOpen && (
+          <ul
+            className={`${styles.dropDownMenuList} ${
+              isDropDownMenuOpen ? styles.animateMenuDropDown : ''
+            }`}
+          >
+            {logs.map((log) => (
+              <DropDownMenuListItem
+                handleClick={handleSelectLogClick}
+                log={log}
+                key={log._id}
+              />
+            ))}
+          </ul>
+        )}
       </div>
     </>
   );
 }
 
-function DropDownMenuList(props: { isDropDownMenuOpen: boolean }) {
-  const { logs } = useUser();
-
-  if (!props.isDropDownMenuOpen) return null;
-
+function DropDownMenuListItem(props: {
+  log: ILog;
+  handleClick: (
+    evt: React.MouseEvent<HTMLLIElement, MouseEvent>,
+    log: ILog
+  ) => void;
+}) {
+  const date = new Date(props.log.createdAt).toLocaleDateString('en-US', {
+    month: 'numeric',
+    day: 'numeric',
+    year: 'numeric',
+  });
   return (
-    <ul
-      className={`${styles.dropDownMenuList} ${
-        props.isDropDownMenuOpen ? styles.animateMenuDropDown : ''
-      }`}
+    <li
+      className={styles.dropDownMenuListItem}
+      onClick={(evt) => props.handleClick(evt, props.log)}
+      key={props.log._id}
     >
-      {logs.map((log) => (
-        <li key={log._id}>{log.name}</li>
-      ))}
-    </ul>
+      <div>{props.log.name}</div>
+      <div>{date}</div>
+    </li>
   );
 }
