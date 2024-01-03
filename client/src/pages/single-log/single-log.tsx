@@ -2,7 +2,6 @@ import { FaArrowLeft } from 'react-icons/fa6';
 import { Link, useParams } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
 import styles from './single-log.module.css';
-import LogMealList from '../../components/log-meal-list/log-meal-list';
 import LogMealListItem from '../../components/log-meal-list-item/log-meal-list-item';
 
 export default function SingleLog() {
@@ -14,6 +13,8 @@ export default function SingleLog() {
   if (!log) {
     return <div>Hmm. Looks like we can't find that log!</div>;
   }
+
+  const date = new Date(log.createdAt).toDateString();
 
   console.log(log);
 
@@ -27,7 +28,7 @@ export default function SingleLog() {
           <h2>{log.name}</h2>
           <div>
             <h4>Created:</h4>
-            <div>{new Date(log.createdAt).toDateString()}</div>
+            <div>{date}</div>
           </div>
         </div>
         <div className={styles.macrosContainer}>
@@ -49,4 +50,8 @@ export default function SingleLog() {
       </div>
     </div>
   );
+}
+
+function LogMealList(props: { children: React.ReactNode }) {
+  return <ul className={styles.logMealList}>{props.children}</ul>;
 }
