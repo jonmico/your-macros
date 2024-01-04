@@ -52,8 +52,8 @@
 
 .dropDownMenuList {
   position: absolute;
-  top: 105%;
-  right: 0;
+  top: 100%;
+  right: -2px;
   list-style: none;
   background-color: var(--color-zinc-900);
   border: 1px solid var(--color-blue-500);
@@ -62,12 +62,12 @@
 }
 
 .animateMenuDropDown {
-  animation: 0.2s ease-in-out forwards menuDropDown;
+  animation: 0.3s ease-in-out forwards menuDropDown;
 }
 
 @keyframes menuDropDown {
   0% {
-    transform: translateY(-120px) translateX(125px) scale(0);
+    transform: translateY(-50%) translateX(50%) scale(0);
   }
   100% {
     transform: translateY(0px) translateX(0px) scale(100%);
