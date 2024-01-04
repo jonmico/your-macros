@@ -8,6 +8,7 @@ import { ILog } from '../../types/log';
 
 import styles from './dashboard.module.css';
 import { IMeal } from '../../types/meal';
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
   const { user, logs } = useUser();
@@ -51,15 +52,24 @@ function DashboardLogGrid(props: { selectedLog: ILog }) {
   return (
     <ul className={styles.dashboardLogGrid}>
       {props.selectedLog.meals.map((meal) => (
-        <DashboardLogGridItem key={meal._id} meal={meal} />
+        <DashboardLogGridItem
+          key={meal._id}
+          logId={props.selectedLog._id}
+          meal={meal}
+        />
       ))}
     </ul>
   );
 }
 
-function DashboardLogGridItem(props: { meal: IMeal }) {
+function DashboardLogGridItem(props: { meal: IMeal; logId: string }) {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate(`/logs/${props.logId}`);
+  }
   return (
-    <li className={styles.dashboardLogGridItem}>
+    <li className={styles.dashboardLogGridItem} onClick={handleClick}>
       <h4>{props.meal.name}</h4>
       <div>{props.meal.calories}</div>
     </li>
