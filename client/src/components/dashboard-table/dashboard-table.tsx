@@ -1,34 +1,31 @@
-import { useState } from 'react';
-import { IUser } from '../../types/user';
-import styles from './dashboard-table.module.css';
 import { ILog } from '../../types/log';
+import { IUser } from '../../types/user';
 import DropDownMenu from '../drop-down-menu/drop-down-menu';
+import styles from './dashboard-table.module.css';
 
-export default function DashboardTable(props: { user: IUser }) {
-  const [selectedLog, setSelectedLog] = useState(
-    props.user.logs[props.user.logs.length - 1]
-  );
-
-  const remainingCalories = props.user.calories - selectedLog.calories;
-  const remainingFat = props.user.macros.fat - selectedLog.macros.fat;
-  const remainingCarbs = props.user.macros.carbs - selectedLog.macros.carbs;
+export default function DashboardTable(props: {
+  user: IUser;
+  selectedLog: ILog;
+  handleSelectLog: (log: ILog) => void;
+}) {
+  const remainingCalories = props.user.calories - props.selectedLog.calories;
+  const remainingFat = props.user.macros.fat - props.selectedLog.macros.fat;
+  const remainingCarbs =
+    props.user.macros.carbs - props.selectedLog.macros.carbs;
   const remainingProtein =
-    props.user.macros.protein - selectedLog.macros.protein;
-
-  function handleSelectLog(log: ILog) {
-    setSelectedLog(log);
-  }
+    props.user.macros.protein - props.selectedLog.macros.protein;
 
   return (
     <div className={styles.dashboardContainer}>
       <div className={styles.dashboardTableIntro}>
-        <h4>
+        <h3>
           Here is where you're at for your{' '}
-          <span className={styles.selectedLog}>{selectedLog.name}</span> log:
-        </h4>
+          <span className={styles.selectedLog}>{props.selectedLog.name}</span>{' '}
+          log:
+        </h3>
         <DropDownMenu
-          selectedLog={selectedLog}
-          handleSelectLog={handleSelectLog}
+          selectedLog={props.selectedLog}
+          handleSelectLog={props.handleSelectLog}
         />
       </div>
       <div className={styles.dashboardTableContainer}>
@@ -47,14 +44,16 @@ export default function DashboardTable(props: { user: IUser }) {
           <div className={styles.dashboardTableRow}>
             <div>Consumed:</div>
             <div className={styles.consumedCals}>
-              {selectedLog.calories}cals
+              {props.selectedLog.calories}cals
             </div>
-            <div className={styles.consumedFat}>{selectedLog.macros.fat}f</div>
+            <div className={styles.consumedFat}>
+              {props.selectedLog.macros.fat}f
+            </div>
             <div className={styles.consumedCarbs}>
-              {selectedLog.macros.carbs}c
+              {props.selectedLog.macros.carbs}c
             </div>
             <div className={styles.consumedProtein}>
-              {selectedLog.macros.protein}p
+              {props.selectedLog.macros.protein}p
             </div>
           </div>
           <div className={styles.dashboardTableRow}>
