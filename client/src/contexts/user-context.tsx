@@ -11,6 +11,8 @@ interface IUserContext {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedLog: ILog | null;
+  setSelectedLog: React.Dispatch<React.SetStateAction<ILog | null>>;
 }
 
 export const UserContext = createContext<IUserContext>({
@@ -22,6 +24,8 @@ export const UserContext = createContext<IUserContext>({
   setIsAuthenticated: () => {},
   isLoading: false,
   setIsLoading: () => {},
+  selectedLog: null,
+  setSelectedLog: () => {},
 });
 
 interface UserProviderProps {
@@ -33,6 +37,9 @@ export default function UserProvider(props: UserProviderProps) {
   const [logs, setLogs] = useState<ILog[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedLog, setSelectedLog] = useState<ILog | null>(
+    user ? user.logs[user.logs.length - 1] : null
+  );
 
   const value = {
     user,
@@ -43,6 +50,8 @@ export default function UserProvider(props: UserProviderProps) {
     setIsAuthenticated,
     isLoading,
     setIsLoading,
+    selectedLog,
+    setSelectedLog,
   };
   return (
     <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
