@@ -49,28 +49,43 @@ function DashboardLogGrid(props: { selectedLog: ILog }) {
     return <div>NO MEALS DO SOMETHING ABOUT MEEEEE</div>;
 
   return (
-    <ul className={styles.dashboardLogGrid}>
-      {props.selectedLog.meals.map((meal) => (
-        <DashboardLogGridItem
-          key={meal._id}
-          logId={props.selectedLog._id}
-          meal={meal}
-        />
-      ))}
-    </ul>
+    <>
+      <h3>Meals for this log:</h3>
+      <ul className={styles.dashboardLogGrid}>
+        {props.selectedLog.meals.map((meal) => (
+          <DashboardLogGridItem
+            key={meal._id}
+            logId={props.selectedLog._id}
+            meal={meal}
+          />
+        ))}
+      </ul>
+    </>
   );
 }
 
 function DashboardLogGridItem(props: { meal: IMeal; logId: string }) {
   const navigate = useNavigate();
 
+  const numberOfMeals = props.meal.mealComponents.length;
+
   function handleClick() {
     navigate(`/logs/${props.logId}`);
   }
+
   return (
     <li className={styles.dashboardLogGridItem} onClick={handleClick}>
       <h4>{props.meal.name}</h4>
-      <div>{props.meal.calories}</div>
+      <div className={styles.macroContainer}>
+        <div className={styles.calories}>{props.meal.calories}cals</div>
+        <div className={styles.divider}>|</div>
+        <div className={styles.fat}>{props.meal.macros.fat}f</div>
+        <div className={styles.carbs}>{props.meal.macros.carbs}c</div>
+        <div className={styles.protein}>{props.meal.macros.protein}p</div>
+      </div>
+      <div>
+        {numberOfMeals} {numberOfMeals === 1 ? 'food' : 'foods'} logged
+      </div>
     </li>
   );
 }
