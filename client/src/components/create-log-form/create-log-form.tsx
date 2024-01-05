@@ -11,7 +11,7 @@ interface ICreateLogData {
 }
 
 export default function CreateLogForm() {
-  const { user, setUser, setLogs } = useUser();
+  const { user, setUser, setLogs, setSelectedLog } = useUser();
   const [logName, setLogName] = useState('');
   const [logNameError, setLogNameError] = useState('');
 
@@ -33,6 +33,7 @@ export default function CreateLogForm() {
       const data: ICreateLogData = await createLog(log);
       setUser({ ...user, logs: data.logs });
       setLogs(data.logs);
+      setSelectedLog(data.logs[data.logs.length - 1]);
       console.log(data);
     }
   }

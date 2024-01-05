@@ -1,13 +1,12 @@
-import styles from './add-meal-to-log-modal.module.css';
 import { createPortal } from 'react-dom';
 import { FaXmark } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
-import { useState } from 'react';
-import AddMealToLogModalListItem from '../add-meal-to-log-modal-list-item/add-meal-to-log-modal-list-item';
-import { IMeal } from '../../types/meal';
 import { addMealToLog } from '../../services/user-api';
 import { ILog } from '../../types/log';
-import { useNavigate } from 'react-router-dom';
+import { IMeal } from '../../types/meal';
+import AddMealToLogModalListItem from '../add-meal-to-log-modal-list-item/add-meal-to-log-modal-list-item';
+import styles from './add-meal-to-log-modal.module.css';
 
 interface SetShowModalProps {
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,17 +21,15 @@ export default function AddMealToLogModal({
   setShowModal,
   meal,
 }: SetShowModalProps) {
-  const { user, setUser } = useUser();
+  const { user, setUser, setLogs, selectedLog, setSelectedLog } = useUser();
   const navigate = useNavigate();
-  const [selectedLog, setSelectedLog] = useState(
-    user?.logs[user.logs.length - 1]
-  );
 
   async function handleAddToMealClick() {
     if (selectedLog && user) {
       const data: IData = await addMealToLog(meal, selectedLog._id, user._id);
       console.log(data);
       setUser({ ...user, logs: data.logs });
+      setLogs(data.logs);
       const updatedLog = data.logs.find((log) => log._id === selectedLog._id);
 
       if (updatedLog) {
