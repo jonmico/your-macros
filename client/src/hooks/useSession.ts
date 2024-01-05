@@ -10,6 +10,7 @@ export function useSession() {
     isAuthenticated,
     setIsAuthenticated,
     setIsLoading: setIsFetching,
+    setSelectedLog,
   } = useUser();
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export function useSession() {
       if (data.isAuthenticated) {
         setUser({ ...data.user });
         setLogs(data.user.logs);
+        setSelectedLog(data.user.logs[data.user.logs.length - 1]);
         setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
@@ -28,5 +30,12 @@ export function useSession() {
     }
 
     fetchSession();
-  }, [setUser, setLogs, isAuthenticated, setIsAuthenticated, setIsFetching]);
+  }, [
+    setUser,
+    setLogs,
+    isAuthenticated,
+    setIsAuthenticated,
+    setIsFetching,
+    setSelectedLog,
+  ]);
 }

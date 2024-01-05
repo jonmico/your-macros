@@ -17,7 +17,7 @@ export default function Register() {
   const navigate = useNavigate();
 
   // State for email/password page
-  const { setUser, setLogs, setIsAuthenticated } = useUser();
+  const { setUser, setLogs, setIsAuthenticated, setSelectedLog } = useUser();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -81,6 +81,7 @@ export default function Register() {
     if (data.successfulRegister) {
       setUser(data.user);
       setLogs(data.user.logs);
+      setSelectedLog(data.user.logs[data.user.logs.length - 1]);
       setIsAuthenticated(data.isAuthenticated);
       navigate('/dashboard');
     }

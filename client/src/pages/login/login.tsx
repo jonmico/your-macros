@@ -14,7 +14,13 @@ export default function Login() {
   const [passwordError, setPasswordError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
-  const { setUser, setIsAuthenticated, isAuthenticated, setLogs } = useUser();
+  const {
+    setUser,
+    setIsAuthenticated,
+    isAuthenticated,
+    setLogs,
+    setSelectedLog,
+  } = useUser();
   const navigate = useNavigate();
 
   // Navigate to /dashboard if user is authenticated.
@@ -48,6 +54,7 @@ export default function Login() {
     if (data.isAuthenticated) {
       setUser(data.user);
       setLogs(data.user.logs);
+      setSelectedLog(data.user.logs[data.user.logs.length - 1]);
       setIsAuthenticated(true);
       navigate('/dashboard');
     } else {

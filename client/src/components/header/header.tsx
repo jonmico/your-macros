@@ -1,8 +1,7 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import styles from './header.module.css';
 import useUser from '../../hooks/useUser';
 import { logout } from '../../services/user-api';
-import { IUser } from '../../types/user';
+import styles from './header.module.css';
 
 interface IDataLogout {
   successfulLogout: boolean;
@@ -16,7 +15,7 @@ export default function Header() {
     const data: IDataLogout = await logout();
 
     if (data.successfulLogout) {
-      setUser({} as IUser);
+      setUser(null);
       setIsAuthenticated(false);
       navigate('/');
     }

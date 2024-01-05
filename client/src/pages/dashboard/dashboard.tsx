@@ -1,14 +1,13 @@
-import { useState } from 'react';
 import DashboardTable from '../../components/dashboard-table/dashboard-table';
 import PageContentContainer from '../../components/page-content/page-content-container';
 import PageHeader from '../../components/page-header/page-header';
 import useUser from '../../hooks/useUser';
-import { IUser } from '../../types/user';
 import { ILog } from '../../types/log';
+import { IUser } from '../../types/user';
 
-import styles from './dashboard.module.css';
-import { IMeal } from '../../types/meal';
 import { useNavigate } from 'react-router-dom';
+import { IMeal } from '../../types/meal';
+import styles from './dashboard.module.css';
 
 export default function Dashboard() {
   const { user, logs } = useUser();
@@ -24,9 +23,9 @@ export default function Dashboard() {
 }
 
 function DashboardContent(props: { user: IUser }) {
-  const [selectedLog, setSelectedLog] = useState(
-    props.user.logs[props.user.logs.length - 1]
-  );
+  const { selectedLog, setSelectedLog } = useUser();
+
+  if (!selectedLog) return null;
 
   function handleSelectLog(log: ILog) {
     setSelectedLog(log);
