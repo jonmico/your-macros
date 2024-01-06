@@ -14,6 +14,8 @@ import Logs from './pages/logs-page/logs';
 import Register from './pages/register/register';
 import SingleLog from './pages/single-log/single-log';
 import GlobalStyles from './styles/global-styles';
+import CreateFoodForm from './components/create-food-form/create-food-form';
+import YourFoodForm from './components/your-food-form/your-food-form';
 
 // TODO: Add YourFoods (custom foods that are comprised of foods in the database).
 // TODO: Let users browse the database without logging in or signing up.
@@ -28,8 +30,8 @@ function App() {
           <Header />
           <Routes>
             <Route path={'/'} index element={<Home />} />
-            <Route path={'/login'} element={<Login />} />
-            <Route path={'/register'} element={<Register />} />
+            <Route path={'login'} element={<Login />} />
+            <Route path={'register'} element={<Register />} />
             <Route
               element={
                 <ProtectedRoute>
@@ -37,11 +39,14 @@ function App() {
                 </ProtectedRoute>
               }
             >
-              <Route path={'/dashboard'} element={<Dashboard />} />
-              <Route path={'/add-meal'} element={<AddMeal />} />
-              <Route path={'/logs'} element={<Logs />} />
-              <Route path={'/logs/:logId'} element={<SingleLog />} />
-              <Route path={'/create-food'} element={<CreateFood />} />
+              <Route path={'dashboard'} element={<Dashboard />} />
+              <Route path={'add-meal'} element={<AddMeal />} />
+              <Route path={'logs'} element={<Logs />} />
+              <Route path={'logs/:logId'} element={<SingleLog />} />
+              <Route path={'create-food'} element={<CreateFood />}>
+                <Route path={'food-form'} element={<CreateFoodForm />} />
+                <Route path={'your-food-form'} element={<YourFoodForm />} />
+              </Route>
             </Route>
           </Routes>
         </div>
