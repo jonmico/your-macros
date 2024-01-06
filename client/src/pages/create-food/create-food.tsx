@@ -7,7 +7,8 @@ export default function CreateFood() {
     <div>
       <PageHeader>Create Food</PageHeader>
       <div className={styles.formContainer}>
-        <Link to={'food-form'}>CreateFoodForm</Link>
+        <Link to={'create-food-form'}>CreateFoodForm</Link>
+        <Link to={'your-food-form'}>YourFoodForm</Link>
         <Outlet />
       </div>
     </div>

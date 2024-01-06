@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import AppLayout from './components/app-layout/app-layout';
 
 import styles from './App.module.css';
@@ -44,7 +44,11 @@ function App() {
               <Route path={'logs'} element={<Logs />} />
               <Route path={'logs/:logId'} element={<SingleLog />} />
               <Route path={'create-food'} element={<CreateFood />}>
-                <Route path={'food-form'} element={<CreateFoodForm />} />
+                <Route
+                  index
+                  element={<Navigate replace to={'create-food-form'} />}
+                />
+                <Route path={'create-food-form'} element={<CreateFoodForm />} />
                 <Route path={'your-food-form'} element={<YourFoodForm />} />
               </Route>
             </Route>

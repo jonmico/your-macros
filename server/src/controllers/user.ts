@@ -211,7 +211,7 @@ export async function createLog(
     user.logs.push(log);
     await user.save();
 
-    res.json({ logs: user?.logs });
+    res.json({ logs: user.logs });
   } catch (err) {
     next(err);
   }
