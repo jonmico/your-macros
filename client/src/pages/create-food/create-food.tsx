@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import PageHeader from '../../components/page-header/page-header';
 import styles from './create-food.module.css';
 
@@ -6,11 +6,29 @@ export default function CreateFood() {
   return (
     <div>
       <PageHeader>Create Food</PageHeader>
+      <CreateFoodNav />
       <div className={styles.formContainer}>
-        <Link to={'create-food-form'}>CreateFoodForm</Link>
-        <Link to={'your-food-form'}>YourFoodForm</Link>
         <Outlet />
       </div>
     </div>
+  );
+}
+
+function CreateFoodNav() {
+  return (
+    <nav className={styles.createFoodNav}>
+      <ul className={styles.createFoodNavList}>
+        <li>
+          <NavLink className={styles.link} to={'create-food-form'}>
+            Create Food
+          </NavLink>
+        </li>
+        <li>
+          <NavLink className={styles.link} to={'your-food-form'}>
+            YourFood
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
   );
 }
