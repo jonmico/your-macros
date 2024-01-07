@@ -48,7 +48,7 @@ export default function YourFoodForm() {
           />
         </form>
         {!searchedFoods.length && !searchedFoodsError ? (
-          <NoSearchedFoods />
+          <Error />
         ) : (
           <SearchedFoodList
             searchedFoods={searchedFoods}
@@ -60,10 +60,14 @@ export default function YourFoodForm() {
   );
 }
 
-function NoSearchedFoods() {
+function Error(props: { searchedFoodsError?: string }) {
   return (
     <div className={styles.noSearchedFoodsContainer}>
-      <div>Nothing to show here!</div>
+      {props.searchedFoodsError ? (
+        <div>{props.searchedFoodsError}</div>
+      ) : (
+        <div>Nothing to show here!</div>
+      )}
     </div>
   );
 }
@@ -74,7 +78,8 @@ function SearchedFoodList(props: {
 }) {
   const { handleSelectFood } = useFoods();
 
-  if (props.searchedFoodsError) return <div>{props.searchedFoodsError}</div>;
+  if (props.searchedFoodsError)
+    return <Error searchedFoodsError={props.searchedFoodsError} />;
 
   return (
     <ul className={styles.searchedFoodsList}>
