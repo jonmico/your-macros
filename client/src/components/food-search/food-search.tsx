@@ -1,19 +1,13 @@
 import React, { useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
 
-import {
-  Form,
-  SearchContainer,
-  SearchInput,
-  SpinnerContainer,
-  StyledFoodSearch,
-} from './food-search.styled';
+import { useFoods } from '../../hooks/useFoods';
 import { getFoodByText } from '../../services/food-api';
 import { IFood } from '../../types/food';
 import FoodSearchListItem from '../food-search-list-item/food-search-list-item';
-import { useFoods } from '../../hooks/useFoods';
 import Spinner from '../spinner/spinner';
+import { Form, SpinnerContainer, StyledFoodSearch } from './food-search.styled';
 
+import SearchBar from '../search-bar/search-bar';
 import styles from './food-search.module.css';
 
 interface IData {
@@ -55,18 +49,11 @@ export default function FoodSearch() {
   return (
     <StyledFoodSearch>
       <Form onSubmit={handleSubmit}>
-        <SearchContainer>
-          <FaSearch />
-          <SearchInput
-            placeholder={'Search for foods'}
-            type='text'
-            value={searchInput}
-            onChange={(evt) => {
-              setSearchInput(evt.target.value);
-              setSearchedFoodsError('');
-            }}
-          />
-        </SearchContainer>
+        <SearchBar
+          setSearchInput={setSearchInput}
+          searchInput={searchInput}
+          setSearchedFoodsError={setSearchedFoodsError}
+        />
       </Form>
       {isLoading && (
         <SpinnerContainer>

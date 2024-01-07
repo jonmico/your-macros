@@ -1,22 +1,15 @@
+import { useState } from 'react';
 import { FoodProvider } from '../../contexts/food-context';
-import { MealProvider } from '../../contexts/meal-context';
-import FoodInfo from '../food-info/food-info';
-import FoodSearch from '../food-search/food-search';
+import SearchBar from '../search-bar/search-bar';
 import styles from './your-food-form.module.css';
 
 export default function YourFoodForm() {
-  function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
-    evt.preventDefault();
-  }
-
+  const [searchInput, setSearchInput] = useState('');
   return (
     <div className={styles.searchContainer}>
-      <MealProvider>
-        <FoodProvider>
-          <FoodSearch />
-          <FoodInfo />
-        </FoodProvider>
-      </MealProvider>
+      <FoodProvider>
+        <SearchBar setSearchInput={setSearchInput} searchInput={searchInput} />
+      </FoodProvider>
     </div>
   );
 }
