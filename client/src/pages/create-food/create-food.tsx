@@ -6,8 +6,8 @@ export default function CreateFood() {
   return (
     <div>
       <PageHeader>Create Food</PageHeader>
-      <CreateFoodNav />
-      <div className={styles.formContainer}>
+      <div className={styles.createFoodContainer}>
+        <CreateFoodNav />
         <Outlet />
       </div>
     </div>
