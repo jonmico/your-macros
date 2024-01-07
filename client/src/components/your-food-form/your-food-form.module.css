@@ -1,4 +1,11 @@
-.searchContainer {
-  display: flex;
+.yourFoodFormContainer {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
   gap: 1rem;
+}
+
+.searchContainer {
+  border: 1px solid var(--color-gray-700);
+  border-radius: 10px;
+  padding: 1rem;
 }
