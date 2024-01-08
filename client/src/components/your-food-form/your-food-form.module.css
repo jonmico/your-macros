@@ -101,23 +101,6 @@
   transition: color 0.25s ease-in-out;
 }
 
-.animateHide {
-  animation-name: hide;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes hide {
-  from {
-    transform: translateX(0px);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(-200px);
-    opacity: 0;
-  }
-}
-
 .selectedFoodPanelButton:hover {
   cursor: pointer;
   color: var(--color-slate-400);

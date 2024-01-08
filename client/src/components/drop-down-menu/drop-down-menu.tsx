@@ -39,11 +39,7 @@ export default function DropDownMenu(props: {
           </div>
         </button>
         {isDropDownMenuOpen && (
-          <ul
-            className={`${styles.dropDownMenuList} ${
-              isDropDownMenuOpen ? styles.animateMenuDropDown : ''
-            }`}
-          >
+          <ul className={styles.dropDownMenuList}>
             {logs.map((log) => (
               <DropDownMenuListItem
                 handleClick={handleSelectLogClick}

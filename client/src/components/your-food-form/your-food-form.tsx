@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa6';
 import { useFoods } from '../../hooks/useFoods';
 import { getFoodByText } from '../../services/food-api';
@@ -13,6 +13,12 @@ export default function YourFoodForm() {
   const [searchedFoodsError, setSearchedFoodsError] = useState('');
   const [isFetching, setIsFetching] = useState(false);
   const [servings, setServings] = useState('1');
+  const [foodComponents, setFoodComponents] = useState<
+    {
+      food: IFood;
+      servings: number;
+    }[]
+  >([]);
 
   const { selectedFood } = useFoods();
 
@@ -58,8 +64,14 @@ export default function YourFoodForm() {
             selectedFood={selectedFood}
             servings={servings}
             handleSetServings={handleSetServings}
+            setFoodComponents={setFoodComponents}
           />
         )}
+      </div>
+      <div>
+        {foodComponents.map((food) => (
+          <div>{food.food.name}</div>
+        ))}
       </div>
     </div>
   );
@@ -104,30 +116,34 @@ function SelectedFoodPanel(props: {
   selectedFood: IFood;
   servings: string;
   handleSetServings: (value: string) => void;
+  setFoodComponents: React.Dispatch<
+    React.SetStateAction<
+      {
+        food: IFood;
+        servings: number;
+      }[]
+    >
+  >;
 }) {
-  const { clearSelectedFood } = useFoods();
-  const [isOpen, setIsOpen] = useState(true);
-  const timeoutRef = useRef<number | undefined>(undefined);
-
-  useEffect(() => {
-    if (!isOpen) {
-      timeoutRef.current = setTimeout(() => clearSelectedFood(), 200);
-    }
-
-    return () => clearTimeout(timeoutRef.current);
-  }, [clearSelectedFood, isOpen]);
+  const { clearSelectedFood, selectedFood } = useFoods();
 
   const numServings = Number(props.servings);
 
+  function handleAddFoodComponent() {
+    if (selectedFood) {
+      const newFoodComponent = {
+        food: selectedFood,
+        servings: Number(props.servings),
+      };
+      props.setFoodComponents((prevState) => [...prevState, newFoodComponent]);
+    }
+  }
+
   return (
-    <div
-      className={`${styles.selectedFoodPanelContainer} ${
-        !isOpen ? styles.animateHide : ''
-      }`}
-    >
+    <div className={styles.selectedFoodPanelContainer}>
       <button
         className={styles.selectedFoodPanelButton}
-        onClick={() => setIsOpen(false)}
+        onClick={clearSelectedFood}
       >
         <FaArrowLeft />
       </button>
@@ -173,7 +189,12 @@ function SelectedFoodPanel(props: {
             <div>protein</div>
           </div>
         </div>
-        <button className={styles.addToYourFoodButton}>Add to YourFood</button>
+        <button
+          className={styles.addToYourFoodButton}
+          onClick={handleAddFoodComponent}
+        >
+          Add to YourFood
+        </button>
       </div>
     </div>
   );

@@ -38,7 +38,7 @@
 }
 
 .animateDropDownButton {
-  animation: 0.2s forwards dropdown;
+  animation: 0.1s forwards dropdown;
 }
 
 @keyframes dropdown {
@@ -59,19 +59,6 @@
   border: 1px solid var(--color-blue-500);
   border-radius: 8px;
   width: max-content;
-}
-
-.animateMenuDropDown {
-  animation: 0.3s ease-in-out forwards menuDropDown;
-}
-
-@keyframes menuDropDown {
-  0% {
-    transform: translateY(-50%) translateX(50%) scale(0);
-  }
-  100% {
-    transform: translateY(0px) translateX(0px) scale(100%);
-  }
 }
 
 .dropDownMenuListItem {
