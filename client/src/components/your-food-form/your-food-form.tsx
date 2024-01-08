@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa6';
+import { useFoods } from '../../hooks/useFoods';
 import { getFoodByText } from '../../services/food-api';
 import { IFood } from '../../types/food';
 import SearchBar from '../search-bar/search-bar';
-import styles from './your-food-form.module.css';
-import { useFoods } from '../../hooks/useFoods';
 import Spinner from '../spinner/spinner';
-import { FaArrowLeft } from 'react-icons/fa6';
+import styles from './your-food-form.module.css';
 
 export default function YourFoodForm() {
   const [searchInput, setSearchInput] = useState('');
@@ -106,14 +106,28 @@ function SelectedFoodPanel(props: {
   handleSetServings: (value: string) => void;
 }) {
   const { clearSelectedFood } = useFoods();
+  const [isOpen, setIsOpen] = useState(true);
+  const timeoutRef = useRef<number | undefined>(undefined);
+
+  useEffect(() => {
+    if (!isOpen) {
+      timeoutRef.current = setTimeout(() => clearSelectedFood(), 200);
+    }
+
+    return () => clearTimeout(timeoutRef.current);
+  }, [clearSelectedFood, isOpen]);
 
   const numServings = Number(props.servings);
 
   return (
-    <div className={styles.selectedFoodPanelContainer}>
+    <div
+      className={`${styles.selectedFoodPanelContainer} ${
+        !isOpen ? styles.animateHide : ''
+      }`}
+    >
       <button
         className={styles.selectedFoodPanelButton}
-        onClick={clearSelectedFood}
+        onClick={() => setIsOpen(false)}
       >
         <FaArrowLeft />
       </button>
