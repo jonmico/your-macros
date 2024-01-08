@@ -22,6 +22,7 @@ export default function YourFoodForm() {
           servings={servings}
           setServings={setServings}
           setFoodComponents={setFoodComponents}
+          foodComponents={foodComponents}
         />
         <YourFoodFormFoodBuilder foodComponents={foodComponents} />
       </div>
@@ -31,6 +32,7 @@ export default function YourFoodForm() {
 
 function YourFoodsInfo() {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div
       className={`${styles.yourFoodInfoContainer} ${

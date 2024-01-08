@@ -10,6 +10,10 @@ import { FaArrowLeft } from 'react-icons/fa6';
 interface YourFoodFormSearchProps {
   servings: string;
   setServings: React.Dispatch<React.SetStateAction<string>>;
+  foodComponents: {
+    food: IFood;
+    servings: number;
+  }[];
   setFoodComponents: React.Dispatch<
     React.SetStateAction<
       {
@@ -69,6 +73,7 @@ export default function YourFoodFormSearch(props: YourFoodFormSearchProps) {
             servings={props.servings}
             handleSetServings={handleSetServings}
             setFoodComponents={props.setFoodComponents}
+            foodComponents={props.foodComponents}
           />
         )}
       </div>
@@ -168,10 +173,14 @@ function SearchedFoodListItem(props: {
   );
 }
 
-function SelectedFoodPanel(props: {
+interface SelectedFoodPanelProps {
   selectedFood: IFood;
   servings: string;
   handleSetServings: (value: string) => void;
+  foodComponents: {
+    food: IFood;
+    servings: number;
+  }[];
   setFoodComponents: React.Dispatch<
     React.SetStateAction<
       {
@@ -180,19 +189,27 @@ function SelectedFoodPanel(props: {
       }[]
     >
   >;
-}) {
+}
+
+function SelectedFoodPanel(props: SelectedFoodPanelProps) {
   const { clearSelectedFood, selectedFood } = useFoods();
 
   const numServings = Number(props.servings);
 
+  const isFoodInComponents = props.foodComponents.find(
+    (foodComponent) => foodComponent.food._id === selectedFood?._id
+  );
+
   function handleAddFoodComponent() {
-    if (selectedFood) {
-      const newFoodComponent = {
-        food: selectedFood,
-        servings: Number(props.servings),
-      };
-      props.setFoodComponents((prevState) => [...prevState, newFoodComponent]);
+    if (!selectedFood || !!isFoodInComponents) {
+      return null;
     }
+
+    const newFoodComponent = {
+      food: selectedFood,
+      servings: Number(props.servings),
+    };
+    props.setFoodComponents((prevState) => [...prevState, newFoodComponent]);
   }
 
   function handleBackClick() {
@@ -251,6 +268,7 @@ function SelectedFoodPanel(props: {
           </div>
         </div>
         <button
+          disabled={!!isFoodInComponents}
           className={styles.addToYourFoodButton}
           onClick={handleAddFoodComponent}
         >

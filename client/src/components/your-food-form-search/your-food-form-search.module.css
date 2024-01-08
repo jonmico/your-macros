@@ -169,6 +169,13 @@
   background-color: var(--color-slate-900);
 }
 
+.addToYourFoodButton:disabled {
+  cursor: not-allowed;
+  border: 1px solid var(--color-gray-700);
+  color: var(--color-gray-700);
+  opacity: 0.7;
+}
+
 .servingsInput {
   color: var(--color-slate-300);
   background-color: var(--color-slate-800);
