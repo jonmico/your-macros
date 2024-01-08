@@ -49,7 +49,10 @@ export default function LogMealListItem({
           <LogMealComponentListHeader />
           <ul className={styles.logMealComponentList}>
             {meal.mealComponents.map((mealComponent) => (
-              <LogMealComponentListItem mealComponent={mealComponent} />
+              <LogMealComponentListItem
+                key={mealComponent.food._id}
+                mealComponent={mealComponent}
+              />
             ))}
           </ul>
         </div>

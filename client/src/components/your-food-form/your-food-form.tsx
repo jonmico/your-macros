@@ -5,12 +5,20 @@ import SearchBar from '../search-bar/search-bar';
 import styles from './your-food-form.module.css';
 import { useFoods } from '../../hooks/useFoods';
 import Spinner from '../spinner/spinner';
+import { FaArrowLeft } from 'react-icons/fa6';
 
 export default function YourFoodForm() {
   const [searchInput, setSearchInput] = useState('');
   const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
   const [searchedFoodsError, setSearchedFoodsError] = useState('');
   const [isFetching, setIsFetching] = useState(false);
+  const [servings, setServings] = useState('1');
+
+  const { selectedFood } = useFoods();
+
+  function handleSetServings(value: string) {
+    setServings(value);
+  }
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -36,25 +44,122 @@ export default function YourFoodForm() {
   return (
     <div className={styles.yourFoodFormContainer}>
       <div className={styles.searchContainer}>
-        {isFetching && (
-          <div className={styles.spinnerContainer}>
-            <Spinner />
-          </div>
-        )}
-        <form onSubmit={handleSubmit}>
-          <SearchBar
-            setSearchInput={setSearchInput}
+        {!selectedFood ? (
+          <Search
+            isFetching={isFetching}
+            handleSubmit={handleSubmit}
             searchInput={searchInput}
-          />
-        </form>
-        {!searchedFoods.length && !searchedFoodsError ? (
-          <Error />
-        ) : (
-          <SearchedFoodList
+            setSearchInput={setSearchInput}
             searchedFoods={searchedFoods}
             searchedFoodsError={searchedFoodsError}
           />
+        ) : (
+          <SelectedFoodPanel
+            selectedFood={selectedFood}
+            servings={servings}
+            handleSetServings={handleSetServings}
+          />
         )}
+      </div>
+    </div>
+  );
+}
+
+interface SearchProps {
+  isFetching: boolean;
+  handleSubmit: (evt: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  searchInput: string;
+  setSearchInput: React.Dispatch<React.SetStateAction<string>>;
+  searchedFoods: IFood[];
+  searchedFoodsError: string;
+}
+
+function Search(props: SearchProps) {
+  return (
+    <>
+      {props.isFetching && (
+        <div className={styles.spinnerContainer}>
+          <Spinner />
+        </div>
+      )}
+      <form onSubmit={props.handleSubmit}>
+        <SearchBar
+          setSearchInput={props.setSearchInput}
+          searchInput={props.searchInput}
+        />
+      </form>
+      {!props.searchedFoods.length && !props.searchedFoodsError ? (
+        <Error />
+      ) : (
+        <SearchedFoodList
+          searchedFoods={props.searchedFoods}
+          searchedFoodsError={props.searchedFoodsError}
+        />
+      )}
+    </>
+  );
+}
+
+function SelectedFoodPanel(props: {
+  selectedFood: IFood;
+  servings: string;
+  handleSetServings: (value: string) => void;
+}) {
+  const { clearSelectedFood } = useFoods();
+
+  const numServings = Number(props.servings);
+
+  return (
+    <div className={styles.selectedFoodPanelContainer}>
+      <button
+        className={styles.selectedFoodPanelButton}
+        onClick={clearSelectedFood}
+      >
+        <FaArrowLeft />
+      </button>
+      <div className={styles.selectedFoodPanelDataContainer}>
+        <div>
+          <h3 className={styles.selectedFoodPanelName}>
+            {props.selectedFood.name}
+          </h3>
+          <h4 className={styles.selectedFoodPanelBrand}>
+            {props.selectedFood.brand}
+          </h4>
+        </div>
+        <div className={styles.selectedFoodPanelSpaceBetweenRow}>
+          <div>Serving Size</div>
+          <div>{props.selectedFood.servingSize}g</div>
+        </div>
+        <div className={styles.selectedFoodPanelSpaceBetweenRow}>
+          <label htmlFor='servings'>Servings</label>
+          <input
+            className={styles.servingsInput}
+            type='number'
+            name={'servings'}
+            id={'servings'}
+            value={props.servings}
+            onChange={(evt) => props.handleSetServings(evt.target.value)}
+          />
+        </div>
+        <div className={styles.selectedFoodPanelCalsMacrosContainer}>
+          <div className={`${styles.numberContainer} ${styles.calories}`}>
+            <div>{props.selectedFood.calories * numServings}</div>
+            <div>cals</div>
+          </div>
+          <div className={`${styles.numberContainer} ${styles.fat}`}>
+            <div>{props.selectedFood.macros.fat * numServings}g</div>
+            <div>fat</div>
+          </div>
+          <div className={`${styles.numberContainer} ${styles.carbs}`}>
+            <div>{props.selectedFood.macros.carbs * numServings}g</div>
+            <div>carbs</div>
+          </div>
+          <div className={`${styles.numberContainer} ${styles.protein}`}>
+            <div>{props.selectedFood.macros.protein * numServings}g</div>
+            <div>protein</div>
+          </div>
+        </div>
+        <button className={styles.addToYourFoodButton}>Add to YourFood</button>
       </div>
     </div>
   );
@@ -103,7 +208,16 @@ function SearchedFoodListItem(props: {
       onClick={() => props.handleSelectFood(props.food)}
       className={styles.searchedFoodListItem}
     >
-      {props.food.name}
+      <div>
+        <div>{props.food.name}</div>
+        <div className={styles.searchedFoodListItemBrand}>
+          {props.food.brand}
+        </div>
+      </div>
+      <div className={styles.calorieContainer}>
+        <div>{props.food.calories}</div>
+        <div>calories</div>
+      </div>
     </li>
   );
 }
