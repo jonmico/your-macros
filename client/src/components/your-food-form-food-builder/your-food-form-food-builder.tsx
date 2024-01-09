@@ -46,7 +46,7 @@ export default function YourFoodFormFoodBuilder(props: {
             </ul>
           </div>
 
-          <button>Create YourFood</button>
+          <button className={styles.yourFoodButton}>Create YourFood</button>
         </>
       )}
     </div>
@@ -66,7 +66,10 @@ function YourFoodFormBuilderListItem(props: {
     props.foodComponent.food.macros.protein * props.foodComponent.servings;
   return (
     <li className={styles.formBuilderListItem}>
-      <div>{props.foodComponent.food.name}</div>
+      <div>
+        <div>{props.foodComponent.food.name}</div>
+        <div className={styles.foodBrand}>{props.foodComponent.food.brand}</div>
+      </div>
       <div>{props.foodComponent.servings}</div>
       <div className={styles.caloriesMacrosContainer}>
         <div>{totalCals}cals</div>
