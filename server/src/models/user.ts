@@ -3,13 +3,34 @@ import IUser from '../types/user';
 import ILog from '../types/log';
 import { foodSchema } from './food';
 import IMeal from '../types/meal';
+import IYourFood from '../types/your-food';
+
+const yourFoodSchema = new mongoose.Schema<IYourFood>(
+  {
+    foodComponents: [
+      {
+        food: { type: foodSchema, required: true },
+        servings: { type: Number, default: 1 },
+      },
+    ],
+    name: { type: String, required: true },
+    serving: { type: String, required: true },
+    calories: { type: Number, required: true },
+    macros: {
+      carbs: { type: Number, required: true },
+      fat: { type: Number, required: true },
+      protein: { type: Number, required: true },
+    },
+  },
+  { timestamps: true }
+);
 
 export const mealSchema = new mongoose.Schema<IMeal>(
   {
     mealComponents: [
       {
         food: {
-          type: foodSchema,
+          type: foodSchema || yourFoodSchema,
           required: true,
         },
         servings: { type: Number, default: 1 },

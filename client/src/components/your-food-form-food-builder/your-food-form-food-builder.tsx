@@ -2,12 +2,38 @@ import { useState } from 'react';
 import { IFood } from '../../types/food';
 import styles from './your-food-form-food-builder.module.css';
 import YourFoodTotals from '../your-food-totals/your-food-totals';
+import useUser from '../../hooks/useUser';
+import { calcCaloriesMacros } from '../../utils/calcCaloriesMacros';
 
 export default function YourFoodFormFoodBuilder(props: {
   foodComponents: { food: IFood; servings: number }[];
 }) {
   const [yourFoodName, setYourFoodName] = useState('');
   const [yourFoodServing, setYourFoodServing] = useState('');
+  const { user } = useUser();
+
+  const { totalCals, totalCarbs, totalFat, totalProtein } = calcCaloriesMacros(
+    props.foodComponents
+  );
+
+  async function handleCreateYourFood() {
+    if (!user) return null;
+
+    const newYourFood = {
+      author: user._id,
+      foodComponents: props.foodComponents,
+      name: yourFoodName,
+      serving: yourFoodServing,
+      calories: totalCals,
+      macros: {
+        fat: totalFat,
+        carbs: totalCarbs,
+        protein: totalProtein,
+      },
+    };
+
+    console.log(newYourFood);
+  }
 
   return (
     <div className={styles.yourFoodFormBuilderContainer}>
@@ -32,7 +58,9 @@ export default function YourFoodFormFoodBuilder(props: {
               onChange={(evt) => setYourFoodName(evt.target.value)}
             />
           </div>
-          <YourFoodTotals foodComponents={props.foodComponents} />
+          <YourFoodTotals
+            totals={{ totalCals, totalCarbs, totalFat, totalProtein }}
+          />
           <div className={styles.servingSizeContainer}>
             <label htmlFor='servings'>
               <h3>Serving Size</h3>
@@ -63,7 +91,12 @@ export default function YourFoodFormFoodBuilder(props: {
             </ul>
           </div>
 
-          <button className={styles.yourFoodButton}>Create YourFood</button>
+          <button
+            onClick={handleCreateYourFood}
+            className={styles.yourFoodButton}
+          >
+            Create YourFood
+          </button>
         </>
       )}
     </div>
