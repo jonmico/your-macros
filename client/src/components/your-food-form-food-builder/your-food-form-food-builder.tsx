@@ -30,7 +30,12 @@ export default function YourFoodFormFoodBuilder(props: {
               onChange={(evt) => setYourFoodName(evt.target.value)}
             />
           </div>
-          <div className={styles.formBuilderListContainer}>
+          <div>
+            <div className={styles.formBuilderHeader}>
+              <div>Name/Brand</div>
+              <div>Servings</div>
+              <div>Calories/Macros</div>
+            </div>
             <ul className={styles.formBuilderList}>
               {props.foodComponents.map((foodComponent) => (
                 <YourFoodFormBuilderListItem
@@ -40,6 +45,8 @@ export default function YourFoodFormFoodBuilder(props: {
               ))}
             </ul>
           </div>
+
+          <button>Create YourFood</button>
         </>
       )}
     </div>
@@ -49,11 +56,24 @@ export default function YourFoodFormFoodBuilder(props: {
 function YourFoodFormBuilderListItem(props: {
   foodComponent: { food: IFood; servings: number };
 }) {
+  const totalCals =
+    props.foodComponent.food.calories * props.foodComponent.servings;
+  const totalFat =
+    props.foodComponent.food.macros.fat * props.foodComponent.servings;
+  const totalCarbs =
+    props.foodComponent.food.macros.carbs * props.foodComponent.servings;
+  const totalProtein =
+    props.foodComponent.food.macros.protein * props.foodComponent.servings;
   return (
     <li className={styles.formBuilderListItem}>
       <div>{props.foodComponent.food.name}</div>
       <div>{props.foodComponent.servings}</div>
-      <div>{props.foodComponent.food.calories}</div>
+      <div className={styles.caloriesMacrosContainer}>
+        <div>{totalCals}cals</div>
+        <div>{totalFat}f</div>
+        <div>{totalCarbs}c</div>
+        <div>{totalProtein}p</div>
+      </div>
     </li>
   );
 }
