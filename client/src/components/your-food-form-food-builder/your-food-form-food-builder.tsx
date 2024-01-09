@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { IFood } from '../../types/food';
 import styles from './your-food-form-food-builder.module.css';
+import YourFoodTotals from '../your-food-totals/your-food-totals';
 
 export default function YourFoodFormFoodBuilder(props: {
   foodComponents: { food: IFood; servings: number }[];
 }) {
   const [yourFoodName, setYourFoodName] = useState('');
+  const [yourFoodServing, setYourFoodServing] = useState('');
 
   return (
     <div className={styles.yourFoodFormBuilderContainer}>
@@ -18,7 +20,7 @@ export default function YourFoodFormFoodBuilder(props: {
         <>
           <div className={styles.mealNameInputContainer}>
             <label className={styles.mealNameLabel} htmlFor='yourFoodName'>
-              YourFood Name
+              <h3>YourFood Name</h3>
             </label>
             <input
               className={styles.mealNameInput}
@@ -28,6 +30,21 @@ export default function YourFoodFormFoodBuilder(props: {
               id={'yourFoodName'}
               value={yourFoodName}
               onChange={(evt) => setYourFoodName(evt.target.value)}
+            />
+          </div>
+          <YourFoodTotals foodComponents={props.foodComponents} />
+          <div className={styles.servingSizeContainer}>
+            <label htmlFor='servings'>
+              <h3>Serving Size</h3>
+            </label>
+            <input
+              value={yourFoodServing}
+              onChange={(evt) => setYourFoodServing(evt.target.value)}
+              type='text'
+              name={'servings'}
+              id={'servings'}
+              placeholder={'1 sandwich, 1 slice, etc.'}
+              className={styles.servingSizeInput}
             />
           </div>
           <div>
@@ -72,10 +89,10 @@ function YourFoodFormBuilderListItem(props: {
       </div>
       <div>{props.foodComponent.servings}</div>
       <div className={styles.caloriesMacrosContainer}>
-        <div>{totalCals}cals</div>
-        <div>{totalFat}f</div>
-        <div>{totalCarbs}c</div>
-        <div>{totalProtein}p</div>
+        <div className={styles.calories}>{totalCals}cals</div>
+        <div className={styles.fat}>{totalFat}f</div>
+        <div className={styles.carbs}>{totalCarbs}c</div>
+        <div className={styles.protein}>{totalProtein}p</div>
       </div>
     </li>
   );
