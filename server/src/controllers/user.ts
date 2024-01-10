@@ -56,6 +56,7 @@ export async function register(
           logs: newUser.logs,
           calories: newUser.calories,
           macros: newUser.macros,
+          yourFoods: newUser.yourFoods,
         },
       });
     });
@@ -100,6 +101,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
         logs: user.logs,
         calories: user.calories,
         macros: user.macros,
+        yourFoods: user.yourFoods,
       },
     });
   } catch (err) {
@@ -142,6 +144,7 @@ export async function getSession(
           logs: user.logs,
           calories: user.calories,
           macros: user.macros,
+          yourFoods: user.yourFoods,
         },
       });
     } else {
