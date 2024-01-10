@@ -14,7 +14,7 @@ const yourFoodSchema = new mongoose.Schema<IYourFood>(
       },
     ],
     name: { type: String, required: true },
-    serving: { type: String, required: true },
+    servingSize: { type: String, required: true },
     calories: { type: Number, required: true },
     macros: {
       carbs: { type: Number, required: true },
@@ -76,6 +76,7 @@ export const userSchema = new Schema<IUser>({
     carbs: { type: Number, required: true },
     protein: { type: Number, required: true },
   },
+  yourFoods: [yourFoodSchema],
 });
 
 const User = mongoose.model('User', userSchema);

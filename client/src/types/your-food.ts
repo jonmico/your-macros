@@ -1,9 +1,9 @@
-import IFood from './food';
+import { IFood } from './food';
 
-export default interface IYourFood {
+export interface IYourFood {
   foodComponents: {
     food: IFood;
-    servings: string;
+    servings: number;
   }[];
   author: string;
   name: string;

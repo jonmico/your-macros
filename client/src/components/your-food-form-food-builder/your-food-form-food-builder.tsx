@@ -4,6 +4,7 @@ import styles from './your-food-form-food-builder.module.css';
 import YourFoodTotals from '../your-food-totals/your-food-totals';
 import useUser from '../../hooks/useUser';
 import { calcCaloriesMacros } from '../../utils/calcCaloriesMacros';
+import { createYourFood } from '../../services/user-api';
 
 export default function YourFoodFormFoodBuilder(props: {
   foodComponents: { food: IFood; servings: number }[];
@@ -23,7 +24,7 @@ export default function YourFoodFormFoodBuilder(props: {
       author: user._id,
       foodComponents: props.foodComponents,
       name: yourFoodName,
-      serving: yourFoodServing,
+      servingSize: yourFoodServing,
       calories: totalCals,
       macros: {
         fat: totalFat,
@@ -32,7 +33,9 @@ export default function YourFoodFormFoodBuilder(props: {
       },
     };
 
-    console.log(newYourFood);
+    const data = await createYourFood(newYourFood);
+
+    console.log(data);
   }
 
   return (

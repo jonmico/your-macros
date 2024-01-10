@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import ILog from '../types/log';
 import IMeal from '../types/meal';
 import calcLogCalsMacros from '../utils/calcLogCalsMacros';
+import IYourFood from '../types/your-food';
 
 interface IRegisterBody {
   user: {
@@ -212,6 +213,26 @@ export async function createLog(
     await user.save();
 
     res.json({ logs: user.logs });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function createYourFood(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { yourFood }: { yourFood: IYourFood } = req.body;
+    const user = await User.findById(yourFood.author).exec();
+
+    if (!user) throw new AppError('User not found', 404);
+
+    user.yourFoods.push(yourFood);
+    await user.save();
+
+    res.json({ yourFoods: user.yourFoods });
   } catch (err) {
     next(err);
   }
