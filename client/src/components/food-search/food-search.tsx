@@ -55,6 +55,7 @@ export default function FoodSearch() {
           setSearchedFoodsError={setSearchedFoodsError}
         />
       </Form>
+      <SearchTabs />
       {isLoading && (
         <SpinnerContainer>
           <Spinner />
@@ -71,4 +72,8 @@ export default function FoodSearch() {
       {searchedFoodsError && <p>{searchedFoodsError}</p>}
     </StyledFoodSearch>
   );
+}
+
+function SearchTabs() {
+  return <div>search tabs</div>;
 }
