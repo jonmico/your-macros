@@ -17,7 +17,8 @@ export default function Register() {
   const navigate = useNavigate();
 
   // State for email/password page
-  const { setUser, setLogs, setIsAuthenticated, setSelectedLog } = useUser();
+  const { setUser, setLogs, setYourFoods, setIsAuthenticated, setSelectedLog } =
+    useUser();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -81,6 +82,7 @@ export default function Register() {
     if (data.successfulRegister) {
       setUser(data.user);
       setLogs(data.user.logs);
+      setYourFoods(data.user.yourFoods);
       setSelectedLog(data.user.logs[data.user.logs.length - 1]);
       setIsAuthenticated(data.isAuthenticated);
       navigate('/dashboard');
@@ -233,7 +235,6 @@ interface UserMacroConfigFormPageProps {
   carbsError: string;
   protein: string;
   proteinError: string;
-
   calories: number;
   setFat: React.Dispatch<React.SetStateAction<string>>;
   setFatError: React.Dispatch<React.SetStateAction<string>>;

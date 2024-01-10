@@ -1,6 +1,7 @@
 import { IFood } from './food';
 
 export interface IYourFood {
+  _id?: string;
   foodComponents: {
     food: IFood;
     servings: number;

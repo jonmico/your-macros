@@ -17,6 +17,7 @@ export default function Login() {
   const {
     setUser,
     setIsAuthenticated,
+    setYourFoods,
     isAuthenticated,
     setLogs,
     setSelectedLog,
@@ -54,6 +55,7 @@ export default function Login() {
     if (data.isAuthenticated) {
       setUser(data.user);
       setLogs(data.user.logs);
+      setYourFoods(data.user.yourFoods);
       setSelectedLog(data.user.logs[data.user.logs.length - 1]);
       setIsAuthenticated(true);
       navigate('/dashboard');

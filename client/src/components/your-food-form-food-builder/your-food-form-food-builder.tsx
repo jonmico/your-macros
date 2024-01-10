@@ -11,7 +11,7 @@ export default function YourFoodFormFoodBuilder(props: {
 }) {
   const [yourFoodName, setYourFoodName] = useState('');
   const [yourFoodServing, setYourFoodServing] = useState('');
-  const { user } = useUser();
+  const { user, setYourFoods } = useUser();
 
   const { totalCals, totalCarbs, totalFat, totalProtein } = calcCaloriesMacros(
     props.foodComponents
@@ -36,6 +36,7 @@ export default function YourFoodFormFoodBuilder(props: {
     const data = await createYourFood(newYourFood);
 
     console.log(data);
+    setYourFoods(data.yourFoods);
   }
 
   return (

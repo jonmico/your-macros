@@ -1,12 +1,15 @@
 import { createContext, useState } from 'react';
 import { IUser } from '../types/user';
 import { ILog } from '../types/log';
+import { IYourFood } from '../types/your-food';
 
 interface IUserContext {
   user: IUser | null;
   setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
   logs: ILog[];
   setLogs: React.Dispatch<React.SetStateAction<ILog[]>>;
+  yourFoods: IYourFood[];
+  setYourFoods: React.Dispatch<React.SetStateAction<IYourFood[]>>;
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
@@ -20,6 +23,8 @@ export const UserContext = createContext<IUserContext>({
   setUser: () => {},
   logs: [],
   setLogs: () => {},
+  yourFoods: [],
+  setYourFoods: () => {},
   isAuthenticated: true,
   setIsAuthenticated: () => {},
   isLoading: false,
@@ -35,6 +40,7 @@ interface UserProviderProps {
 export default function UserProvider(props: UserProviderProps) {
   const [user, setUser] = useState<IUser | null>(null);
   const [logs, setLogs] = useState<ILog[]>([]);
+  const [yourFoods, setYourFoods] = useState<IYourFood[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedLog, setSelectedLog] = useState<ILog | null>(
@@ -46,6 +52,8 @@ export default function UserProvider(props: UserProviderProps) {
     setUser,
     logs,
     setLogs,
+    yourFoods,
+    setYourFoods,
     isAuthenticated,
     setIsAuthenticated,
     isLoading,

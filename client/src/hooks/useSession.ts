@@ -7,6 +7,7 @@ export function useSession() {
   const {
     setUser,
     setLogs,
+    setYourFoods,
     isAuthenticated,
     setIsAuthenticated,
     setIsLoading: setIsFetching,
@@ -22,6 +23,7 @@ export function useSession() {
       if (data.isAuthenticated) {
         setUser({ ...data.user });
         setLogs(data.user.logs);
+        setYourFoods(data.user.yourFoods);
         setSelectedLog(data.user.logs[data.user.logs.length - 1]);
         setIsAuthenticated(true);
       } else {
@@ -33,6 +35,7 @@ export function useSession() {
   }, [
     setUser,
     setLogs,
+    setYourFoods,
     isAuthenticated,
     setIsAuthenticated,
     setIsFetching,
