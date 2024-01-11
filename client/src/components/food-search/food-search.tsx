@@ -5,13 +5,13 @@ import { getFoodByText } from '../../services/food-api';
 import { IFood } from '../../types/food';
 import FoodSearchListItem from '../food-search-list-item/food-search-list-item';
 import Spinner from '../spinner/spinner';
-import { Form, SpinnerContainer } from './food-search.styled';
+import { Form } from './food-search.styled';
 
+import { Link } from 'react-router-dom';
+import useUser from '../../hooks/useUser';
+import { IYourFood } from '../../types/your-food';
 import SearchBar from '../search-bar/search-bar';
 import styles from './food-search.module.css';
-import { IYourFood } from '../../types/your-food';
-import useUser from '../../hooks/useUser';
-import { Link } from 'react-router-dom';
 
 interface IData {
   foods?: IFood[];
@@ -70,29 +70,45 @@ export default function FoodSearch() {
           setIsDatabaseListOpen={setIsDatabaseListOpen}
           setIsYourFoodsListOpen={setIsYourFoodsListOpen}
         />
-        {isDatabaseListOpen && <DatabaseList />}
+        {isDatabaseListOpen && (
+          <DatabaseList
+            isLoading={isLoading}
+            searchedFoodsError={searchedFoodsError}
+            searchedFoods={searchedFoods}
+          />
+        )}
         {isYourFoodsListOpen && <YourFoodsList yourFoods={yourFoods} />}
       </div>
-      {isLoading && (
-        <SpinnerContainer>
-          <Spinner />
-        </SpinnerContainer>
-      )}
-
-      {searchedFoods?.length > 0 && !isLoading && (
-        <ul className={styles.foodSearchList}>
-          {searchedFoods?.map((food) => (
-            <FoodSearchListItem key={food._id} food={food} />
-          ))}
-        </ul>
-      )}
-      {searchedFoodsError && <p>{searchedFoodsError}</p>}
     </div>
   );
 }
 
-function DatabaseList() {
-  return <div>Database List</div>;
+function DatabaseList(props: {
+  searchedFoods: IFood[];
+  searchedFoodsError: string;
+  isLoading: boolean;
+}) {
+  const errorText = props.searchedFoodsError
+    ? props.searchedFoodsError
+    : 'Foods you search for will populate here';
+  return (
+    <div className={styles.foodSearchListContainer}>
+      {props.searchedFoods.length === 0 ? (
+        <div className={styles.searchedFoodsErrorContainer}>{errorText}</div>
+      ) : (
+        <ul className={styles.foodSearchList}>
+          {props.searchedFoods.map((food) => (
+            <FoodSearchListItem key={food._id} food={food} />
+          ))}
+        </ul>
+      )}
+      {props.isLoading && (
+        <div className={styles.spinnerContainer}>
+          <Spinner />
+        </div>
+      )}
+    </div>
+  );
 }
 
 function YourFoodsList(props: { yourFoods: IYourFood[] }) {

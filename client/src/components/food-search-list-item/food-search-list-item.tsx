@@ -1,10 +1,10 @@
 import { FaCirclePlus } from 'react-icons/fa6';
 import { useFoods } from '../../hooks/useFoods';
-import { IFood } from '../../types/food';
-import { ListItem } from './food-search-list-item.styled';
 import { useMeals } from '../../hooks/useMeals';
+import { IFood } from '../../types/food';
 import { IMealComponent } from '../../types/meal-component';
-import { PlusButton } from '../button/button.styled';
+
+import styles from './food-search-list-item.module.css';
 
 interface FoodSearchListItemProps {
   food: IFood;
@@ -20,7 +20,6 @@ export default function FoodSearchListItem(props: FoodSearchListItemProps) {
 
   function handleSelectClick() {
     handleSelectFood(props.food);
-    console.log(props.food);
   }
 
   function handleAddToMeal(evt: React.MouseEvent<HTMLButtonElement>) {
@@ -33,19 +32,20 @@ export default function FoodSearchListItem(props: FoodSearchListItemProps) {
   }
 
   return (
-    <ListItem onClick={handleSelectClick}>
-      <PlusButton
-        $isInMealComponents={isInMealComponents}
+    <li className={styles.databaseListItem} onClick={handleSelectClick}>
+      <button
         disabled={isInMealComponents}
         onClick={handleAddToMeal}
+        className={styles.addButton}
       >
         <FaCirclePlus />
-      </PlusButton>
+      </button>
       <div>
-        {brand} {name}
+        <div>{name}</div>
+        <div className={styles.brandName}>{brand}</div>
       </div>
       <div>{servingSize}g</div>
       <div>{calories}cals</div>
-    </ListItem>
+    </li>
   );
 }
