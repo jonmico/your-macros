@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useFoods } from '../../hooks/useFoods';
-import useUser from '../../hooks/useUser';
 import { getFoodByText } from '../../services/food-api';
 import { IFood } from '../../types/food';
-import { IYourFood } from '../../types/your-food';
 import FoodSearchListItem from '../food-search-list-item/food-search-list-item';
 import SearchBar from '../search-bar/search-bar';
 import Spinner from '../spinner/spinner';
@@ -22,9 +19,6 @@ export default function FoodSearch() {
   const [searchedFoodsError, setSearchedFoodsError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { clearSelectedFood, selectedFood } = useFoods();
-  const [isDatabaseListOpen, setIsDatabaseListOpen] = useState(true);
-  const [isYourFoodsListOpen, setIsYourFoodsListOpen] = useState(false);
-  const { yourFoods } = useUser();
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -62,20 +56,12 @@ export default function FoodSearch() {
         </Form>
       </div>
       <div className={styles.listsContainer}>
-        <SearchTabs
-          isDatabaseListOpen={isDatabaseListOpen}
-          isYourFoodsListOpen={isYourFoodsListOpen}
-          setIsDatabaseListOpen={setIsDatabaseListOpen}
-          setIsYourFoodsListOpen={setIsYourFoodsListOpen}
-        />
         <div className={styles.foodSearchListContainer}>
-          {isDatabaseListOpen && (
-            <DatabaseList
-              searchedFoodsError={searchedFoodsError}
-              searchedFoods={searchedFoods}
-            />
-          )}
-          {isYourFoodsListOpen && <YourFoodsList yourFoods={yourFoods} />}
+          <DatabaseList
+            searchedFoodsError={searchedFoodsError}
+            searchedFoods={searchedFoods}
+          />
+
           {isLoading && (
             <div className={styles.spinnerContainer}>
               <Spinner />
@@ -106,66 +92,5 @@ function DatabaseList(props: {
         </ul>
       )}
     </>
-  );
-}
-
-function YourFoodsList(props: { yourFoods: IYourFood[] }) {
-  return (
-    <ul>
-      {props.yourFoods.length === 0 ? (
-        <div>
-          <div>
-            No YourFoods made yet. Head over to the Create Food tab to make
-            some.
-          </div>
-          <div>
-            Psst, here's a <Link to={'/create-food/your-food-form'}>link</Link>.
-          </div>
-        </div>
-      ) : (
-        <ul className={styles.foodSearchList}>
-          {props.yourFoods.map((yourFood) => (
-            <FoodSearchListItem key={yourFood._id} food={yourFood} />
-          ))}
-        </ul>
-      )}
-    </ul>
-  );
-}
-
-interface SearchTabsProps {
-  isDatabaseListOpen: boolean;
-  setIsDatabaseListOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isYourFoodsListOpen: boolean;
-  setIsYourFoodsListOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function SearchTabs(props: SearchTabsProps) {
-  const isDatabaseListActive = props.isDatabaseListOpen
-    ? styles.activeSearchTab
-    : '';
-
-  const isYourFoodsListActive = props.isYourFoodsListOpen
-    ? styles.activeSearchTab
-    : '';
-
-  function handleDatabaseClick() {
-    props.setIsDatabaseListOpen(true);
-    props.setIsYourFoodsListOpen(false);
-  }
-
-  function handleYourFoodsClick() {
-    props.setIsYourFoodsListOpen(true);
-    props.setIsDatabaseListOpen(false);
-  }
-  return (
-    <div className={styles.searchTabsContainer}>
-      <div className={isDatabaseListActive} onClick={handleDatabaseClick}>
-        Search Database
-      </div>
-      <div className={isYourFoodsListActive} onClick={handleYourFoodsClick}>
-        YourFoods
-      </div>
-    </div>
   );
 }

@@ -1,6 +1,5 @@
 import { IMeal } from '../types/meal';
 import { IPreIDLog } from '../types/pre-id-log';
-import { IYourFood } from '../types/your-food';
 
 const API_URL = import.meta.env.PROD
   ? 'https://your-macros-backend.onrender.com'
@@ -63,16 +62,6 @@ export async function addMealToLog(meal: IMeal, logId: string, userId: string) {
     method: 'post',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ meal, userId }),
-  });
-
-  return await res.json();
-}
-
-export async function createYourFood(yourFood: IYourFood) {
-  const res = await fetch(`${API_URL}/api/user/your-food/new`, {
-    method: 'post',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ yourFood }),
   });
 
   return await res.json();

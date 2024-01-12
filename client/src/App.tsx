@@ -15,7 +15,6 @@ import Register from './pages/register/register';
 import SingleLog from './pages/single-log/single-log';
 import GlobalStyles from './styles/global-styles';
 import CreateFoodForm from './components/create-food-form/create-food-form';
-import YourFoodForm from './components/your-food-form/your-food-form';
 
 // TODO: Add YourFoods (custom foods that are comprised of foods in the database).
 // TODO: Let users browse the database without logging in or signing up.
@@ -49,7 +48,6 @@ function App() {
                   element={<Navigate replace to={'create-food-form'} />}
                 />
                 <Route path={'create-food-form'} element={<CreateFoodForm />} />
-                <Route path={'your-food-form'} element={<YourFoodForm />} />
               </Route>
             </Route>
           </Routes>

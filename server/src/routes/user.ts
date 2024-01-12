@@ -2,7 +2,6 @@ import { Router } from 'express';
 import {
   addMealToLog,
   createLog,
-  createYourFood,
   getSession,
   login,
   logout,
@@ -16,7 +15,6 @@ router.post('/login', login);
 router.post('/logout', logout);
 router.post('/log/new', createLog);
 router.post('/log/:logId/add-meal/', addMealToLog);
-router.post('/your-food/new', createYourFood);
 router.get('/', getSession);
 
 export default router;

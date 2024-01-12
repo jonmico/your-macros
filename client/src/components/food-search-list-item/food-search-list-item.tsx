@@ -5,10 +5,9 @@ import { IMealComponent } from '../../types/meal-component';
 
 import { IFood } from '../../types/food';
 import styles from './food-search-list-item.module.css';
-import { IYourFood } from '../../types/your-food';
 
 interface DatabaseSearchListItemProps {
-  food: IFood | IYourFood;
+  food: IFood;
 }
 export default function FoodSearchListItem(props: DatabaseSearchListItemProps) {
   const { name, servingSize, calories } = props.food;
@@ -31,32 +30,6 @@ export default function FoodSearchListItem(props: DatabaseSearchListItemProps) {
       servings: 1,
     };
     addToMeal(mealComponent);
-  }
-
-  if ('foodComponents' in props.food) {
-    return (
-      <li className={styles.foodSearchListItem} onClick={handleSelectClick}>
-        <button
-          disabled={isInMealComponents}
-          onClick={handleAddToMeal}
-          className={styles.addButton}
-        >
-          <FaCirclePlus />
-        </button>
-        <div className={styles.foodDataContainer}>
-          <div>
-            <div>
-              <div>{props.food.name}</div>
-              <div>{props.food.foodComponents.length} items</div>
-            </div>
-          </div>
-          <div>
-            <div>{props.food.calories} cals</div>
-            <div>{props.food.servingSize}</div>
-          </div>
-        </div>
-      </li>
-    );
   }
 
   return (

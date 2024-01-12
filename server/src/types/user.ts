@@ -1,5 +1,4 @@
 import ILog from './log';
-import IYourFood from './your-food';
 
 export default interface IUser {
   email: string;
@@ -11,5 +10,4 @@ export default interface IUser {
     carbs: number;
     protein: number;
   };
-  yourFoods: IYourFood[];
 }
