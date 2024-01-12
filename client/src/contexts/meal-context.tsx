@@ -34,13 +34,9 @@ export function MealProvider(props: MealProviderProps) {
   }
 
   function removeFromMeal(id: string) {
-    setMealComponents((prevState) => {
-      const filteredPrevState = prevState.filter(({ food }) => id !== food._id);
-      if (!filteredPrevState.length) {
-        setMealName('');
-      }
-      return filteredPrevState;
-    });
+    setMealComponents((prevState) =>
+      prevState.filter(({ food }) => id !== food._id)
+    );
   }
 
   function editServings(mealComponent: IMealComponent, newServings: number) {
@@ -66,7 +62,6 @@ export function MealProvider(props: MealProviderProps) {
 
   function clearMeal() {
     setMealComponents([]);
-    setMealName('');
   }
 
   const value = {
