@@ -71,12 +71,16 @@ export default function FoodSearch() {
         <div className={styles.foodSearchListContainer}>
           {isDatabaseListOpen && (
             <DatabaseList
-              isLoading={isLoading}
               searchedFoodsError={searchedFoodsError}
               searchedFoods={searchedFoods}
             />
           )}
           {isYourFoodsListOpen && <YourFoodsList yourFoods={yourFoods} />}
+          {isLoading && (
+            <div className={styles.spinnerContainer}>
+              <Spinner />
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -86,7 +90,6 @@ export default function FoodSearch() {
 function DatabaseList(props: {
   searchedFoods: IFood[];
   searchedFoodsError: string;
-  isLoading: boolean;
 }) {
   const errorText = props.searchedFoodsError
     ? props.searchedFoodsError
@@ -101,11 +104,6 @@ function DatabaseList(props: {
             <FoodSearchListItem key={food._id} food={food} />
           ))}
         </ul>
-      )}
-      {props.isLoading && (
-        <div className={styles.spinnerContainer}>
-          <Spinner />
-        </div>
       )}
     </>
   );

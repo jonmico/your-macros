@@ -30,7 +30,7 @@ export const mealSchema = new mongoose.Schema<IMeal>(
     mealComponents: [
       {
         food: {
-          type: foodSchema || yourFoodSchema,
+          type: foodSchema,
           required: true,
         },
         servings: { type: Number, default: 1 },
