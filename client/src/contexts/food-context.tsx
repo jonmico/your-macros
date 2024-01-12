@@ -1,9 +1,10 @@
 import { createContext, useState } from 'react';
 import { IFood } from '../types/food';
+import { IYourFood } from '../types/your-food';
 
 export interface IFoodContext {
-  selectedFood: IFood | null;
-  handleSelectFood: (food: IFood) => void;
+  selectedFood: IFood | IYourFood | null;
+  handleSelectFood: (food: IFood | IYourFood) => void;
   clearSelectedFood: () => void;
 }
 
@@ -18,9 +19,11 @@ interface FoodProviderProps {
 }
 
 export function FoodProvider(props: FoodProviderProps) {
-  const [selectedFood, setSelectedFood] = useState<IFood | null>(null);
+  const [selectedFood, setSelectedFood] = useState<IFood | IYourFood | null>(
+    null
+  );
 
-  function handleSelectFood(food: IFood) {
+  function handleSelectFood(food: IFood | IYourFood) {
     setSelectedFood(food);
   }
 

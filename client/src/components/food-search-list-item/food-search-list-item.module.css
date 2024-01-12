@@ -1,4 +1,4 @@
-.yourFoodListItem {
+.foodSearchListItem {
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -7,20 +7,31 @@
   border-bottom: 1px solid var(--color-gray-700);
 }
 
-.yourFoodListItem:first-of-type {
+.foodSearchListItem:first-of-type {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-.yourFoodListItem:last-of-type {
+.foodSearchListItem:last-of-type {
   border-bottom: none;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
-.yourFoodListItem:hover {
+.foodSearchListItem:hover {
   background-color: var(--color-slate-800);
   cursor: pointer;
+}
+
+.brandName {
+  font-weight: 500;
+  color: var(--color-gray-500);
+}
+
+.foodDataContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .addButton {
@@ -45,10 +56,4 @@
 .addButton:disabled {
   cursor: not-allowed;
   color: var(--color-gray-700);
-}
-
-.foodDataContainer {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
 }

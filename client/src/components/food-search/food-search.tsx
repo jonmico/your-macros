@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useFoods } from '../../hooks/useFoods';
+import useUser from '../../hooks/useUser';
 import { getFoodByText } from '../../services/food-api';
 import { IFood } from '../../types/food';
-import DatabaseSearchListItem from '../database-search-list-item/database-search-list-item';
-import Spinner from '../spinner/spinner';
-import { Form } from './food-search.styled';
-import { Link } from 'react-router-dom';
-import useUser from '../../hooks/useUser';
 import { IYourFood } from '../../types/your-food';
+import FoodSearchListItem from '../food-search-list-item/food-search-list-item';
 import SearchBar from '../search-bar/search-bar';
+import Spinner from '../spinner/spinner';
 import styles from './food-search.module.css';
-import YourFoodSearchListItem from '../your-food-search-list-item/your-food-search-list-item';
+import { Form } from './food-search.styled';
 
 interface IData {
   foods?: IFood[];
@@ -99,7 +98,7 @@ function DatabaseList(props: {
       ) : (
         <ul className={styles.foodSearchList}>
           {props.searchedFoods.map((food) => (
-            <DatabaseSearchListItem key={food._id} food={food} />
+            <FoodSearchListItem key={food._id} food={food} />
           ))}
         </ul>
       )}
@@ -128,7 +127,7 @@ function YourFoodsList(props: { yourFoods: IYourFood[] }) {
       ) : (
         <ul className={styles.foodSearchList}>
           {props.yourFoods.map((yourFood) => (
-            <YourFoodSearchListItem key={yourFood._id} yourFood={yourFood} />
+            <FoodSearchListItem key={yourFood._id} food={yourFood} />
           ))}
         </ul>
       )}

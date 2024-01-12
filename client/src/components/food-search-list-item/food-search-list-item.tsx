@@ -4,15 +4,14 @@ import { useMeals } from '../../hooks/useMeals';
 import { IMealComponent } from '../../types/meal-component';
 
 import { IFood } from '../../types/food';
-import styles from './database-search-list-item.module.css';
+import styles from './food-search-list-item.module.css';
+import { IYourFood } from '../../types/your-food';
 
 interface DatabaseSearchListItemProps {
-  food: IFood;
+  food: IFood | IYourFood;
 }
-export default function DatabaseSearchListItem(
-  props: DatabaseSearchListItemProps
-) {
-  const { brand, name, servingSize, calories } = props.food;
+export default function FoodSearchListItem(props: DatabaseSearchListItemProps) {
+  const { name, servingSize, calories } = props.food;
 
   const { handleSelectFood } = useFoods();
   const { addToMeal, mealComponents } = useMeals();
@@ -34,8 +33,34 @@ export default function DatabaseSearchListItem(
     addToMeal(mealComponent);
   }
 
+  if ('foodComponents' in props.food) {
+    return (
+      <li className={styles.foodSearchListItem} onClick={handleSelectClick}>
+        <button
+          disabled={isInMealComponents}
+          onClick={handleAddToMeal}
+          className={styles.addButton}
+        >
+          <FaCirclePlus />
+        </button>
+        <div className={styles.foodDataContainer}>
+          <div>
+            <div>
+              <div>{props.food.name}</div>
+              <div>{props.food.foodComponents.length} items</div>
+            </div>
+          </div>
+          <div>
+            <div>{props.food.calories} cals</div>
+            <div>{props.food.servingSize}</div>
+          </div>
+        </div>
+      </li>
+    );
+  }
+
   return (
-    <li className={styles.databaseListItem} onClick={handleSelectClick}>
+    <li className={styles.foodSearchListItem} onClick={handleSelectClick}>
       <button
         disabled={isInMealComponents}
         onClick={handleAddToMeal}
@@ -47,7 +72,7 @@ export default function DatabaseSearchListItem(
         <div>
           <div>
             <div>{name}</div>
-            <div className={styles.brandName}>{brand}</div>
+            <div className={styles.brandName}>{props.food.brand}</div>
           </div>
         </div>
         <div>

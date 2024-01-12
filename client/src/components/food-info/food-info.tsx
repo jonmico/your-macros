@@ -54,7 +54,7 @@ export default function FoodInfo() {
           <FoodInfoHeader>
             <BrandAndName>
               <StyledH3FoodInfo>{selectedFood.name}</StyledH3FoodInfo>
-              <Brand>{selectedFood.brand}</Brand>
+              {'brand' in selectedFood && <Brand>{selectedFood.brand}</Brand>}
             </BrandAndName>
             <FaXmark onClick={handleClearSelectedFood} />
           </FoodInfoHeader>
