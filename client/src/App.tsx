@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppLayout from './components/app-layout/app-layout';
 
 import styles from './App.module.css';
@@ -14,9 +14,13 @@ import Logs from './pages/logs-page/logs';
 import Register from './pages/register/register';
 import SingleLog from './pages/single-log/single-log';
 import GlobalStyles from './styles/global-styles';
-import CreateFoodForm from './components/create-food-form/create-food-form';
 
 // TODO: Let users browse the database without logging in or signing up.
+// TODO: Clean up redudant styling. I think there's like 40 macro containers in this project.
+// TODO: Figure out what to do next now that we failed at YourFoods.
+// TODO: Redo add-meal page layout.
+// TODO: Look at context usage and how we build out the user.
+// TODO: Probably condense user state into a reducer.
 function App() {
   useSession();
 
@@ -41,13 +45,7 @@ function App() {
               <Route path={'add-meal'} element={<AddMeal />} />
               <Route path={'logs'} element={<Logs />} />
               <Route path={'logs/:logId'} element={<SingleLog />} />
-              <Route path={'create-food'} element={<CreateFood />}>
-                <Route
-                  index
-                  element={<Navigate replace to={'create-food-form'} />}
-                />
-                <Route path={'create-food-form'} element={<CreateFoodForm />} />
-              </Route>
+              <Route path={'create-food'} element={<CreateFood />} />
             </Route>
           </Routes>
         </div>
