@@ -6,14 +6,12 @@ export const StyledMealItem = styled.li`
   text-align: center;
   align-items: center;
   padding: 1rem 0.5rem;
-
-  &:nth-of-type(even) {
-    background-color: var(--color-slate-800);
-  }
+  border-bottom: 1px solid var(--color-gray-700);
 
   &:last-of-type {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+    border-bottom: none;
   }
 
   & svg {

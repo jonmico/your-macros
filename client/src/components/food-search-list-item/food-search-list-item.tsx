@@ -12,13 +12,16 @@ interface DatabaseSearchListItemProps {
 export default function FoodSearchListItem(props: DatabaseSearchListItemProps) {
   const { name, servingSize, calories } = props.food;
 
-  const { handleSelectFood } = useFoods();
+  const { handleSelectFood, selectedFood } = useFoods();
   const {
     addToMeal,
     mealComponents,
     mealComponentsError,
     setMealComponentsError,
   } = useMeals();
+
+  const isSelectedFood =
+    selectedFood?._id === props.food._id ? styles.activeFood : '';
 
   const isInMealComponents = mealComponents
     .map(({ food }) => food)
@@ -39,7 +42,10 @@ export default function FoodSearchListItem(props: DatabaseSearchListItemProps) {
   }
 
   return (
-    <li className={styles.foodSearchListItem} onClick={handleSelectClick}>
+    <li
+      className={`${styles.foodSearchListItem} ${isSelectedFood}`}
+      onClick={handleSelectClick}
+    >
       <button
         disabled={isInMealComponents}
         onClick={handleAddToMeal}
