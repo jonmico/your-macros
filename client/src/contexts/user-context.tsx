@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useReducer, useState } from 'react';
 import { ILog } from '../types/log';
 import { IUser } from '../types/user';
 
@@ -15,6 +15,19 @@ interface IUserContext {
   setSelectedLog: React.Dispatch<React.SetStateAction<ILog | null>>;
 }
 
+interface UserState {
+  user: IUser | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+}
+
+type InitializeUser = {
+  type: 'user/initialize';
+  payload: { user: IUser; isAuthenticated: boolean };
+};
+
+export type UserActions = InitializeUser;
+
 export const UserContext = createContext<IUserContext>({
   user: null,
   setUser: () => {},
@@ -28,6 +41,26 @@ export const UserContext = createContext<IUserContext>({
   setSelectedLog: () => {},
 });
 
+function reducer(state: UserState, action: UserActions) {
+  switch (action.type) {
+    case 'user/initialize':
+      return {
+        ...state,
+        user: action.payload.user,
+        isAuthenticated: action.payload.isAuthenticated,
+        isLoading: false,
+      };
+    default:
+      throw TypeError('Action unknown.');
+  }
+}
+
+const initialState = {
+  user: null,
+  isAuthenticated: true,
+  isLoading: false,
+};
+
 interface UserProviderProps {
   children: React.ReactNode;
 }
@@ -40,6 +73,8 @@ export default function UserProvider(props: UserProviderProps) {
   const [selectedLog, setSelectedLog] = useState<ILog | null>(
     user ? user.logs[user.logs.length - 1] : null
   );
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const value = {
     user,
