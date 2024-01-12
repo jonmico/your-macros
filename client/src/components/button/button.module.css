@@ -1,0 +1,35 @@
+.primary {
+  font-size: 1.15rem;
+  border: 1px solid var(--color-blue-500);
+  background-color: var(--color-zinc-900);
+  border-radius: 5px;
+  color: var(--color-blue-500);
+  padding: 0.75rem 1.25rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.primary:hover {
+  cursor: pointer;
+  background-color: var(--color-slate-800);
+}
+
+.primary:disabled {
+  border: 1px solid var(--color-gray-600);
+  color: var(--color-gray-600);
+  cursor: not-allowed;
+}
+
+.small {
+  font-size: 0.9rem;
+  border: 1px solid var(--color-blue-500);
+  background-color: var(--color-zinc-900);
+  border-radius: 5px;
+  color: var(--color-blue-500);
+  padding: 0.35rem 0.75rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.small:hover {
+  cursor: pointer;
+  background-color: var(--color-slate-800);
+}
