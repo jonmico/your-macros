@@ -1,6 +1,5 @@
 import { ILog } from './log';
 import { IMacros } from './macros';
-import { IYourFood } from './your-food';
 
 export interface IUser {
   _id: string;
@@ -8,5 +7,4 @@ export interface IUser {
   logs: ILog[];
   calories: number;
   macros: IMacros;
-  yourFoods: IYourFood[];
 }
