@@ -16,3 +16,14 @@
   align-items: center;
   padding: 0.5rem;
 }
+
+.addMealContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.errorText {
+  color: var(--color-red-400);
+}

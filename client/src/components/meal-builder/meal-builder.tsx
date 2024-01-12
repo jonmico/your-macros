@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useMeals } from '../../hooks/useMeals';
 import { IMeal } from '../../types/meal';
 import AddMealToLogModal from '../add-meal-to-log-modal/add-meal-to-log-modal';
-import { AddMealToLogButton, ClearButton } from '../button/button.styled';
 import MealData from '../meal-data/meal-data';
 import MealListItem from '../meal-list-item/meal-list-item';
 import {
@@ -15,11 +14,13 @@ import {
   StyledMealBuilder,
 } from './meal-builder.styled';
 
+import Button from '../button/button';
 import styles from './meal-builder.module.css';
 
 export default function MealBuilder() {
   const { mealComponents, mealName, setMealName } = useMeals();
   const [mealNameError, setMealNameError] = useState('');
+  const [mealComponentsError, setMealComponentsError] = useState('');
   const [showModal, setShowModal] = useState(false);
 
   const mealCalories = mealComponents.reduce(
@@ -49,6 +50,13 @@ export default function MealBuilder() {
   function handleShowModal() {
     if (!mealName) {
       setMealNameError('Please name the meal');
+    }
+
+    if (mealComponents.length === 0) {
+      setMealComponentsError('Meal is empty');
+    }
+
+    if (!mealName || mealComponents.length === 0) {
       return;
     }
 
@@ -85,12 +93,14 @@ export default function MealBuilder() {
       </MealNameContainer>
       <DataButtonContainer>
         <MealData mealData={mealData} />
-        <AddMealToLogButton
-          disabled={!mealComponents.length}
-          onClick={handleShowModal}
-        >
-          Add Meal to Log
-        </AddMealToLogButton>
+        <div className={styles.addMealContainer}>
+          <Button type={'primary'} onClick={handleShowModal}>
+            Add Meal to Log
+          </Button>
+          {mealComponentsError && (
+            <div className={styles.errorText}>{mealComponentsError}</div>
+          )}
+        </div>
       </DataButtonContainer>
       <MealListContainer>
         <MealListHeader />
@@ -122,7 +132,9 @@ function MealListHeader() {
         <h4>Servings</h4>
         <h4>Amount</h4>
         <h4>Calories and Macros</h4>
-        <ClearButton onClick={clearMeal}>Clear</ClearButton>
+        <Button onClick={clearMeal} type={'small'}>
+          CLEAR
+        </Button>
       </div>
     </div>
   );

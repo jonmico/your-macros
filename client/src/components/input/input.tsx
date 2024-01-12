@@ -7,6 +7,7 @@ interface InputProps {
   name: string;
   id: string;
   stateVal: string;
+  step?: number;
   setStateFn: React.Dispatch<SetStateAction<string>>;
   errorText?: string;
   setErrorText?: React.Dispatch<SetStateAction<string>>;
@@ -23,6 +24,7 @@ export default function Input(props: InputProps) {
   return (
     <div className={styles.inputContainer}>
       <input
+        step={props.step}
         className={styles.input}
         type={props.type}
         name={props.name}

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { FaCircleXmark } from 'react-icons/fa6';
 import { useMeals } from '../../hooks/useMeals';
 import { IMealComponent } from '../../types/meal-component';
-import { EditButton } from '../button/button.styled';
 import { Calories, Carbs, Fat, Protein } from '../macros/macros.styled';
 import {
   CaloriesAndMacrosContainer,
@@ -12,6 +11,7 @@ import {
   SvgContainer,
 } from './meal-list-item.styled';
 
+import Button from '../button/button';
 import styles from './meal-list-item.module.css';
 
 interface MealItemProps {
@@ -53,7 +53,7 @@ export default function MealListItem(props: MealItemProps) {
           value={servings}
           onChange={(evt) => setServings(evt.target.value)}
         />
-        {isEditActive && <EditButton>Edit</EditButton>}
+        {isEditActive && <Button type={'small'}>Edit</Button>}
       </EditServingsForm>
       <p>{servingSize}g</p>
       <CaloriesAndMacrosContainer>

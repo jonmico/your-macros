@@ -21,7 +21,7 @@ import {
   NoSelectedFoodContainer,
   StyledFoodInfo,
 } from './food-info.styled';
-import { Input } from '../input/input.styled';
+import Input from '../input/input';
 
 export default function FoodInfo() {
   const { addToMeal, mealComponents } = useMeals();
@@ -63,11 +63,13 @@ export default function FoodInfo() {
             <div>{selectedFood.servingSize}g</div>
           </FoodInfoRow>
           <FoodInfoRow>
-            <label>Servings</label>
+            <label htmlFor={'servings'}>Servings</label>
             <Input
+              name={'servings'}
+              id={'servings'}
               step={0.01}
-              value={servings}
-              onChange={(evt) => setServings(evt.target.value)}
+              stateVal={servings}
+              setStateFn={setServings}
               type='number'
             />
           </FoodInfoRow>
