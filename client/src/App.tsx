@@ -16,7 +16,6 @@ import SingleLog from './pages/single-log/single-log';
 import GlobalStyles from './styles/global-styles';
 import CreateFoodForm from './components/create-food-form/create-food-form';
 
-// TODO: Add YourFoods (custom foods that are comprised of foods in the database).
 // TODO: Let users browse the database without logging in or signing up.
 function App() {
   useSession();
