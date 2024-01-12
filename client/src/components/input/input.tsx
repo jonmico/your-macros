@@ -1,8 +1,9 @@
 import { SetStateAction } from 'react';
 
-import styles from './text-input.module.css';
+import styles from './input.module.css';
 
-interface TextInputProps {
+interface InputProps {
+  type: string;
   name: string;
   id: string;
   stateVal: string;
@@ -11,7 +12,7 @@ interface TextInputProps {
   setErrorText?: React.Dispatch<SetStateAction<string>>;
 }
 
-export default function TextInput(props: TextInputProps) {
+export default function Input(props: InputProps) {
   function handleOnChange(evt: React.ChangeEvent<HTMLInputElement>) {
     if (props.setErrorText) {
       props.setErrorText('');
@@ -20,10 +21,10 @@ export default function TextInput(props: TextInputProps) {
   }
 
   return (
-    <div className={styles.textInputContainer}>
+    <div className={styles.inputContainer}>
       <input
-        className={styles.textInput}
-        type='text'
+        className={styles.input}
+        type={props.type}
         name={props.name}
         id={props.id}
         value={props.stateVal}

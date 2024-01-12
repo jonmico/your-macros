@@ -1,18 +1,16 @@
 import { useState } from 'react';
+import { createFood } from '../../services/food-api';
+import { IFood } from '../../types/food';
 import { PrimaryButton, ResetButton } from '../button/button.styled';
+import Input from '../input/input';
+import Spinner from '../spinner/spinner';
+import styles from './create-food-form.module.css';
 import {
   ButtonContainer,
-  FormRow,
-  FormInput,
   FormLabel,
+  FormRow,
   StyledForm,
-  FormError,
-  InputErrorContainer,
 } from './create-food-form.styled';
-import { IFood } from '../../types/food';
-import { createFood } from '../../services/food-api';
-import styles from './create-food-form.module.css';
-import Spinner from '../spinner/spinner';
 
 export default function CreateFoodForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -144,94 +142,89 @@ export default function CreateFoodForm() {
 
       <FormRow>
         <FormLabel htmlFor='brand'>Brand</FormLabel>
-        <InputErrorContainer>
-          <FormInput
+
+        <div className={styles.inputContainer}>
+          <Input
+            type={'text'}
+            name={'brand'}
             id={'brand'}
-            type='text'
-            value={brand}
-            onChange={(evt) => {
-              setBrandError('');
-              setBrand(evt.target.value);
-            }}
+            stateVal={brand}
+            setStateFn={setBrand}
+            errorText={brandError}
+            setErrorText={setBrandError}
           />
-          {brandError && <FormError>{brandError}</FormError>}
-        </InputErrorContainer>
+        </div>
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='name'>Name</FormLabel>
-        <InputErrorContainer>
-          <FormInput
+        <div className={styles.inputContainer}>
+          <Input
+            type={'text'}
+            name={'name'}
             id={'name'}
-            type='text'
-            value={name}
-            onChange={(evt) => {
-              setNameError('');
-              setName(evt.target.value);
-            }}
+            stateVal={name}
+            setStateFn={setName}
+            errorText={nameError}
+            setErrorText={setNameError}
           />
-          {nameError && <FormError>{nameError}</FormError>}
-        </InputErrorContainer>
+        </div>
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='servingSize'>Serving Size (g)</FormLabel>
-        <InputErrorContainer>
-          <FormInput
+        <div className={styles.inputContainer}>
+          <Input
+            type={'number'}
+            name={'servingSize'}
             id={'servingSize'}
-            type='number'
-            value={servingSize}
-            onChange={(evt) => {
-              setServingSizeError('');
-              setServingSize(evt.target.value);
-            }}
+            stateVal={servingSize}
+            setStateFn={setServingSize}
+            errorText={servingSizeError}
+            setErrorText={setServingSizeError}
           />
-          {servingSizeError && <FormError>{servingSizeError}</FormError>}
-        </InputErrorContainer>
+        </div>
       </FormRow>
 
       <FormRow>
         <FormLabel htmlFor='carbs'>Carbs (g)</FormLabel>
-        <InputErrorContainer>
-          <FormInput
+        <div className={styles.inputContainer}>
+          <Input
+            type={'number'}
+            name={'carbs'}
             id={'carbs'}
-            type='number'
-            value={carbs}
-            onChange={(evt) => {
-              setCarbsError('');
-              setCarbs(evt.target.value);
-            }}
+            stateVal={carbs}
+            setStateFn={setCarbs}
+            errorText={carbsError}
+            setErrorText={setCarbsError}
           />
-          {carbsError && <FormError>{carbsError}</FormError>}
-        </InputErrorContainer>
+        </div>
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='fat'>Fat (g)</FormLabel>
-        <InputErrorContainer>
-          <FormInput
+        <div className={styles.inputContainer}>
+          <Input
+            type={'number'}
+            name={'fat'}
             id={'fat'}
-            type='number'
-            value={fat}
-            onChange={(evt) => {
-              setFatError('');
-              setFat(evt.target.value);
-            }}
+            stateVal={fat}
+            setStateFn={setFat}
+            errorText={fatError}
+            setErrorText={setFatError}
           />
-          {fatError && <FormError>{fatError}</FormError>}
-        </InputErrorContainer>
+        </div>
       </FormRow>
       <FormRow>
         <FormLabel htmlFor='protein'>Protein (g)</FormLabel>
-        <InputErrorContainer>
-          <FormInput
+        <div className={styles.inputContainer}>
+          <Input
+            type={'number'}
+            name={'protein'}
             id={'protein'}
-            type='number'
-            value={protein}
-            onChange={(evt) => {
-              setProteinError('');
-              setProtein(evt.target.value);
-            }}
+            stateVal={protein}
+            setStateFn={setProtein}
+            errorText={proteinError}
+            setErrorText={setProteinError}
           />
-          {proteinError && <FormError>{proteinError}</FormError>}
-        </InputErrorContainer>
+        </div>
       </FormRow>
       <ButtonContainer>
         <PrimaryButton disabled={isLoading} type={'submit'}>

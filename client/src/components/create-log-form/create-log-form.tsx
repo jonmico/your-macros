@@ -5,7 +5,7 @@ import { ILog } from '../../types/log';
 import useUser from '../../hooks/useUser';
 import { createLog } from '../../services/user-api';
 import { IPreIDLog } from '../../types/pre-id-log';
-import TextInput from '../text-input/text-input';
+import Input from '../input/input';
 
 interface ICreateLogData {
   logs: ILog[];
@@ -45,7 +45,8 @@ export default function CreateLogForm() {
       <div className={styles.formFieldContainer}>
         <div className={styles.formField}>
           <label htmlFor='logName'>Log Name</label>
-          <TextInput
+          <Input
+            type={'text'}
             name={'logName'}
             id={'logName'}
             stateVal={logName}
