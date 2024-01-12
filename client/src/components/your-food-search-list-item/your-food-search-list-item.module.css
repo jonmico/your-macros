@@ -1,24 +1,26 @@
-.databaseListItem {
-  display: grid;
+.yourFoodListItem {
+  display: flex;
   align-items: center;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1.5rem;
   padding: 0.75rem 1rem;
   transition: background-color 0.2s ease-in-out;
   border-bottom: 1px solid var(--color-gray-700);
 }
 
-.databaseListItem:last-of-type {
-  border-bottom: none;
+.yourFoodListItem:first-of-type {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.databaseListItem:hover {
+.yourFoodListItem:last-of-type {
+  border-bottom: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.yourFoodListItem:hover {
   background-color: var(--color-slate-800);
   cursor: pointer;
-}
-
-.brandName {
-  font-weight: 500;
-  color: var(--color-gray-500);
 }
 
 .addButton {
@@ -28,10 +30,10 @@
   justify-content: center;
   align-items: center;
   color: var(--color-slate-300);
-  background-color: inherit;
+  background-color: var(--color-zinc-900);
   border: none;
-
-  font-size: 2rem;
+  border-radius: 50%;
+  font-size: 1.75rem;
   transition: color 0.2s ease-in-out;
 }
 
@@ -43,4 +45,10 @@
 .addButton:disabled {
   cursor: not-allowed;
   color: var(--color-gray-700);
+}
+
+.foodDataContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }

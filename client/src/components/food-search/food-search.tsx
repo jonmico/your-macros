@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-
 import { useFoods } from '../../hooks/useFoods';
 import { getFoodByText } from '../../services/food-api';
 import { IFood } from '../../types/food';
-import FoodSearchListItem from '../food-search-list-item/food-search-list-item';
+import DatabaseSearchListItem from '../database-search-list-item/database-search-list-item';
 import Spinner from '../spinner/spinner';
 import { Form } from './food-search.styled';
-
 import { Link } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
 import { IYourFood } from '../../types/your-food';
 import SearchBar from '../search-bar/search-bar';
 import styles from './food-search.module.css';
+import YourFoodSearchListItem from '../your-food-search-list-item/your-food-search-list-item';
 
 interface IData {
   foods?: IFood[];
@@ -70,14 +69,16 @@ export default function FoodSearch() {
           setIsDatabaseListOpen={setIsDatabaseListOpen}
           setIsYourFoodsListOpen={setIsYourFoodsListOpen}
         />
-        {isDatabaseListOpen && (
-          <DatabaseList
-            isLoading={isLoading}
-            searchedFoodsError={searchedFoodsError}
-            searchedFoods={searchedFoods}
-          />
-        )}
-        {isYourFoodsListOpen && <YourFoodsList yourFoods={yourFoods} />}
+        <div className={styles.foodSearchListContainer}>
+          {isDatabaseListOpen && (
+            <DatabaseList
+              isLoading={isLoading}
+              searchedFoodsError={searchedFoodsError}
+              searchedFoods={searchedFoods}
+            />
+          )}
+          {isYourFoodsListOpen && <YourFoodsList yourFoods={yourFoods} />}
+        </div>
       </div>
     </div>
   );
@@ -92,13 +93,13 @@ function DatabaseList(props: {
     ? props.searchedFoodsError
     : 'Foods you search for will populate here';
   return (
-    <div className={styles.foodSearchListContainer}>
+    <>
       {props.searchedFoods.length === 0 ? (
         <div className={styles.searchedFoodsErrorContainer}>{errorText}</div>
       ) : (
         <ul className={styles.foodSearchList}>
           {props.searchedFoods.map((food) => (
-            <FoodSearchListItem key={food._id} food={food} />
+            <DatabaseSearchListItem key={food._id} food={food} />
           ))}
         </ul>
       )}
@@ -107,7 +108,7 @@ function DatabaseList(props: {
           <Spinner />
         </div>
       )}
-    </div>
+    </>
   );
 }
 
@@ -125,11 +126,11 @@ function YourFoodsList(props: { yourFoods: IYourFood[] }) {
           </div>
         </div>
       ) : (
-        <>
+        <ul className={styles.foodSearchList}>
           {props.yourFoods.map((yourFood) => (
-            <li key={yourFood._id}>{yourFood.name}</li>
+            <YourFoodSearchListItem key={yourFood._id} yourFood={yourFood} />
           ))}
-        </>
+        </ul>
       )}
     </ul>
   );

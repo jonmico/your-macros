@@ -1,16 +1,19 @@
 import { FaCirclePlus } from 'react-icons/fa6';
 import { useFoods } from '../../hooks/useFoods';
 import { useMeals } from '../../hooks/useMeals';
-import { IFood } from '../../types/food';
 import { IMealComponent } from '../../types/meal-component';
 
-import styles from './food-search-list-item.module.css';
+import { IFood } from '../../types/food';
+import styles from './database-search-list-item.module.css';
 
-interface FoodSearchListItemProps {
+interface DatabaseSearchListItemProps {
   food: IFood;
 }
-export default function FoodSearchListItem(props: FoodSearchListItemProps) {
+export default function DatabaseSearchListItem(
+  props: DatabaseSearchListItemProps
+) {
   const { brand, name, servingSize, calories } = props.food;
+
   const { handleSelectFood } = useFoods();
   const { addToMeal, mealComponents } = useMeals();
 
@@ -40,12 +43,18 @@ export default function FoodSearchListItem(props: FoodSearchListItemProps) {
       >
         <FaCirclePlus />
       </button>
-      <div>
-        <div>{name}</div>
-        <div className={styles.brandName}>{brand}</div>
+      <div className={styles.foodDataContainer}>
+        <div>
+          <div>
+            <div>{name}</div>
+            <div className={styles.brandName}>{brand}</div>
+          </div>
+        </div>
+        <div>
+          <div>{calories} calories</div>
+          <div>{servingSize}g</div>
+        </div>
       </div>
-      <div>{servingSize}g</div>
-      <div>{calories}cals</div>
     </li>
   );
 }
