@@ -9,6 +9,10 @@ interface IMealContext {
   editServings: (mealComponent: IMealComponent, newServings: number) => void;
   clearMeal: () => void;
   setMealName: React.Dispatch<React.SetStateAction<string>>;
+  mealNameError: string;
+  setMealNameError: React.Dispatch<React.SetStateAction<string>>;
+  mealComponentsError: string;
+  setMealComponentsError: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const MealContext = createContext<IMealContext>({
@@ -19,6 +23,10 @@ export const MealContext = createContext<IMealContext>({
   clearMeal: () => {},
   mealName: '',
   setMealName: () => {},
+  mealNameError: '',
+  setMealNameError: () => {},
+  mealComponentsError: '',
+  setMealComponentsError: () => {},
 });
 
 interface MealProviderProps {
@@ -28,6 +36,8 @@ interface MealProviderProps {
 export function MealProvider(props: MealProviderProps) {
   const [mealComponents, setMealComponents] = useState<IMealComponent[]>([]);
   const [mealName, setMealName] = useState('');
+  const [mealNameError, setMealNameError] = useState('');
+  const [mealComponentsError, setMealComponentsError] = useState('');
 
   function addToMeal(mealComponent: IMealComponent) {
     setMealComponents((prevState) => [...prevState, mealComponent]);
@@ -72,6 +82,10 @@ export function MealProvider(props: MealProviderProps) {
     clearMeal,
     mealName,
     setMealName,
+    mealNameError,
+    setMealNameError,
+    mealComponentsError,
+    setMealComponentsError,
   };
 
   return (

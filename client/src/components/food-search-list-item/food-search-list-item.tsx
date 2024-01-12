@@ -13,7 +13,12 @@ export default function FoodSearchListItem(props: DatabaseSearchListItemProps) {
   const { name, servingSize, calories } = props.food;
 
   const { handleSelectFood } = useFoods();
-  const { addToMeal, mealComponents } = useMeals();
+  const {
+    addToMeal,
+    mealComponents,
+    mealComponentsError,
+    setMealComponentsError,
+  } = useMeals();
 
   const isInMealComponents = mealComponents
     .map(({ food }) => food)
@@ -30,6 +35,7 @@ export default function FoodSearchListItem(props: DatabaseSearchListItemProps) {
       servings: 1,
     };
     addToMeal(mealComponent);
+    if (mealComponentsError) setMealComponentsError('');
   }
 
   return (

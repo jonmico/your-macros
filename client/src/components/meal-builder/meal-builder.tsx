@@ -18,9 +18,16 @@ import Button from '../button/button';
 import styles from './meal-builder.module.css';
 
 export default function MealBuilder() {
-  const { mealComponents, mealName, setMealName } = useMeals();
-  const [mealNameError, setMealNameError] = useState('');
-  const [mealComponentsError, setMealComponentsError] = useState('');
+  const {
+    mealComponents,
+    mealName,
+    setMealName,
+    setMealComponentsError,
+    setMealNameError,
+    mealNameError,
+    mealComponentsError,
+  } = useMeals();
+
   const [showModal, setShowModal] = useState(false);
 
   const mealCalories = mealComponents.reduce(

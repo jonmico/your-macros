@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { FaXmark } from 'react-icons/fa6';
 import { useFoods } from '../../hooks/useFoods';
 import { useMeals } from '../../hooks/useMeals';
-import { AddToMealButton } from '../button/button.styled';
+import Button from '../button/button';
+import Input from '../input/input';
 import {
   CalorieContainer,
   CarbsContainer,
@@ -21,10 +22,14 @@ import {
   NoSelectedFoodContainer,
   StyledFoodInfo,
 } from './food-info.styled';
-import Input from '../input/input';
 
 export default function FoodInfo() {
-  const { addToMeal, mealComponents } = useMeals();
+  const {
+    addToMeal,
+    mealComponents,
+    setMealComponentsError,
+    mealComponentsError,
+  } = useMeals();
   const { selectedFood, clearSelectedFood } = useFoods();
   const [servings, setServings] = useState('1');
   const servingsNum = Number(servings);
@@ -38,6 +43,7 @@ export default function FoodInfo() {
     if (selectedFood && servingsNum > 0) {
       const mealComponent = { food: selectedFood, servings: servingsNum };
       addToMeal(mealComponent);
+      if (mealComponentsError) setMealComponentsError('');
       setServings('1');
     }
   }
@@ -91,12 +97,9 @@ export default function FoodInfo() {
               <div>protein</div>
             </ProteinContainer>
           </MacroFoodInfoRow>
-          <AddToMealButton
-            disabled={isInMealComponents}
-            $isInMealComponents={isInMealComponents}
-          >
+          <Button type={'primary'} disabled={isInMealComponents}>
             {isInMealComponents ? 'Already in meal' : 'Add to Meal'}
-          </AddToMealButton>
+          </Button>
         </FoodInfoForm>
       ) : (
         <NoSelectedFoodContainer>
