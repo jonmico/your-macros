@@ -1,17 +1,18 @@
+import { useState } from 'react';
 import { FaCircleXmark } from 'react-icons/fa6';
+import { useMeals } from '../../hooks/useMeals';
 import { IMealComponent } from '../../types/meal-component';
+import { EditButton } from '../button/button.styled';
+import { Calories, Carbs, Fat, Protein } from '../macros/macros.styled';
 import {
   CaloriesAndMacrosContainer,
+  EditServingsForm,
   MacrosContainer,
   StyledMealItem,
   SvgContainer,
-  EditServingsForm,
 } from './meal-list-item.styled';
-import { Calories, Fat, Carbs, Protein } from '../macros/macros.styled';
-import { useState } from 'react';
-import { useMeals } from '../../hooks/useMeals';
-import { EditInput } from '../input/input.styled';
-import { EditButton } from '../button/button.styled';
+
+import styles from './meal-list-item.module.css';
 
 interface MealItemProps {
   mealComponent: IMealComponent;
@@ -24,6 +25,7 @@ export default function MealListItem(props: MealItemProps) {
   const [servings, setServings] = useState(
     String(props.mealComponent.servings)
   );
+  const [isEditActive, setIsEditActive] = useState(false);
 
   function handleRemoveFromMeal() {
     if (_id) {
@@ -34,6 +36,7 @@ export default function MealListItem(props: MealItemProps) {
   function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     editServings(props.mealComponent, Number(servings));
+    setIsEditActive(false);
   }
 
   return (
@@ -42,13 +45,15 @@ export default function MealListItem(props: MealItemProps) {
         {brand} {name}
       </p>
       <EditServingsForm onSubmit={handleSubmit}>
-        <EditInput
+        <input
+          className={styles.editServingsInput}
+          onClick={() => setIsEditActive(true)}
           step={0.01}
           type='number'
           value={servings}
           onChange={(evt) => setServings(evt.target.value)}
         />
-        <EditButton>Edit</EditButton>
+        {isEditActive && <EditButton>Edit</EditButton>}
       </EditServingsForm>
       <p>{servingSize}g</p>
       <CaloriesAndMacrosContainer>
