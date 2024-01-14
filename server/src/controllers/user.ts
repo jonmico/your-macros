@@ -70,14 +70,14 @@ declare module 'express-session' {
 }
 
 interface LoginBody {
-  username: string;
+  email: string;
   password: string;
 }
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    const { username, password }: LoginBody = req.body;
-    const user = await User.findOne({ email: username }).exec();
+    const { email, password }: LoginBody = req.body;
+    const user = await User.findOne({ email }).exec();
 
     if (!user) {
       throw new AppError('User not found.', 400);

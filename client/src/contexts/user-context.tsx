@@ -2,6 +2,10 @@ import { createContext, useReducer, useState } from 'react';
 import { ILog } from '../types/log';
 import { IUser } from '../types/user';
 
+const API_URL = import.meta.env.PROD
+  ? 'https://your-macros-backend.onrender.com'
+  : '';
+
 interface IUserContext {
   // user: IUser | null;
   // setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
@@ -87,9 +91,23 @@ export default function UserProvider(props: UserProviderProps) {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  async function login(email: string, password: string) {
+    const res = await fetch(`${API_URL}/api/user/login`, {
+      method: 'post',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const data: { user: IUser; isAuthenticated: boolean } = await res.json();
+
+    dispatch({
+      type: 'user/login',
+      payload: { user: data.user, isAuthenticated: data.isAuthenticated },
+    });
+  }
+
   const value = {
     state,
-    dispatch,
+    login,
     // setUser,
     logs,
     setLogs,
