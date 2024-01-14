@@ -7,6 +7,8 @@ const API_URL = import.meta.env.PROD
   : '';
 
 interface IUserContext {
+  state: { user: IUser | null; isAuthenticated: boolean; isLoading: boolean };
+  login: (email: string, password: string) => void;
   // user: IUser | null;
   // setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
   logs: ILog[];
@@ -37,6 +39,12 @@ type Loading = {
 export type UserAction = InitializeUser | Loading;
 
 export const UserContext = createContext<IUserContext>({
+  state: {
+    user: null,
+    isAuthenticated: true,
+    isLoading: false,
+  },
+  login: () => {},
   // user: null,
   // setUser: () => {},
   logs: [],
@@ -92,6 +100,7 @@ export default function UserProvider(props: UserProviderProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   async function login(email: string, password: string) {
+    dispatch({ type: 'user/loading' });
     const res = await fetch(`${API_URL}/api/user/login`, {
       method: 'post',
       headers: { 'content-type': 'application/json' },

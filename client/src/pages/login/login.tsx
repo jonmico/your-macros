@@ -12,23 +12,25 @@ export default function Login() {
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
   const {
-    setUser,
-    setIsAuthenticated,
-    isAuthenticated,
-    setLogs,
-    setSelectedLog,
+    // setUser,
+    // setIsAuthenticated,
+    // isAuthenticated,
+    login,
+    state,
+    // setLogs,
+    // setSelectedLog,
   } = useUser();
   const navigate = useNavigate();
 
   // Navigate to /dashboard if user is authenticated.
   useEffect(() => {
-    if (isAuthenticated) {
+    if (state.isAuthenticated) {
       navigate('/dashboard');
     }
-  }, [isAuthenticated, navigate]);
+  }, [state.isAuthenticated, navigate]);
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -46,17 +48,20 @@ export default function Login() {
       return;
     }
 
-    setIsLoading(true);
-    const data: ILoginData = await login(email, password);
-    setIsLoading(false);
+    // setIsLoading(true);
+    // const data: ILoginData = await login(email, password);
+    // setIsLoading(false);
+
+    const data = login(email, password);
 
     console.log(data);
-    if (data.isAuthenticated) {
-      setUser(data.user);
-      setLogs(data.user.logs);
-      setSelectedLog(data.user.logs[data.user.logs.length - 1]);
-      setIsAuthenticated(true);
-      navigate('/dashboard');
+    if (state.isAuthenticated) {
+      // setUser(data.user);
+      // setLogs(state.user.logs);
+      // setSelectedLog(data.user.logs[data.user.logs.length - 1]);
+      // setIsAuthenticated(true);
+      console.log(state);
+      // navigate('/dashboard');
     } else {
       setLoginError('Email or password is incorrect.');
     }
@@ -64,7 +69,7 @@ export default function Login() {
 
   return (
     <form onSubmit={handleSubmit} className={styles.loginForm}>
-      {isLoading && (
+      {state.isLoading && (
         <div className={styles.loginFormCover}>
           <Spinner />
         </div>
