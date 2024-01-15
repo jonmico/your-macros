@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { ILog } from '../../types/log';
 import styles from './drop-down-menu.module.css';
-import useUser from '../../hooks/useUser';
 import { FaAngleLeft } from 'react-icons/fa6';
+import { IUser } from '../../types/user';
 
 export default function DropDownMenu(props: {
+  user: IUser;
   selectedLog: ILog;
   handleSelectLog: (log: ILog) => void;
 }) {
   const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState(false);
-  const { logs } = useUser();
+  const { logs } = props.user;
 
   function handleSelectLogClick(
     evt: React.MouseEvent<HTMLLIElement, MouseEvent>,

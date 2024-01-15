@@ -69,7 +69,6 @@ function reducer(state: UserState, action: UserAction) {
         isAuthenticated: action.payload.isAuthenticated,
         isLoading: false,
       };
-
     case 'user/logout':
       return {
         ...state,
@@ -95,15 +94,15 @@ function reducer(state: UserState, action: UserAction) {
   }
 }
 
+interface UserProviderProps {
+  children: React.ReactNode;
+}
+
 const initialState: UserState = {
   user: null,
   isAuthenticated: true,
   isLoading: false,
 };
-
-interface UserProviderProps {
-  children: React.ReactNode;
-}
 
 export default function UserProvider(props: UserProviderProps) {
   const [userState, dispatch] = useReducer(reducer, initialState);

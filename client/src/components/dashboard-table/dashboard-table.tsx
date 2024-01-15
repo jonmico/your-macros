@@ -24,6 +24,7 @@ export default function DashboardTable(props: {
           log:
         </h3>
         <DropDownMenu
+          user={props.user}
           selectedLog={props.selectedLog}
           handleSelectLog={props.handleSelectLog}
         />
