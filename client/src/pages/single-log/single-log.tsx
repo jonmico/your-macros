@@ -5,10 +5,15 @@ import styles from './single-log.module.css';
 import LogMealListItem from '../../components/log-meal-list-item/log-meal-list-item';
 
 export default function SingleLog() {
-  const { user } = useUser();
+  const {
+    userState: { user },
+  } = useUser();
+
   const { logId } = useParams();
 
-  const log = user?.logs?.find((log) => log._id === logId);
+  if (!user) return null;
+
+  const log = user.logs.find((log) => log._id === logId);
 
   if (!log) {
     return <div>Hmm. Looks like we can't find that log!</div>;

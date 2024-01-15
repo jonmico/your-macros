@@ -4,9 +4,11 @@ import { ILog } from '../../types/log';
 import { Link } from 'react-router-dom';
 
 export default function LogHistory() {
-  const { user } = useUser();
+  const { userState } = useUser();
 
-  if (!user) return null;
+  if (!userState.user) return null;
+
+  const { user } = userState;
 
   return (
     <div className={styles.logHistoryContainer}>
