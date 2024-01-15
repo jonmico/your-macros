@@ -9,16 +9,16 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { state } = useUser();
+  const { userState } = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!state.isAuthenticated && !state.isLoading) {
+    if (!userState.isAuthenticated && !userState.isLoading) {
       navigate('/login');
     }
-  }, [state.isAuthenticated, state.isLoading, navigate]);
+  }, [userState.isAuthenticated, userState.isLoading, navigate]);
 
-  if (state.isLoading) {
+  if (userState.isLoading) {
     return (
       <div className={styles.fullPage}>
         <div className={styles.spinnerContainer}>
@@ -28,7 +28,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
     );
   }
 
-  if (state.user) {
+  if (userState.user) {
     return children;
   }
 }

@@ -1,13 +1,10 @@
 import { createContext, useEffect, useReducer } from 'react';
-import { ILog } from '../types/log';
+import {
+  apiFetchActiveSession,
+  apiLogin,
+  apiLogout,
+} from '../services/user-api';
 import { IUser } from '../types/user';
-import { apiFetchActiveSession, apiLogin } from '../services/user-api';
-
-interface IUserContext {
-  state: { user: IUser | null; isAuthenticated: boolean; isLoading: boolean };
-  login: (email: string, password: string) => void;
-  fetchActiveSession: () => void;
-}
 
 interface UserState {
   user: IUser | null;
@@ -15,9 +12,16 @@ interface UserState {
   isLoading: boolean;
 }
 
-type InitializeUser = {
+type Login = {
   type: 'user/login';
-  payload: { user: IUser | null; isAuthenticated: boolean };
+  payload: {
+    user: IUser | null;
+    isAuthenticated: boolean;
+  };
+};
+
+type Logout = {
+  type: 'user/logout';
 };
 
 type Loading = {
@@ -25,20 +29,35 @@ type Loading = {
 };
 
 type FetchSession = {
-  type: 'user/fetchActiveSession';
-  payload: { user: IUser | null; isAuthenticated: boolean };
+  type: 'user/fetchSession';
+  payload: {
+    user: IUser | null;
+    isAuthenticated: boolean;
+  };
 };
 
-export type UserAction = InitializeUser | Loading | FetchSession;
+export type UserAction = Login | Logout | Loading | FetchSession;
+
+interface IUserContext {
+  userState: {
+    user: IUser | null;
+    isAuthenticated: boolean;
+    isLoading: boolean;
+  };
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<boolean>;
+  fetchActiveSession: () => Promise<void>;
+}
 
 export const UserContext = createContext<IUserContext>({
-  state: {
+  userState: {
     user: null,
     isAuthenticated: true,
     isLoading: false,
   },
-  login: () => {},
-  fetchActiveSession: () => {},
+  login: async () => {},
+  logout: async () => true,
+  fetchActiveSession: async () => {},
 });
 
 function reducer(state: UserState, action: UserAction) {
@@ -50,7 +69,15 @@ function reducer(state: UserState, action: UserAction) {
         isAuthenticated: action.payload.isAuthenticated,
         isLoading: false,
       };
-    case 'user/fetchActiveSession':
+
+    case 'user/logout':
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: false,
+        isLoading: false,
+      };
+    case 'user/fetchSession':
       return {
         ...state,
         user: action.payload.user,
@@ -79,7 +106,7 @@ interface UserProviderProps {
 }
 
 export default function UserProvider(props: UserProviderProps) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [userState, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     async function fetchSession() {
@@ -87,7 +114,7 @@ export default function UserProvider(props: UserProviderProps) {
       const data: { user: IUser; isAuthenticated: boolean } =
         await apiFetchActiveSession();
       dispatch({
-        type: 'user/fetchActiveSession',
+        type: 'user/fetchSession',
         payload: { user: data.user, isAuthenticated: data.isAuthenticated },
       });
     }
@@ -106,6 +133,18 @@ export default function UserProvider(props: UserProviderProps) {
     });
   }
 
+  async function logout() {
+    dispatch({ type: 'user/loading' });
+    const data: { successfulLogout: boolean } = await apiLogout();
+
+    if (data.successfulLogout) {
+      dispatch({ type: 'user/logout' });
+      return true;
+    }
+
+    return false;
+  }
+
   async function fetchActiveSession() {
     dispatch({ type: 'user/loading' });
 
@@ -113,14 +152,15 @@ export default function UserProvider(props: UserProviderProps) {
       await apiFetchActiveSession();
 
     dispatch({
-      type: 'user/fetchActiveSession',
+      type: 'user/fetchSession',
       payload: { user: data.user, isAuthenticated: data.isAuthenticated },
     });
   }
 
   const value = {
-    state,
+    userState,
     login,
+    logout,
     fetchActiveSession,
   };
   return (

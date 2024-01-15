@@ -4,7 +4,6 @@ import AppLayout from './components/app-layout/app-layout';
 import styles from './App.module.css';
 import Header from './components/header/header';
 import ProtectedRoute from './components/protected-route/protected-route';
-import { useSession } from './hooks/useSession';
 import AddMeal from './pages/add-meal/add-meal';
 import CreateFood from './pages/create-food/create-food';
 import Dashboard from './pages/dashboard/dashboard';

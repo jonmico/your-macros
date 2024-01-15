@@ -8,37 +8,47 @@ import { IUser } from '../../types/user';
 import { useNavigate } from 'react-router-dom';
 import { IMeal } from '../../types/meal';
 import styles from './dashboard.module.css';
+import { useState } from 'react';
 
 export default function Dashboard() {
-  const { user, logs } = useUser();
+  const { userState } = useUser();
 
-  if (!user || logs.length === 0) return null;
+  if (!userState.user) return null;
 
   return (
     <div>
       <PageHeader>Dashboard</PageHeader>
-      <DashboardContent user={user} />
+      <DashboardContent user={userState.user} />
     </div>
   );
 }
 
 function DashboardContent(props: { user: IUser }) {
-  const { selectedLog, setSelectedLog } = useUser();
-
-  if (!selectedLog) return null;
+  const [selectedLog, setSelectedLog] = useState(
+    props.user.logs.length > 0
+      ? props.user.logs[props.user.logs.length - 1]
+      : null
+  );
 
   function handleSelectLog(log: ILog) {
     setSelectedLog(log);
   }
+
   return (
     <PageContentContainer>
       <div className={styles.dashboardContainer}>
-        <DashboardTable
-          user={props.user}
-          selectedLog={selectedLog}
-          handleSelectLog={handleSelectLog}
-        />
-        <DashboardLogGrid selectedLog={selectedLog} />
+        {selectedLog === null ? (
+          <div>no log!</div>
+        ) : (
+          <>
+            <DashboardTable
+              user={props.user}
+              selectedLog={selectedLog}
+              handleSelectLog={handleSelectLog}
+            />
+            <DashboardLogGrid selectedLog={selectedLog} />
+          </>
+        )}
       </div>
     </PageContentContainer>
   );

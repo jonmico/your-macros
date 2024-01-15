@@ -11,15 +11,15 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [loginError, setLoginError] = useState('');
-  const { login, state } = useUser();
+  const { login, userState } = useUser();
   const navigate = useNavigate();
 
   // Navigate to /dashboard if user is authenticated.
   useEffect(() => {
-    if (state.isAuthenticated) {
+    if (userState.isAuthenticated) {
       navigate('/dashboard');
     }
-  }, [state.isAuthenticated, navigate]);
+  }, [userState.isAuthenticated, navigate]);
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -40,9 +40,9 @@ export default function Login() {
     const data = await login(email, password);
 
     console.log(data);
-    if (state.isAuthenticated) {
+    if (userState.isAuthenticated) {
       // login(email, password);
-      console.log(state);
+      console.log(userState);
       // navigate('/dashboard');
     } else {
       setLoginError('Email or password is incorrect.');
@@ -51,7 +51,7 @@ export default function Login() {
 
   return (
     <form onSubmit={handleSubmit} className={styles.loginForm}>
-      {state.isLoading && (
+      {userState.isLoading && (
         <div className={styles.loginFormCover}>
           <Spinner />
         </div>
