@@ -22,11 +22,11 @@ export async function register(
   return await res.json();
 }
 
-export async function login(username: string, password: string) {
+export async function apiLogin(email: string, password: string) {
   const res = await fetch(`${API_URL}/api/user/login`, {
     method: 'post',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ email, password }),
   });
 
   return await res.json();
@@ -41,7 +41,7 @@ export async function logout() {
   return await res.json();
 }
 
-export async function fetchActiveSession() {
+export async function apiFetchActiveSession() {
   const res = await fetch(`${API_URL}/api/user`);
 
   return await res.json();

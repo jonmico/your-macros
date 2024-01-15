@@ -22,8 +22,6 @@ import GlobalStyles from './styles/global-styles';
 // TODO: Look at context usage and how we build out the user.
 // TODO: Probably condense user state into a reducer.
 function App() {
-  useSession();
-
   return (
     <>
       <GlobalStyles />

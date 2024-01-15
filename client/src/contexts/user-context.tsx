@@ -1,24 +1,12 @@
-import { createContext, useReducer, useState } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import { ILog } from '../types/log';
 import { IUser } from '../types/user';
-
-const API_URL = import.meta.env.PROD
-  ? 'https://your-macros-backend.onrender.com'
-  : '';
+import { apiFetchActiveSession, apiLogin } from '../services/user-api';
 
 interface IUserContext {
   state: { user: IUser | null; isAuthenticated: boolean; isLoading: boolean };
   login: (email: string, password: string) => void;
-  // user: IUser | null;
-  // setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
-  logs: ILog[];
-  setLogs: React.Dispatch<React.SetStateAction<ILog[]>>;
-  // isAuthenticated: boolean;
-  // setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  // isLoading: boolean;
-  // setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedLog: ILog | null;
-  setSelectedLog: React.Dispatch<React.SetStateAction<ILog | null>>;
+  fetchActiveSession: () => void;
 }
 
 interface UserState {
@@ -36,7 +24,12 @@ type Loading = {
   type: 'user/loading';
 };
 
-export type UserAction = InitializeUser | Loading;
+type FetchSession = {
+  type: 'user/fetchActiveSession';
+  payload: { user: IUser | null; isAuthenticated: boolean };
+};
+
+export type UserAction = InitializeUser | Loading | FetchSession;
 
 export const UserContext = createContext<IUserContext>({
   state: {
@@ -45,21 +38,19 @@ export const UserContext = createContext<IUserContext>({
     isLoading: false,
   },
   login: () => {},
-  // user: null,
-  // setUser: () => {},
-  logs: [],
-  setLogs: () => {},
-  // isAuthenticated: true,
-  // setIsAuthenticated: () => {},
-  // isLoading: false,
-  // setIsLoading: () => {},
-  selectedLog: null,
-  setSelectedLog: () => {},
+  fetchActiveSession: () => {},
 });
 
 function reducer(state: UserState, action: UserAction) {
   switch (action.type) {
     case 'user/login':
+      return {
+        ...state,
+        user: action.payload.user,
+        isAuthenticated: action.payload.isAuthenticated,
+        isLoading: false,
+      };
+    case 'user/fetchActiveSession':
       return {
         ...state,
         user: action.payload.user,
@@ -88,28 +79,41 @@ interface UserProviderProps {
 }
 
 export default function UserProvider(props: UserProviderProps) {
-  // const [user, setUser] = useState<IUser | null>(null);
-  const [logs, setLogs] = useState<ILog[]>([]);
-  const [selectedLog, setSelectedLog] = useState<ILog | null>(null);
-  // const [isAuthenticated, setIsAuthenticated] = useState(true);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [selectedLog, setSelectedLog] = useState<ILog | null>(
-  //   user ? user.logs[user.logs.length - 1] : null
-  // );
-
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    async function fetchSession() {
+      dispatch({ type: 'user/loading' });
+      const data: { user: IUser; isAuthenticated: boolean } =
+        await apiFetchActiveSession();
+      dispatch({
+        type: 'user/fetchActiveSession',
+        payload: { user: data.user, isAuthenticated: data.isAuthenticated },
+      });
+    }
+    fetchSession();
+  }, []);
 
   async function login(email: string, password: string) {
     dispatch({ type: 'user/loading' });
-    const res = await fetch(`${API_URL}/api/user/login`, {
-      method: 'post',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    const data: { user: IUser; isAuthenticated: boolean } = await res.json();
-
+    const data: { user: IUser; isAuthenticated: boolean } = await apiLogin(
+      email,
+      password
+    );
     dispatch({
       type: 'user/login',
+      payload: { user: data.user, isAuthenticated: data.isAuthenticated },
+    });
+  }
+
+  async function fetchActiveSession() {
+    dispatch({ type: 'user/loading' });
+
+    const data: { user: IUser; isAuthenticated: boolean } =
+      await apiFetchActiveSession();
+
+    dispatch({
+      type: 'user/fetchActiveSession',
       payload: { user: data.user, isAuthenticated: data.isAuthenticated },
     });
   }
@@ -117,15 +121,7 @@ export default function UserProvider(props: UserProviderProps) {
   const value = {
     state,
     login,
-    // setUser,
-    logs,
-    setLogs,
-    // isAuthenticated,
-    // setIsAuthenticated,
-    // isLoading,
-    // setIsLoading,
-    selectedLog,
-    setSelectedLog,
+    fetchActiveSession,
   };
   return (
     <UserContext.Provider value={value}>{props.children}</UserContext.Provider>

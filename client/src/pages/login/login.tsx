@@ -1,28 +1,17 @@
 import { useEffect, useState } from 'react';
-import { PrimaryButton } from '../../components/button/button.styled';
-import styles from './login.module.css';
-import { login } from '../../services/user-api';
 import { useNavigate } from 'react-router-dom';
-import useUser from '../../hooks/useUser';
-import { ILoginData } from '../../types/login-data';
+import { PrimaryButton } from '../../components/button/button.styled';
 import Spinner from '../../components/spinner/spinner';
+import useUser from '../../hooks/useUser';
+import styles from './login.module.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  // const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
-  const {
-    // setUser,
-    // setIsAuthenticated,
-    // isAuthenticated,
-    login,
-    state,
-    // setLogs,
-    // setSelectedLog,
-  } = useUser();
+  const { login, state } = useUser();
   const navigate = useNavigate();
 
   // Navigate to /dashboard if user is authenticated.
@@ -48,18 +37,11 @@ export default function Login() {
       return;
     }
 
-    // setIsLoading(true);
-    // const data: ILoginData = await login(email, password);
-    // setIsLoading(false);
-
-    const data = login(email, password);
+    const data = await login(email, password);
 
     console.log(data);
     if (state.isAuthenticated) {
-      // setUser(data.user);
-      // setLogs(state.user.logs);
-      // setSelectedLog(data.user.logs[data.user.logs.length - 1]);
-      // setIsAuthenticated(true);
+      // login(email, password);
       console.log(state);
       // navigate('/dashboard');
     } else {

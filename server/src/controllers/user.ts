@@ -144,7 +144,7 @@ export async function getSession(
         },
       });
     } else {
-      res.json({ activeSession: false, user: {} });
+      res.json({ isAuthenticated: false, user: null });
     }
   } catch (err) {
     next(err);
