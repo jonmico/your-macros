@@ -19,7 +19,7 @@ import GlobalStyles from './styles/global-styles';
 // TODO: Figure out what to do next now that we failed at YourFoods.
 // TODO: Redo add-meal page layout.
 // TODO: Look at context usage and how we build out the user.
-// TODO: Probably condense user state into a reducer.
+
 function App() {
   return (
     <>

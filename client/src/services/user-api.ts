@@ -47,7 +47,7 @@ export async function apiFetchActiveSession() {
   return await res.json();
 }
 
-export async function createLog(log: IPreIDLog) {
+export async function apiCreateLog(log: IPreIDLog) {
   const res = await fetch(`${API_URL}/api/user/log/new`, {
     method: 'post',
     headers: { 'content-type': 'application/json' },

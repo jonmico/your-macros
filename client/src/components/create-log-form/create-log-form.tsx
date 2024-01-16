@@ -1,18 +1,15 @@
 import styles from './create-log-form.module.css';
 import { PrimaryButton } from '../button/button.styled';
 import { useState } from 'react';
-import { ILog } from '../../types/log';
 import useUser from '../../hooks/useUser';
-import { createLog } from '../../services/user-api';
 import { IPreIDLog } from '../../types/pre-id-log';
 import Input from '../input/input';
 
-interface ICreateLogData {
-  logs: ILog[];
-}
-
 export default function CreateLogForm() {
-  const { user, setUser, setLogs, setSelectedLog } = useUser();
+  const {
+    userState: { user },
+    createLog,
+  } = useUser();
   const [logName, setLogName] = useState('');
   const [logNameError, setLogNameError] = useState('');
 
@@ -29,13 +26,7 @@ export default function CreateLogForm() {
         name: logName,
         author: user._id,
       };
-
-      // TODO: Error handling?
-      const data: ICreateLogData = await createLog(log);
-      setUser({ ...user, logs: data.logs });
-      setLogs(data.logs);
-      setSelectedLog(data.logs[data.logs.length - 1]);
-      console.log(data);
+      await createLog(log);
     }
   }
 

@@ -219,7 +219,15 @@ export async function createLog(
     user.logs.push(log);
     await user.save();
 
-    res.json({ logs: user.logs });
+    res.json({
+      user: {
+        _id: user._id,
+        email: user.email,
+        logs: user.logs,
+        calories: user.calories,
+        macros: user.macros,
+      },
+    });
   } catch (err) {
     next(err);
   }
