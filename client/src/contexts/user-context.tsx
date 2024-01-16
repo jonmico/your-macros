@@ -3,6 +3,7 @@ import {
   apiFetchActiveSession,
   apiLogin,
   apiLogout,
+  apiRegister,
 } from '../services/user-api';
 import { IUser } from '../types/user';
 
@@ -24,6 +25,14 @@ type Logout = {
   type: 'user/logout';
 };
 
+type Register = {
+  type: 'user/register';
+  payload: {
+    user: IUser;
+    isAuthenticated: boolean;
+  };
+};
+
 type Loading = {
   type: 'user/loading';
 };
@@ -36,7 +45,7 @@ type FetchSession = {
   };
 };
 
-export type UserAction = Login | Logout | Loading | FetchSession;
+export type UserAction = Login | Logout | Register | Loading | FetchSession;
 
 interface IUserContext {
   userState: {
@@ -46,6 +55,12 @@ interface IUserContext {
   };
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<boolean>;
+  register: (
+    email: string,
+    password: string,
+    macros: { fat: number; carbs: number; protein: number },
+    calories: number
+  ) => Promise<void>;
   fetchActiveSession: () => Promise<void>;
 }
 
@@ -57,6 +72,7 @@ export const UserContext = createContext<IUserContext>({
   },
   login: async () => {},
   logout: async () => true,
+  register: async () => {},
   fetchActiveSession: async () => {},
 });
 
@@ -76,6 +92,14 @@ function reducer(state: UserState, action: UserAction) {
         isAuthenticated: false,
         isLoading: false,
       };
+    case 'user/register':
+      return {
+        ...state,
+        user: action.payload.user,
+        isAuthenticated: action.payload.isAuthenticated,
+        isLoading: false,
+      };
+
     case 'user/fetchSession':
       return {
         ...state,
@@ -144,6 +168,22 @@ export default function UserProvider(props: UserProviderProps) {
     return false;
   }
 
+  async function register(
+    email: string,
+    password: string,
+    macros: { fat: number; carbs: number; protein: number },
+    calories: number
+  ) {
+    dispatch({ type: 'user/loading' });
+    const data = await apiRegister(email, password, macros, calories);
+    if (data.successfulRegister) {
+      dispatch({
+        type: 'user/register',
+        payload: { user: data.user, isAuthenticated: data.isAuthenticated },
+      });
+    }
+  }
+
   async function fetchActiveSession() {
     dispatch({ type: 'user/loading' });
 
@@ -160,6 +200,7 @@ export default function UserProvider(props: UserProviderProps) {
     userState,
     login,
     logout,
+    register,
     fetchActiveSession,
   };
   return (

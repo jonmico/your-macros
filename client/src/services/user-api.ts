@@ -5,7 +5,7 @@ const API_URL = import.meta.env.PROD
   ? 'https://your-macros-backend.onrender.com'
   : '';
 
-export async function register(
+export async function apiRegister(
   email: string,
   password: string,
   macros: { fat: number; carbs: number; protein: number },

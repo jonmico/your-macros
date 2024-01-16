@@ -1,23 +1,15 @@
 import { useState } from 'react';
-import { PrimaryButton } from '../../components/button/button.styled';
-import styles from './register.module.css';
-import { register } from '../../services/user-api';
-import useUser from '../../hooks/useUser';
-import { IUser } from '../../types/user';
 import { useNavigate } from 'react-router-dom';
-
-interface IRegisterData {
-  isAuthenticated: boolean;
-  successfulRegister: boolean;
-  user: IUser;
-}
+import { PrimaryButton } from '../../components/button/button.styled';
+import useUser from '../../hooks/useUser';
+import styles from './register.module.css';
 
 export default function Register() {
   const [isMacroConfigOpen, setIsMacroConfigOpen] = useState(false);
   const navigate = useNavigate();
 
   // State for email/password page
-  const { setUser, setLogs, setIsAuthenticated, setSelectedLog } = useUser();
+  const { register } = useUser();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -69,22 +61,9 @@ export default function Register() {
       protein: Number(protein),
     };
 
-    const data: IRegisterData = await register(
-      email,
-      password,
-      macros,
-      calories
-    );
+    await register(email, password, macros, calories);
 
-    console.log(data);
-
-    if (data.successfulRegister) {
-      setUser(data.user);
-      setLogs(data.user.logs);
-      setSelectedLog(data.user.logs[data.user.logs.length - 1]);
-      setIsAuthenticated(data.isAuthenticated);
-      navigate('/dashboard');
-    }
+    navigate('/dashboard');
   }
 
   return (
