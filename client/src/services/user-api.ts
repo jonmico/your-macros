@@ -57,7 +57,11 @@ export async function createLog(log: IPreIDLog) {
   return await res.json();
 }
 
-export async function addMealToLog(meal: IMeal, logId: string, userId: string) {
+export async function apiAddMealToLog(
+  meal: IMeal,
+  logId: string,
+  userId: string
+) {
   const res = await fetch(`${API_URL}/api/user/log/${logId}/add-meal`, {
     method: 'post',
     headers: { 'content-type': 'application/json' },

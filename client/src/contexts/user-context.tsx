@@ -1,10 +1,12 @@
 import { createContext, useEffect, useReducer } from 'react';
 import {
+  apiAddMealToLog,
   apiFetchActiveSession,
   apiLogin,
   apiLogout,
   apiRegister,
 } from '../services/user-api';
+import { IMeal } from '../types/meal';
 import { IUser } from '../types/user';
 
 interface UserState {
@@ -45,7 +47,18 @@ type FetchSession = {
   };
 };
 
-export type UserAction = Login | Logout | Register | Loading | FetchSession;
+type AddMealToLog = {
+  type: 'user/addMealToLog';
+  payload: IUser;
+};
+
+export type UserAction =
+  | Login
+  | Logout
+  | Register
+  | Loading
+  | FetchSession
+  | AddMealToLog;
 
 interface IUserContext {
   userState: {
@@ -62,6 +75,7 @@ interface IUserContext {
     calories: number
   ) => Promise<void>;
   fetchActiveSession: () => Promise<void>;
+  addMealToLog: (meal: IMeal, logId: string, userId: string) => Promise<void>;
 }
 
 export const UserContext = createContext<IUserContext>({
@@ -74,6 +88,7 @@ export const UserContext = createContext<IUserContext>({
   logout: async () => true,
   register: async () => {},
   fetchActiveSession: async () => {},
+  addMealToLog: async () => {},
 });
 
 function reducer(state: UserState, action: UserAction) {
@@ -99,7 +114,6 @@ function reducer(state: UserState, action: UserAction) {
         isAuthenticated: action.payload.isAuthenticated,
         isLoading: false,
       };
-
     case 'user/fetchSession':
       return {
         ...state,
@@ -107,6 +121,14 @@ function reducer(state: UserState, action: UserAction) {
         isAuthenticated: action.payload.isAuthenticated,
         isLoading: false,
       };
+    case 'user/addMealToLog': {
+      return {
+        ...state,
+        user: action.payload,
+        isLoading: false,
+      };
+    }
+
     case 'user/loading':
       return {
         ...state,
@@ -196,12 +218,20 @@ export default function UserProvider(props: UserProviderProps) {
     });
   }
 
+  async function addMealToLog(meal: IMeal, logId: string, userId: string) {
+    dispatch({ type: 'user/loading' });
+    const data: { user: IUser } = await apiAddMealToLog(meal, logId, userId);
+
+    dispatch({ type: 'user/addMealToLog', payload: data.user });
+  }
+
   const value = {
     userState,
     login,
     logout,
     register,
     fetchActiveSession,
+    addMealToLog,
   };
   return (
     <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
