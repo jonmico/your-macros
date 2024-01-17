@@ -1,8 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
-import IUser from '../types/user';
 import ILog from '../types/log';
-import { foodSchema } from './food';
 import IMeal from '../types/meal';
+import IUser from '../types/user';
+import { foodSchema } from './food';
 
 export const mealSchema = new mongoose.Schema<IMeal>(
   {
@@ -55,6 +55,7 @@ export const userSchema = new Schema<IUser>({
     carbs: { type: Number, required: true },
     protein: { type: Number, required: true },
   },
+  activeLog: { type: mongoose.Schema.Types.ObjectId, default: null },
 });
 
 const User = mongoose.model('User', userSchema);
