@@ -55,6 +55,7 @@ export async function register(
           logs: newUser.logs,
           calories: newUser.calories,
           macros: newUser.macros,
+          activeLog: null,
         },
       });
     });
@@ -99,6 +100,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
         logs: user.logs,
         calories: user.calories,
         macros: user.macros,
+        activeLog: user.activeLog,
       },
     });
   } catch (err) {
@@ -141,6 +143,7 @@ export async function getSession(
           logs: user.logs,
           calories: user.calories,
           macros: user.macros,
+          activeLog: user.activeLog,
         },
       });
     } else {
@@ -196,6 +199,7 @@ export async function addMealToLog(
         logs: user.logs,
         calories: user.calories,
         macros: user.macros,
+        activeLog: user.activeLog,
       },
     });
   } catch (err) {
@@ -226,6 +230,38 @@ export async function createLog(
         logs: user.logs,
         calories: user.calories,
         macros: user.macros,
+        activeLog: user.activeLog,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function selectActiveLog(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { userId, logId } = req.body;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new AppError('User not found', 404);
+    }
+
+    user.activeLog = logId;
+    await user.save();
+
+    res.json({
+      user: {
+        _id: user._id,
+        email: user.email,
+        logs: user.logs,
+        calories: user.calories,
+        macros: user.macros,
+        activeLog: user.activeLog,
       },
     });
   } catch (err) {
