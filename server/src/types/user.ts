@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import ILog from './log';
 
 export default interface IUser {
@@ -11,5 +10,4 @@ export default interface IUser {
     carbs: number;
     protein: number;
   };
-  activeLog: mongoose.Schema.Types.ObjectId | null;
 }
