@@ -10,13 +10,11 @@ import {
 import { IMeal } from '../types/meal';
 import { IUser } from '../types/user';
 import { IPreIDLog } from '../types/pre-id-log';
-import { ILog } from '../types/log';
 
 interface UserState {
   user: IUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  activeLog: ILog | null;
 }
 
 type Login = {
@@ -61,11 +59,6 @@ type CreateLog = {
   payload: IUser;
 };
 
-type SetActiveLog = {
-  type: 'user/setActiveLog';
-  payload: ILog;
-};
-
 export type UserAction =
   | Login
   | Logout
@@ -73,17 +66,14 @@ export type UserAction =
   | Loading
   | FetchSession
   | AddMealToLog
-  | CreateLog
-  | SetActiveLog;
+  | CreateLog;
 
 interface IUserContext {
   userState: {
     user: IUser | null;
     isAuthenticated: boolean;
     isLoading: boolean;
-    activeLog: ILog | null;
   };
-  setActiveLog: (log: ILog) => void;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<boolean>;
   register: (
@@ -102,9 +92,7 @@ export const UserContext = createContext<IUserContext>({
     user: null,
     isAuthenticated: true,
     isLoading: false,
-    activeLog: null,
   },
-  setActiveLog: () => {},
   login: async () => {},
   logout: async () => true,
   register: async () => {},
@@ -160,11 +148,6 @@ function reducer(state: UserState, action: UserAction) {
         user: action.payload,
         isLoading: false,
       };
-    case 'user/setActiveLog':
-      return {
-        ...state,
-        activeLog: action.payload,
-      };
     default:
       throw TypeError('Action unknown.');
   }
@@ -178,7 +161,6 @@ const initialState: UserState = {
   user: null,
   isAuthenticated: true,
   isLoading: false,
-  activeLog: null,
 };
 
 export default function UserProvider(props: UserProviderProps) {
@@ -243,8 +225,6 @@ export default function UserProvider(props: UserProviderProps) {
     const data: { user: IUser; isAuthenticated: boolean } =
       await apiFetchActiveSession();
 
-    // const activeLog = data.user.logs.length > 0
-
     dispatch({
       type: 'user/fetchSession',
       payload: { user: data.user, isAuthenticated: data.isAuthenticated },
@@ -264,10 +244,6 @@ export default function UserProvider(props: UserProviderProps) {
     dispatch({ type: 'user/createLog', payload: data.user });
   }
 
-  function setActiveLog(log: ILog) {
-    dispatch({ type: 'user/setActiveLog', payload: log });
-  }
-
   const value = {
     userState,
     login,
@@ -276,7 +252,6 @@ export default function UserProvider(props: UserProviderProps) {
     fetchActiveSession,
     addMealToLog,
     createLog,
-    setActiveLog,
   };
   return (
     <UserContext.Provider value={value}>{props.children}</UserContext.Provider>

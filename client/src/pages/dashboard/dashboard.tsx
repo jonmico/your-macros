@@ -30,11 +30,6 @@ function DashboardContent(props: { user: IUser }) {
       : null
   );
 
-  const {
-    userState: { activeLog },
-    setActiveLog,
-  } = useUser();
-
   function handleSelectLog(log: ILog) {
     setSelectedLog(log);
   }
@@ -42,7 +37,7 @@ function DashboardContent(props: { user: IUser }) {
   return (
     <PageContentContainer>
       <div className={styles.dashboardContainer}>
-        {activeLog === null ? (
+        {selectedLog === null ? (
           <div>no log!</div>
         ) : (
           <>

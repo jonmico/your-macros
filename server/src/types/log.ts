@@ -1,10 +1,10 @@
-import mongoose from 'mongoose';
 import IMeal from './meal';
+import IUser from './user';
 
 export default interface ILog {
   _id: string;
   meals: IMeal[];
-  author: mongoose.Schema.Types.ObjectId;
+  author: IUser;
   name: string;
   macros: {
     carbs: number;
