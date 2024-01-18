@@ -11,14 +11,16 @@ import styles from './dashboard.module.css';
 import { useState } from 'react';
 
 export default function Dashboard() {
-  const { userState } = useUser();
+  const {
+    userState: { user },
+  } = useUser();
 
-  if (!userState.user) return null;
+  if (!user) return null;
 
   return (
     <div>
       <PageHeader>Dashboard</PageHeader>
-      <DashboardContent user={userState.user} />
+      <DashboardContent user={user} />
     </div>
   );
 }
@@ -37,18 +39,12 @@ function DashboardContent(props: { user: IUser }) {
   return (
     <PageContentContainer>
       <div className={styles.dashboardContainer}>
-        {selectedLog === null ? (
-          <div>no log!</div>
-        ) : (
-          <>
-            <DashboardTable
-              user={props.user}
-              selectedLog={selectedLog}
-              handleSelectLog={handleSelectLog}
-            />
-            <DashboardLogGrid selectedLog={selectedLog} />
-          </>
-        )}
+        <DashboardTable
+          user={props.user}
+          selectedLog={selectedLog}
+          handleSelectLog={handleSelectLog}
+        />
+        <DashboardLogGrid selectedLog={selectedLog} />
       </div>
     </PageContentContainer>
   );

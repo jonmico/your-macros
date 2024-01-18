@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ILog } from '../../types/log';
 import { IUser } from '../../types/user';
 import DropDownMenu from '../drop-down-menu/drop-down-menu';
@@ -5,18 +6,39 @@ import styles from './dashboard-table.module.css';
 
 export default function DashboardTable(props: {
   user: IUser;
-  selectedLog: ILog;
+  selectedLog: ILog | null;
   handleSelectLog: (log: ILog) => void;
 }) {
+  return (
+    <div className={styles.dashboardContainer}>
+      {props.user.logs.length === 0 ? (
+        <DashboardTableNoLogs />
+      ) : (
+        <DashboardTableLogDisplay
+          user={props.user}
+          selectedLog={props.selectedLog}
+          handleSelectLog={props.handleSelectLog}
+        />
+      )}
+    </div>
+  );
+}
+
+function DashboardTableLogDisplay(props: {
+  user: IUser;
+  selectedLog: ILog | null;
+  handleSelectLog: (log: ILog) => void;
+}) {
+  if (props.selectedLog === null) return null;
+
   const remainingCalories = props.user.calories - props.selectedLog.calories;
   const remainingFat = props.user.macros.fat - props.selectedLog.macros.fat;
   const remainingCarbs =
     props.user.macros.carbs - props.selectedLog.macros.carbs;
   const remainingProtein =
     props.user.macros.protein - props.selectedLog.macros.protein;
-
   return (
-    <div className={styles.dashboardContainer}>
+    <>
       <div className={styles.dashboardTableIntro}>
         <h3>
           Here is where you're at for your{' '}
@@ -66,6 +88,15 @@ export default function DashboardTable(props: {
           </div>
         </div>
       </div>
+    </>
+  );
+}
+
+function DashboardTableNoLogs() {
+  return (
+    <div>
+      There are no logs for this account! Click <Link to={'/logs'}>here</Link>{' '}
+      to make your first log!
     </div>
   );
 }
