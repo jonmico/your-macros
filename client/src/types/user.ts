@@ -7,4 +7,5 @@ export interface IUser {
   logs: ILog[];
   calories: number;
   macros: IMacros;
+  activeLog: string | null | undefined;
 }

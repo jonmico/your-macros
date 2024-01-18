@@ -43,7 +43,10 @@ export async function register(
       if (err) {
         next(err);
       }
-      const newUser = await User.create({ ...user, password: hash });
+      const newUser = await User.create({
+        ...user,
+        password: hash,
+      });
       req.session.userId = newUser._id;
 
       res.status(201).json({
@@ -55,7 +58,7 @@ export async function register(
           logs: newUser.logs,
           calories: newUser.calories,
           macros: newUser.macros,
-          activeLog: null,
+          activeLog: undefined,
         },
       });
     });
@@ -221,6 +224,7 @@ export async function createLog(
     }
 
     user.logs.push(log);
+    user.activeLog = user.logs[user.logs.length - 1]._id;
     await user.save();
 
     res.json({

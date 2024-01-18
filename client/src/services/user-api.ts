@@ -70,3 +70,15 @@ export async function apiAddMealToLog(
 
   return await res.json();
 }
+
+export async function apiSelectActiveLog(userId: string, logId: string) {
+  const res = await fetch(`${API_URL}/api/user/log/select-active`, {
+    method: 'post',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ userId, logId }),
+  });
+
+  return await res.json();
+}

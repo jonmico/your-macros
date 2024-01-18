@@ -6,6 +6,7 @@ import {
   apiLogin,
   apiLogout,
   apiRegister,
+  apiSelectActiveLog,
 } from '../services/user-api';
 import { IMeal } from '../types/meal';
 import { IUser } from '../types/user';
@@ -16,7 +17,7 @@ interface UserState {
   user: IUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  activeLog: ILog | null;
+  activeLog: ILog | null | undefined;
 }
 
 type Login = {
@@ -24,6 +25,7 @@ type Login = {
   payload: {
     user: IUser | null;
     isAuthenticated: boolean;
+    activeLog: ILog | undefined | null;
   };
 };
 
@@ -48,6 +50,7 @@ type FetchSession = {
   payload: {
     user: IUser | null;
     isAuthenticated: boolean;
+    activeLog: ILog | null | undefined;
   };
 };
 
@@ -58,12 +61,18 @@ type AddMealToLog = {
 
 type CreateLog = {
   type: 'user/createLog';
-  payload: IUser;
+  payload: {
+    user: IUser;
+    activeLog: ILog | undefined;
+  };
 };
 
 type SetActiveLog = {
   type: 'user/setActiveLog';
-  payload: ILog;
+  payload: {
+    activeLog: ILog | null | undefined;
+    user: IUser;
+  };
 };
 
 export type UserAction =
@@ -81,9 +90,8 @@ interface IUserContext {
     user: IUser | null;
     isAuthenticated: boolean;
     isLoading: boolean;
-    activeLog: ILog | null;
+    activeLog: ILog | null | undefined;
   };
-  setActiveLog: (log: ILog) => void;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<boolean>;
   register: (
@@ -95,6 +103,7 @@ interface IUserContext {
   fetchActiveSession: () => Promise<void>;
   addMealToLog: (meal: IMeal, logId: string, userId: string) => Promise<void>;
   createLog: (log: IPreIDLog) => Promise<void>;
+  setActiveLog: (userId: string, log: ILog | null | undefined) => Promise<void>;
 }
 
 export const UserContext = createContext<IUserContext>({
@@ -104,7 +113,7 @@ export const UserContext = createContext<IUserContext>({
     isLoading: false,
     activeLog: null,
   },
-  setActiveLog: () => {},
+  setActiveLog: async () => {},
   login: async () => {},
   logout: async () => true,
   register: async () => {},
@@ -121,6 +130,7 @@ function reducer(state: UserState, action: UserAction) {
         user: action.payload.user,
         isAuthenticated: action.payload.isAuthenticated,
         isLoading: false,
+        activeLog: action.payload.activeLog,
       };
     case 'user/logout':
       return {
@@ -135,6 +145,7 @@ function reducer(state: UserState, action: UserAction) {
         user: action.payload.user,
         isAuthenticated: action.payload.isAuthenticated,
         isLoading: false,
+        activeLog: undefined,
       };
     case 'user/fetchSession':
       return {
@@ -142,6 +153,7 @@ function reducer(state: UserState, action: UserAction) {
         user: action.payload.user,
         isAuthenticated: action.payload.isAuthenticated,
         isLoading: false,
+        activeLog: action.payload.activeLog,
       };
     case 'user/addMealToLog':
       return {
@@ -157,13 +169,16 @@ function reducer(state: UserState, action: UserAction) {
     case 'user/createLog':
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
         isLoading: false,
+        activeLog: action.payload.activeLog,
       };
     case 'user/setActiveLog':
       return {
         ...state,
-        activeLog: action.payload,
+        user: action.payload.user,
+        activeLog: action.payload.activeLog,
+        isLoading: false,
       };
     default:
       throw TypeError('Action unknown.');
@@ -189,9 +204,16 @@ export default function UserProvider(props: UserProviderProps) {
       dispatch({ type: 'user/loading' });
       const data: { user: IUser; isAuthenticated: boolean } =
         await apiFetchActiveSession();
+      const activeLog = data.user.logs.find(
+        (log) => log._id === data.user.activeLog
+      );
       dispatch({
         type: 'user/fetchSession',
-        payload: { user: data.user, isAuthenticated: data.isAuthenticated },
+        payload: {
+          user: data.user,
+          isAuthenticated: data.isAuthenticated,
+          activeLog,
+        },
       });
     }
     fetchSession();
@@ -203,9 +225,17 @@ export default function UserProvider(props: UserProviderProps) {
       email,
       password
     );
+    const activeLog = data.user.logs.find(
+      (log) => log._id === data.user.activeLog
+    );
+
     dispatch({
       type: 'user/login',
-      payload: { user: data.user, isAuthenticated: data.isAuthenticated },
+      payload: {
+        user: data.user,
+        isAuthenticated: data.isAuthenticated,
+        activeLog: activeLog,
+      },
     });
   }
 
@@ -242,12 +272,16 @@ export default function UserProvider(props: UserProviderProps) {
 
     const data: { user: IUser; isAuthenticated: boolean } =
       await apiFetchActiveSession();
-
-    // const activeLog = data.user.logs.length > 0
-
+    const activeLog = data.user.logs.find(
+      (log) => log._id === data.user.activeLog
+    );
     dispatch({
       type: 'user/fetchSession',
-      payload: { user: data.user, isAuthenticated: data.isAuthenticated },
+      payload: {
+        user: data.user,
+        isAuthenticated: data.isAuthenticated,
+        activeLog,
+      },
     });
   }
 
@@ -261,11 +295,26 @@ export default function UserProvider(props: UserProviderProps) {
   async function createLog(log: IPreIDLog) {
     dispatch({ type: 'user/loading' });
     const data: { user: IUser } = await apiCreateLog(log);
-    dispatch({ type: 'user/createLog', payload: data.user });
+    const activeLog = data.user.logs.find(
+      (log) => log._id === data.user.activeLog
+    );
+    dispatch({
+      type: 'user/createLog',
+      payload: { user: data.user, activeLog },
+    });
   }
 
-  function setActiveLog(log: ILog) {
-    dispatch({ type: 'user/setActiveLog', payload: log });
+  async function setActiveLog(userId: string, log: ILog | null | undefined) {
+    dispatch({ type: 'user/loading' });
+
+    const data: { user: IUser } = await apiSelectActiveLog(userId, log?._id);
+
+    const newActiveLog = data.user.logs.find((l) => l._id === log._id);
+
+    dispatch({
+      type: 'user/setActiveLog',
+      payload: { activeLog: newActiveLog, user: data.user },
+    });
   }
 
   const value = {
