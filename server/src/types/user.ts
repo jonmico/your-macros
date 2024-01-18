@@ -11,5 +11,5 @@ export default interface IUser {
     carbs: number;
     protein: number;
   };
-  activeLog: mongoose.Schema.Types.ObjectId | null | string;
+  activeLog: mongoose.Schema.Types.ObjectId | null;
 }

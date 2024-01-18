@@ -3,7 +3,11 @@ import { IUser } from '../../types/user';
 import DropDownMenu from '../drop-down-menu/drop-down-menu';
 import styles from './dashboard-table.module.css';
 
-export default function DashboardTable(props: { user: IUser }) {
+export default function DashboardTable(props: {
+  user: IUser;
+  selectedLog: ILog;
+  handleSelectLog: (log: ILog) => void;
+}) {
   const remainingCalories = props.user.calories - props.selectedLog.calories;
   const remainingFat = props.user.macros.fat - props.selectedLog.macros.fat;
   const remainingCarbs =
@@ -19,7 +23,11 @@ export default function DashboardTable(props: { user: IUser }) {
           <span className={styles.selectedLog}>{props.selectedLog.name}</span>{' '}
           log:
         </h3>
-        <DropDownMenu user={props.user} />
+        <DropDownMenu
+          user={props.user}
+          selectedLog={props.selectedLog}
+          handleSelectLog={props.handleSelectLog}
+        />
       </div>
       <div className={styles.dashboardTableContainer}>
         <div className={styles.dashboardTable}>

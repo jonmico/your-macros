@@ -5,41 +5,53 @@ import useUser from '../../hooks/useUser';
 import { ILog } from '../../types/log';
 import { IUser } from '../../types/user';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IMeal } from '../../types/meal';
 import styles from './dashboard.module.css';
 import { useState } from 'react';
 
 export default function Dashboard() {
+  const { userState } = useUser();
+
+  if (!userState.user) return null;
+
   return (
     <div>
       <PageHeader>Dashboard</PageHeader>
-      <DashboardContent />
+      <DashboardContent user={userState.user} />
     </div>
   );
 }
 
-function DashboardContent() {
+function DashboardContent(props: { user: IUser }) {
+  const [selectedLog, setSelectedLog] = useState(
+    props.user.logs.length > 0
+      ? props.user.logs[props.user.logs.length - 1]
+      : null
+  );
+
   const {
-    userState: { user, activeLog },
+    userState: { activeLog },
+    setActiveLog,
   } = useUser();
 
-  if (!user) return null;
+  function handleSelectLog(log: ILog) {
+    setSelectedLog(log);
+  }
 
   return (
     <PageContentContainer>
       <div className={styles.dashboardContainer}>
-        {user.logs.length === 0 ? (
-          <>
-            <div>You don't have any logs yet☹️</div>
-            <div>
-              Click <Link to={'/logs'}>here</Link> to make your first log!
-            </div>
-          </>
+        {activeLog === null ? (
+          <div>no log!</div>
         ) : (
           <>
-            {/* <DashboardTable user={user} /> */}
-            <DashboardLogGrid />
+            <DashboardTable
+              user={props.user}
+              selectedLog={selectedLog}
+              handleSelectLog={handleSelectLog}
+            />
+            <DashboardLogGrid selectedLog={selectedLog} />
           </>
         )}
       </div>
@@ -47,21 +59,18 @@ function DashboardContent() {
   );
 }
 
-function DashboardLogGrid() {
-  const {
-    userState: { activeLog },
-  } = useUser();
-
-  if (!activeLog) return <div>no</div>;
+function DashboardLogGrid(props: { selectedLog: ILog }) {
+  if (props.selectedLog.meals.length === 0)
+    return <div>NO MEALS DO SOMETHING ABOUT MEEEEE</div>;
 
   return (
     <>
       <h3>Meals for this log:</h3>
       <ul className={styles.dashboardLogGrid}>
-        {activeLog.meals.map((meal) => (
+        {props.selectedLog.meals.map((meal) => (
           <DashboardLogGridItem
             key={meal._id}
-            logId={activeLog._id}
+            logId={props.selectedLog._id}
             meal={meal}
           />
         ))}

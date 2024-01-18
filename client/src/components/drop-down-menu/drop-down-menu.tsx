@@ -3,7 +3,6 @@ import { ILog } from '../../types/log';
 import styles from './drop-down-menu.module.css';
 import { FaAngleLeft } from 'react-icons/fa6';
 import { IUser } from '../../types/user';
-import useUser from '../../hooks/useUser';
 
 export default function DropDownMenu(props: {
   user: IUser;
@@ -11,7 +10,6 @@ export default function DropDownMenu(props: {
   handleSelectLog: (log: ILog) => void;
 }) {
   const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState(false);
-  const { setActiveLog } = useUser();
   const { logs } = props.user;
 
   function handleSelectLogClick(
@@ -20,7 +18,6 @@ export default function DropDownMenu(props: {
   ) {
     evt.stopPropagation();
     props.handleSelectLog(log);
-    setActiveLog(props.user._id, log);
     setIsDropDownMenuOpen(false);
   }
 

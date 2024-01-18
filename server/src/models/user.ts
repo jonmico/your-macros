@@ -55,10 +55,7 @@ export const userSchema = new Schema<IUser>({
     carbs: { type: Number, required: true },
     protein: { type: Number, required: true },
   },
-  activeLog: {
-    type: mongoose.Schema.Types.ObjectId,
-    default: undefined,
-  },
+  activeLog: { type: mongoose.Schema.Types.ObjectId, default: null },
 });
 
 const User = mongoose.model('User', userSchema);
