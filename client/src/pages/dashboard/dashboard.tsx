@@ -44,7 +44,7 @@ function DashboardContent(props: { user: IUser }) {
           selectedLog={selectedLog}
           handleSelectLog={handleSelectLog}
         />
-        <DashboardLogGrid selectedLog={selectedLog} />
+        {selectedLog && <DashboardLogGrid selectedLog={selectedLog} />}
       </div>
     </PageContentContainer>
   );
