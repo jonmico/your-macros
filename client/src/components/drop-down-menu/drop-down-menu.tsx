@@ -22,36 +22,32 @@ export default function DropDownMenu(props: {
   }
 
   return (
-    <>
-      <div
-        className={styles.dropDownMenu}
-        onClick={() => setIsDropDownMenuOpen((prevState) => !prevState)}
-      >
-        <button className={styles.dropDownButton}>
-          <div className={styles.dropDownMenuSelectedLog}>
-            {props.selectedLog.name}
-          </div>
-          <div className={styles.dropDownIconContainer}>
-            <FaAngleLeft
-              className={`${
-                isDropDownMenuOpen ? styles.animateDropDownButton : ''
-              }`}
+    <div
+      className={styles.dropDownMenu}
+      onClick={() => setIsDropDownMenuOpen((prevState) => !prevState)}
+    >
+      <button className={styles.dropDownButton}>
+        <div>{props.selectedLog.name}</div>
+        <div className={styles.dropDownIconContainer}>
+          <FaAngleLeft
+            className={`${
+              isDropDownMenuOpen ? styles.animateDropDownButton : ''
+            }`}
+          />
+        </div>
+      </button>
+      {isDropDownMenuOpen && (
+        <ul className={styles.dropDownMenuList}>
+          {logs.map((log) => (
+            <DropDownMenuListItem
+              handleClick={handleSelectLogClick}
+              log={log}
+              key={log._id}
             />
-          </div>
-        </button>
-        {isDropDownMenuOpen && (
-          <ul className={styles.dropDownMenuList}>
-            {logs.map((log) => (
-              <DropDownMenuListItem
-                handleClick={handleSelectLogClick}
-                log={log}
-                key={log._id}
-              />
-            ))}
-          </ul>
-        )}
-      </div>
-    </>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 

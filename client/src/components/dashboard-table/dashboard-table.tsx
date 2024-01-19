@@ -31,6 +31,7 @@ function DashboardTableLogDisplay(props: {
   selectedLog: ILog | null;
   handleSelectLog: (log: ILog) => void;
 }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   if (props.selectedLog === null) return null;
 
   const remainingCalories = props.user.calories - props.selectedLog.calories;
@@ -47,11 +48,25 @@ function DashboardTableLogDisplay(props: {
           <span className={styles.selectedLog}>{props.selectedLog.name}</span>{' '}
           log:
         </h3>
-        <DropDownMenu
-          user={props.user}
-          selectedLog={props.selectedLog}
-          handleSelectLog={props.handleSelectLog}
-        />
+        <div className={styles.logOptionsContainer}>
+          <DropDownMenu
+            user={props.user}
+            selectedLog={props.selectedLog}
+            handleSelectLog={props.handleSelectLog}
+          />
+          <button
+            onClick={() => setIsModalOpen(true)}
+            type={'button'}
+            className={styles.newLogButton}
+          >
+            New Log
+          </button>
+          {isModalOpen && (
+            <Modal>
+              <CreateLogForm handleCloseModal={() => setIsModalOpen(false)} />
+            </Modal>
+          )}
+        </div>
       </div>
       <div className={styles.dashboardTableContainer}>
         <div className={styles.dashboardTable}>
