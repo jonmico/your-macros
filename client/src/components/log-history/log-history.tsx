@@ -12,15 +12,27 @@ export default function LogHistory() {
 
   return (
     <div className={styles.logHistoryContainer}>
-      <h3>History</h3>
-      <LogHistoryTable>
-        <LogHistoryTableHeader />
-        <LogHistoryTableList>
-          {user.logs.map((log) => (
-            <LogHistoryTableListItem log={log} key={log._id} />
-          ))}
-        </LogHistoryTableList>
-      </LogHistoryTable>
+      {user.logs.length === 0 ? (
+        <div className={styles.noHistoryContainer}>
+          <h3>Looks like you haven't made a log yet.</h3>
+          <p>
+            Click the <span className={styles.newLogText}>New Log</span> button
+            above to get started.
+          </p>
+        </div>
+      ) : (
+        <>
+          <h3>History</h3>
+          <LogHistoryTable>
+            <LogHistoryTableHeader />
+            <LogHistoryTableList>
+              {user.logs.map((log) => (
+                <LogHistoryTableListItem log={log} key={log._id} />
+              ))}
+            </LogHistoryTableList>
+          </LogHistoryTable>
+        </>
+      )}
     </div>
   );
 }

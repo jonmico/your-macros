@@ -19,17 +19,18 @@ export default function Logs() {
       <PageHeader>Logs</PageHeader>
       <PageContentContainer>
         <div className={styles.logsPageContainer}>
-          {isModalOpen ? (
+          {isModalOpen && (
             <Modal>
               <CreateLogForm handleCloseModal={handleCloseModal} />
             </Modal>
-          ) : (
-            <div className={styles.buttonContainer}>
-              <Button type={'primary'} onClick={() => setIsModalOpen(true)}>
-                New Log
-              </Button>
-            </div>
           )}
+
+          <div className={styles.buttonContainer}>
+            <Button type={'primary'} onClick={() => setIsModalOpen(true)}>
+              New Log
+            </Button>
+          </div>
+
           <LogHistory />
         </div>
       </PageContentContainer>

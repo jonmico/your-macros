@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { ILog } from '../../types/log';
 import { IUser } from '../../types/user';
+import CreateLogForm from '../create-log-form/create-log-form';
 import DropDownMenu from '../drop-down-menu/drop-down-menu';
+import Modal from '../modal/modal';
 import styles from './dashboard-table.module.css';
 
 export default function DashboardTable(props: {
@@ -93,10 +95,19 @@ function DashboardTableLogDisplay(props: {
 }
 
 function DashboardTableNoLogs() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className={styles.noLogsContainer}>
       <h2>Looks empty {':('}</h2>
-      <Link to={'/logs'}>Click here to make your first log</Link>
+      <button onClick={() => setIsModalOpen(true)}>
+        Click here to make your first log
+      </button>
+      {isModalOpen && (
+        <Modal>
+          <CreateLogForm handleCloseModal={() => setIsModalOpen(false)} />
+        </Modal>
+      )}
     </div>
   );
 }

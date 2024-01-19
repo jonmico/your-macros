@@ -58,3 +58,26 @@
 .link:hover {
   background-color: var(--color-blue-400);
 }
+
+.noHistoryContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 10rem;
+  gap: 0.5rem;
+}
+
+.noHistoryContainer h3 {
+  font-size: 1.75rem;
+  color: var(--color-gray-500);
+}
+
+.noHistoryContainer p {
+  font-size: 1.1rem;
+  color: var(--color-slate-400);
+}
+
+.newLogText {
+  color: var(--color-blue-500);
+}
