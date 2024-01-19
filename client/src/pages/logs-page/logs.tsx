@@ -5,6 +5,7 @@ import PageHeader from '../../components/page-header/page-header';
 import Modal from '../../components/modal/modal';
 import { useState } from 'react';
 import Button from '../../components/button/button';
+import styles from './logs.module.css';
 
 export default function Logs() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,16 +18,20 @@ export default function Logs() {
     <div>
       <PageHeader>Logs</PageHeader>
       <PageContentContainer>
-        {isModalOpen ? (
-          <Modal>
-            <CreateLogForm handleCloseModal={handleCloseModal} />
-          </Modal>
-        ) : (
-          <Button type={'primary'} onClick={() => setIsModalOpen(true)}>
-            New Log
-          </Button>
-        )}
-        <LogHistory />
+        <div className={styles.logsPageContainer}>
+          {isModalOpen ? (
+            <Modal>
+              <CreateLogForm handleCloseModal={handleCloseModal} />
+            </Modal>
+          ) : (
+            <div className={styles.buttonContainer}>
+              <Button type={'primary'} onClick={() => setIsModalOpen(true)}>
+                New Log
+              </Button>
+            </div>
+          )}
+          <LogHistory />
+        </div>
       </PageContentContainer>
     </div>
   );

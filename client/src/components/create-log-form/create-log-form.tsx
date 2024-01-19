@@ -5,6 +5,7 @@ import useUser from '../../hooks/useUser';
 import { IPreIDLog } from '../../types/pre-id-log';
 import Input from '../input/input';
 import { FaXmark } from 'react-icons/fa6';
+import Button from '../button/button';
 
 export default function CreateLogForm(props: { handleCloseModal: () => void }) {
   const {
@@ -35,9 +36,9 @@ export default function CreateLogForm(props: { handleCloseModal: () => void }) {
     <form className={styles.createLogForm} onSubmit={handleSubmit}>
       <h3 className={styles.createLogFormHeader}>
         <div>New Log</div>
-        <button type={'button'} onClick={props.handleCloseModal}>
+        <Button type={'close'} onClick={props.handleCloseModal}>
           <FaXmark />
-        </button>
+        </Button>
       </h3>
       <div className={styles.formFieldContainer}>
         <div className={styles.formField}>

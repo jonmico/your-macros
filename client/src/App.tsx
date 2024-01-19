@@ -16,9 +16,7 @@ import GlobalStyles from './styles/global-styles';
 
 // TODO: Let users browse the database without logging in or signing up.
 // TODO: Clean up redudant styling. I think there's like 40 macro containers in this project.
-// TODO: Figure out what to do next now that we failed at YourFoods.
 // TODO: Redo add-meal page layout.
-// TODO: Look at context usage and how we build out the user.
 
 function App() {
   return (

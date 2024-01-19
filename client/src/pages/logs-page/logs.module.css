@@ -1,0 +1,9 @@
+.logsPageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.buttonContainer {
+  width: 15rem;
+}

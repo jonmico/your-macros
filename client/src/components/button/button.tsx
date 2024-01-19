@@ -27,4 +27,12 @@ export default function Button(props: ButtonProps) {
       </button>
     );
   }
+
+  if (props.type === 'close') {
+    return (
+      <button onClick={props.onClick} className={styles.close}>
+        {props.children}
+      </button>
+    );
+  }
 }
