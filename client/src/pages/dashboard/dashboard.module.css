@@ -52,3 +52,30 @@
 .protein {
   color: var(--color-blue-400);
 }
+
+.noMealsInLogContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.noMealsInLogContainer h3 {
+  font-size: 1.5rem;
+  color: var(--color-gray-400);
+}
+
+.noMealsInLogContainer a {
+  border: 1px solid var(--color-blue-500);
+  border-radius: 8px;
+  color: var(--color-blue-500);
+  font-size: 1.125rem;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.noMealsInLogContainer a:hover {
+  background-color: var(--color-slate-800);
+}
