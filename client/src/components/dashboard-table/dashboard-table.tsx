@@ -94,9 +94,9 @@ function DashboardTableLogDisplay(props: {
 
 function DashboardTableNoLogs() {
   return (
-    <div>
-      There are no logs for this account! Click <Link to={'/logs'}>here</Link>{' '}
-      to make your first log!
+    <div className={styles.noLogsContainer}>
+      <h2>Looks empty {':('}</h2>
+      <Link to={'/logs'}>Click here to make your first log</Link>
     </div>
   );
 }
