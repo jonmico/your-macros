@@ -1,14 +1,15 @@
 import styles from './button.module.css';
 
 interface ButtonProps {
-  type: string;
+  btnStyle: string;
+  btnType?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
 }
 
 export default function Button(props: ButtonProps) {
-  if (props.type === 'primary') {
+  if (props.btnStyle === 'primary') {
     return (
       <button
         className={styles.primary}
@@ -20,7 +21,7 @@ export default function Button(props: ButtonProps) {
     );
   }
 
-  if (props.type === 'small') {
+  if (props.btnStyle === 'small') {
     return (
       <button className={styles.small} onClick={props.onClick}>
         {props.children}
@@ -28,9 +29,13 @@ export default function Button(props: ButtonProps) {
     );
   }
 
-  if (props.type === 'close') {
+  if (props.btnStyle === 'close') {
     return (
-      <button onClick={props.onClick} className={styles.close}>
+      <button
+        onClick={props.onClick}
+        type={props.btnType}
+        className={styles.close}
+      >
         {props.children}
       </button>
     );

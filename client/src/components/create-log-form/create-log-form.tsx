@@ -34,12 +34,16 @@ export default function CreateLogForm(props: { handleCloseModal: () => void }) {
 
   return (
     <form className={styles.createLogForm} onSubmit={handleSubmit}>
-      <h3 className={styles.createLogFormHeader}>
-        <div>New Log</div>
-        <Button type={'close'} onClick={props.handleCloseModal}>
+      <div className={styles.createLogFormHeader}>
+        <h3>New Log</h3>
+        <Button
+          btnStyle={'close'}
+          btnType={'button'}
+          onClick={props.handleCloseModal}
+        >
           <FaXmark />
         </Button>
-      </h3>
+      </div>
       <div className={styles.formFieldContainer}>
         <div className={styles.formField}>
           <label htmlFor='logName'>Log Name</label>
@@ -53,7 +57,7 @@ export default function CreateLogForm(props: { handleCloseModal: () => void }) {
             setErrorText={setLogNameError}
           />
         </div>
-        <PrimaryButton>Create</PrimaryButton>
+        <PrimaryButton type={'submit'}>Create</PrimaryButton>
       </div>
     </form>
   );

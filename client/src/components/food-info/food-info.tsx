@@ -97,7 +97,7 @@ export default function FoodInfo() {
               <div>protein</div>
             </ProteinContainer>
           </MacroFoodInfoRow>
-          <Button type={'primary'} disabled={isInMealComponents}>
+          <Button btnStyle={'primary'} disabled={isInMealComponents}>
             {isInMealComponents ? 'Already in meal' : 'Add to Meal'}
           </Button>
         </FoodInfoForm>
