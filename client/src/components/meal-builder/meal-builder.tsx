@@ -101,7 +101,7 @@ export default function MealBuilder() {
       <DataButtonContainer>
         <MealData mealData={mealData} />
         <div className={styles.addMealContainer}>
-          <Button type={'primary'} onClick={handleShowModal}>
+          <Button btnStyle={'primary'} onClick={handleShowModal}>
             Add Meal to Log
           </Button>
           {mealComponentsError && (
@@ -139,7 +139,7 @@ function MealListHeader() {
         <h4>Servings</h4>
         <h4>Amount</h4>
         <h4>Calories and Macros</h4>
-        <Button onClick={clearMeal} type={'small'}>
+        <Button onClick={clearMeal} btnStyle={'small'}>
           CLEAR
         </Button>
       </div>

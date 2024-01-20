@@ -26,7 +26,7 @@ export default function Logs() {
           )}
 
           <div className={styles.buttonContainer}>
-            <Button type={'primary'} onClick={() => setIsModalOpen(true)}>
+            <Button btnStyle={'primary'} onClick={() => setIsModalOpen(true)}>
               New Log
             </Button>
           </div>
