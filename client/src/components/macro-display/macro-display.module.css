@@ -1,7 +1,8 @@
 .macroDisplay {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .calories {

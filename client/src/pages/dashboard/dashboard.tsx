@@ -4,11 +4,12 @@ import PageHeader from '../../components/page-header/page-header';
 import useUser from '../../hooks/useUser';
 import { ILog } from '../../types/log';
 import { IUser } from '../../types/user';
-
-import { Link, useNavigate } from 'react-router-dom';
+import { FaAngleRight } from 'react-icons/fa6';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { IMeal } from '../../types/meal';
 import styles from './dashboard.module.css';
-import { useState } from 'react';
+import MacroDisplay from '../../components/macro-display/macro-display';
 
 export default function Dashboard() {
   const {
@@ -61,14 +62,13 @@ function DashboardLogGrid(props: { selectedLog: ILog }) {
         </div>
       ) : (
         <>
-          <h3>Meals for this log:</h3>
+          <div className={styles.logGridHeader}>
+            <h3>Meals for this log:</h3>
+            <Link to={`/logs/${props.selectedLog._id}`}>View this log</Link>
+          </div>
           <ul className={styles.dashboardLogGrid}>
             {props.selectedLog.meals.map((meal) => (
-              <DashboardLogGridItem
-                key={meal._id}
-                logId={props.selectedLog._id}
-                meal={meal}
-              />
+              <DashboardLogGridItem key={meal._id} meal={meal} />
             ))}
           </ul>
         </>
@@ -77,28 +77,58 @@ function DashboardLogGrid(props: { selectedLog: ILog }) {
   );
 }
 
-function DashboardLogGridItem(props: { meal: IMeal; logId: string }) {
-  const navigate = useNavigate();
-
+function DashboardLogGridItem(props: { meal: IMeal }) {
+  const [isListOpen, setIsListOpen] = useState(false);
   const numberOfMeals = props.meal.mealComponents.length;
 
   function handleClick() {
-    navigate(`/logs/${props.logId}`);
+    setIsListOpen((prevState) => !prevState);
   }
 
   return (
     <li className={styles.dashboardLogGridItem} onClick={handleClick}>
-      <h4>{props.meal.name}</h4>
-      <div className={styles.macroContainer}>
-        <div className={styles.calories}>{props.meal.calories}cals</div>
-        <div className={styles.divider}>|</div>
-        <div className={styles.fat}>{props.meal.macros.fat}f</div>
-        <div className={styles.carbs}>{props.meal.macros.carbs}c</div>
-        <div className={styles.protein}>{props.meal.macros.protein}p</div>
+      <div className={styles.gridItemMealNameMacros}>
+        <h4>{props.meal.name}</h4>
+        <div className={styles.macroContainer}>
+          <div className={styles.calories}>{props.meal.calories}cals</div>
+          <div className={styles.divider}>|</div>
+          <div className={styles.fat}>{props.meal.macros.fat}f</div>
+          <div className={styles.carbs}>{props.meal.macros.carbs}c</div>
+          <div className={styles.protein}>{props.meal.macros.protein}p</div>
+        </div>
       </div>
-      <div>
-        {numberOfMeals} {numberOfMeals === 1 ? 'food' : 'foods'} logged
+      <div className={styles.dropdownArrowContainer}>
+        <FaAngleRight
+          className={`${isListOpen ? styles.animateRightAngle : ''}`}
+        />
+        {!isListOpen && (
+          <div>
+            {numberOfMeals} {numberOfMeals === 1 ? 'food' : 'foods'} logged
+          </div>
+        )}
       </div>
+      {isListOpen && (
+        <ul className={styles.gridItemMealList}>
+          {props.meal.mealComponents.map((food) => (
+            <li className={styles.gridItemMealListItem} key={food.food._id}>
+              <div className={styles.gridItemMealListItemNameBrand}>
+                <div>{food.food.brand}</div>
+                <div>{food.food.name}</div>
+              </div>
+              <div className={styles.gridItemMealListItemMacroServings}>
+                <MacroDisplay
+                  calories={food.food.calories}
+                  macros={food.food.macros}
+                  servings={food.servings}
+                />
+                <div>
+                  {food.servings} {food.servings === 1 ? 'serving' : 'servings'}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </li>
   );
 }

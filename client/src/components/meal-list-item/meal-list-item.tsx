@@ -53,7 +53,7 @@ export default function MealListItem(props: MealItemProps) {
           value={servings}
           onChange={(evt) => setServings(evt.target.value)}
         />
-        {isEditActive && <Button type={'small'}>Edit</Button>}
+        {isEditActive && <Button btnStyle={'small'}>Edit</Button>}
       </EditServingsForm>
       <p>{servingSize}g</p>
       <CaloriesAndMacrosContainer>
