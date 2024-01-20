@@ -68,7 +68,11 @@ function DashboardLogGrid(props: { selectedLog: ILog }) {
           </div>
           <ul className={styles.dashboardLogGrid}>
             {props.selectedLog.meals.map((meal) => (
-              <DashboardLogGridItem key={meal._id} meal={meal} />
+              <DashboardLogGridItem
+                key={meal._id}
+                selectedLog={props.selectedLog}
+                meal={meal}
+              />
             ))}
           </ul>
         </>
@@ -77,7 +81,7 @@ function DashboardLogGrid(props: { selectedLog: ILog }) {
   );
 }
 
-function DashboardLogGridItem(props: { meal: IMeal }) {
+function DashboardLogGridItem(props: { meal: IMeal; selectedLog: ILog }) {
   const [isListOpen, setIsListOpen] = useState(false);
   const numberOfMeals = props.meal.mealComponents.length;
 
@@ -87,15 +91,23 @@ function DashboardLogGridItem(props: { meal: IMeal }) {
 
   return (
     <li className={styles.dashboardLogGridItem} onClick={handleClick}>
-      <div className={styles.gridItemMealNameMacros}>
-        <h4>{props.meal.name}</h4>
-        <div className={styles.macroContainer}>
-          <div className={styles.calories}>{props.meal.calories}cals</div>
-          <div className={styles.divider}>|</div>
-          <div className={styles.fat}>{props.meal.macros.fat}f</div>
-          <div className={styles.carbs}>{props.meal.macros.carbs}c</div>
-          <div className={styles.protein}>{props.meal.macros.protein}p</div>
+      <div className={styles.gridItemMealHeader}>
+        <div className={styles.gridItemMealNameMacros}>
+          <h4>{props.meal.name}</h4>
+          <div className={styles.macroContainer}>
+            <div className={styles.calories}>{props.meal.calories}cals</div>
+            <div className={styles.divider}>|</div>
+            <div className={styles.fat}>{props.meal.macros.fat}f</div>
+            <div className={styles.carbs}>{props.meal.macros.carbs}c</div>
+            <div className={styles.protein}>{props.meal.macros.protein}p</div>
+          </div>
         </div>
+        <Link
+          className={styles.linkToLog}
+          to={`/logs/${props.selectedLog._id}`}
+        >
+          Go to log
+        </Link>
       </div>
       <div className={styles.dropdownArrowContainer}>
         <FaAngleRight
