@@ -55,42 +55,31 @@ export default function FoodSearch() {
           />
         </Form>
       </div>
-      <div className={styles.listsContainer}>
-        <div className={styles.foodSearchListContainer}>
-          <DatabaseList
-            searchedFoodsError={searchedFoodsError}
-            searchedFoods={searchedFoods}
-          />
 
-          {isLoading && (
-            <div className={styles.spinnerContainer}>
-              <Spinner />
-            </div>
-          )}
+      {searchedFoodsError ? (
+        <div className={styles.searchedFoodsErrorContainer}>
+          {searchedFoodsError}
         </div>
-      </div>
+      ) : (
+        <DatabaseList searchedFoods={searchedFoods} />
+      )}
+
+      {isLoading && (
+        <div className={styles.spinnerContainer}>
+          <Spinner />
+        </div>
+      )}
     </div>
   );
 }
 
-function DatabaseList(props: {
-  searchedFoods: IFood[];
-  searchedFoodsError: string;
-}) {
-  const errorText = props.searchedFoodsError
-    ? props.searchedFoodsError
-    : 'Foods you search for will populate here';
+function DatabaseList(props: { searchedFoods: IFood[] }) {
+  if (props.searchedFoods.length === 0) return null;
   return (
-    <>
-      {props.searchedFoods.length === 0 ? (
-        <div className={styles.searchedFoodsErrorContainer}>{errorText}</div>
-      ) : (
-        <ul className={styles.foodSearchList}>
-          {props.searchedFoods.map((food) => (
-            <FoodSearchListItem key={food._id} food={food} />
-          ))}
-        </ul>
-      )}
-    </>
+    <ul className={styles.foodSearchList}>
+      {props.searchedFoods.map((food) => (
+        <FoodSearchListItem key={food._id} food={food} />
+      ))}
+    </ul>
   );
 }
