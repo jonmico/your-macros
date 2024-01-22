@@ -14,8 +14,10 @@ export default function AddMeal() {
         <MealProvider>
           <MealBuilder />
           <FoodProvider>
-            <FoodSearch />
-            <FoodInfo />
+            <SearchInfoRow>
+              <FoodSearch />
+              <FoodInfo />
+            </SearchInfoRow>
           </FoodProvider>
         </MealProvider>
       </AddMealUI>
