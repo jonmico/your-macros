@@ -96,3 +96,30 @@
   font-weight: 700;
   font-size: 0.95rem;
 }
+
+.editButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.editButton {
+  background-color: var(--color-yellow-500);
+  outline: none;
+  border: none;
+  padding: 0.25rem 0.75rem;
+  border-radius: 5px;
+  color: var(--color-slate-800);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: border-radius 0.2s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.editButton:hover {
+  cursor: pointer;
+  border-radius: 15px;
+  background-color: var(--color-yellow-200);
+}
+
+.editActive {
+  border: 1px solid var(--color-red-500);
+}

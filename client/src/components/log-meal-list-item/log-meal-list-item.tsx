@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { IMeal } from '../../types/meal';
 
 import LogMealComponentListItem from '../log-meal-component-list-item/log-meal-component-list-item';
@@ -15,8 +16,14 @@ export default function LogMealListItem({
   index,
   mealLength,
 }: LogMealListItemProps) {
+  const [isEditing, setIsEditing] = useState(false);
+
+  function handleEditClick() {
+    setIsEditing(true);
+  }
+
   return (
-    <li className={styles.listItem}>
+    <li className={`${styles.listItem} ${isEditing ? styles.editActive : ''}`}>
       <div className={styles.mealHeader}>
         <h3 className={styles.mealName}>{meal.name}</h3>
         <div className={styles.mealNumber}>
@@ -56,6 +63,11 @@ export default function LogMealListItem({
             ))}
           </ul>
         </div>
+      </div>
+      <div className={styles.editButtonContainer}>
+        <button className={styles.editButton} onClick={handleEditClick}>
+          Edit
+        </button>
       </div>
     </li>
   );
