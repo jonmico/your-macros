@@ -49,6 +49,10 @@
   font-size: 1.5rem;
 }
 
+.logTotalsText {
+  color: var(--color-slate-500);
+}
+
 .calories {
   color: var(--color-red-400);
 }
@@ -68,10 +72,78 @@
 /* LogMealList styles */
 .logMealList {
   list-style: none;
-  border: 1px solid var(--color-gray-700);
   border-radius: 8px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.deleteLogButtonRow {
+  text-align: right;
+}
+
+.deleteLogButton {
+  padding: 0.3rem 0.6rem;
+  background-color: var(--color-red-400);
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.deleteLogButton:hover {
+  background-color: var(--color-red-300);
+  cursor: pointer;
+  transform: translateY(-3px);
+}
+
+.deleteLogForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.deleteLogForm div h2 {
+  margin-bottom: 0.25rem;
+}
+
+.logName {
+  color: var(--color-blue-500);
+}
+
+.confirmDeleteDialogue h4 {
+  margin-bottom: 0.5rem;
+}
+
+.formFieldContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.deleteButton {
+  background-color: inherit;
+  border: 1px solid var(--color-red-400);
+  color: var(--color-red-400);
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 15px;
+  transition: border 0.2s ease-in-out, color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+}
+
+.deleteButton:hover {
+  cursor: pointer;
+}
+
+.deleteButton:active {
+  background-color: var(--color-red-500);
+  color: var(--color-zinc-900);
+}
+
+.deleteButton:disabled {
+  cursor: not-allowed;
+  border: 1px solid var(--color-gray-700);
+  color: var(--color-gray-700);
 }
