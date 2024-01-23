@@ -14,12 +14,10 @@ import { StyledH3FoodInfo } from '../styled-header/styled-header.styled';
 import {
   Brand,
   BrandAndName,
-  ClickText,
   FoodInfoForm,
   FoodInfoHeader,
   FoodInfoRow,
   MacroFoodInfoRow,
-  NoSelectedFoodContainer,
   StyledFoodInfo,
 } from './food-info.styled';
 
@@ -53,59 +51,55 @@ export default function FoodInfo() {
     setServings('1');
   }
 
+  if (selectedFood === null) return null;
+
   return (
     <StyledFoodInfo>
-      {selectedFood ? (
-        <FoodInfoForm onSubmit={handleSubmit}>
-          <FoodInfoHeader>
-            <BrandAndName>
-              <StyledH3FoodInfo>{selectedFood.name}</StyledH3FoodInfo>
-              <Brand>{selectedFood.brand}</Brand>
-            </BrandAndName>
-            <FaXmark onClick={handleClearSelectedFood} />
-          </FoodInfoHeader>
-          <FoodInfoRow>
-            <div>Serving Size</div>
-            <div>{selectedFood.servingSize}g</div>
-          </FoodInfoRow>
-          <FoodInfoRow>
-            <label htmlFor={'servings'}>Servings</label>
-            <Input
-              name={'servings'}
-              id={'servings'}
-              step={0.01}
-              stateVal={servings}
-              setStateFn={setServings}
-              type='number'
-            />
-          </FoodInfoRow>
-          <MacroFoodInfoRow>
-            <CalorieContainer>
-              <div>{servingsNum * selectedFood.calories}</div>
-              <div>cals</div>
-            </CalorieContainer>
-            <FatContainer>
-              <div>{servingsNum * selectedFood.macros.fat}g</div>
-              <div>fat</div>
-            </FatContainer>
-            <CarbsContainer>
-              <div>{servingsNum * selectedFood.macros.carbs}g</div>
-              <div>carbs</div>
-            </CarbsContainer>
-            <ProteinContainer>
-              <div>{servingsNum * selectedFood.macros.protein}g</div>
-              <div>protein</div>
-            </ProteinContainer>
-          </MacroFoodInfoRow>
-          <Button btnStyle={'primary'} disabled={isInMealComponents}>
-            {isInMealComponents ? 'Already in meal' : 'Add to Meal'}
-          </Button>
-        </FoodInfoForm>
-      ) : (
-        <NoSelectedFoodContainer>
-          <ClickText>Click a food to load its data.</ClickText>
-        </NoSelectedFoodContainer>
-      )}
+      <FoodInfoForm onSubmit={handleSubmit}>
+        <FoodInfoHeader>
+          <BrandAndName>
+            <StyledH3FoodInfo>{selectedFood.name}</StyledH3FoodInfo>
+            <Brand>{selectedFood.brand}</Brand>
+          </BrandAndName>
+          <FaXmark onClick={handleClearSelectedFood} />
+        </FoodInfoHeader>
+        <FoodInfoRow>
+          <div>Serving Size</div>
+          <div>{selectedFood.servingSize}g</div>
+        </FoodInfoRow>
+        <FoodInfoRow>
+          <label htmlFor={'servings'}>Servings</label>
+          <Input
+            name={'servings'}
+            id={'servings'}
+            step={0.01}
+            stateVal={servings}
+            setStateFn={setServings}
+            type='number'
+          />
+        </FoodInfoRow>
+        <MacroFoodInfoRow>
+          <CalorieContainer>
+            <div>{servingsNum * selectedFood.calories}</div>
+            <div>cals</div>
+          </CalorieContainer>
+          <FatContainer>
+            <div>{servingsNum * selectedFood.macros.fat}g</div>
+            <div>fat</div>
+          </FatContainer>
+          <CarbsContainer>
+            <div>{servingsNum * selectedFood.macros.carbs}g</div>
+            <div>carbs</div>
+          </CarbsContainer>
+          <ProteinContainer>
+            <div>{servingsNum * selectedFood.macros.protein}g</div>
+            <div>protein</div>
+          </ProteinContainer>
+        </MacroFoodInfoRow>
+        <Button btnStyle={'primary'} disabled={isInMealComponents}>
+          {isInMealComponents ? 'Already in meal' : 'Add to Meal'}
+        </Button>
+      </FoodInfoForm>
     </StyledFoodInfo>
   );
 }
