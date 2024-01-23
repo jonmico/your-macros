@@ -64,10 +64,23 @@ export default function LogMealListItem({
           </ul>
         </div>
       </div>
-      <div className={styles.editButtonContainer}>
-        <button className={styles.editButton} onClick={handleEditClick}>
-          Edit
-        </button>
+      <div className={styles.buttonRow}>
+        <div className={styles.buttonsContainer}>
+          {isEditing && (
+            <button
+              className={`${styles.button} ${styles.cancelEditButton}`}
+              onClick={() => setIsEditing(false)}
+            >
+              Cancel
+            </button>
+          )}
+          <button
+            className={`${styles.button} ${styles.editButton}`}
+            onClick={handleEditClick}
+          >
+            Edit
+          </button>
+        </div>
       </div>
     </li>
   );

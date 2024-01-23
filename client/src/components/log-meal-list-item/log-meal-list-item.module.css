@@ -97,13 +97,17 @@
   font-size: 0.95rem;
 }
 
-.editButtonContainer {
+.buttonRow {
   display: flex;
   justify-content: flex-end;
 }
 
-.editButton {
-  background-color: var(--color-yellow-500);
+.buttonsContainer {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.button {
   outline: none;
   border: none;
   padding: 0.25rem 0.75rem;
@@ -114,10 +118,25 @@
   transition: border-radius 0.2s ease-in-out, background-color 0.3s ease-in-out;
 }
 
-.editButton:hover {
+.button:hover {
   cursor: pointer;
   border-radius: 15px;
+}
+
+.editButton {
+  background-color: var(--color-yellow-500);
+}
+
+.editButton:hover {
   background-color: var(--color-yellow-200);
+}
+
+.cancelEditButton {
+  background-color: var(--color-red-400);
+}
+
+.cancelEditButton:hover {
+  background-color: var(--color-red-300);
 }
 
 .editActive {
