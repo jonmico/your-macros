@@ -69,7 +69,11 @@ export default function SingleLog() {
           </button>
           {isModalOpen && (
             <Modal>
-              <DeleteLogForm log={log} handleModalClose={handleModalClose} />
+              <DeleteLogForm
+                log={log}
+                handleModalClose={handleModalClose}
+                userId={user._id}
+              />
             </Modal>
           )}
         </div>
@@ -82,11 +86,15 @@ function LogMealList(props: { children: React.ReactNode }) {
   return <ul className={styles.logMealList}>{props.children}</ul>;
 }
 
-// TODO: Make API call to database to delete the log.
-function DeleteLogForm(props: { log: ILog; handleModalClose: () => void }) {
+function DeleteLogForm(props: {
+  log: ILog;
+  handleModalClose: () => void;
+  userId: string;
+}) {
   const [isSure, setIsSure] = useState(false);
   const [logName, setLogName] = useState('');
   const [isDeleteDisabled, setIsDeleteDisabled] = useState(true);
+  const { deleteLog } = useUser();
 
   function handleIsSure() {
     setIsSure((prevState) => !prevState);
@@ -102,9 +110,9 @@ function DeleteLogForm(props: { log: ILog; handleModalClose: () => void }) {
     }
   }
 
-  function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
-    console.log('NYI: Call to database to delete the log.');
+    await deleteLog(props.log._id, props.userId);
   }
   return (
     <form onSubmit={handleSubmit} className={styles.deleteLogForm}>

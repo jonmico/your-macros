@@ -232,3 +232,40 @@ export async function createLog(
     next(err);
   }
 }
+
+export async function deleteLog(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const {
+      logId,
+      userId,
+    }: {
+      logId: string;
+      userId: mongoose.Schema.Types.ObjectId;
+    } = req.body;
+    const user = await User.findById(userId);
+
+    if (!user) throw new AppError('User not found.', 404);
+    const filteredLogs = user.logs.filter((log) => {
+      console.log(log._id, logId);
+      return log._id.toString() !== logId;
+    });
+    user.logs = filteredLogs;
+    await user.save();
+
+    res.json({
+      user: {
+        _id: user._id,
+        email: user.email,
+        logs: user.logs,
+        calories: user.calories,
+        macros: user.macros,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+}

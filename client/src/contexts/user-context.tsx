@@ -6,6 +6,7 @@ import {
   apiLogin,
   apiLogout,
   apiRegister,
+  apiDeleteLog,
 } from '../services/user-api';
 import { IMeal } from '../types/meal';
 import { IUser } from '../types/user';
@@ -59,6 +60,11 @@ type CreateLog = {
   payload: IUser;
 };
 
+type DeleteLog = {
+  type: 'user/deleteLog';
+  payload: IUser;
+};
+
 export type UserAction =
   | Login
   | Logout
@@ -66,7 +72,8 @@ export type UserAction =
   | Loading
   | FetchSession
   | AddMealToLog
-  | CreateLog;
+  | CreateLog
+  | DeleteLog;
 
 interface IUserContext {
   userState: {
@@ -85,6 +92,7 @@ interface IUserContext {
   fetchActiveSession: () => Promise<void>;
   addMealToLog: (meal: IMeal, logId: string, userId: string) => Promise<void>;
   createLog: (log: IPreIDLog) => Promise<void>;
+  deleteLog: (logId: string, userId: string) => Promise<void>;
 }
 
 export const UserContext = createContext<IUserContext>({
@@ -99,6 +107,7 @@ export const UserContext = createContext<IUserContext>({
   fetchActiveSession: async () => {},
   addMealToLog: async () => {},
   createLog: async () => {},
+  deleteLog: async () => {},
 });
 
 function reducer(state: UserState, action: UserAction) {
@@ -143,6 +152,12 @@ function reducer(state: UserState, action: UserAction) {
         isLoading: true,
       };
     case 'user/createLog':
+      return {
+        ...state,
+        user: action.payload,
+        isLoading: false,
+      };
+    case 'user/deleteLog':
       return {
         ...state,
         user: action.payload,
@@ -244,6 +259,13 @@ export default function UserProvider(props: UserProviderProps) {
     dispatch({ type: 'user/createLog', payload: data.user });
   }
 
+  async function deleteLog(logId: string, userId: string) {
+    dispatch({ type: 'user/loading' });
+    const data: { user: IUser } = await apiDeleteLog(logId, userId);
+    console.log(data);
+    dispatch({ type: 'user/deleteLog', payload: data.user });
+  }
+
   const value = {
     userState,
     login,
@@ -252,6 +274,7 @@ export default function UserProvider(props: UserProviderProps) {
     fetchActiveSession,
     addMealToLog,
     createLog,
+    deleteLog,
   };
   return (
     <UserContext.Provider value={value}>{props.children}</UserContext.Provider>

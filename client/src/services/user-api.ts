@@ -70,3 +70,13 @@ export async function apiAddMealToLog(
 
   return await res.json();
 }
+
+export async function apiDeleteLog(logId: string, userId: string) {
+  const res = await fetch(`${API_URL}/api/user/log/${logId}/delete`, {
+    method: 'post',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ logId, userId }),
+  });
+
+  return await res.json();
+}
