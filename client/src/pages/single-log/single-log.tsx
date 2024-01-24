@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaArrowLeft } from 'react-icons/fa6';
+import { FaArrowLeft, FaXmark } from 'react-icons/fa6';
 import { Link, useParams } from 'react-router-dom';
 import LogMealListItem from '../../components/log-meal-list-item/log-meal-list-item';
 import Modal from '../../components/modal/modal';
@@ -109,16 +109,32 @@ function DeleteLogForm(props: { log: ILog; handleModalClose: () => void }) {
   return (
     <form onSubmit={handleSubmit} className={styles.deleteLogForm}>
       <div>
-        <h2>Hold up there, partner!</h2>
+        <div className={styles.formHeader}>
+          <h2>Hold up there, partner!</h2>
+          <button
+            onClick={props.handleModalClose}
+            className={styles.closeModalButton}
+          >
+            <FaXmark />
+          </button>
+        </div>
         <div>Are you sure you want to delete this log?</div>
       </div>
 
       {!isSure && (
-        <button type={'button'} onClick={props.handleModalClose}>
+        <button
+          className={`${styles.button} ${styles.dontWantToDoThatButton}`}
+          type={'button'}
+          onClick={props.handleModalClose}
+        >
           You're right! I don't want to do that!
         </button>
       )}
-      <button type={'button'} onClick={handleIsSure}>
+      <button
+        className={`${styles.button} ${styles.deleteItButton}`}
+        type={'button'}
+        onClick={handleIsSure}
+      >
         {isSure ? 'Wait! Take me back!' : 'I am sure I want to delete this log'}
       </button>
       {isSure && (
@@ -131,7 +147,12 @@ function DeleteLogForm(props: { log: ILog; handleModalClose: () => void }) {
             </h4>
             <div className={styles.formFieldContainer}>
               <label htmlFor='logName'>Log Name</label>
-              <input type='text' value={logName} onChange={handleOnChange} />
+              <input
+                className={styles.logNameInput}
+                type='text'
+                value={logName}
+                onChange={handleOnChange}
+              />
             </div>
           </div>
           <button className={styles.deleteButton} disabled={isDeleteDisabled}>

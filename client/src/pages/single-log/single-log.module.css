@@ -135,10 +135,8 @@
 
 .deleteButton:hover {
   cursor: pointer;
-}
-
-.deleteButton:active {
   background-color: var(--color-red-500);
+  border: 1px solid transparent;
   color: var(--color-zinc-900);
 }
 
@@ -146,4 +144,90 @@
   cursor: not-allowed;
   border: 1px solid var(--color-gray-700);
   color: var(--color-gray-700);
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.closeModalButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  border: none;
+  background-color: var(--color-zinc-900);
+  color: var(--color-slate-400);
+  transition: color 0.2s ease-in-out;
+}
+
+.closeModalButton:hover {
+  cursor: pointer;
+  color: var(--color-red-400);
+}
+
+.closeModalButton:focus-visible {
+  outline: 1px solid var(--color-red-400);
+}
+
+.button {
+  padding: 0.5rem;
+  font-size: 1rem;
+  background-color: var(--color-zinc-900);
+  border-radius: 5px;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out,
+    border 0.2s ease-in-out;
+}
+
+.button:hover {
+  color: var(--color-zinc-900);
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.dontWantToDoThatButton {
+  color: var(--color-green-500);
+  border: 1px solid var(--color-green-500);
+}
+
+.dontWantToDoThatButton:hover {
+  background-color: var(--color-green-600);
+}
+
+.dontWantToDoThatButton:focus-visible {
+  outline: 2px solid var(--color-green-300);
+}
+
+.deleteItButton {
+  color: var(--color-yellow-400);
+  border: 1px solid var(--color-yellow-400);
+}
+
+.deleteItButton:hover {
+  background-color: var(--color-yellow-500);
+}
+
+.deleteItButton:focus-visible {
+  outline: 2px solid var(--color-yellow-300);
+}
+
+.logNameInput {
+  border-radius: 5px;
+  border: 1px solid var(--color-gray-700);
+  background-color: var(--color-zinc-900);
+  height: 2rem;
+  padding: 0 0.5rem;
+  font-size: 1rem;
+  color: var(--color-slate-300);
+}
+
+.logNameInput:focus {
+  background-color: var(--color-zinc-800);
+}
+
+.logNameInput:focus-visible {
+  border: 1px solid var(--color-blue-500);
+  outline: 2px solid var(--color-blue-500);
 }
