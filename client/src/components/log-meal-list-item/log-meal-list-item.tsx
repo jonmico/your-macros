@@ -66,20 +66,31 @@ export default function LogMealListItem({
       </div>
       <div className={styles.buttonRow}>
         <div className={styles.buttonsContainer}>
-          {isEditing && (
+          {isEditing ? (
+            <>
+              <button
+                className={`${styles.button} ${styles.deleteMealButton}`}
+                onClick={() =>
+                  console.log('NYI: Call to DB to delete meal from log.')
+                }
+              >
+                Delete Meal
+              </button>
+              <button
+                className={`${styles.button} ${styles.cancelEditButton}`}
+                onClick={() => setIsEditing(false)}
+              >
+                Cancel
+              </button>
+            </>
+          ) : (
             <button
-              className={`${styles.button} ${styles.cancelEditButton}`}
-              onClick={() => setIsEditing(false)}
+              className={`${styles.button} ${styles.editButton}`}
+              onClick={handleEditClick}
             >
-              Cancel
+              Edit
             </button>
           )}
-          <button
-            className={`${styles.button} ${styles.editButton}`}
-            onClick={handleEditClick}
-          >
-            Edit
-          </button>
         </div>
       </div>
     </li>
