@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FaArrowLeft, FaXmark } from 'react-icons/fa6';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import LogMealListItem from '../../components/log-meal-list-item/log-meal-list-item';
 import Modal from '../../components/modal/modal';
 import useUser from '../../hooks/useUser';
@@ -53,31 +53,49 @@ export default function SingleLog() {
           <div className={styles.carbs}>{log.macros.carbs}c</div>
           <div className={styles.protein}>{log.macros.protein}p</div>
         </div>
-        <LogMealList>
-          {log.meals.map((meal, index) => (
-            <LogMealListItem
-              key={meal._id}
-              meal={meal}
-              index={index}
-              mealLength={log.meals.length}
-            />
-          ))}
-        </LogMealList>
-        <div className={styles.deleteLogButtonRow}>
-          <button onClick={handleModalOpen} className={styles.deleteLogButton}>
-            Delete Log
-          </button>
-          {isModalOpen && (
-            <Modal>
-              <DeleteLogForm
-                log={log}
-                handleModalClose={handleModalClose}
-                userId={user._id}
-              />
-            </Modal>
-          )}
-        </div>
+        {log.meals.length === 0 ? (
+          <NoMealsInLogText />
+        ) : (
+          <>
+            <LogMealList>
+              {log.meals.map((meal, index) => (
+                <LogMealListItem
+                  key={meal._id}
+                  meal={meal}
+                  index={index}
+                  mealLength={log.meals.length}
+                />
+              ))}
+            </LogMealList>
+            <div className={styles.deleteLogButtonRow}>
+              <button
+                onClick={handleModalOpen}
+                className={styles.deleteLogButton}
+              >
+                Delete Log
+              </button>
+              {isModalOpen && (
+                <Modal>
+                  <DeleteLogForm
+                    log={log}
+                    handleModalClose={handleModalClose}
+                    userId={user._id}
+                  />
+                </Modal>
+              )}
+            </div>
+          </>
+        )}
       </div>
+    </div>
+  );
+}
+
+function NoMealsInLogText() {
+  return (
+    <div className={styles.noMealsInLogText}>
+      <h3>There aren't any meals added to this log yet!</h3>
+      <Link to={'/add-meal'}>Add a meal now</Link>
     </div>
   );
 }
@@ -94,6 +112,7 @@ function DeleteLogForm(props: {
   const [isSure, setIsSure] = useState(false);
   const [logName, setLogName] = useState('');
   const [isDeleteDisabled, setIsDeleteDisabled] = useState(true);
+  const navigate = useNavigate();
   const { deleteLog } = useUser();
 
   function handleIsSure() {
@@ -113,6 +132,7 @@ function DeleteLogForm(props: {
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     await deleteLog(props.log._id, props.userId);
+    navigate('/logs');
   }
   return (
     <form onSubmit={handleSubmit} className={styles.deleteLogForm}>
@@ -120,6 +140,7 @@ function DeleteLogForm(props: {
         <div className={styles.formHeader}>
           <h2>Hold up there, partner!</h2>
           <button
+            type={'button'}
             onClick={props.handleModalClose}
             className={styles.closeModalButton}
           >
@@ -163,7 +184,11 @@ function DeleteLogForm(props: {
               />
             </div>
           </div>
-          <button className={styles.deleteButton} disabled={isDeleteDisabled}>
+          <button
+            type={'submit'}
+            className={styles.deleteButton}
+            disabled={isDeleteDisabled}
+          >
             Delete
           </button>
         </>
