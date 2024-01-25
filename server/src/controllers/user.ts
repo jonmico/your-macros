@@ -268,3 +268,15 @@ export async function deleteLog(
     next(err);
   }
 }
+
+export async function deleteMealFromLog(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    res.json({ message: 'hello from deleteMealFromLog function' });
+  } catch (err) {
+    next(err);
+  }
+}

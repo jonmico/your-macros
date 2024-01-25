@@ -7,6 +7,7 @@ import {
   login,
   logout,
   register,
+  deleteMealFromLog,
 } from '../controllers/user';
 
 const router = Router();
@@ -17,6 +18,7 @@ router.post('/logout', logout);
 router.post('/log/new', createLog);
 router.post('/log/:logId/add-meal', addMealToLog);
 router.post('/log/:logId/delete', deleteLog);
+router.post('/log/:logId/delete-meal/:mealId', deleteMealFromLog);
 router.get('/', getSession);
 
 export default router;
