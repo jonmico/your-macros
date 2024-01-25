@@ -249,10 +249,9 @@ export async function deleteLog(
     const user = await User.findById(userId);
 
     if (!user) throw new AppError('User not found.', 404);
-    const filteredLogs = user.logs.filter((log) => {
-      console.log(log._id, logId);
-      return log._id.toString() !== logId;
-    });
+    const filteredLogs = user.logs.filter(
+      (log) => log._id.toString() !== logId
+    );
     user.logs = filteredLogs;
     await user.save();
 

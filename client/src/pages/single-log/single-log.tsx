@@ -56,36 +56,31 @@ export default function SingleLog() {
         {log.meals.length === 0 ? (
           <NoMealsInLogText />
         ) : (
-          <>
-            <LogMealList>
-              {log.meals.map((meal, index) => (
-                <LogMealListItem
-                  key={meal._id}
-                  meal={meal}
-                  index={index}
-                  mealLength={log.meals.length}
-                />
-              ))}
-            </LogMealList>
-            <div className={styles.deleteLogButtonRow}>
-              <button
-                onClick={handleModalOpen}
-                className={styles.deleteLogButton}
-              >
-                Delete Log
-              </button>
-              {isModalOpen && (
-                <Modal>
-                  <DeleteLogForm
-                    log={log}
-                    handleModalClose={handleModalClose}
-                    userId={user._id}
-                  />
-                </Modal>
-              )}
-            </div>
-          </>
+          <LogMealList>
+            {log.meals.map((meal, index) => (
+              <LogMealListItem
+                key={meal._id}
+                meal={meal}
+                index={index}
+                mealLength={log.meals.length}
+              />
+            ))}
+          </LogMealList>
         )}
+        <div className={styles.deleteLogButtonRow}>
+          <button onClick={handleModalOpen} className={styles.deleteLogButton}>
+            Delete Log
+          </button>
+          {isModalOpen && (
+            <Modal>
+              <DeleteLogForm
+                log={log}
+                handleModalClose={handleModalClose}
+                userId={user._id}
+              />
+            </Modal>
+          )}
+        </div>
       </div>
     </div>
   );
