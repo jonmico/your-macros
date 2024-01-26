@@ -3,8 +3,8 @@ import { IMeal } from '../../types/meal';
 
 import LogMealComponentListItem from '../log-meal-component-list-item/log-meal-component-list-item';
 
+import useUser from '../../hooks/useUser';
 import styles from './log-meal-list-item.module.css';
-import { apiDeleteMealFromLog } from '../../services/user-api';
 
 interface LogMealListItemProps {
   userId: string;
@@ -22,6 +22,7 @@ export default function LogMealListItem({
   mealLength,
 }: LogMealListItemProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const { deleteMealFromLog } = useUser();
 
   function handleEditClick() {
     setIsEditing(true);
@@ -30,9 +31,7 @@ export default function LogMealListItem({
   async function handleDeleteMealFromLog() {
     // TODO: Look into this null check. Does id have to be optional on meal?
     if (!meal._id) return null; // Null check to make TS happy
-
-    const data = await apiDeleteMealFromLog(meal._id, logId, userId);
-    console.log(data);
+    await deleteMealFromLog(meal._id, logId, userId);
   }
 
   return (

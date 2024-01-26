@@ -295,7 +295,15 @@ export async function deleteMealFromLog(
     user.logs[logIndex].calories = calories;
     await user.save();
 
-    res.json({ logIndex, logId, userLogs: user.logs, filteredMeals });
+    res.json({
+      user: {
+        _id: user._id,
+        email: user.email,
+        logs: user.logs,
+        calories: user.calories,
+        macros: user.macros,
+      },
+    });
   } catch (err) {
     next(err);
   }
