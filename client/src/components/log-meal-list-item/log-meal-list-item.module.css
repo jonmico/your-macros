@@ -154,3 +154,15 @@
 .deleteMealButton:focus-visible {
   outline: 2px solid var(--color-red-400);
 }
+
+.updateMealButton {
+  background-color: var(--color-green-400);
+}
+
+.updateMealButton:hover {
+  background-color: var(--color-green-300);
+}
+
+.updateMealButton:focus-visible {
+  outline: 2px solid var(--color-green-400);
+}

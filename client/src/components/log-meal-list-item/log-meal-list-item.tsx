@@ -81,6 +81,12 @@ export default function LogMealListItem({
           {isEditing ? (
             <>
               <button
+                className={`${styles.button} ${styles.updateMealButton}`}
+                onClick={() => console.log('NYI: Call to DB to update meal.')}
+              >
+                Update Meal
+              </button>
+              <button
                 className={`${styles.button} ${styles.deleteMealButton}`}
                 onClick={handleDeleteMealFromLog}
               >
