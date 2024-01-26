@@ -80,3 +80,20 @@ export async function apiDeleteLog(logId: string, userId: string) {
 
   return await res.json();
 }
+
+export async function apiDeleteMealFromLog(
+  mealId: string,
+  logId: string,
+  userId: string
+) {
+  const res = await fetch(
+    `${API_URL}/api/user/log/${logId}/delete-meal/${mealId}`,
+    {
+      method: 'post',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ mealId, logId, userId }),
+    }
+  );
+
+  return await res.json();
+}

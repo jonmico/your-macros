@@ -60,6 +60,8 @@ export default function SingleLog() {
             {log.meals.map((meal, index) => (
               <LogMealListItem
                 key={meal._id}
+                userId={user._id}
+                logId={log._id}
                 meal={meal}
                 index={index}
                 mealLength={log.meals.length}

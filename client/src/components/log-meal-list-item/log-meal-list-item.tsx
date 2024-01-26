@@ -4,14 +4,19 @@ import { IMeal } from '../../types/meal';
 import LogMealComponentListItem from '../log-meal-component-list-item/log-meal-component-list-item';
 
 import styles from './log-meal-list-item.module.css';
+import { apiDeleteMealFromLog } from '../../services/user-api';
 
 interface LogMealListItemProps {
+  userId: string;
+  logId: string;
   meal: IMeal;
   index: number;
   mealLength: number;
 }
 
 export default function LogMealListItem({
+  userId,
+  logId,
   meal,
   index,
   mealLength,
@@ -20,6 +25,14 @@ export default function LogMealListItem({
 
   function handleEditClick() {
     setIsEditing(true);
+  }
+
+  async function handleDeleteMealFromLog() {
+    // TODO: Look into this null check. Does id have to be optional on meal?
+    if (!meal._id) return null; // Null check to make TS happy
+
+    const data = await apiDeleteMealFromLog(meal._id, logId, userId);
+    console.log(data);
   }
 
   return (
@@ -70,9 +83,7 @@ export default function LogMealListItem({
             <>
               <button
                 className={`${styles.button} ${styles.deleteMealButton}`}
-                onClick={() =>
-                  console.log('NYI: Call to DB to delete meal from log.')
-                }
+                onClick={handleDeleteMealFromLog}
               >
                 Delete Meal
               </button>
