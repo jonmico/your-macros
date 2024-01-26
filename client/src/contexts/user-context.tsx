@@ -7,6 +7,7 @@ import {
   apiLogout,
   apiRegister,
   apiDeleteLog,
+  apiDeleteMealFromLog,
 } from '../services/user-api';
 import { IMeal } from '../types/meal';
 import { IUser } from '../types/user';
@@ -65,6 +66,11 @@ type DeleteLog = {
   payload: IUser;
 };
 
+type DeleteMealFromLog = {
+  type: 'user/deleteMealFromLog';
+  payload: IUser;
+};
+
 export type UserAction =
   | Login
   | Logout
@@ -73,7 +79,8 @@ export type UserAction =
   | FetchSession
   | AddMealToLog
   | CreateLog
-  | DeleteLog;
+  | DeleteLog
+  | DeleteMealFromLog;
 
 interface IUserContext {
   userState: {
@@ -93,6 +100,11 @@ interface IUserContext {
   addMealToLog: (meal: IMeal, logId: string, userId: string) => Promise<void>;
   createLog: (log: IPreIDLog) => Promise<void>;
   deleteLog: (logId: string, userId: string) => Promise<void>;
+  deleteMealFromLog: (
+    mealId: string,
+    logId: string,
+    userId: string
+  ) => Promise<void>;
 }
 
 export const UserContext = createContext<IUserContext>({
@@ -108,6 +120,7 @@ export const UserContext = createContext<IUserContext>({
   addMealToLog: async () => {},
   createLog: async () => {},
   deleteLog: async () => {},
+  deleteMealFromLog: async () => {},
 });
 
 function reducer(state: UserState, action: UserAction) {
@@ -158,6 +171,13 @@ function reducer(state: UserState, action: UserAction) {
         isLoading: false,
       };
     case 'user/deleteLog':
+      return {
+        ...state,
+        user: action.payload,
+        isLoading: false,
+      };
+
+    case 'user/deleteMealFromLog':
       return {
         ...state,
         user: action.payload,
@@ -262,8 +282,21 @@ export default function UserProvider(props: UserProviderProps) {
   async function deleteLog(logId: string, userId: string) {
     dispatch({ type: 'user/loading' });
     const data: { user: IUser } = await apiDeleteLog(logId, userId);
-    console.log(data);
     dispatch({ type: 'user/deleteLog', payload: data.user });
+  }
+
+  async function deleteMealFromLog(
+    mealId: string,
+    logId: string,
+    userId: string
+  ) {
+    dispatch({ type: 'user/loading' });
+    const data: { user: IUser } = await apiDeleteMealFromLog(
+      mealId,
+      logId,
+      userId
+    );
+    dispatch({ type: 'user/deleteMealFromLog', payload: data.user });
   }
 
   const value = {
@@ -275,6 +308,7 @@ export default function UserProvider(props: UserProviderProps) {
     addMealToLog,
     createLog,
     deleteLog,
+    deleteMealFromLog,
   };
   return (
     <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
