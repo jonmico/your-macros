@@ -179,15 +179,11 @@ export async function addMealToLog(
     user.logs[logIndex].meals.push(meal);
     const result = calcLogCalsMacros(user.logs[logIndex]);
 
-    if (result.message) {
-      throw new AppError(result.message, 400);
-    }
-
-    if (result.macros && result.calories) {
-      user.logs[logIndex].macros = result.macros;
-      user.logs[logIndex].calories = result.calories;
-      await user.save();
-    }
+    // if (result.macros && result.calories) {
+    user.logs[logIndex].macros = result.macros;
+    user.logs[logIndex].calories = result.calories;
+    await user.save();
+    // }
 
     res.json({
       user: {
@@ -269,7 +265,6 @@ export async function deleteLog(
   }
 }
 
-// TODO: Recalc Log info: cals/macros/etc.
 export async function deleteMealFromLog(
   req: Request,
   res: Response,
@@ -293,6 +288,11 @@ export async function deleteMealFromLog(
       (meal) => meal._id.toString() !== mealId
     );
     user.logs[logIndex].meals = filteredMeals;
+
+    const { macros, calories } = calcLogCalsMacros(user.logs[logIndex]);
+
+    user.logs[logIndex].macros = macros;
+    user.logs[logIndex].calories = calories;
     await user.save();
 
     res.json({ logIndex, logId, userLogs: user.logs, filteredMeals });

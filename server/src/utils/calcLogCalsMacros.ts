@@ -5,7 +5,7 @@ const CALORIES_PER_GRAM_FAT = 9;
 
 export default function calcLogCalsMacros(log: ILog) {
   if (!log.meals) {
-    return { message: 'No meals in log to calculate.' };
+    return { calories: 0, macros: { carbs: 0, fat: 0, protein: 0 } };
   }
 
   const carbs = log.meals.reduce((prev, curr) => prev + curr.macros.carbs, 0);
