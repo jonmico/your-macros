@@ -269,13 +269,33 @@ export async function deleteLog(
   }
 }
 
+// TODO: Recalc Log info: cals/macros/etc.
 export async function deleteMealFromLog(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    res.json({ message: 'hello from deleteMealFromLog function' });
+    const {
+      mealId,
+      logId,
+      userId,
+    }: { mealId: string; logId: string; userId: string } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new AppError('User not found.', 404);
+    }
+
+    const logIndex = user.logs.findIndex((log) => log._id.toString() === logId);
+    const filteredMeals = user.logs[logIndex].meals.filter(
+      (meal) => meal._id.toString() !== mealId
+    );
+    user.logs[logIndex].meals = filteredMeals;
+    await user.save();
+
+    res.json({ logIndex, logId, userLogs: user.logs, filteredMeals });
   } catch (err) {
     next(err);
   }
