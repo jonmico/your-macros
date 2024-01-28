@@ -13,6 +13,7 @@ import Logs from './pages/logs-page/logs';
 import Register from './pages/register/register';
 import SingleLog from './pages/single-log/single-log';
 import GlobalStyles from './styles/global-styles';
+import SearchFoods from './pages/search-foods/search-foods';
 
 // TODO: Let users browse the database without logging in or signing up.
 // TODO: Clean up redudant styling. I think there's like 40 macro containers in this project.
@@ -30,6 +31,7 @@ function App() {
             <Route path={'/'} index element={<Home />} />
             <Route path={'login'} element={<Login />} />
             <Route path={'register'} element={<Register />} />
+            <Route path={'search-foods'} element={<SearchFoods />} />
             <Route
               element={
                 <ProtectedRoute>

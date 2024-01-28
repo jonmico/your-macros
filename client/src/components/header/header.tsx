@@ -25,9 +25,12 @@ export default function Header() {
             <NavLink to={'/register'}>Sign Up</NavLink>
           </>
         ) : (
-          <button className={styles.logoutButton} onClick={handleLogout}>
-            Logout
-          </button>
+          <>
+            <NavLink to={'/search-foods'}>Search Foods</NavLink>
+            <button className={styles.logoutButton} onClick={handleLogout}>
+              Logout
+            </button>
+          </>
         )}
       </nav>
     </div>
