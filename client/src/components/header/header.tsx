@@ -14,7 +14,10 @@ export default function Header() {
   return (
     <div className={styles.headerContainer}>
       <div>
-        <Link to={'/'} className={styles.link}>
+        <Link
+          to={`${userState.isAuthenticated ? '/dashboard' : '/'}`}
+          className={styles.link}
+        >
           <h1>YourMacros</h1>
         </Link>
       </div>
