@@ -1,0 +1,14 @@
+.editMealInLogFormHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  font-weight: 500;
+}
+
+.editMealInLogFormList {
+  list-style: none;
+}
+
+.editMealInLogFormListItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
