@@ -19,6 +19,7 @@ export default function Header() {
         </Link>
       </div>
       <nav className={styles.headerNav}>
+        <NavLink to={'/search-foods'}>Search Foods</NavLink>
         {!userState.isAuthenticated ? (
           <>
             <NavLink to={'/login'}>Login</NavLink>
@@ -26,7 +27,6 @@ export default function Header() {
           </>
         ) : (
           <>
-            <NavLink to={'/search-foods'}>Search Foods</NavLink>
             <button className={styles.logoutButton} onClick={handleLogout}>
               Logout
             </button>
