@@ -36,7 +36,7 @@ export default function SingleLog() {
 
   return (
     <div className={styles.pageContainer}>
-      <EditMealProvider>
+      <EditMealProvider log={log}>
         <Link className={styles.link} to={'/logs'}>
           <FaArrowLeft /> <div>Back to Logs</div>
         </Link>
