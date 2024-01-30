@@ -23,12 +23,17 @@ export default function LogMealListItem({
   index,
   mealLength,
 }: LogMealListItemProps) {
-  const { isEditing, setIsEditing } = useEditMeal();
+  const { isEditing, setIsEditing, updateMeal } = useEditMeal();
   const { deleteMealFromLog } = useUser();
   const [mealToEdit, setMealToEdit] = useState(meal);
 
   function handleEditClick() {
     setIsEditing(true);
+  }
+
+  function handleUpdateMeal() {
+    if (!meal._id) return;
+    updateMeal(userId, logId, meal._id);
   }
 
   async function handleDeleteMealFromLog() {
@@ -94,7 +99,7 @@ export default function LogMealListItem({
             <>
               <button
                 className={`${styles.button} ${styles.updateMealButton}`}
-                onClick={() => console.log('NYI: Call to DB to update meal.')}
+                onClick={handleUpdateMeal}
               >
                 Update Meal
               </button>
