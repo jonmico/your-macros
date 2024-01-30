@@ -1,12 +1,11 @@
-import { useState } from 'react';
 import { IMeal } from '../../types/meal';
 
 import LogMealComponentListItem from '../log-meal-component-list-item/log-meal-component-list-item';
 
-import useUser from '../../hooks/useUser';
-import styles from './log-meal-list-item.module.css';
-import EditMealInLogForm from '../edit-meal-in-log-form/edit-meal-in-log-form';
 import useEditMeal from '../../hooks/useEditMeal';
+import useUser from '../../hooks/useUser';
+import EditMealInLogForm from '../edit-meal-in-log-form/edit-meal-in-log-form';
+import styles from './log-meal-list-item.module.css';
 
 interface LogMealListItemProps {
   userId: string;
@@ -23,27 +22,25 @@ export default function LogMealListItem({
   index,
   mealLength,
 }: LogMealListItemProps) {
-  const { isEditing, setIsEditing, updateMeal } = useEditMeal();
+  const { updateMeal, currentEditMeal, setCurrentEditMeal } = useEditMeal();
   const { deleteMealFromLog } = useUser();
-  const [mealToEdit, setMealToEdit] = useState(meal);
 
-  function handleEditClick() {
-    setIsEditing(true);
-  }
+  const isCurrentMealEdit = currentEditMeal?._id === meal._id;
 
-  function handleUpdateMeal() {
-    if (!meal._id) return;
-    updateMeal(userId, logId, meal._id);
+  async function handleUpdateMeal() {
+    await updateMeal(userId, logId, meal._id);
   }
 
   async function handleDeleteMealFromLog() {
-    // TODO: Look into this null check. Does id have to be optional on meal?
-    if (!meal._id) return null; // Null check to make TS happy
     await deleteMealFromLog(meal._id, logId, userId);
   }
 
   return (
-    <li className={`${styles.listItem} ${isEditing ? styles.editActive : ''}`}>
+    <li
+      className={`${styles.listItem} ${
+        isCurrentMealEdit ? styles.editActive : ''
+      }`}
+    >
       <div className={styles.mealHeader}>
         <h3 className={styles.mealName}>{meal.name}</h3>
         <div className={styles.mealNumber}>
@@ -73,11 +70,8 @@ export default function LogMealListItem({
           </div>
         </div>
         <div className={styles.mealComponentListContainer}>
-          {isEditing ? (
-            <EditMealInLogForm
-              mealToEdit={mealToEdit}
-              setMealToEdit={setMealToEdit}
-            />
+          {currentEditMeal ? (
+            <EditMealInLogForm currentEditMeal={currentEditMeal} />
           ) : (
             <>
               <LogMealComponentListHeader />
@@ -95,7 +89,7 @@ export default function LogMealListItem({
       </div>
       <div className={styles.buttonRow}>
         <div className={styles.buttonsContainer}>
-          {isEditing ? (
+          {isCurrentMealEdit ? (
             <>
               <button
                 className={`${styles.button} ${styles.updateMealButton}`}
@@ -111,7 +105,7 @@ export default function LogMealListItem({
               </button>
               <button
                 className={`${styles.button} ${styles.cancelEditButton}`}
-                onClick={() => setIsEditing(false)}
+                onClick={() => setCurrentEditMeal(null)}
               >
                 Cancel
               </button>
@@ -119,7 +113,7 @@ export default function LogMealListItem({
           ) : (
             <button
               className={`${styles.button} ${styles.editButton}`}
-              onClick={handleEditClick}
+              onClick={() => setCurrentEditMeal(meal)}
             >
               Edit
             </button>

@@ -1,19 +1,16 @@
 import { useState } from 'react';
-import { IMeal } from '../../types/meal';
 import { IMealComponent } from '../../types/meal-component';
 
-import styles from './edit-meal-in-log-form.module.css';
 import { FaXmark } from 'react-icons/fa6';
+import styles from './edit-meal-in-log-form.module.css';
+import { IMeal } from '../../types/meal';
 
-export default function EditMealInLogForm(props: {
-  mealToEdit: IMeal;
-  setMealToEdit: React.Dispatch<React.SetStateAction<IMeal>>;
-}) {
+export default function EditMealInLogForm(props: { currentEditMeal: IMeal }) {
   return (
     <form>
       <EditMealInLogFormHeader />
       <ul className={styles.editMealInLogFormList}>
-        {props.mealToEdit.mealComponents.map((mealComp) => (
+        {props.currentEditMeal.mealComponents.map((mealComp) => (
           <EditMealInLogFormListItem
             key={mealComp.food._id}
             mealComponent={mealComp}
