@@ -14,7 +14,9 @@ export const EditMealContext = createContext<IEditMealContext>(defaultState);
 
 export function EditMealProvider(props: { children: React.ReactNode }) {
   const [isEditing, setIsEditing] = useState(false);
+
   const value = { isEditing, setIsEditing };
+
   return (
     <EditMealContext.Provider value={value}>
       {props.children}
