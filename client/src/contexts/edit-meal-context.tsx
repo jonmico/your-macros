@@ -25,6 +25,26 @@ export function EditMealProvider(props: {
     console.log({ userId, logId, mealId });
   }
 
+  function editServings(mealComponentId: string, servings: number) {
+    if (!currentEditMeal) return null;
+    const mealCompToEdit = currentEditMeal.mealComponents.find(
+      (mealComp) => mealComp._id === mealComponentId
+    );
+
+    if (!mealCompToEdit) return null;
+
+    mealCompToEdit.servings = servings;
+    const index = currentEditMeal?.mealComponents.find(
+      (mealComp) => mealComp._id === mealCompToEdit._id
+    );
+
+    if (!index) return null;
+
+    setCurrentEditMeal(
+      (currentEditMeal.mealComponents[index] = mealCompToEdit)
+    );
+  }
+
   const value = {
     isEditing,
     setIsEditing,
@@ -32,6 +52,7 @@ export function EditMealProvider(props: {
     updateMeal,
     currentEditMeal,
     setCurrentEditMeal,
+    editServings,
   };
 
   return (

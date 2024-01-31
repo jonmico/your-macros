@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { IMealComponent } from '../../types/meal-component';
 
 import { FaXmark } from 'react-icons/fa6';
-import styles from './edit-meal-in-log-form.module.css';
 import { IMeal } from '../../types/meal';
+import styles from './edit-meal-in-log-form.module.css';
 
 export default function EditMealInLogForm(props: { currentEditMeal: IMeal }) {
   return (
@@ -33,6 +33,7 @@ function EditMealInLogFormHeader() {
 
 function EditMealInLogFormListItem(props: { mealComponent: IMealComponent }) {
   const [servings, setServings] = useState(props.mealComponent.servings);
+
   return (
     <li className={styles.editMealInLogFormListItem}>
       <div>{props.mealComponent.food.name}</div>
