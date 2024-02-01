@@ -14,8 +14,6 @@ export default function Logs() {
     setIsModalOpen(false);
   }
 
-  // Let's see if this works
-
   return (
     <div>
       <PageHeader>Logs</PageHeader>
