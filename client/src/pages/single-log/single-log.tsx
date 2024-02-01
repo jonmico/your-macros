@@ -6,6 +6,7 @@ import Modal from '../../components/modal/modal';
 import useUser from '../../hooks/useUser';
 import { ILog } from '../../types/log';
 import styles from './single-log.module.css';
+import { EditMealProvider } from '../../contexts/edit-meal-context';
 
 export default function SingleLog() {
   const {
@@ -56,18 +57,20 @@ export default function SingleLog() {
         {log.meals.length === 0 ? (
           <NoMealsInLogText />
         ) : (
-          <LogMealList>
-            {log.meals.map((meal, index) => (
-              <LogMealListItem
-                key={meal._id}
-                userId={user._id}
-                logId={log._id}
-                meal={meal}
-                index={index}
-                mealLength={log.meals.length}
-              />
-            ))}
-          </LogMealList>
+          <EditMealProvider>
+            <LogMealList>
+              {log.meals.map((meal, index) => (
+                <LogMealListItem
+                  key={meal._id}
+                  userId={user._id}
+                  logId={log._id}
+                  meal={meal}
+                  index={index}
+                  mealLength={log.meals.length}
+                />
+              ))}
+            </LogMealList>
+          </EditMealProvider>
         )}
         <div className={styles.deleteLogButtonRow}>
           <button onClick={handleModalOpen} className={styles.deleteLogButton}>
