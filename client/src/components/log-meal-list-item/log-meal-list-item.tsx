@@ -5,8 +5,6 @@ import LogMealComponentListItem from '../log-meal-component-list-item/log-meal-c
 
 import useUser from '../../hooks/useUser';
 import styles from './log-meal-list-item.module.css';
-import EditMealInLogForm from '../edit-meal-in-log-form/edit-meal-in-log-form';
-import useEditMeal from '../../hooks/useEditMeal';
 
 interface LogMealListItemProps {
   userId: string;
@@ -23,17 +21,11 @@ export default function LogMealListItem({
   index,
   mealLength,
 }: LogMealListItemProps) {
-  const { isEditing, setIsEditing, updateMeal } = useEditMeal();
+  const [isEditing, setIsEditing] = useState(false);
   const { deleteMealFromLog } = useUser();
-  const [mealToEdit, setMealToEdit] = useState(meal);
 
   function handleEditClick() {
     setIsEditing(true);
-  }
-
-  function handleUpdateMeal() {
-    if (!meal._id) return;
-    updateMeal(userId, logId, meal._id);
   }
 
   async function handleDeleteMealFromLog() {
@@ -73,24 +65,15 @@ export default function LogMealListItem({
           </div>
         </div>
         <div className={styles.mealComponentListContainer}>
-          {isEditing ? (
-            <EditMealInLogForm
-              mealToEdit={mealToEdit}
-              setMealToEdit={setMealToEdit}
-            />
-          ) : (
-            <>
-              <LogMealComponentListHeader />
-              <ul className={styles.logMealComponentList}>
-                {meal.mealComponents.map((mealComponent) => (
-                  <LogMealComponentListItem
-                    key={mealComponent.food._id}
-                    mealComponent={mealComponent}
-                  />
-                ))}
-              </ul>
-            </>
-          )}
+          <LogMealComponentListHeader />
+          <ul className={styles.logMealComponentList}>
+            {meal.mealComponents.map((mealComponent) => (
+              <LogMealComponentListItem
+                key={mealComponent.food._id}
+                mealComponent={mealComponent}
+              />
+            ))}
+          </ul>
         </div>
       </div>
       <div className={styles.buttonRow}>
@@ -99,7 +82,7 @@ export default function LogMealListItem({
             <>
               <button
                 className={`${styles.button} ${styles.updateMealButton}`}
-                onClick={handleUpdateMeal}
+                onClick={() => console.log('NYI: Call to DB to update meal.')}
               >
                 Update Meal
               </button>
