@@ -5,7 +5,6 @@ import LogMealComponentListItem from '../log-meal-component-list-item/log-meal-c
 
 import useUser from '../../hooks/useUser';
 import styles from './log-meal-list-item.module.css';
-import EditMealInLogForm from '../edit-meal-in-log-form/edit-meal-in-log-form';
 
 interface LogMealListItemProps {
   userId: string;
@@ -37,11 +36,7 @@ export default function LogMealListItem({
   }
 
   return (
-    <li
-      className={`${styles.listItem} ${
-        isCurrentMealEdit ? styles.editActive : ''
-      }`}
-    >
+    <li className={`${styles.listItem} ${isEditing ? styles.editActive : ''}`}>
       <div className={styles.mealHeader}>
         <h3 className={styles.mealName}>{meal.name}</h3>
         <div className={styles.mealNumber}>
@@ -84,7 +79,7 @@ export default function LogMealListItem({
       </div>
       <div className={styles.buttonRow}>
         <div className={styles.buttonsContainer}>
-          {isCurrentMealEdit ? (
+          {isEditing ? (
             <>
               <button
                 className={`${styles.button} ${styles.updateMealButton}`}
