@@ -21,11 +21,13 @@ export default function LogMealListItem({
   index,
   mealLength,
 }: LogMealListItemProps) {
-  const [isEditing, setIsEditing] = useState(false);
   const { deleteMealFromLog } = useUser();
+  const [mealToEdit, setMealToEdit] = useState(meal);
 
-  function handleEditClick() {
-    setIsEditing(true);
+  const isCurrentMealEdit = currentEditMeal?._id === meal._id;
+
+  async function handleUpdateMeal() {
+    await updateMeal(userId, logId, meal._id);
   }
 
   async function handleDeleteMealFromLog() {
@@ -35,7 +37,11 @@ export default function LogMealListItem({
   }
 
   return (
-    <li className={`${styles.listItem} ${isEditing ? styles.editActive : ''}`}>
+    <li
+      className={`${styles.listItem} ${
+        isCurrentMealEdit ? styles.editActive : ''
+      }`}
+    >
       <div className={styles.mealHeader}>
         <h3 className={styles.mealName}>{meal.name}</h3>
         <div className={styles.mealNumber}>
@@ -78,7 +84,7 @@ export default function LogMealListItem({
       </div>
       <div className={styles.buttonRow}>
         <div className={styles.buttonsContainer}>
-          {isEditing ? (
+          {isCurrentMealEdit ? (
             <>
               <button
                 className={`${styles.button} ${styles.updateMealButton}`}
