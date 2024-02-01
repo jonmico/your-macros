@@ -21,13 +21,12 @@ export default function LogMealListItem({
   index,
   mealLength,
 }: LogMealListItemProps) {
+  const { isEditing, setIsEditing } = useEditMeal();
   const { deleteMealFromLog } = useUser();
   const [mealToEdit, setMealToEdit] = useState(meal);
 
-  const isCurrentMealEdit = currentEditMeal?._id === meal._id;
-
-  async function handleUpdateMeal() {
-    await updateMeal(userId, logId, meal._id);
+  function handleEditClick() {
+    setIsEditing(true);
   }
 
   async function handleDeleteMealFromLog() {
