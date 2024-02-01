@@ -23,7 +23,6 @@ export default function LogMealListItem({
 }: LogMealListItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const { deleteMealFromLog } = useUser();
-  const [mealToEdit, setMealToEdit] = useState(meal);
 
   function handleEditClick() {
     setIsEditing(true);
