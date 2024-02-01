@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { IMeal } from '../../types/meal';
 
 import LogMealComponentListItem from '../log-meal-component-list-item/log-meal-component-list-item';
 
+import { useEditMeals } from '../../hooks/useEditMeals';
 import useUser from '../../hooks/useUser';
 import styles from './log-meal-list-item.module.css';
 
@@ -21,11 +21,17 @@ export default function LogMealListItem({
   index,
   mealLength,
 }: LogMealListItemProps) {
-  const [isEditing, setIsEditing] = useState(false);
+  const { mealToEdit, setMealToEdit } = useEditMeals();
   const { deleteMealFromLog } = useUser();
 
+  const isActiveMeal = mealToEdit?._id === meal._id;
+
   function handleEditClick() {
-    setIsEditing(true);
+    setMealToEdit(meal);
+  }
+
+  function handleCancelClick() {
+    setMealToEdit(null);
   }
 
   async function handleDeleteMealFromLog() {
@@ -35,7 +41,9 @@ export default function LogMealListItem({
   }
 
   return (
-    <li className={`${styles.listItem} ${isEditing ? styles.editActive : ''}`}>
+    <li
+      className={`${styles.listItem} ${isActiveMeal ? styles.editActive : ''}`}
+    >
       <div className={styles.mealHeader}>
         <h3 className={styles.mealName}>{meal.name}</h3>
         <div className={styles.mealNumber}>
@@ -78,7 +86,7 @@ export default function LogMealListItem({
       </div>
       <div className={styles.buttonRow}>
         <div className={styles.buttonsContainer}>
-          {isEditing ? (
+          {isActiveMeal ? (
             <>
               <button
                 className={`${styles.button} ${styles.updateMealButton}`}
@@ -94,7 +102,7 @@ export default function LogMealListItem({
               </button>
               <button
                 className={`${styles.button} ${styles.cancelEditButton}`}
-                onClick={() => setIsEditing(false)}
+                onClick={handleCancelClick}
               >
                 Cancel
               </button>
