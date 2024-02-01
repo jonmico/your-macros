@@ -5,6 +5,7 @@ import LogMealComponentListItem from '../log-meal-component-list-item/log-meal-c
 
 import useUser from '../../hooks/useUser';
 import styles from './log-meal-list-item.module.css';
+import EditMealInLogForm from '../edit-meal-in-log-form/edit-meal-in-log-form';
 
 interface LogMealListItemProps {
   userId: string;
@@ -21,7 +22,7 @@ export default function LogMealListItem({
   index,
   mealLength,
 }: LogMealListItemProps) {
-  const { isEditing, setIsEditing } = useEditMeal();
+  const [isEditing, setIsEditing] = useState(false);
   const { deleteMealFromLog } = useUser();
   const [mealToEdit, setMealToEdit] = useState(meal);
 

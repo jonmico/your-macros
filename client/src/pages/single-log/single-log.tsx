@@ -35,60 +35,55 @@ export default function SingleLog() {
 
   return (
     <div className={styles.pageContainer}>
-      <EditMealProvider>
-        <Link className={styles.link} to={'/logs'}>
-          <FaArrowLeft /> <div>Back to Logs</div>
-        </Link>
-        <div className={styles.logContainer}>
-          <div className={styles.nameAndDate}>
-            <h2>{log.name}</h2>
-            <div>
-              <h4>Created:</h4>
-              <div>{date}</div>
-            </div>
-          </div>
-          <div className={styles.macrosContainer}>
-            <div className={styles.logTotalsText}>Log Totals:</div>
-            <div className={styles.calories}>{log.calories}cals</div>
-            <div className={styles.fat}>{log.macros.fat}f</div>
-            <div className={styles.carbs}>{log.macros.carbs}c</div>
-            <div className={styles.protein}>{log.macros.protein}p</div>
-          </div>
-          {log.meals.length === 0 ? (
-            <NoMealsInLogText />
-          ) : (
-            <LogMealList>
-              {log.meals.map((meal, index) => (
-                <LogMealListItem
-                  key={meal._id}
-                  userId={user._id}
-                  logId={log._id}
-                  meal={meal}
-                  index={index}
-                  mealLength={log.meals.length}
-                />
-              ))}
-            </LogMealList>
-          )}
-          <div className={styles.deleteLogButtonRow}>
-            <button
-              onClick={handleModalOpen}
-              className={styles.deleteLogButton}
-            >
-              Delete Log
-            </button>
-            {isModalOpen && (
-              <Modal>
-                <DeleteLogForm
-                  log={log}
-                  handleModalClose={handleModalClose}
-                  userId={user._id}
-                />
-              </Modal>
-            )}
+      <Link className={styles.link} to={'/logs'}>
+        <FaArrowLeft /> <div>Back to Logs</div>
+      </Link>
+      <div className={styles.logContainer}>
+        <div className={styles.nameAndDate}>
+          <h2>{log.name}</h2>
+          <div>
+            <h4>Created:</h4>
+            <div>{date}</div>
           </div>
         </div>
-      </EditMealProvider>
+        <div className={styles.macrosContainer}>
+          <div className={styles.logTotalsText}>Log Totals:</div>
+          <div className={styles.calories}>{log.calories}cals</div>
+          <div className={styles.fat}>{log.macros.fat}f</div>
+          <div className={styles.carbs}>{log.macros.carbs}c</div>
+          <div className={styles.protein}>{log.macros.protein}p</div>
+        </div>
+        {log.meals.length === 0 ? (
+          <NoMealsInLogText />
+        ) : (
+          <LogMealList>
+            {log.meals.map((meal, index) => (
+              <LogMealListItem
+                key={meal._id}
+                userId={user._id}
+                logId={log._id}
+                meal={meal}
+                index={index}
+                mealLength={log.meals.length}
+              />
+            ))}
+          </LogMealList>
+        )}
+        <div className={styles.deleteLogButtonRow}>
+          <button onClick={handleModalOpen} className={styles.deleteLogButton}>
+            Delete Log
+          </button>
+          {isModalOpen && (
+            <Modal>
+              <DeleteLogForm
+                log={log}
+                handleModalClose={handleModalClose}
+                userId={user._id}
+              />
+            </Modal>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
