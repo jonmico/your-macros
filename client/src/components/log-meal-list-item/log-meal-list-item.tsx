@@ -129,9 +129,12 @@ export default function LogMealListItem({
           </div>
         </div>
       </li>
-      {isModalOpen && (
+      {isModalOpen && mealToEdit && (
         <Modal>
-          <EditMealForm handleCloseModal={handleCloseModal} />
+          <EditMealForm
+            mealToEdit={mealToEdit}
+            handleCloseModal={handleCloseModal}
+          />
         </Modal>
       )}
     </>
