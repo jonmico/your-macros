@@ -328,7 +328,7 @@ export async function editMealInLog(
     }
 
     user.logs
-      .find((log) => log._id === logId)
+      .find((log) => log._id.toString() === logId)
       ?.meals.map((m) => {
         if (m._id.toString() === meal._id) {
           return meal;
