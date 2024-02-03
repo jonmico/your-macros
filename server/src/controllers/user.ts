@@ -308,3 +308,46 @@ export async function deleteMealFromLog(
     next(err);
   }
 }
+
+export async function editMealInLog(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const {
+      userId,
+      logId,
+      meal,
+    }: { userId: string; logId: string; meal: IMeal } = req.body;
+
+    const user = await User.findById(userId).exec();
+
+    if (!user) {
+      throw new AppError('User not found.', 404);
+    }
+
+    user.logs
+      .find((log) => log._id === logId)
+      ?.meals.map((m) => {
+        if (m._id.toString() === meal._id) {
+          return meal;
+        }
+        return m;
+      });
+
+    await user.save();
+
+    res.json({
+      user: {
+        _id: user._id,
+        email: user.email,
+        logs: user.logs,
+        calories: user.calories,
+        macros: user.macros,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+}
