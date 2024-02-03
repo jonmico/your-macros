@@ -57,7 +57,7 @@ export default function SingleLog() {
         {log.meals.length === 0 ? (
           <NoMealsInLogText />
         ) : (
-          <EditMealProvider>
+          <EditMealProvider logId={log._id}>
             <LogMealList>
               {log.meals.map((meal, index) => (
                 <LogMealListItem
