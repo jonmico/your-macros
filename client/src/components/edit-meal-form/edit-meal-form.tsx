@@ -35,5 +35,22 @@ function EditMealFormMealComponentListItem(props: {
   mealComp: IMealComponent;
 }) {
   const { mealComp } = props;
-  return <li>{mealComp.food.name}</li>;
+  return (
+    <li className={styles.mealComponentListItem}>
+      <div>
+        <div>{mealComp.food.name}</div>
+        <div>{mealComp.food.brand}</div>
+      </div>
+      <div>
+        <label htmlFor='servings'>Servings</label>
+        <input type='number' id={'servings'} name={'servings'} />
+      </div>
+      <div>macro info</div>
+      <div>
+        <button>
+          <FaXmark />
+        </button>
+      </div>
+    </li>
+  );
 }
