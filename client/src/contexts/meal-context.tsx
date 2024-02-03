@@ -50,24 +50,14 @@ export function MealProvider(props: MealProviderProps) {
   }
 
   function editServings(mealComponent: IMealComponent, newServings: number) {
-    const index = mealComponents.findIndex(
-      (mealComp) => mealComponent.food._id === mealComp.food._id
-    );
+    const updatedMealComponents = mealComponents.map((mealComp) => {
+      if (mealComponent._id === mealComp._id) {
+        return { ...mealComp, servings: newServings };
+      }
+      return mealComp;
+    });
 
-    const newMealComponent: IMealComponent = {
-      ...mealComponent,
-      servings: newServings,
-    };
-
-    // Copy array.
-    const mealComponentsCopy = mealComponents.slice();
-
-    // Remove index of the meal component we are editing.
-    // Replace with meal component with updated servings.
-    mealComponentsCopy.splice(index, 1, newMealComponent);
-
-    // Change state to copy of meal components array with updated servings.
-    setMealComponents(mealComponentsCopy);
+    setMealComponents(updatedMealComponents);
   }
 
   function clearMeal() {
