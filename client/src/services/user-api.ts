@@ -97,3 +97,11 @@ export async function apiDeleteMealFromLog(
 
   return await res.json();
 }
+
+export async function apiEditMealInLog(
+  userId: string,
+  logId: string,
+  meal: IMeal
+) {
+  // TODO: Implement this.
+}

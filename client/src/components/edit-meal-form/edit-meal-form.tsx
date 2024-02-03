@@ -59,6 +59,11 @@ export default function EditMealForm(props: {
     setMealToEditCopy(updatedMeal);
   }
 
+  function handleSubmitChangesClick() {
+    // TODO: Implement this.
+    console.log(`We are sending ${mealToEditCopy.name} meal to the database!`);
+  }
+
   return (
     <div>
       <form className={styles.editMealForm}>
@@ -81,7 +86,7 @@ export default function EditMealForm(props: {
           </ul>
         </div>
       </form>
-      <button>Submit Changes</button>
+      <button onClick={handleSubmitChangesClick}>Submit Changes</button>
       <button onClick={props.handleCloseModal}>Cancel</button>
     </div>
   );
