@@ -14,7 +14,7 @@ export async function apiRegister(
   const user = { email, password, macros, calories };
 
   const res = await fetch(`${API_URL}/api/user/register`, {
-    method: 'post',
+    method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ user }),
   });
@@ -24,7 +24,7 @@ export async function apiRegister(
 
 export async function apiLogin(email: string, password: string) {
   const res = await fetch(`${API_URL}/api/user/login`, {
-    method: 'post',
+    method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ email, password }),
   });
@@ -34,7 +34,7 @@ export async function apiLogin(email: string, password: string) {
 
 export async function apiLogout() {
   const res = await fetch(`${API_URL}/api/user/logout`, {
-    method: 'post',
+    method: 'POST',
     headers: { 'content-type': 'application/json' },
   });
 
@@ -49,7 +49,7 @@ export async function apiFetchActiveSession() {
 
 export async function apiCreateLog(log: IPreIDLog) {
   const res = await fetch(`${API_URL}/api/user/log/new`, {
-    method: 'post',
+    method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ log }),
   });
@@ -63,7 +63,7 @@ export async function apiAddMealToLog(
   userId: string
 ) {
   const res = await fetch(`${API_URL}/api/user/log/${logId}/add-meal`, {
-    method: 'post',
+    method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ meal, userId }),
   });
@@ -73,7 +73,7 @@ export async function apiAddMealToLog(
 
 export async function apiDeleteLog(logId: string, userId: string) {
   const res = await fetch(`${API_URL}/api/user/log/${logId}/delete`, {
-    method: 'delete',
+    method: 'DELETE',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ logId, userId }),
   });
@@ -89,7 +89,7 @@ export async function apiDeleteMealFromLog(
   const res = await fetch(
     `${API_URL}/api/user/log/${logId}/delete-meal/${mealId}`,
     {
-      method: 'delete',
+      method: 'DELETE',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ mealId, logId, userId }),
     }
@@ -104,4 +104,14 @@ export async function apiEditMealInLog(
   meal: IMeal
 ) {
   // TODO: Implement this.
+  const res = await fetch(
+    `${API_URL}/api/user/log/${logId}/edit-meal/${meal._id}`,
+    {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ userId, logId, meal }),
+    }
+  );
+
+  return await res.json();
 }
