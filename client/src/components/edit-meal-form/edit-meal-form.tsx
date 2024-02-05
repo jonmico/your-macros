@@ -18,7 +18,8 @@ export default function EditMealForm(props: {
   });
   const { editMealInLog } = useUser();
 
-  function removeFromMeal(mealComponentId: string) {
+  function removeFromMeal(mealComponentId: string | undefined) {
+    if (mealComponentId === undefined) return;
     const filteredMealComponents = mealToEditCopy.mealComponents.filter(
       (mealComp) => mealComp._id !== mealComponentId
     );
@@ -36,7 +37,11 @@ export default function EditMealForm(props: {
     setMealToEditCopy(updatedMeal);
   }
 
-  function editMealCompServings(mealComponentId: string, servings: number) {
+  function editMealCompServings(
+    mealComponentId: string | undefined,
+    servings: number
+  ) {
+    if (mealComponentId === undefined) return;
     const updatedMealComponents = mealToEditCopy.mealComponents.map(
       (mealComponent) => {
         if (mealComponent._id === mealComponentId) {
@@ -97,8 +102,11 @@ export default function EditMealForm(props: {
 
 function EditMealFormMealComponentListItem(props: {
   mealComp: IMealComponent;
-  removeFromMeal: (mealComponentId: string) => void;
-  editMealCompServings: (mealComponentId: string, servings: number) => void;
+  removeFromMeal: (mealComponentId: string | undefined) => void;
+  editMealCompServings: (
+    mealComponentId: string | undefined,
+    servings: number
+  ) => void;
 }) {
   const { mealComp } = props;
   const [servings, setServings] = useState(String(mealComp.servings));
