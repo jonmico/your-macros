@@ -341,6 +341,11 @@ export async function editMealInLog(
     });
 
     log.meals = newMeals;
+
+    const { macros, calories } = calcLogCalsMacros(log);
+    log.calories = calories;
+    log.macros = macros;
+
     await user.save();
 
     res.json({
