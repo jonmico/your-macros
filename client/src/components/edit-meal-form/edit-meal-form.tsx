@@ -1,10 +1,10 @@
-import { FaXmark } from 'react-icons/fa6';
-import styles from './edit-meal-form.module.css';
-import { IMeal } from '../../types/meal';
 import { useState } from 'react';
+import { FaXmark } from 'react-icons/fa6';
+import useUser from '../../hooks/useUser';
+import { IMeal } from '../../types/meal';
 import { IMealComponent } from '../../types/meal-component';
 import { calcCaloriesMacros } from '../../utils/calcCaloriesMacros';
-import { apiEditMealInLog } from '../../services/user-api';
+import styles from './edit-meal-form.module.css';
 
 export default function EditMealForm(props: {
   handleCloseModal: () => void;
@@ -16,6 +16,7 @@ export default function EditMealForm(props: {
     ...props.mealToEdit,
     mealComponents: [...props.mealToEdit.mealComponents],
   });
+  const { editMealInLog } = useUser();
 
   function removeFromMeal(mealComponentId: string) {
     const filteredMealComponents = mealToEditCopy.mealComponents.filter(
@@ -63,13 +64,7 @@ export default function EditMealForm(props: {
   }
 
   async function handleSubmitChangesClick() {
-    // TODO: Implement this.
-    const data = await apiEditMealInLog(
-      props.userId,
-      props.logId,
-      mealToEditCopy
-    );
-    console.log(data);
+    await editMealInLog(props.userId, props.logId, mealToEditCopy);
   }
 
   return (

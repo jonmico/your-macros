@@ -8,6 +8,7 @@ import {
   apiRegister,
   apiDeleteLog,
   apiDeleteMealFromLog,
+  apiEditMealInLog,
 } from '../services/user-api';
 import { IMeal } from '../types/meal';
 import { IUser } from '../types/user';
@@ -71,6 +72,11 @@ type DeleteMealFromLog = {
   payload: IUser;
 };
 
+type EditMealInLog = {
+  type: 'user/editMealInLog';
+  payload: IUser;
+};
+
 export type UserAction =
   | Login
   | Logout
@@ -80,7 +86,8 @@ export type UserAction =
   | AddMealToLog
   | CreateLog
   | DeleteLog
-  | DeleteMealFromLog;
+  | DeleteMealFromLog
+  | EditMealInLog;
 
 interface IUserContext {
   userState: {
@@ -105,23 +112,10 @@ interface IUserContext {
     logId: string,
     userId: string
   ) => Promise<void>;
+  editMealInLog: (userId: string, logId: string, meal: IMeal) => Promise<void>;
 }
 
-export const UserContext = createContext<IUserContext>({
-  userState: {
-    user: null,
-    isAuthenticated: true,
-    isLoading: false,
-  },
-  login: async () => {},
-  logout: async () => true,
-  register: async () => {},
-  fetchActiveSession: async () => {},
-  addMealToLog: async () => {},
-  createLog: async () => {},
-  deleteLog: async () => {},
-  deleteMealFromLog: async () => {},
-});
+export const UserContext = createContext<IUserContext | null>(null);
 
 function reducer(state: UserState, action: UserAction) {
   switch (action.type) {
@@ -178,6 +172,12 @@ function reducer(state: UserState, action: UserAction) {
       };
 
     case 'user/deleteMealFromLog':
+      return {
+        ...state,
+        user: action.payload,
+        isLoading: false,
+      };
+    case 'user/editMealInLog':
       return {
         ...state,
         user: action.payload,
@@ -299,6 +299,12 @@ export default function UserProvider(props: UserProviderProps) {
     dispatch({ type: 'user/deleteMealFromLog', payload: data.user });
   }
 
+  async function editMealInLog(userId: string, logId: string, meal: IMeal) {
+    dispatch({ type: 'user/loading' });
+    const data: { user: IUser } = await apiEditMealInLog(userId, logId, meal);
+    dispatch({ type: 'user/editMealInLog', payload: data.user });
+  }
+
   const value = {
     userState,
     login,
@@ -309,6 +315,7 @@ export default function UserProvider(props: UserProviderProps) {
     createLog,
     deleteLog,
     deleteMealFromLog,
+    editMealInLog,
   };
   return (
     <UserContext.Provider value={value}>{props.children}</UserContext.Provider>

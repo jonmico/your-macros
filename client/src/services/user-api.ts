@@ -103,7 +103,6 @@ export async function apiEditMealInLog(
   logId: string,
   meal: IMeal
 ) {
-  // TODO: Implement this.
   const res = await fetch(
     `${API_URL}/api/user/log/${logId}/edit-meal/${meal._id}`,
     {
