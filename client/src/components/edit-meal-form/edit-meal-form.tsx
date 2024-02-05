@@ -4,10 +4,13 @@ import { IMeal } from '../../types/meal';
 import { useState } from 'react';
 import { IMealComponent } from '../../types/meal-component';
 import { calcCaloriesMacros } from '../../utils/calcCaloriesMacros';
+import { apiEditMealInLog } from '../../services/user-api';
 
 export default function EditMealForm(props: {
   handleCloseModal: () => void;
   mealToEdit: IMeal;
+  userId: string;
+  logId: string;
 }) {
   const [mealToEditCopy, setMealToEditCopy] = useState({
     ...props.mealToEdit,
@@ -59,9 +62,14 @@ export default function EditMealForm(props: {
     setMealToEditCopy(updatedMeal);
   }
 
-  function handleSubmitChangesClick() {
+  async function handleSubmitChangesClick() {
     // TODO: Implement this.
-    console.log(`We are sending ${mealToEditCopy.name} meal to the database!`);
+    const data = await apiEditMealInLog(
+      props.userId,
+      props.logId,
+      mealToEditCopy
+    );
+    console.log(data);
   }
 
   return (

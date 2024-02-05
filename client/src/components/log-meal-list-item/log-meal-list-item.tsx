@@ -132,6 +132,8 @@ export default function LogMealListItem({
       {isModalOpen && mealToEdit && (
         <Modal>
           <EditMealForm
+            userId={userId}
+            logId={logId}
             mealToEdit={mealToEdit}
             handleCloseModal={handleCloseModal}
           />
