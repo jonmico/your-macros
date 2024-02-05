@@ -327,15 +327,20 @@ export async function editMealInLog(
       throw new AppError('User not found.', 404);
     }
 
-    user.logs
-      .find((log) => log._id.toString() === logId)
-      ?.meals.map((m) => {
-        if (m._id.toString() === meal._id) {
-          return meal;
-        }
-        return m;
-      });
+    const log = user.logs.find((l) => l._id.toString() === logId);
 
+    if (!log) {
+      throw new AppError("We can't find that log.", 404);
+    }
+
+    const newMeals = log.meals.map((m) => {
+      if (m._id.toString() === meal._id) {
+        return meal;
+      }
+      return m;
+    });
+
+    log.meals = newMeals;
     await user.save();
 
     res.json({
