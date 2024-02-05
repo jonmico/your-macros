@@ -73,7 +73,7 @@ export async function apiAddMealToLog(
 
 export async function apiDeleteLog(logId: string, userId: string) {
   const res = await fetch(`${API_URL}/api/user/log/${logId}/delete`, {
-    method: 'post',
+    method: 'delete',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ logId, userId }),
   });
@@ -89,7 +89,7 @@ export async function apiDeleteMealFromLog(
   const res = await fetch(
     `${API_URL}/api/user/log/${logId}/delete-meal/${mealId}`,
     {
-      method: 'post',
+      method: 'delete',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ mealId, logId, userId }),
     }
