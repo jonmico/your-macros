@@ -13,9 +13,7 @@
 .modal {
   position: fixed;
   top: 17.5%;
-  width: 35%;
-  max-width: 32.5rem;
-  min-width: 25rem;
+  width: fit-content;
   padding: 1.5rem 2rem;
   background-color: var(--color-zinc-900);
   border: 1px solid var(--color-gray-600);
