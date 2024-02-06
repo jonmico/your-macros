@@ -94,13 +94,20 @@ export default function EditMealForm(props: {
           </ul>
         </div>
       </form>
-      <button
-        className={styles.submitChangesButton}
-        onClick={handleSubmitChangesClick}
-      >
-        Submit Changes
-      </button>
-      <button onClick={props.handleCloseModal}>Cancel</button>
+      <div className={styles.buttonContainer}>
+        <button
+          className={styles.submitChangesButton}
+          onClick={handleSubmitChangesClick}
+        >
+          Submit Changes
+        </button>
+        <button
+          className={styles.cancelButton}
+          onClick={props.handleCloseModal}
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   );
 }
