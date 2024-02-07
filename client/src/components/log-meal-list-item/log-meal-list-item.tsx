@@ -7,7 +7,7 @@ import useUser from '../../hooks/useUser';
 import styles from './log-meal-list-item.module.css';
 import { useState } from 'react';
 import Modal from '../modal/modal';
-import EditMealForm from '../edit-meal-form/edit-meal-form';
+import EditMealForm from '../edit-meal/edit-meal';
 
 interface LogMealListItemProps {
   userId: string;

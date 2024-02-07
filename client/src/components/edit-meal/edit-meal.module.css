@@ -1,14 +1,14 @@
-.editMealFormContainer {
+.editMealContainer {
   width: 50rem;
 }
 
-.editMealForm {
+.editMeal {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.editMealFormHeader {
+.editMealHeader {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -16,11 +16,11 @@
   border-bottom: 1px solid var(--color-gray-600);
 }
 
-.editMealFormHeader h2 {
+.editMealHeader h2 {
   color: var(--color-gray-400);
 }
 
-.editMealFormHeader button {
+.editMealHeader button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,12 +32,12 @@
   transition: color 0.2s ease-in-out, outline 0.2s ease-in-out;
 }
 
-.editMealFormHeader button:hover {
+.editMealHeader button:hover {
   cursor: pointer;
   color: var(--color-red-400);
 }
 
-.editMealFormHeader button:focus-visible {
+.editMealHeader button:focus-visible {
   outline: 1px solid var(--color-red-400);
   color: var(--color-red-400);
 }

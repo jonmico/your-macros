@@ -4,7 +4,7 @@ import useUser from '../../hooks/useUser';
 import { IMeal } from '../../types/meal';
 import { IMealComponent } from '../../types/meal-component';
 import { calcCaloriesMacros } from '../../utils/calcCaloriesMacros';
-import styles from './edit-meal-form.module.css';
+import styles from './edit-meal.module.css';
 
 export default function EditMealForm(props: {
   handleCloseModal: () => void;
@@ -73,9 +73,9 @@ export default function EditMealForm(props: {
   }
 
   return (
-    <div className={styles.editMealFormContainer}>
-      <form className={styles.editMealForm}>
-        <div className={styles.editMealFormHeader}>
+    <div className={styles.editMealContainer}>
+      <div className={styles.editMeal}>
+        <div className={styles.editMealHeader}>
           <h2>Edit Meal</h2>
           <button onClick={props.handleCloseModal}>
             <FaXmark />
@@ -84,7 +84,7 @@ export default function EditMealForm(props: {
         <div>
           <ul className={styles.mealComponentList}>
             {mealToEditCopy.mealComponents.map((mealComp) => (
-              <EditMealFormMealComponentListItem
+              <MealComponentListItem
                 key={mealComp._id}
                 mealComp={mealComp}
                 removeFromMeal={removeFromMeal}
@@ -93,26 +93,26 @@ export default function EditMealForm(props: {
             ))}
           </ul>
         </div>
-      </form>
-      <div className={styles.buttonContainer}>
-        <button
-          className={styles.submitChangesButton}
-          onClick={handleSubmitChangesClick}
-        >
-          Submit Changes
-        </button>
-        <button
-          className={styles.cancelButton}
-          onClick={props.handleCloseModal}
-        >
-          Cancel
-        </button>
+        <div className={styles.buttonContainer}>
+          <button
+            className={styles.submitChangesButton}
+            onClick={handleSubmitChangesClick}
+          >
+            Submit Changes
+          </button>
+          <button
+            className={styles.cancelButton}
+            onClick={props.handleCloseModal}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-function EditMealFormMealComponentListItem(props: {
+function MealComponentListItem(props: {
   mealComp: IMealComponent;
   removeFromMeal: (mealComponentId: string | undefined) => void;
   editMealCompServings: (
@@ -124,7 +124,8 @@ function EditMealFormMealComponentListItem(props: {
   const [servings, setServings] = useState(String(mealComp.servings));
   const [isEditServingsActive, setIsEditServingsActive] = useState(false);
 
-  function handleUpdateServingsClick() {
+  function handleUpdateServingsSubmit(evt: React.FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
     setIsEditServingsActive(false);
     props.editMealCompServings(mealComp._id, Number(servings));
   }
@@ -135,7 +136,7 @@ function EditMealFormMealComponentListItem(props: {
         <div>{mealComp.food.name}</div>
         <div>{mealComp.food.brand}</div>
       </div>
-      <div>
+      <form onSubmit={(evt) => handleUpdateServingsSubmit(evt)}>
         <label htmlFor='servings'>Servings</label>
         <input
           value={servings}
@@ -145,12 +146,8 @@ function EditMealFormMealComponentListItem(props: {
           id={'servings'}
           name={'servings'}
         />
-        {isEditServingsActive && (
-          <button type={'button'} onClick={handleUpdateServingsClick}>
-            OK
-          </button>
-        )}
-      </div>
+        {isEditServingsActive && <button>OK</button>}
+      </form>
       <div>macro info</div>
       <div>
         <button
