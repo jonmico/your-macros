@@ -132,7 +132,7 @@ function MealComponentListItem(props: {
 
   return (
     <li className={styles.mealComponentListItem}>
-      <div>
+      <div className={styles.foodNameBrand}>
         <div>{mealComp.food.name}</div>
         <div>{mealComp.food.brand}</div>
       </div>
@@ -149,8 +149,9 @@ function MealComponentListItem(props: {
         {isEditServingsActive && <button>OK</button>}
       </form>
       <div>macro info</div>
-      <div>
+      <div className={styles.removeFoodComponentButtonContainer}>
         <button
+          className={styles.removeFoodComponentButton}
           type={'button'}
           onClick={() => props.removeFromMeal(mealComp._id)}
         >

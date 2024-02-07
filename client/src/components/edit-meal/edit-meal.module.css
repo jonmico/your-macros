@@ -51,9 +51,38 @@
 
 .mealComponentListItem {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 2rem;
   align-items: center;
+  justify-content: center;
   padding: 0.25rem;
+}
+
+.foodNameBrand {
+  text-align: left;
+}
+
+.removeFoodComponentButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.removeFoodComponentButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  color: var(--color-red-400);
+  background-color: var(--color-slate-800);
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.removeFoodComponentButton:hover {
+  cursor: pointer;
+  background-color: var(--color-red-400);
+  color: var(--color-zinc-900);
 }
 
 .submitChangesButton {
@@ -63,8 +92,8 @@
   color: var(--color-green-500);
   border-radius: 5px;
   font-size: 0.9rem;
-  transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out,
-    border-radius 0.2s ease-in-out, color 0.2s ease-in-out;
+  transition: border 0.3s ease-in-out, background-color 0.3s ease-in-out,
+    border-radius 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .buttonContainer {
@@ -74,7 +103,7 @@
 
 .submitChangesButton:hover {
   cursor: pointer;
-  border-radius: 15px;
+  border-radius: 18px;
   border: 1px solid transparent;
   color: var(--color-zinc-900);
   background-color: var(--color-green-500);
@@ -91,13 +120,13 @@
   color: var(--color-red-400);
   border-radius: 5px;
   font-size: 0.9rem;
-  transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out,
-    border-radius 0.2s ease-in-out, color 0.2s ease-in-out;
+  transition: border 0.3s ease-in-out, background-color 0.3s ease-in-out,
+    border-radius 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .cancelButton:hover {
   cursor: pointer;
-  border-radius: 15px;
+  border-radius: 18px;
   border: 1px solid transparent;
   color: var(--color-zinc-900);
   background-color: var(--color-red-400);
