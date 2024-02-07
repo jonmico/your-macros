@@ -1,3 +1,7 @@
+.editMealFormContainer {
+  width: 50rem;
+}
+
 .editMealForm {
   display: flex;
   flex-direction: column;

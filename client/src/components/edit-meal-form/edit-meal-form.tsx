@@ -73,7 +73,7 @@ export default function EditMealForm(props: {
   }
 
   return (
-    <div>
+    <div className={styles.editMealFormContainer}>
       <form className={styles.editMealForm}>
         <div className={styles.editMealFormHeader}>
           <h2>Edit Meal</h2>
