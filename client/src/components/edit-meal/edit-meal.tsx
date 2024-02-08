@@ -5,6 +5,7 @@ import { IMeal } from '../../types/meal';
 import { IMealComponent } from '../../types/meal-component';
 import { calcCaloriesMacros } from '../../utils/calcCaloriesMacros';
 import styles from './edit-meal.module.css';
+import SearchBar from '../search-bar/search-bar';
 
 export default function EditMealForm(props: {
   handleCloseModal: () => void;
@@ -12,6 +13,8 @@ export default function EditMealForm(props: {
   userId: string;
   logId: string;
 }) {
+  const [searchInput, setSearchInput] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [mealToEditCopy, setMealToEditCopy] = useState({
     ...props.mealToEdit,
     mealComponents: [...props.mealToEdit.mealComponents],
@@ -92,6 +95,19 @@ export default function EditMealForm(props: {
               />
             ))}
           </ul>
+        </div>
+        <div>
+          <div onClick={() => setIsSearchOpen((prevState) => !prevState)}>
+            Search for and add additional foods
+          </div>
+          {isSearchOpen && (
+            <div>
+              <SearchBar
+                searchInput={searchInput}
+                setSearchInput={setSearchInput}
+              />
+            </div>
+          )}
         </div>
         <div className={styles.buttonContainer}>
           <button
