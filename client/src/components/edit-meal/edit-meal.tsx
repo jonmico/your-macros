@@ -6,23 +6,22 @@ import { IMealComponent } from '../../types/meal-component';
 import { calcCaloriesMacros } from '../../utils/calcCaloriesMacros';
 import styles from './edit-meal.module.css';
 import EditMealSearch from '../edit-meal-search/edit-meal-search';
+import { useEditMeals } from '../../hooks/useEditMeals';
 
 export default function EditMeal(props: {
   handleCloseModal: () => void;
-  mealToEdit: IMeal;
+  mealToEditCopy: IMeal;
   userId: string;
   logId: string;
 }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [mealToEditCopy, setMealToEditCopy] = useState({
-    ...props.mealToEdit,
-    mealComponents: [...props.mealToEdit.mealComponents],
-  });
+  const { setMealToEditCopy } = useEditMeals();
+
   const { editMealInLog } = useUser();
 
   function removeFromMeal(mealComponentId: string | undefined) {
     if (mealComponentId === undefined) return;
-    const filteredMealComponents = mealToEditCopy.mealComponents.filter(
+    const filteredMealComponents = props.mealToEditCopy.mealComponents.filter(
       (mealComp) => mealComp._id !== mealComponentId
     );
 
@@ -30,7 +29,7 @@ export default function EditMeal(props: {
       calcCaloriesMacros(filteredMealComponents);
 
     const updatedMeal: IMeal = {
-      ...mealToEditCopy,
+      ...props.mealToEditCopy,
       mealComponents: filteredMealComponents,
       calories: totalCals,
       macros: { carbs: totalCarbs, fat: totalFat, protein: totalProtein },
@@ -44,7 +43,7 @@ export default function EditMeal(props: {
     servings: number
   ) {
     if (mealComponentId === undefined) return;
-    const updatedMealComponents = mealToEditCopy.mealComponents.map(
+    const updatedMealComponents = props.mealToEditCopy.mealComponents.map(
       (mealComponent) => {
         if (mealComponent._id === mealComponentId) {
           return { ...mealComponent, servings };
@@ -57,7 +56,7 @@ export default function EditMeal(props: {
       calcCaloriesMacros(updatedMealComponents);
 
     const updatedMeal: IMeal = {
-      ...mealToEditCopy,
+      ...props.mealToEditCopy,
       mealComponents: updatedMealComponents,
       calories: totalCals,
       macros: {
@@ -71,7 +70,7 @@ export default function EditMeal(props: {
   }
 
   async function handleSubmitChangesClick() {
-    await editMealInLog(props.userId, props.logId, mealToEditCopy);
+    await editMealInLog(props.userId, props.logId, props.mealToEditCopy);
   }
 
   return (
@@ -85,7 +84,7 @@ export default function EditMeal(props: {
         </div>
         <div>
           <ul className={styles.mealComponentList}>
-            {mealToEditCopy.mealComponents.map((mealComp) => (
+            {props.mealToEditCopy.mealComponents.map((mealComp) => (
               <MealComponentListItem
                 key={mealComp._id}
                 mealComp={mealComp}

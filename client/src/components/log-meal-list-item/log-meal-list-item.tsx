@@ -24,7 +24,8 @@ export default function LogMealListItem({
   index,
   mealLength,
 }: LogMealListItemProps) {
-  const { mealToEdit, setMealToEdit } = useEditMeals();
+  const { mealToEdit, setMealToEdit, mealToEditCopy, setMealToEditCopy } =
+    useEditMeals();
   const { deleteMealFromLog } = useUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -32,6 +33,7 @@ export default function LogMealListItem({
 
   function handleEditClick() {
     setMealToEdit(meal);
+    setMealToEditCopy({ ...meal });
   }
 
   function handleCancelClick() {
@@ -129,12 +131,12 @@ export default function LogMealListItem({
           </div>
         </div>
       </li>
-      {isModalOpen && mealToEdit && (
+      {isModalOpen && mealToEditCopy && (
         <Modal>
           <EditMeal
             userId={userId}
             logId={logId}
-            mealToEdit={mealToEdit}
+            mealToEditCopy={mealToEditCopy}
             handleCloseModal={handleCloseModal}
           />
         </Modal>

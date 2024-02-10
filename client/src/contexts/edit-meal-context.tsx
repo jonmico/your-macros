@@ -5,6 +5,8 @@ import { IFood } from '../types/food';
 interface IEditMealContext {
   mealToEdit: IMeal | null;
   setMealToEdit: React.Dispatch<SetStateAction<IMeal | null>>;
+  mealToEditCopy: IMeal | null;
+  setMealToEditCopy: React.Dispatch<SetStateAction<IMeal | null>>;
   logId: string;
   searchInput: string;
   setSearchInput: React.Dispatch<SetStateAction<string>>;
@@ -19,12 +21,15 @@ export function EditMealProvider(props: {
   logId: string;
 }) {
   const [mealToEdit, setMealToEdit] = useState<IMeal | null>(null);
+  const [mealToEditCopy, setMealToEditCopy] = useState<IMeal | null>(null);
   const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
   const [searchInput, setSearchInput] = useState('');
 
   const value = {
     mealToEdit,
     setMealToEdit,
+    mealToEditCopy,
+    setMealToEditCopy,
     logId: props.logId,
     searchedFoods,
     setSearchedFoods,
