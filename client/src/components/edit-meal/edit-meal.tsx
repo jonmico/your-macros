@@ -1,12 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaAngleRight, FaXmark } from 'react-icons/fa6';
+import { useEditMeals } from '../../hooks/useEditMeals';
 import useUser from '../../hooks/useUser';
 import { IMeal } from '../../types/meal';
 import { IMealComponent } from '../../types/meal-component';
-import { calcCaloriesMacros } from '../../utils/calcCaloriesMacros';
-import styles from './edit-meal.module.css';
 import EditMealSearch from '../edit-meal-search/edit-meal-search';
-import { useEditMeals } from '../../hooks/useEditMeals';
+import styles from './edit-meal.module.css';
 
 export default function EditMeal(props: {
   handleCloseModal: () => void;
@@ -15,59 +14,9 @@ export default function EditMeal(props: {
   logId: string;
 }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { setMealToEditCopy } = useEditMeals();
+  const { resetMeal } = useEditMeals();
 
   const { editMealInLog } = useUser();
-
-  function removeFromMeal(mealComponentId: string | undefined) {
-    if (mealComponentId === undefined) return;
-    const filteredMealComponents = props.mealToEditCopy.mealComponents.filter(
-      (mealComp) => mealComp._id !== mealComponentId
-    );
-
-    const { totalCals, totalCarbs, totalFat, totalProtein } =
-      calcCaloriesMacros(filteredMealComponents);
-
-    const updatedMeal: IMeal = {
-      ...props.mealToEditCopy,
-      mealComponents: filteredMealComponents,
-      calories: totalCals,
-      macros: { carbs: totalCarbs, fat: totalFat, protein: totalProtein },
-    };
-
-    setMealToEditCopy(updatedMeal);
-  }
-
-  function editMealCompServings(
-    mealComponentId: string | undefined,
-    servings: number
-  ) {
-    if (mealComponentId === undefined) return;
-    const updatedMealComponents = props.mealToEditCopy.mealComponents.map(
-      (mealComponent) => {
-        if (mealComponent._id === mealComponentId) {
-          return { ...mealComponent, servings };
-        }
-        return mealComponent;
-      }
-    );
-
-    const { totalCals, totalFat, totalCarbs, totalProtein } =
-      calcCaloriesMacros(updatedMealComponents);
-
-    const updatedMeal: IMeal = {
-      ...props.mealToEditCopy,
-      mealComponents: updatedMealComponents,
-      calories: totalCals,
-      macros: {
-        fat: totalFat,
-        carbs: totalCarbs,
-        protein: totalProtein,
-      },
-    };
-
-    setMealToEditCopy(updatedMeal);
-  }
 
   async function handleSubmitChangesClick() {
     await editMealInLog(props.userId, props.logId, props.mealToEditCopy);
@@ -85,14 +34,10 @@ export default function EditMeal(props: {
         <div>
           <ul className={styles.mealComponentList}>
             {props.mealToEditCopy.mealComponents.map((mealComp) => (
-              <MealComponentListItem
-                key={mealComp._id}
-                mealComp={mealComp}
-                removeFromMeal={removeFromMeal}
-                editMealCompServings={editMealCompServings}
-              />
+              <MealComponentListItem key={mealComp._id} mealComp={mealComp} />
             ))}
           </ul>
+          <button onClick={resetMeal}>Reset Meal</button>
         </div>
         <div className={styles.editMealSearchContainer}>
           <div
@@ -125,22 +70,20 @@ export default function EditMeal(props: {
   );
 }
 
-function MealComponentListItem(props: {
-  mealComp: IMealComponent;
-  removeFromMeal: (mealComponentId: string | undefined) => void;
-  editMealCompServings: (
-    mealComponentId: string | undefined,
-    servings: number
-  ) => void;
-}) {
+function MealComponentListItem(props: { mealComp: IMealComponent }) {
   const { mealComp } = props;
+  const { removeFromMeal, editMealCompServings } = useEditMeals();
   const [servings, setServings] = useState(String(mealComp.servings));
   const [isEditServingsActive, setIsEditServingsActive] = useState(false);
+
+  useEffect(() => {
+    setServings(String(mealComp.servings));
+  }, [mealComp]);
 
   function handleUpdateServingsSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     setIsEditServingsActive(false);
-    props.editMealCompServings(mealComp._id, Number(servings));
+    editMealCompServings(mealComp._id, Number(servings));
   }
 
   return (
@@ -166,7 +109,7 @@ function MealComponentListItem(props: {
         <button
           className={styles.removeFoodComponentButton}
           type={'button'}
-          onClick={() => props.removeFromMeal(mealComp._id)}
+          onClick={() => removeFromMeal(mealComp._id)}
         >
           <FaXmark />
         </button>
