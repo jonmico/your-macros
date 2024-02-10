@@ -7,7 +7,7 @@ import useUser from '../../hooks/useUser';
 import styles from './log-meal-list-item.module.css';
 import { useState } from 'react';
 import Modal from '../modal/modal';
-import EditMealForm from '../edit-meal/edit-meal';
+import EditMeal from '../edit-meal/edit-meal';
 
 interface LogMealListItemProps {
   userId: string;
@@ -131,7 +131,7 @@ export default function LogMealListItem({
       </li>
       {isModalOpen && mealToEdit && (
         <Modal>
-          <EditMealForm
+          <EditMeal
             userId={userId}
             logId={logId}
             mealToEdit={mealToEdit}

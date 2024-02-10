@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import { FaXmark } from 'react-icons/fa6';
+import { FaAngleRight, FaXmark } from 'react-icons/fa6';
 import useUser from '../../hooks/useUser';
 import { IMeal } from '../../types/meal';
 import { IMealComponent } from '../../types/meal-component';
 import { calcCaloriesMacros } from '../../utils/calcCaloriesMacros';
 import styles from './edit-meal.module.css';
-import SearchBar from '../search-bar/search-bar';
+import EditMealSearch from '../edit-meal-search/edit-meal-search';
 
-export default function EditMealForm(props: {
+export default function EditMeal(props: {
   handleCloseModal: () => void;
   mealToEdit: IMeal;
   userId: string;
   logId: string;
 }) {
-  const [searchInput, setSearchInput] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [mealToEditCopy, setMealToEditCopy] = useState({
     ...props.mealToEdit,
@@ -96,18 +95,17 @@ export default function EditMealForm(props: {
             ))}
           </ul>
         </div>
-        <div>
-          <div onClick={() => setIsSearchOpen((prevState) => !prevState)}>
-            Search for and add additional foods
+        <div className={styles.editMealSearchContainer}>
+          <div
+            className={styles.searchDropDownContainer}
+            onClick={() => setIsSearchOpen((prevState) => !prevState)}
+          >
+            <FaAngleRight
+              className={`${isSearchOpen ? styles.searchActive : ''}`}
+            />
+            <div>Search for and add additional foods</div>
           </div>
-          {isSearchOpen && (
-            <div>
-              <SearchBar
-                searchInput={searchInput}
-                setSearchInput={setSearchInput}
-              />
-            </div>
-          )}
+          {isSearchOpen && <EditMealSearch />}
         </div>
         <div className={styles.buttonContainer}>
           <button
