@@ -1,5 +1,5 @@
 .editMealContainer {
-  width: 50rem;
+  width: 40rem;
 }
 
 .editMeal {
@@ -51,10 +51,36 @@
 
 .mealComponentListItem {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 2rem;
+  grid-template-columns: 1fr 0.75fr 1fr 2rem;
   align-items: center;
   justify-content: center;
   padding: 0.25rem;
+}
+
+.foodBrand {
+  font-weight: 500;
+  color: var(--color-gray-500);
+}
+
+.formContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.servingsUpdateForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  width: fit-content;
+}
+
+.servingsUpdateFormFieldContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .servingsUpdateInput {
@@ -72,6 +98,23 @@
 .servingsUpdateInput:focus-visible {
   background-color: var(--color-zinc-900);
   outline: none;
+}
+
+.servingsUpdateSubmitButton {
+  padding: 0.35rem 0.75rem;
+  color: var(--color-blue-500);
+  border: 1px solid var(--color-blue-500);
+  border-radius: 8px;
+  background-color: var(--color-zinc-900);
+}
+
+.servingsUpdateSubmitButton:hover {
+  cursor: pointer;
+  background-color: var(--color-slate-800);
+}
+
+.servingsUpdateSubmitButton:focus-visible {
+  outline: 2px solid var(--color-blue-500);
 }
 
 .foodNameBrand {

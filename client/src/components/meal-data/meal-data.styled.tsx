@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const StyledMealData = styled.div`
   display: flex;
   align-items: center;
-  width: 50%;
-  justify-content: space-between;
+  gap: 1.5rem;
+  /* justify-content: space-between; */
 `;
 
 export const MealDataNumber = styled.p`

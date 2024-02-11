@@ -100,21 +100,30 @@ function MealComponentListItem(props: { mealComp: IMealComponent }) {
     <li className={styles.mealComponentListItem}>
       <div className={styles.foodNameBrand}>
         <div>{mealComp.food.name}</div>
-        <div>{mealComp.food.brand}</div>
+        <div className={styles.foodBrand}>{mealComp.food.brand}</div>
       </div>
-      <form onSubmit={(evt) => handleUpdateServingsSubmit(evt)}>
-        <label htmlFor='servings'>Servings</label>
-        <input
-          className={styles.servingsUpdateInput}
-          value={servings}
-          onClick={() => setIsEditServingsActive(true)}
-          onChange={(evt) => setServings(evt.target.value)}
-          type='number'
-          id={'servings'}
-          name={'servings'}
-        />
-        {isEditServingsActive && <button>OK</button>}
-      </form>
+      <div className={styles.formContainer}>
+        <form
+          className={styles.servingsUpdateForm}
+          onSubmit={(evt) => handleUpdateServingsSubmit(evt)}
+        >
+          <div className={styles.servingsUpdateFormFieldContainer}>
+            <label htmlFor='servings'>Servings</label>
+            <input
+              className={styles.servingsUpdateInput}
+              value={servings}
+              onClick={() => setIsEditServingsActive(true)}
+              onChange={(evt) => setServings(evt.target.value)}
+              type='number'
+              id={'servings'}
+              name={'servings'}
+            />
+          </div>
+          {isEditServingsActive && (
+            <button className={styles.servingsUpdateSubmitButton}>OK</button>
+          )}
+        </form>
+      </div>
       <MacroDisplay
         calories={props.mealComp.food.calories}
         macros={props.mealComp.food.macros}
