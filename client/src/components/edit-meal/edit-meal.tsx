@@ -42,12 +42,18 @@ export default function EditMeal(props: {
         </div>
         <MealData mealData={mealData} />
         <div>
-          <ul className={styles.mealComponentList}>
-            {props.mealToEditCopy.mealComponents.map((mealComp) => (
-              <MealComponentListItem key={mealComp._id} mealComp={mealComp} />
-            ))}
-          </ul>
-          <button onClick={resetMeal}>Reset Meal</button>
+          <div className={styles.mealComponentListContainer}>
+            <ul className={styles.mealComponentList}>
+              {props.mealToEditCopy.mealComponents.map((mealComp) => (
+                <MealComponentListItem key={mealComp._id} mealComp={mealComp} />
+              ))}
+            </ul>
+            <div className={styles.resetButtonContainer}>
+              <button className={styles.resetMealButton} onClick={resetMeal}>
+                Reset Meal
+              </button>
+            </div>
+          </div>
         </div>
         <div className={styles.editMealSearchContainer}>
           <div
