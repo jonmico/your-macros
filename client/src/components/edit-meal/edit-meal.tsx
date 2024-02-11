@@ -6,6 +6,8 @@ import { IMeal } from '../../types/meal';
 import { IMealComponent } from '../../types/meal-component';
 import EditMealSearch from '../edit-meal-search/edit-meal-search';
 import styles from './edit-meal.module.css';
+import MealData from '../meal-data/meal-data';
+import MacroDisplay from '../macro-display/macro-display';
 
 export default function EditMeal(props: {
   handleCloseModal: () => void;
@@ -22,6 +24,13 @@ export default function EditMeal(props: {
     await editMealInLog(props.userId, props.logId, props.mealToEditCopy);
   }
 
+  const mealData = {
+    calories: props.mealToEditCopy.calories,
+    fat: props.mealToEditCopy.macros.fat,
+    carbs: props.mealToEditCopy.macros.carbs,
+    protein: props.mealToEditCopy.macros.protein,
+  };
+
   return (
     <div className={styles.editMealContainer}>
       <div className={styles.editMeal}>
@@ -31,6 +40,7 @@ export default function EditMeal(props: {
             <FaXmark />
           </button>
         </div>
+        <MealData mealData={mealData} />
         <div>
           <ul className={styles.mealComponentList}>
             {props.mealToEditCopy.mealComponents.map((mealComp) => (
@@ -95,6 +105,7 @@ function MealComponentListItem(props: { mealComp: IMealComponent }) {
       <form onSubmit={(evt) => handleUpdateServingsSubmit(evt)}>
         <label htmlFor='servings'>Servings</label>
         <input
+          className={styles.servingsUpdateInput}
           value={servings}
           onClick={() => setIsEditServingsActive(true)}
           onChange={(evt) => setServings(evt.target.value)}
@@ -104,7 +115,11 @@ function MealComponentListItem(props: { mealComp: IMealComponent }) {
         />
         {isEditServingsActive && <button>OK</button>}
       </form>
-      <div>macro info</div>
+      <MacroDisplay
+        calories={props.mealComp.food.calories}
+        macros={props.mealComp.food.macros}
+        servings={props.mealComp.servings}
+      />
       <div className={styles.removeFoodComponentButtonContainer}>
         <button
           className={styles.removeFoodComponentButton}
