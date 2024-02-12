@@ -48,6 +48,12 @@
   gap: 0.5rem;
 }
 
+.foodInfo__gridContainer {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 100%;
+}
+
 .foodInfo__backArrowButton {
   display: flex;
   align-items: center;
@@ -86,13 +92,42 @@
   font-size: 1.15rem;
 }
 
+.foodInfo__servingsForm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  font-size: 1.15rem;
+}
+
+.foodInfo__servingsInput {
+  width: 5rem;
+  height: 2rem;
+  text-align: center;
+  background-color: var(--color-slate-800);
+  border: 1px solid var(--color-blue-500);
+  border-radius: 5px;
+  color: var(--color-slate-300);
+  font-size: 1rem;
+  transition: border 0.2s ease-in-out;
+}
+
+.foodInfo__servingsInput:focus-visible {
+  border: 1px solid var(--color-slate-400);
+  outline: none;
+}
+
 /* FoodInfoMacros Styling */
 .foodInfoMacros__macros {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 1rem;
   font-size: 1.25rem;
   font-weight: 500;
+  background-color: var(--color-slate-800);
+  border-radius: 10px;
+  padding: 1rem;
 }
 
 .foodInfoMacros__calories {

@@ -5,6 +5,7 @@ import SearchBar from '../search-bar/search-bar';
 
 import { FaArrowLeft } from 'react-icons/fa6';
 import styles from './edit-meal-search.module.css';
+import { useState } from 'react';
 
 export default function EditMealSearch() {
   const {
@@ -90,6 +91,8 @@ function SearchedFoodsListItem(props: { food: IFood }) {
 
 function FoodInfo(props: { food: IFood }) {
   const { setSelectedFood } = useEditMeals();
+  const [servings, setServings] = useState('1');
+  const servingsNum = Number(servings);
 
   function handleBackClick() {
     setSelectedFood(null);
@@ -103,19 +106,38 @@ function FoodInfo(props: { food: IFood }) {
       >
         <FaArrowLeft />
       </button>
-      <div className={styles.foodInfo__foodData}>
-        <div>
-          <h3 className={styles.foodInfo__foodName}>{props.food.name}</h3>
-          <h4 className={styles.foodInfo__foodBrand}>{props.food.brand}</h4>
+      <div className={styles.foodInfo__gridContainer}>
+        <div className={styles.foodInfo__foodData}>
+          <div>
+            <h3 className={styles.foodInfo__foodName}>{props.food.name}</h3>
+            <h4 className={styles.foodInfo__foodBrand}>{props.food.brand}</h4>
+          </div>
+          <div className={styles.foodInfo__servingSizeContainer}>
+            <div>Serving Size:</div>
+            <div>{props.food.servingSize}g</div>
+          </div>
         </div>
-        <div className={styles.foodInfo__servingSizeContainer}>
-          <div>Serving Size:</div>
-          <div>{props.food.servingSize}g</div>
+        <div className={styles.foodInfo__foodData}>
+          <FoodInfoMacros
+            servings={servingsNum}
+            calories={props.food.calories}
+            macros={props.food.macros}
+          />
+          <form
+            className={styles.foodInfo__servingsForm}
+            onSubmit={(evt) => evt.preventDefault()}
+          >
+            <label htmlFor='food-info-servings'>Servings</label>
+            <input
+              className={styles.foodInfo__servingsInput}
+              value={servings}
+              onChange={(evt) => setServings(evt.target.value)}
+              type='number'
+              id={'food-info-servings'}
+              name={'food-info-servings'}
+            />
+          </form>
         </div>
-        <FoodInfoMacros
-          calories={props.food.calories}
-          macros={props.food.macros}
-        />
       </div>
     </div>
   );
@@ -124,16 +146,21 @@ function FoodInfo(props: { food: IFood }) {
 function FoodInfoMacros(props: {
   calories: number;
   macros: { carbs: number; fat: number; protein: number };
+  servings: number;
 }) {
   return (
     <div className={styles.foodInfoMacros__macros}>
       <div className={styles.foodInfoMacros__calories}>
-        {props.calories}cals
+        {props.calories * props.servings}cals
       </div>
-      <div className={styles.foodInfoMacros__fat}>{props.macros.fat}f</div>
-      <div className={styles.foodInfoMacros__carbs}>{props.macros.carbs}c</div>
+      <div className={styles.foodInfoMacros__fat}>
+        {props.macros.fat * props.servings}f
+      </div>
+      <div className={styles.foodInfoMacros__carbs}>
+        {props.macros.carbs * props.servings}c
+      </div>
       <div className={styles.foodInfoMacros__protein}>
-        {props.macros.protein}p
+        {props.macros.protein * props.servings}p
       </div>
     </div>
   );
