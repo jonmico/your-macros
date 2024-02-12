@@ -16,12 +16,17 @@ export default function EditMeal(props: {
   logId: string;
 }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { resetMeal } = useEditMeals();
+  const { resetMeal, handleCancelClick: clearState } = useEditMeals();
 
   const { editMealInLog } = useUser();
 
   async function handleSubmitChangesClick() {
     await editMealInLog(props.userId, props.logId, props.mealToEditCopy);
+  }
+
+  function handleCancelClick() {
+    props.handleCloseModal();
+    clearState();
   }
 
   const mealData = {
@@ -74,10 +79,7 @@ export default function EditMeal(props: {
           >
             Submit Changes
           </button>
-          <button
-            className={styles.cancelButton}
-            onClick={props.handleCloseModal}
-          >
+          <button className={styles.cancelButton} onClick={handleCancelClick}>
             Cancel
           </button>
         </div>

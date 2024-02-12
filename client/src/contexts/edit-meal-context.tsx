@@ -21,6 +21,7 @@ interface IEditMealContext {
     servings: number
   ) => void;
   resetMeal: () => void;
+  handleCancelClick: () => void;
 }
 
 export const EditMealContext = createContext<IEditMealContext | null>(null);
@@ -92,6 +93,14 @@ export function EditMealProvider(props: {
     setMealToEditCopy({ ...mealToEdit });
   }
 
+  function handleCancelClick() {
+    setMealToEdit(null);
+    setMealToEditCopy(null);
+    setSearchInput('');
+    setSearchedFoods([]);
+    setSearchedFoodsError('');
+  }
+
   const value = {
     mealToEdit,
     setMealToEdit,
@@ -107,6 +116,7 @@ export function EditMealProvider(props: {
     resetMeal,
     searchedFoodsError,
     setSearchedFoodsError,
+    handleCancelClick,
   };
 
   return (

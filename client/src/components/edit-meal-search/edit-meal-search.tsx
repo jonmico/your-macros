@@ -52,11 +52,7 @@ export default function EditMealSearch() {
   );
 }
 
-interface SearchedFoodsListProps {
-  searchedFoods: IFood[];
-}
-
-function SearchedFoodsList(props: SearchedFoodsListProps) {
+function SearchedFoodsList(props: { searchedFoods: IFood[] }) {
   if (props.searchedFoods.length === 0) return null;
 
   return (
@@ -68,10 +64,6 @@ function SearchedFoodsList(props: SearchedFoodsListProps) {
   );
 }
 
-interface SearchedFoodsListItemProps {
-  food: IFood;
-}
-
-function SearchedFoodsListItem(props: SearchedFoodsListItemProps) {
+function SearchedFoodsListItem(props: { food: IFood }) {
   return <li className={styles.searchedFoodsListItem}>{props.food.name}</li>;
 }
