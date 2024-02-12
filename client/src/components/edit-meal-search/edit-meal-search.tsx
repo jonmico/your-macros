@@ -1,10 +1,10 @@
 import { useEditMeals } from '../../hooks/useEditMeals';
-import SearchBar from '../search-bar/search-bar';
 import { getFoodByText } from '../../services/food-api';
 import { IFood } from '../../types/food';
+import SearchBar from '../search-bar/search-bar';
 
-import styles from './edit-meal-search.module.css';
 import { FaArrowLeft } from 'react-icons/fa6';
+import styles from './edit-meal-search.module.css';
 
 export default function EditMealSearch() {
   const {
@@ -103,8 +103,37 @@ function FoodInfo(props: { food: IFood }) {
       >
         <FaArrowLeft />
       </button>
-      <div>
-        {props.food.name} <button onClick={handleBackClick}>back</button>
+      <div className={styles.foodInfo__foodData}>
+        <div>
+          <h3 className={styles.foodInfo__foodName}>{props.food.name}</h3>
+          <h4 className={styles.foodInfo__foodBrand}>{props.food.brand}</h4>
+        </div>
+        <div className={styles.foodInfo__servingSizeContainer}>
+          <div>Serving Size:</div>
+          <div>{props.food.servingSize}g</div>
+        </div>
+        <FoodInfoMacros
+          calories={props.food.calories}
+          macros={props.food.macros}
+        />
+      </div>
+    </div>
+  );
+}
+
+function FoodInfoMacros(props: {
+  calories: number;
+  macros: { carbs: number; fat: number; protein: number };
+}) {
+  return (
+    <div className={styles.foodInfoMacros__macros}>
+      <div className={styles.foodInfoMacros__calories}>
+        {props.calories}cals
+      </div>
+      <div className={styles.foodInfoMacros__fat}>{props.macros.fat}f</div>
+      <div className={styles.foodInfoMacros__carbs}>{props.macros.carbs}c</div>
+      <div className={styles.foodInfoMacros__protein}>
+        {props.macros.protein}p
       </div>
     </div>
   );
