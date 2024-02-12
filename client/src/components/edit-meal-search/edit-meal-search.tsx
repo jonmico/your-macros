@@ -4,6 +4,7 @@ import { getFoodByText } from '../../services/food-api';
 import { IFood } from '../../types/food';
 
 import styles from './edit-meal-search.module.css';
+import { FaArrowLeft } from 'react-icons/fa6';
 
 export default function EditMealSearch() {
   const {
@@ -13,6 +14,7 @@ export default function EditMealSearch() {
     searchedFoodsError,
     searchedFoods,
     setSearchedFoods,
+    selectedFood,
   } = useEditMeals();
 
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
@@ -36,17 +38,25 @@ export default function EditMealSearch() {
 
   return (
     <div className={styles.editMealSearchContainer}>
-      <form onSubmit={handleSubmit}>
-        <SearchBar
-          searchInput={searchInput}
-          setSearchInput={setSearchInput}
-          setSearchedFoodsError={setSearchedFoodsError}
-        />
-      </form>
-      {searchedFoodsError ? (
-        <div className={styles.searchedFoodsError}>{searchedFoodsError}</div>
+      {selectedFood ? (
+        <FoodInfo food={selectedFood} />
       ) : (
-        <SearchedFoodsList searchedFoods={searchedFoods} />
+        <>
+          <form onSubmit={handleSubmit}>
+            <SearchBar
+              searchInput={searchInput}
+              setSearchInput={setSearchInput}
+              setSearchedFoodsError={setSearchedFoodsError}
+            />
+          </form>
+          {searchedFoodsError ? (
+            <div className={styles.searchedFoodsError}>
+              {searchedFoodsError}
+            </div>
+          ) : (
+            <SearchedFoodsList searchedFoods={searchedFoods} />
+          )}
+        </>
       )}
     </div>
   );
@@ -65,5 +75,37 @@ function SearchedFoodsList(props: { searchedFoods: IFood[] }) {
 }
 
 function SearchedFoodsListItem(props: { food: IFood }) {
-  return <li className={styles.searchedFoodsListItem}>{props.food.name}</li>;
+  const { setSelectedFood } = useEditMeals();
+
+  function handleClick() {
+    setSelectedFood(props.food);
+  }
+
+  return (
+    <li onClick={handleClick} className={styles.searchedFoodsListItem}>
+      {props.food.name}
+    </li>
+  );
+}
+
+function FoodInfo(props: { food: IFood }) {
+  const { setSelectedFood } = useEditMeals();
+
+  function handleBackClick() {
+    setSelectedFood(null);
+  }
+
+  return (
+    <div className={styles.foodInfo}>
+      <button
+        className={styles.foodInfo__backArrowButton}
+        onClick={handleBackClick}
+      >
+        <FaArrowLeft />
+      </button>
+      <div>
+        {props.food.name} <button onClick={handleBackClick}>back</button>
+      </div>
+    </div>
+  );
 }

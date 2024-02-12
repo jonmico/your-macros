@@ -22,6 +22,8 @@ interface IEditMealContext {
   ) => void;
   resetMeal: () => void;
   handleCancelClick: () => void;
+  selectedFood: IFood | null;
+  setSelectedFood: React.Dispatch<SetStateAction<IFood | null>>;
 }
 
 export const EditMealContext = createContext<IEditMealContext | null>(null);
@@ -33,6 +35,7 @@ export function EditMealProvider(props: {
   const [mealToEdit, setMealToEdit] = useState<IMeal | null>(null);
   const [mealToEditCopy, setMealToEditCopy] = useState<IMeal | null>(null);
   const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
+  const [selectedFood, setSelectedFood] = useState<IFood | null>(null);
   const [searchInput, setSearchInput] = useState('');
   const [searchedFoodsError, setSearchedFoodsError] = useState('');
 
@@ -117,6 +120,8 @@ export function EditMealProvider(props: {
     searchedFoodsError,
     setSearchedFoodsError,
     handleCancelClick,
+    selectedFood,
+    setSelectedFood,
   };
 
   return (
