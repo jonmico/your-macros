@@ -11,6 +11,8 @@ interface IEditMealContext {
   logId: string;
   searchInput: string;
   setSearchInput: React.Dispatch<SetStateAction<string>>;
+  searchedFoodsError: string;
+  setSearchedFoodsError: React.Dispatch<SetStateAction<string>>;
   searchedFoods: IFood[];
   setSearchedFoods: React.Dispatch<SetStateAction<IFood[]>>;
   removeFromMeal: (mealComponentId: string | undefined) => void;
@@ -31,6 +33,7 @@ export function EditMealProvider(props: {
   const [mealToEditCopy, setMealToEditCopy] = useState<IMeal | null>(null);
   const [searchedFoods, setSearchedFoods] = useState<IFood[]>([]);
   const [searchInput, setSearchInput] = useState('');
+  const [searchedFoodsError, setSearchedFoodsError] = useState('');
 
   function removeFromMeal(mealComponentId: string | undefined) {
     if (mealToEditCopy === null) return;
@@ -102,6 +105,8 @@ export function EditMealProvider(props: {
     removeFromMeal,
     editMealCompServings,
     resetMeal,
+    searchedFoodsError,
+    setSearchedFoodsError,
   };
 
   return (

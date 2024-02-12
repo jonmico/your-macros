@@ -1,0 +1,25 @@
+.editMealSearchContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.searchedFoodsError {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  color: var(--color-gray-500);
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.searchedFoodsList {
+  list-style: none;
+  border: 1px solid var(--color-gray-700);
+  border-radius: 8px;
+}
+
+.searchedFoodsListItem {
+  padding: 0.5rem 1rem;
+}
