@@ -113,8 +113,12 @@ function FoodInfo(props: { food: IFood }) {
             <h4 className={styles.foodInfo__foodBrand}>{props.food.brand}</h4>
           </div>
           <div className={styles.foodInfo__servingSizeContainer}>
-            <div>Serving Size:</div>
-            <div>{props.food.servingSize}g</div>
+            <div className={styles.foodInfo__servingSizeLabel}>
+              Serving Size
+            </div>
+            <div className={styles.foodInfo__servingSize}>
+              {props.food.servingSize}g
+            </div>
           </div>
         </div>
         <div className={styles.foodInfo__foodData}>
@@ -127,15 +131,20 @@ function FoodInfo(props: { food: IFood }) {
             className={styles.foodInfo__servingsForm}
             onSubmit={(evt) => evt.preventDefault()}
           >
-            <label htmlFor='food-info-servings'>Servings</label>
-            <input
-              className={styles.foodInfo__servingsInput}
-              value={servings}
-              onChange={(evt) => setServings(evt.target.value)}
-              type='number'
-              id={'food-info-servings'}
-              name={'food-info-servings'}
-            />
+            <div className={styles.foodInfo__servingsFormField}>
+              <label htmlFor='food-info-servings'>Servings</label>
+              <input
+                className={styles.foodInfo__servingsInput}
+                value={servings}
+                onChange={(evt) => setServings(evt.target.value)}
+                type='number'
+                id={'food-info-servings'}
+                name={'food-info-servings'}
+              />
+            </div>
+            <button className={styles.foodInfo__servingsFormSubmitButton}>
+              Add to meal
+            </button>
           </form>
         </div>
       </div>
