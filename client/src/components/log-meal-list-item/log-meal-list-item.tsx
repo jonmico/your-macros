@@ -41,8 +41,7 @@ export default function LogMealListItem({
   }
 
   async function handleDeleteMealFromLog() {
-    // TODO: Look into this null check. Does id have to be optional on meal?
-    if (!meal._id) return null; // Null check to make TS happy
+    if (!meal._id) return null;
     await deleteMealFromLog(meal._id, logId, userId);
   }
 

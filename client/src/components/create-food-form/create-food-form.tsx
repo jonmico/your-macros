@@ -33,8 +33,6 @@ export default function CreateFoodForm() {
   const [protein, setProtein] = useState('');
   const [proteinError, setProteinError] = useState('');
 
-  // TODO: Look into this validation.
-  // There has to be a better way to validate these inputs.
   async function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     let isError = false;

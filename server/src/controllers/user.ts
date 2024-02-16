@@ -20,7 +20,6 @@ interface IRegisterBody {
   };
 }
 
-// TODO: Fix crashing. Temporary solution.
 export async function register(
   req: Request,
   res: Response,

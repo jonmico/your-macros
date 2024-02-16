@@ -15,8 +15,6 @@ import SingleLog from './pages/single-log/single-log';
 import GlobalStyles from './styles/global-styles';
 import SearchFoods from './pages/search-foods/search-foods';
 
-// TODO: Let users browse the database without logging in or signing up.
-// TODO: Clean up redudant styling. I think there's like 40 macro containers in this project.
 // TODO: Add some type of feedback to the user (maybe a toast?) when they create a food.
 // TODO: Maybe make a food page where people can look at food info/data without being logged in.
 
