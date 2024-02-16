@@ -2,6 +2,7 @@ import { SetStateAction, createContext, useState } from 'react';
 import { IMeal } from '../types/meal';
 import { IFood } from '../types/food';
 import { calcCaloriesMacros } from '../utils/calcCaloriesMacros';
+import { IMealComponent } from '../types/meal-component';
 
 interface IEditMealContext {
   mealToEdit: IMeal | null;
@@ -24,6 +25,7 @@ interface IEditMealContext {
   handleCancelClick: () => void;
   selectedFood: IFood | null;
   setSelectedFood: React.Dispatch<SetStateAction<IFood | null>>;
+  addToMeal: (mealComp: IMealComponent) => void;
 }
 
 export const EditMealContext = createContext<IEditMealContext | null>(null);
@@ -99,9 +101,30 @@ export function EditMealProvider(props: {
   function handleCancelClick() {
     setMealToEdit(null);
     setMealToEditCopy(null);
+    setSelectedFood(null);
     setSearchInput('');
     setSearchedFoods([]);
     setSearchedFoodsError('');
+  }
+
+  function addToMeal(mealComp: IMealComponent) {
+    if (!mealToEditCopy) return;
+    const updatedMealComponents = [...mealToEditCopy.mealComponents, mealComp];
+    const { totalCals, totalCarbs, totalFat, totalProtein } =
+      calcCaloriesMacros(updatedMealComponents);
+
+    const meal: IMeal = {
+      ...mealToEditCopy,
+      mealComponents: updatedMealComponents,
+      calories: totalCals,
+      macros: {
+        fat: totalFat,
+        carbs: totalCarbs,
+        protein: totalProtein,
+      },
+    };
+
+    setMealToEditCopy(meal);
   }
 
   const value = {
@@ -122,6 +145,7 @@ export function EditMealProvider(props: {
     handleCancelClick,
     selectedFood,
     setSelectedFood,
+    addToMeal,
   };
 
   return (

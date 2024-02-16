@@ -6,6 +6,7 @@ import SearchBar from '../search-bar/search-bar';
 import { FaArrowLeft } from 'react-icons/fa6';
 import styles from './edit-meal-search.module.css';
 import { useState } from 'react';
+import { IMealComponent } from '../../types/meal-component';
 
 export default function EditMealSearch() {
   const {
@@ -90,12 +91,23 @@ function SearchedFoodsListItem(props: { food: IFood }) {
 }
 
 function FoodInfo(props: { food: IFood }) {
-  const { setSelectedFood } = useEditMeals();
+  const { setSelectedFood, selectedFood, addToMeal } = useEditMeals();
   const [servings, setServings] = useState('1');
   const servingsNum = Number(servings);
 
   function handleBackClick() {
     setSelectedFood(null);
+  }
+
+  function handleAddToMealClick() {
+    if (!selectedFood) return;
+
+    const mealComp: IMealComponent = {
+      food: { ...selectedFood },
+      servings: servingsNum,
+    };
+
+    addToMeal(mealComp);
   }
 
   return (
@@ -142,7 +154,10 @@ function FoodInfo(props: { food: IFood }) {
                 name={'food-info-servings'}
               />
             </div>
-            <button className={styles.foodInfo__servingsFormSubmitButton}>
+            <button
+              onClick={handleAddToMealClick}
+              className={styles.foodInfo__servingsFormSubmitButton}
+            >
               Add to meal
             </button>
           </form>
