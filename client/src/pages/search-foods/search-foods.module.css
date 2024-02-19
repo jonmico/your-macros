@@ -1,4 +1,4 @@
-.searchFoodsContainer {
+.searchFoods__Container {
   /* padding-top: 2rem; */
   padding: 1rem 2rem;
   display: flex;
@@ -9,10 +9,38 @@
   min-width: 37rem;
 }
 
-.searchFoodsHeader {
+.searchFoods__Header {
   text-align: center;
+}
+
+.searchFoods__formListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .searchFoodsList {
   list-style: none;
+  border: 1px solid var(--color-gray-700);
+  border-radius: 8px;
+}
+
+.searchFoodsList__listItem {
+  padding: 1rem 1.25rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.searchFoodsList__listItem:first-of-type {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.searchFoodsList__listItem:last-of-type {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.searchFoodsList__listItem:hover {
+  background-color: var(--color-slate-800);
+  cursor: pointer;
 }

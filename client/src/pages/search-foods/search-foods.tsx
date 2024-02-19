@@ -19,11 +19,11 @@ export default function SearchFoods() {
     setSearchedFoods(data.foods);
   }
   return (
-    <div className={styles.searchFoodsContainer}>
-      <h2 className={styles.searchFoodsHeader}>
+    <div className={styles.searchFoods__Container}>
+      <h2 className={styles.searchFoods__Header}>
         Browse the database for foods
       </h2>
-      <div>
+      <div className={styles.searchFoods__formListContainer}>
         <form onSubmit={handleSubmit}>
           <SearchBar
             searchInput={searchInput}
@@ -37,5 +37,7 @@ export default function SearchFoods() {
 }
 
 function SearchedFoodsListItem(props: { food: IFood }) {
-  return <li>{props.food.name}</li>;
+  return (
+    <li className={styles.searchFoodsList__listItem}>{props.food.name}</li>
+  );
 }
