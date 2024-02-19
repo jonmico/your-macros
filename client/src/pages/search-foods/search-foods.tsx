@@ -103,25 +103,37 @@ function SelectedFoodData(props: SelectedFoodData) {
         <FaArrowLeft />
       </button>
       <div>
-        <h3>{props.food.name}</h3>
-        <h4>{props.food.brand}</h4>
+        <h3 className={styles.selectedFoodData__name}>{props.food.name}</h3>
+        <h4 className={styles.selectedFoodData__brand}>{props.food.brand}</h4>
       </div>
-      <div>
-        <div>Serving Size</div>
-        <div>{props.food.servingSize}</div>
-      </div>
-      <div>
-        <div>
-          <div>Macros</div>
-          <div>
-            <div>{props.food.macros.fat}</div>
-            <div>{props.food.macros.carbs}</div>
-            <div>{props.food.macros.protein}</div>
+      <div className={styles.selectedFoodData__gridContainer}>
+        <div className={styles.selectedFoodData__dataContainer}>
+          <div className={styles.selectedFoodData__label}>Serving Size</div>
+          <div className={styles.selectedFoodData__serving}>
+            {props.food.servingSize}g
           </div>
         </div>
-        <div>
-          <div>Calories</div>
-          <div>{props.food.calories}</div>
+        <div className={styles.selectedFoodData__caloriesMacrosContainer}>
+          <div className={styles.selectedFoodData__dataContainer}>
+            <div className={styles.selectedFoodData__label}>Calories</div>
+            <div className={styles.selectedFoodData__calories}>
+              {props.food.calories}
+            </div>
+          </div>
+          <div className={styles.selectedFoodData__dataContainer}>
+            <div className={styles.selectedFoodData__label}>Macros</div>
+            <div className={styles.selectedFoodData__macros}>
+              <div className={styles.selectedFoodData__fat}>
+                {props.food.macros.fat}f
+              </div>
+              <div className={styles.selectedFoodData__carbs}>
+                {props.food.macros.carbs}c
+              </div>
+              <div className={styles.selectedFoodData__protein}>
+                {props.food.macros.protein}p
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

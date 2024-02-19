@@ -70,3 +70,80 @@
   cursor: pointer;
   color: var(--color-slate-300);
 }
+
+.selectedFoodData__name {
+  font-size: 2rem;
+  color: var(--color-blue-400);
+}
+
+.selectedFoodData__brand {
+  font-size: 1.5rem;
+  color: var(--color-gray-400);
+}
+
+.selectedFoodData__gridContainer {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 0.5rem;
+}
+
+.selectedFoodData__dataContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-slate-800);
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.selectedFoodData__serving {
+  font-size: 1.25rem;
+  color: var(--color-gray-400);
+}
+
+.selectedFoodData__label {
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--color-blue-300);
+}
+
+.selectedFoodData__caloriesMacrosContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.selectedFoodData__caloriesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.selectedFoodData__macros {
+  display: flex;
+  gap: 1rem;
+}
+
+.selectedFoodData__calories {
+  font-size: 1.25rem;
+  color: var(--color-red-400);
+}
+
+.selectedFoodData__fat {
+  font-size: 1.25rem;
+  color: var(--color-yellow-400);
+}
+
+.selectedFoodData__carbs {
+  font-size: 1.25rem;
+  color: var(--color-green-400);
+}
+
+.selectedFoodData__protein {
+  font-size: 1.25rem;
+  color: var(--color-blue-400);
+}
