@@ -83,7 +83,12 @@ function SearchedFoodsListItem(props: SearchedFoodsListItemProps) {
       onClick={() => props.handleSelectFood(props.food)}
       className={styles.searchFoodsList__listItem}
     >
-      {props.food.name}
+      <div className={styles.searchFoodsList__listItemName}>
+        {props.food.name}
+      </div>
+      <div className={styles.searchFoodsList__listItemBrand}>
+        {props.food.brand}
+      </div>
     </li>
   );
 }

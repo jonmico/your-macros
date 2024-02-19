@@ -29,6 +29,17 @@
   transition: background-color 0.2s ease-in-out;
 }
 
+.searchFoodsList__listItemName {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--color-blue-300);
+}
+
+.searchFoodsList__listItemBrand {
+  color: var(--color-gray-400);
+  font-weight: 500;
+}
+
 .searchFoodsList__listItem:first-of-type {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
