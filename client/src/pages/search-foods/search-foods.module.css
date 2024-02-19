@@ -1,5 +1,4 @@
 .searchFoods__Container {
-  /* padding-top: 2rem; */
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
@@ -43,4 +42,31 @@
 .searchFoodsList__listItem:hover {
   background-color: var(--color-slate-800);
   cursor: pointer;
+}
+
+.selectedFoodData__container {
+  border: 1px solid var(--color-gray-700);
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.selectedFoodData__backButton {
+  width: fit-content;
+  height: fit-content;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: inherit;
+  border: none;
+  color: var(--color-slate-400);
+  transition: color 0.2s ease-in-out;
+}
+
+.selectedFoodData__backButton:hover {
+  cursor: pointer;
+  color: var(--color-slate-300);
 }
