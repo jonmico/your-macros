@@ -8,7 +8,6 @@ interface ILogContext {
     logs: ILog[];
     isLoading: boolean;
   };
-  fetchLogs: (id: string) => Promise<void>;
 }
 
 const initialState: LogState = {
@@ -35,14 +34,7 @@ export function LogProvider(props: LogProviderProps) {
     fetchUserLogs();
   }, [props.userId]);
 
-  async function fetchLogs(id: string) {
-    dispatch({ type: 'logs/loading' });
-    const data: { logs: ILog[] } = await apiGetLogs(id);
-    console.log(data);
-    dispatch({ type: 'logs/fetch', payload: data.logs });
-  }
-
-  const value = { logState, fetchLogs };
+  const value = { logState };
 
   return (
     <LogContext.Provider value={value}>{props.children}</LogContext.Provider>

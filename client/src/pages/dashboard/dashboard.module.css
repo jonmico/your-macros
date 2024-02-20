@@ -4,6 +4,13 @@
   gap: 1rem;
 }
 
+.spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40vh;
+}
+
 .dashboardLogGrid {
   display: grid;
   list-style: none;

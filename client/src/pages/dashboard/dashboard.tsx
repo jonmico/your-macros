@@ -10,6 +10,8 @@ import { ILog } from '../../types/log';
 import { IMeal } from '../../types/meal';
 import { IUser } from '../../types/user';
 import styles from './dashboard.module.css';
+import { useLogs } from '../../hooks/useLogs';
+import Spinner from '../../components/spinner/spinner';
 
 export default function Dashboard() {
   const {
@@ -27,6 +29,10 @@ export default function Dashboard() {
 }
 
 function DashboardContent(props: { user: IUser }) {
+  const {
+    logState: { logs, isLoading: isFetchingLogs },
+  } = useLogs();
+
   const [selectedLog, setSelectedLog] = useState(
     props.user.logs.length > 0
       ? props.user.logs[props.user.logs.length - 1]
@@ -39,14 +45,21 @@ function DashboardContent(props: { user: IUser }) {
 
   return (
     <PageContentContainer>
-      <div className={styles.dashboardContainer}>
-        <DashboardTable
-          user={props.user}
-          selectedLog={selectedLog}
-          handleSelectLog={handleSelectLog}
-        />
-        {selectedLog && <DashboardLogGrid selectedLog={selectedLog} />}
-      </div>
+      {isFetchingLogs ? (
+        <div className={styles.spinnerContainer}>
+          <Spinner />
+        </div>
+      ) : (
+        <div className={styles.dashboardContainer}>
+          <DashboardTable
+            logs={logs}
+            user={props.user}
+            selectedLog={selectedLog}
+            handleSelectLog={handleSelectLog}
+          />
+          {selectedLog && <DashboardLogGrid selectedLog={selectedLog} />}
+        </div>
+      )}
     </PageContentContainer>
   );
 }

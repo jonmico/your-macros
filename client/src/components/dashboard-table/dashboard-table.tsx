@@ -7,6 +7,7 @@ import Modal from '../modal/modal';
 import styles from './dashboard-table.module.css';
 
 export default function DashboardTable(props: {
+  logs: ILog[];
   user: IUser;
   selectedLog: ILog | null;
   handleSelectLog: (log: ILog) => void;
