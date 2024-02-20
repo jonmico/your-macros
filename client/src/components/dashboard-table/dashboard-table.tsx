@@ -14,7 +14,7 @@ export default function DashboardTable(props: {
 }) {
   return (
     <div className={styles.dashboardContainer}>
-      {props.user.logs.length === 0 ? (
+      {props.logs.length === 0 ? (
         <DashboardTableNoLogs />
       ) : (
         <DashboardTableLogDisplay

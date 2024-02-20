@@ -18,25 +18,29 @@ export default function Dashboard() {
     userState: { user },
   } = useUser();
 
-  if (!user) return null;
-
-  return (
-    <div>
-      <PageHeader>Dashboard</PageHeader>
-      <DashboardContent user={user} />
-    </div>
-  );
-}
-
-function DashboardContent(props: { user: IUser }) {
   const {
     logState: { logs, isLoading: isFetchingLogs },
   } = useLogs();
 
+  if (!user || !logs) return null;
+
+  return (
+    <div>
+      <PageHeader>Dashboard</PageHeader>
+      {isFetchingLogs ? (
+        <div className={styles.spinnerContainer}>
+          <Spinner />
+        </div>
+      ) : (
+        <DashboardContent user={user} logs={logs} />
+      )}
+    </div>
+  );
+}
+
+function DashboardContent(props: { user: IUser; logs: ILog[] }) {
   const [selectedLog, setSelectedLog] = useState(
-    props.user.logs.length > 0
-      ? props.user.logs[props.user.logs.length - 1]
-      : null
+    props.logs.length > 0 ? props.logs[props.logs.length - 1] : null
   );
 
   function handleSelectLog(log: ILog) {
@@ -45,21 +49,15 @@ function DashboardContent(props: { user: IUser }) {
 
   return (
     <PageContentContainer>
-      {isFetchingLogs ? (
-        <div className={styles.spinnerContainer}>
-          <Spinner />
-        </div>
-      ) : (
-        <div className={styles.dashboardContainer}>
-          <DashboardTable
-            logs={logs}
-            user={props.user}
-            selectedLog={selectedLog}
-            handleSelectLog={handleSelectLog}
-          />
-          {selectedLog && <DashboardLogGrid selectedLog={selectedLog} />}
-        </div>
-      )}
+      <div className={styles.dashboardContainer}>
+        <DashboardTable
+          logs={props.logs}
+          user={props.user}
+          selectedLog={selectedLog}
+          handleSelectLog={handleSelectLog}
+        />
+        {selectedLog && <DashboardLogGrid selectedLog={selectedLog} />}
+      </div>
     </PageContentContainer>
   );
 }
