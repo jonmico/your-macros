@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
 import Spinner from '../spinner/spinner';
 import styles from './protected-route.module.css';
+import { LogProvider } from '../../contexts/log-context';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -29,6 +30,6 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   }
 
   if (userState.user) {
-    return children;
+    return <LogProvider userId={userState.user._id}>{children}</LogProvider>;
   }
 }

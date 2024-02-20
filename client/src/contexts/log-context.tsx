@@ -1,6 +1,6 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import { ILog } from '../types/log';
-
+import { apiGetLogs } from '../services/logs-api';
 import { LogState, logReducer } from '../reducers/logReducer';
 
 interface ILogContext {
@@ -8,7 +8,7 @@ interface ILogContext {
     logs: ILog[];
     isLoading: boolean;
   };
-  fetchLogs: (id: string) => void;
+  fetchLogs: (id: string) => Promise<void>;
 }
 
 const initialState: LogState = {
@@ -20,14 +20,27 @@ export const LogContext = createContext<ILogContext | null>(null);
 
 interface LogProviderProps {
   children: React.ReactNode;
+  userId: string;
 }
 
 export function LogProvider(props: LogProviderProps) {
   const [logState, dispatch] = useReducer(logReducer, initialState);
 
-  const fetchLogs = (id: string) => {
-    console.log(id);
-  };
+  useEffect(() => {
+    async function fetchUserLogs() {
+      dispatch({ type: 'logs/loading' });
+      const data: { logs: ILog[] } = await apiGetLogs(props.userId);
+      dispatch({ type: 'logs/fetch', payload: data.logs });
+    }
+    fetchUserLogs();
+  }, [props.userId]);
+
+  async function fetchLogs(id: string) {
+    dispatch({ type: 'logs/loading' });
+    const data: { logs: ILog[] } = await apiGetLogs(id);
+    console.log(data);
+    dispatch({ type: 'logs/fetch', payload: data.logs });
+  }
 
   const value = { logState, fetchLogs };
 

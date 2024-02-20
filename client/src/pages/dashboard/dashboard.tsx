@@ -1,15 +1,15 @@
+import { useState } from 'react';
+import { FaAngleRight } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 import DashboardTable from '../../components/dashboard-table/dashboard-table';
+import MacroDisplay from '../../components/macro-display/macro-display';
 import PageContentContainer from '../../components/page-content/page-content-container';
 import PageHeader from '../../components/page-header/page-header';
 import useUser from '../../hooks/useUser';
 import { ILog } from '../../types/log';
-import { IUser } from '../../types/user';
-import { FaAngleRight } from 'react-icons/fa6';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { IMeal } from '../../types/meal';
+import { IUser } from '../../types/user';
 import styles from './dashboard.module.css';
-import MacroDisplay from '../../components/macro-display/macro-display';
 
 export default function Dashboard() {
   const {

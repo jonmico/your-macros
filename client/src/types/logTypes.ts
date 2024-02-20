@@ -5,4 +5,8 @@ type FetchLogs = {
   payload: ILog[];
 };
 
-export type LogAction = FetchLogs;
+type Loading = {
+  type: 'logs/loading';
+};
+
+export type LogAction = FetchLogs | Loading;

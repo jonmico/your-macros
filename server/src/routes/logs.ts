@@ -3,6 +3,6 @@ import { getUserLogs } from '../controllers/logs';
 
 const router = Router();
 
-router.get('/:userId/logs', getUserLogs);
+router.get('/:userId', getUserLogs);
 
 export default router;
