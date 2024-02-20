@@ -22,6 +22,8 @@ interface LogProviderProps {
   userId: string;
 }
 
+// TODO: Move the rest of the functionality pertaining to logs over to this context.
+
 export function LogProvider(props: LogProviderProps) {
   const [logState, dispatch] = useReducer(logReducer, initialState);
 
