@@ -9,6 +9,7 @@ import connectDatabase from './db';
 // Routers
 import foodRouter from './routes/food';
 import userRouter from './routes/user';
+import logRouter from './routes/logs';
 
 const PORT = process.env.PORT ?? 3000;
 const SECRET = process.env.SECRET as string;
@@ -36,6 +37,7 @@ connectDatabase();
 
 app.use('/api/foods', foodRouter);
 app.use('/api/user', userRouter);
+app.use('/api/logs', logRouter);
 
 // 404 error handler
 app.use((req, res) => {

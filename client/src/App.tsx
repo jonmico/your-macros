@@ -16,7 +16,6 @@ import GlobalStyles from './styles/global-styles';
 import SearchFoods from './pages/search-foods/search-foods';
 
 // TODO: Add some type of feedback to the user (maybe a toast?) when they create a food.
-// TODO: Maybe make a food page where people can look at food info/data without being logged in.
 
 export default function App() {
   return (
